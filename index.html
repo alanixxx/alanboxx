@@ -58,18 +58,17 @@
 </head>
 <body class="text-white selection:bg-red-600">
 
-    <nav class="sticky top-0 z-50 bg-zinc-950/80 border-b border-zinc-800/50 p-5 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 onclick="showHome()" class="text-3xl font-black text-red-600 tracking-tighter uppercase italic cursor-pointer hover:scale-105 transition-transform">Movie Hub</h1>
-            <div class="flex items-center space-x-8">
-                <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-xs tracking-widest transition">Katalog</button>
-                <button onclick="document.getElementById('newsletter').scrollIntoView()" class="text-zinc-400 hover:text-white font-bold uppercase text-xs tracking-widest transition">Newsletter</button>
-                <div id="auth-section">
-                    <button onclick="toggleModal('login-modal', true)" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-black uppercase text-[10px] transition-all">Zaloguj się</button>
-                </div>
-            </div>
+    <!-- Nav - Poprawione odstępy -->
+<nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
+        <h1 onclick="location.reload()" class="text-xl md:text-2xl font-black text-red-600 tracking-tighter italic cursor-pointer shrink-0">MOVIE HUB</h1>
+        <div class="flex items-center gap-3 overflow-hidden text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+            <button onclick="showLibrary()" class="hover:text-white transition-colors">Katalog</button>
+            <span class="hide-mobile">Newsletter</span>
         </div>
-    </nav>
+        <button class="bg-red-600 px-3 py-1.5 rounded-full text-[10px] font-black uppercase italic shrink-0">Zaloguj</button>
+    </div>
+</nav>
 
     <main id="home-page">
         <header class="py-24 text-center">
