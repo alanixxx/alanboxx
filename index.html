@@ -298,13 +298,26 @@
         }
 
         function filterCategory(cat) {
-            currentPage = 1;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText === cat);
-            });
-            filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
-            renderLibrary();
+    page = 1;
+    
+    // 1. Znajdź wszystkie przyciski kategorii
+    const buttons = document.querySelectorAll('.cat-btn');
+    
+    // 2. Zabierz wszystkim kolor czerwony, a daj temu wybranemu
+    buttons.forEach(btn => {
+        if (btn.innerText === cat) {
+            btn.classList.add('active', 'bg-red-600', 'border-red-500');
+            btn.classList.remove('bg-zinc-900', 'border-zinc-800');
+        } else {
+            btn.classList.remove('active', 'bg-red-600', 'border-red-500');
+            btn.classList.add('bg-zinc-900', 'border-zinc-800');
         }
+    });
+
+    // 3. Filtruj filmy
+    filtered = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
+    render();
+}
 
         function handleSearch() {
             currentPage = 1;
