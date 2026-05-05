@@ -3,118 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Hub - Twoje Centrum Filmowe</title>
-    <!-- Tailwind CSS do nowoczesnego wyglądu -->
+    <title>Movie Hub | Worldwide Film Reviews</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Dodatkowy efekt dla kart filmów */
-        .movie-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(220, 38, 38, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; scroll-behavior: smooth; }
+        
+        /* Animacje i Slider */
+        .slider-container { width: 100%; overflow: hidden; padding: 40px 0; }
+        .slider-track { display: flex; gap: 2rem; width: max-content; animation: scroll 120s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 1rem)); } }
+        .slider-track:hover { animation-play-state: paused; }
+        
+        .movie-card { 
+            width: 300px; flex-shrink: 0; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            cursor: pointer; border-radius: 24px; overflow: hidden; border: 1px solid #27272a;
+            position: relative; background: #111113;
         }
+        .movie-card:hover { transform: translateY(-10px) scale(1.02); border-color: #dc2626; box-shadow: 0 20px 40px -10px rgba(220, 38, 38, 0.3); }
+
+        .rating-badge {
+            position: absolute; top: 1.25rem; right: 1.25rem; z-index: 10;
+            background: #dc2626; color: white; padding: 6px 14px;
+            border-radius: 12px; font-weight: 900; font-style: italic; font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4); border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hidden-section { display: none !important; }
+        
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; z-index: 100; 
+            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px); 
+            align-items: center; justify-content: center; padding: 20px;
+        }
+
+        /* Stylizacja Kategorii */
+        .cat-btn { border: 1px solid #27272a; position: relative; overflow: hidden; }
+        .cat-btn.active {
+            background: #dc2626; color: white; border-color: #ff4d4d;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); transform: translateX(8px);
+        }
+
+        .star-rating { direction: rtl; display: inline-flex; }
+        .star-rating input { display: none; }
+        .star-rating label { color: #333; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
+        .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label { color: #facc15; }
+
+        /* Paginacja */
+        .page-link { transition: all 0.2s; border: 1px solid #27272a; }
+        .page-link:hover:not(.active) { border-color: #dc2626; color: white; }
+        .page-link.active { background: #dc2626; border-color: #dc2626; color: white; box-shadow: 0 0 15px rgba(220, 38, 38, 0.3); }
     </style>
 </head>
-<body class="bg-zinc-950 text-white font-sans selection:bg-red-600">
+<body class="text-white selection:bg-red-600">
 
-    <!-- Nawigacja -->
-    <nav class="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 p-5">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold text-red-600 tracking-tighter uppercase italic">Movie Hub</h1>
-            <div class="hidden md:flex space-x-6 text-zinc-400 font-medium">
-                <a href="#" class="hover:text-white transition">Filmy</a>
-                <a href="#" class="hover:text-white transition">Rankingi</a>
-                <a href="#" class="hover:text-white transition">Newsletter</a>
+    <nav class="sticky top-0 z-50 bg-zinc-950/80 border-b border-zinc-800/50 p-5 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 onclick="showHome()" class="text-3xl font-black text-red-600 tracking-tighter uppercase italic cursor-pointer hover:scale-105 transition-transform">Movie Hub</h1>
+            <div class="flex items-center space-x-8">
+                <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-xs tracking-widest transition">Katalog</button>
+                <button onclick="document.getElementById('newsletter').scrollIntoView()" class="text-zinc-400 hover:text-white font-bold uppercase text-xs tracking-widest transition">Newsletter</button>
+                <div id="auth-section">
+                    <button onclick="toggleModal('login-modal', true)" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-black uppercase text-[10px] transition-all">Zaloguj się</button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Nagłówek strony -->
-    <header class="py-16 px-5 text-center">
-        <h2 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent italic">
-            Oceniamy to, co warto obejrzeć.
-        </h2>
-        <p class="text-zinc-400 max-w-2xl mx-auto text-lg">
-            Najszczersze recenzje, najnowsze premiery i baza wiedzy o kinie w jednym miejscu.
-        </p>
-    </header>
+    <main id="home-page">
+        <header class="py-24 text-center">
+            <h2 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-700">
+                HISTORIE, <span class="text-red-600">KTÓRE</span> ZOSTAJĄ.
+            </h2>
+        </header>
+        <div class="slider-container">
+            <div class="slider-track" id="main-slider"></div>
+        </div>
+    </main>
 
-    <!-- Sekcja Filmów -->
-    <main class="max-w-6xl mx-auto px-5 pb-20">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Karta 1: Incepcja -->
-        <article class="movie-card bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
-            <div class="aspect-[2/3] bg-zinc-800 relative">
-                <img src="/static/inception.jpg" class="w-full h-full object-cover">
-                <div class="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full">★ 5</div>
-            </div>
-            <div class="p-6">
-                <h3 class="text-2xl font-bold text-white">Incepcja</h3>
-                <p class="text-zinc-400 text-sm mb-4">Sen wewnątrz snu. Klasyka!</p>
-            </div>
-        </article>
+    <div id="library-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <aside class="lg:w-64 space-y-3">
+                <h3 class="text-xs font-black uppercase text-zinc-500 tracking-widest mb-6 italic underline decoration-red-600 decoration-2 underline-offset-8">Gatunki</h3>
+                <div class="flex flex-col gap-2" id="category-list">
+                    <button onclick="filterCategory('Wszystkie')" class="cat-btn active bg-zinc-900/50 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Wszystkie</button>
+                    <button onclick="filterCategory('Marvel')" class="cat-btn bg-zinc-900/50 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Marvel</button>
+                    <button onclick="filterCategory('Action')" class="cat-btn bg-zinc-900/50 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Action</button>
+                    <button onclick="filterCategory('Sci-Fi')" class="cat-btn bg-zinc-900/50 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Sci-Fi</button>
+                    <button onclick="filterCategory('Horror')" class="cat-btn bg-zinc-900/50 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Horror</button>
+                </div>
+            </aside>
 
-        <!-- Karta 2: Diuna 2 -->
-        <article class="movie-card bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
-            <div class="aspect-[2/3] bg-zinc-800 relative">
-                <img src="/static/dune2.jpg" class="w-full h-full object-cover">
-                <div class="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full">★ 5</div>
-            </div>
-            <div class="p-6">
-                <h3 class="text-2xl font-bold text-white">Diuna 2</h3>
-                <p class="text-zinc-400 text-sm mb-4">Wizualne arcydzieło science-fiction.</p>
-            </div>
-        </article>
+            <div class="flex-1">
+                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Czego szukasz?" class="w-full bg-zinc-900/50 border border-zinc-800 rounded-3xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-red-600 text-xl font-medium transition-all backdrop-blur-sm">
+                
+                <div class="bg-zinc-900/30 rounded-[32px] border border-zinc-800/50 overflow-hidden backdrop-blur-md">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-zinc-800 text-zinc-500 text-[10px] uppercase font-black tracking-widest">
+                                <th class="p-6">Tytuł</th>
+                                <th class="p-6">Gatunek</th>
+                                <th class="p-6">Rok</th>
+                                <th class="p-6">Ocena</th>
+                                <th class="p-6 text-right">Opcje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="library-table-body"></tbody>
+                    </table>
+                </div>
 
-        <!-- Karta 3: Batman -->
-        <article class="movie-card bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
-            <div class="aspect-[2/3] bg-zinc-800 relative">
-                <img src="/static/batman.jpg" class="w-full h-full object-cover">
-                <div class="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full">★ 4</div>
+                <div id="pagination-controls" class="flex justify-center items-center gap-3 mt-10"></div>
             </div>
-            <div class="p-6">
-                <h3 class="text-2xl font-bold text-white">Batman</h3>
-                <p class="text-zinc-400 text-sm mb-4">Mroczny klimat i świetna muzyka.</p>
-            </div>
-        </article>
-
+        </div>
     </div>
-</main>
 
-    <!-- Sekcja Newslettera -->
-    <section class="bg-zinc-900 border-y border-zinc-800 py-20 px-5">
-        <div class="max-w-3xl mx-auto text-center">
-            <div class="inline-block p-3 rounded-2xl bg-red-600/10 mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+    <!-- Modale -->
+    <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
+        <div class="bg-zinc-950 border border-zinc-800/50 w-full max-w-5xl rounded-[40px] overflow-hidden relative flex flex-col md:flex-row h-[85vh] shadow-2xl">
+            <button onclick="toggleModal('movie-modal', false)" class="absolute top-8 right-8 z-50 bg-white text-black w-10 h-10 rounded-full font-bold hover:bg-red-600 hover:text-white transition-all">✕</button>
+            <div class="md:w-2/5 h-full relative group">
+                <img id="modal-img" src="" class="w-full h-full object-cover">
+                <a id="modal-trailer-link" href="#" target="_blank" class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all">
+                    <div class="bg-red-600 p-6 rounded-full transform hover:scale-110 transition shadow-lg shadow-red-600/40">
+                        <svg class="h-10 w-10 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </a>
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Bądź na bieżąco!</h2>
-            <p class="text-zinc-400 mb-8 text-lg">Zapisz się do naszego newslettera i otrzymuj powiadomienia o nowych recenzjach prosto na maila.</p>
-            
-            <form action="/subscribe" method="POST" class="flex flex-col sm:flex-row gap-3">
-                <input 
-                    type="email" 
-                    name="email" 
-                    required 
-                    placeholder="Twój adres e-mail" 
-                    class="flex-1 bg-zinc-800 border border-zinc-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-red-600 transition"
-                >
-                <button 
-                    type="submit" 
-                    class="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-4 rounded-xl transition-all active:scale-95 shadow-lg shadow-red-600/20"
-                >
-                    Zapisz mnie
-                </button>
+            <div class="md:w-3/5 p-12 flex flex-col justify-between overflow-y-auto bg-gradient-to-br from-zinc-950 to-zinc-900">
+                <div>
+                    <h2 id="modal-title" class="text-5xl font-black italic uppercase mb-6 tracking-tighter text-red-600"></h2>
+                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
+                    <div class="flex gap-4 mb-10">
+                        <div class="bg-zinc-900/80 px-6 py-4 rounded-2xl border border-zinc-800">
+                            <span class="text-zinc-500 text-[10px] block uppercase font-black">Score</span>
+                            <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
+                        </div>
+                        <div class="bg-zinc-900/80 px-6 py-4 rounded-2xl border border-zinc-800">
+                            <span class="text-zinc-500 text-[10px] block uppercase font-black">Release</span>
+                            <span id="modal-date" class="text-xl font-black"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-zinc-800">
+                    <h4 class="text-sm font-black uppercase italic mb-3">Twoja ocena:</h4>
+                    <div class="star-rating" id="star-group">
+                        <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
+                        <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
+                        <input type="radio" id="s8" name="u-rating" value="8"><label for="s8">★</label>
+                        <input type="radio" id="s7" name="u-rating" value="7"><label for="s7">★</label>
+                        <input type="radio" id="s6" name="u-rating" value="6"><label for="s6">★</label>
+                        <input type="radio" id="s5" name="u-rating" value="5"><label for="s5">★</label>
+                        <input type="radio" id="s4" name="u-rating" value="4"><label for="s4">★</label>
+                        <input type="radio" id="s3" name="u-rating" value="3"><label for="s3">★</label>
+                        <input type="radio" id="s2" name="u-rating" value="2"><label for="s2">★</label>
+                        <input type="radio" id="s1" name="u-rating" value="1"><label for="s1">★</label>
+                    </div>
+                    <p id="save-status" class="text-zinc-500 text-xs mt-2 italic"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
+        <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-md relative">
+            <button onclick="toggleModal('login-modal', false)" class="absolute top-6 right-6 text-zinc-500 hover:text-white">✕</button>
+            <h2 class="text-3xl font-black italic uppercase mb-8 text-center">Movie Hub</h2>
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <input type="text" id="username" placeholder="User" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-600 transition-all text-white">
+                <input type="password" placeholder="Hasło" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-600 transition-all text-white">
+                <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">Zaloguj</button>
             </form>
-            <p class="text-zinc-500 text-xs mt-4">Obiecujemy brak spamu. Tylko czyste kino.</p>
+        </div>
+    </div>
+
+    <section id="newsletter" class="bg-zinc-900/20 border-y border-zinc-800/50 py-24 px-5 backdrop-blur-sm">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-4xl font-black italic uppercase tracking-tighter mb-8">Bądź <span class="text-red-600">Legendą</span> Kina</h2>
+            <form class="flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-2xl px-8 py-5 focus:ring-2 focus:ring-red-600 outline-none text-lg">
+                <button class="bg-red-600 hover:bg-red-700 font-black px-12 py-5 rounded-2xl transition-all uppercase tracking-widest italic">Dołącz</button>
+            </form>
         </div>
     </section>
 
-    <!-- Stopka -->
-    <footer class="py-10 text-center text-zinc-600 text-sm">
-        <p>&copy; 2026 Movie Hub. Stworzone z pasji do filmów.</p>
+    <footer class="py-12 text-center text-zinc-600 text-sm font-bold uppercase tracking-widest italic">
+        &copy; 2026 Movie Hub. Worldwide Authority.
     </footer>
 
+    <script>
+        const movies = [
+            { id: 'batman', title: 'The Batman', category: 'Action', img: './static/batman.jpg', rating: '7.8/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=mqqft2x_Aa4', desc: 'Mroczny rycerz Gotham tropi Riddlera.' },
+            { id: 'f4', title: 'Fantastic Four', category: 'Marvel', img: './static/f4.jpg', rating: '6.8/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=18QQWa5MEcs', desc: 'Pierwsza Rodzina Marvela w MCU.' },
+            { id: 'f1', title: 'F1', category: 'Action', img: './static/f1.jpg', rating: '7.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=69ffwl-8pCU', desc: 'Brad Pitt w świecie Formuły 1.' },
+            { id: 'doomsday', title: 'Avengers: Doomsday', category: 'Marvel', img: './static/doomsday.jpg', rating: 'COMING', date: '2026', trailer: 'https://www.youtube.com/watch?v=UiMg566PREA', desc: 'Robert Downey Jr. jako Victor Von Doom.' },
+            { id: 'inception', title: 'Inception', category: 'Sci-Fi', img: './static/inception.jpg', rating: '8.8/10', date: '2010', trailer: 'https://www.youtube.com/watch?v=YoHD9XEInc0', desc: 'Złodziej snów i jego ostatnie zadanie.' },
+            { id: 'dune2', title: 'Dune: Part Two', category: 'Sci-Fi', img: './static/dune2.jpg', rating: '8.6/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=Way9Dexny3w', desc: 'Paul Atryda prowadzi Fremenów do walki.' },
+            { id: 'anaconda', title: 'Anaconda', category: 'Action', img: './static/anaconda.jpg', rating: '4.9/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=az8M5Mai0X4', desc: 'Ekipa filmowa kontra gigantyczny wąż w Amazonii.' },
+            { id: 'avatar', title: 'Avatar', category: 'Sci-Fi', img: './static/avatar.jpg', rating: '7.9/10', date: '2009', trailer: 'https://www.youtube.com/watch?v=5PSNL1qE6VY', desc: 'Wyprawa na Pandorę zmienia życie sparaliżowanego żołnierza.' },
+            { id: 'avatar2', title: 'Avatar: The Way of Water', category: 'Sci-Fi', img: './static/avatar2.jpg', rating: '7.6/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=d9MyW72ELq0', desc: 'Jake Sully i Neytiri chronią swoją rodzinę w oceanach Pandory.' },
+            { id: 'badboys', title: 'Bad Boys: Ride or Die', category: 'Action', img: './static/badboysride.jpg', rating: '7.0/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=hRFY_Fesa9Q', desc: 'Mike i Marcus uciekają przed prawem, by oczyścić imię kapitana.' },
+            { id: 'blackphone2', title: 'The Black Phone 2', category: 'Horror', img: './static/blackphone2.jpg', rating: '6.0/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=v0kqkRZHqk4', desc: 'Kontynuacja mrożącego krew w żyłach horroru o tajemniczym telefonie.' },
+            { id: 'bloodlines', title: 'Final Destination: Bloodlines', category: 'Horror', img: './static/bloodlines.jpg', rating: '4.7/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=UWMzKXsY9A4', desc: 'Mroczne korzenie przeklętego cmentarza w Ludlow.' },
+            { id: 'bullettrain', title: 'Bullet Train', category: 'Action', img: './static/bullettrain.jpg', rating: '7.3/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=0IOsk2Vlc4o', desc: 'Pięciu zabójców w jednym pociągu jadącym przez Japonię.' },
+            { id: 'drstrange2', title: 'Doctor Strange 2', category: 'Marvel', img: './static/doctorstrange2.jpg', rating: '6.9/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=aWzlQ2N6qqg', desc: 'Strange podróżuje przez multiwersum, by powstrzymać Wandę.' },
+            { id: 'endgame', title: 'Avengers: Endgame', category: 'Marvel', img: './static/endgame.jpg', rating: '8.4/10', date: '2019', trailer: 'https://www.youtube.com/watch?v=TcMBFSGVi1c', desc: 'Ostateczne starcie Avengersów z Thanosem o losy wszechświata.' },
+            { id: 'fall', title: 'Fall', category: 'Action', img: './static/fall.jpg', rating: '6.4/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=iSspRSGc4Dk', desc: 'Dwie przyjaciółki utknęły na szczycie 600-metrowej wieży radiowej.' },
+            { id: 'fnaf1', title: 'Five Nights at Freddys', category: 'Horror', img: './static/fnaf1.jpg', rating: '5.4/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=0VH9WCFV6XQ', desc: 'Nocny stróż odkrywa mroczną tajemnicę pizzerii Freddy’ego.' },
+            { id: 'gladiator', title: 'Gladiator', category: 'Action', img: './static/gladiator.jpg', rating: '8.5/10', date: '2000', trailer: 'https://www.youtube.com/watch?v=P5ieIbInFpg', desc: 'Generał rzymski staje się gladiatorem, by pomścić swoją rodzinę.' },
+            { id: 'interstellar', title: 'Interstellar', category: 'Sci-Fi', img: './static/interstellar.jpg', rating: '8.7/10', date: '2014', trailer: 'https://www.youtube.com/watch?v=zSWdZVtXT7E', desc: 'Grupa astronautów szuka nowego domu dla ludzkości w innej galaktyce.' },
+            { id: 'johnwick4', title: 'John Wick 4', category: 'Action', img: './static/johnwick4.jpg', rating: '7.7/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=qEVUtrk8_B4', desc: 'John Wick staje przeciwko najwyższej radzie w Paryżu.' },
+            { id: 'joker', title: 'Joker', category: 'Action', img: './static/joker.jpg', rating: '8.4/10', date: '2019', trailer: 'https://www.youtube.com/watch?v=zAGVQLHvwOY', desc: 'Studium upadku psychicznego Arthura Flecka.' },
+            { id: 'martian', title: 'The Martian', category: 'Sci-Fi', img: './static/martian.jpg', rating: '8.0/10', date: '2015', trailer: 'https://www.youtube.com/watch?v=ej3ioOneTy8', desc: 'Astronauta próbuje przetrwać samotnie na Marsie.' },
+            { id: 'moonfall', title: 'Moonfall', category: 'Sci-Fi', img: './static/moonfall.jpg', rating: '5.1/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=ivIwdQBlS10', desc: 'Księżyc wypada z orbity i pędzi w stronę Ziemi.' },
+            { id: 'oppenheimer', title: 'Oppenheimer', category: 'Action', img: './static/oppenhaimer.jpg', rating: '8.3/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=uYPbbksJxIg', desc: 'Historia twórcy bomby atomowej.' },
+            { id: 'rebirth', title: 'Jurassic World: Rebirth', category: 'Sci-Fi', img: './static/rebirth.jpg', rating: '5.8/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=jan5CFWs9ic', desc: 'Nowa era dinozaurów powraca na ekrany.' },
+            { id: 'sawx', title: 'Saw X', category: 'Horror', img: './static/sawx.jpg', rating: '6.6/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=t3PzUo4P21Q', desc: 'John Kramer udaje się do Meksyku na ryzykowny zabieg.' },
+            { id: 'spiderman', title: 'Spider-Man: No Way Home', category: 'Marvel', img: './static/spidermanNWH.jpg', rating: '8.2/10', date: '2021', trailer: 'https://www.youtube.com/watch?v=JfVOs4VSpmA', desc: 'Pajączek zderza się z multiwersum.' },
+            { id: 'superman', title: 'Superman', category: 'Sci-Fi', img: './static/superman.jpg', rating: '7.0/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=Ox8ZLF6cGM0', desc: 'Restart przygód Człowieka ze Stali w DCU.' },
+            { id: 'darkknight', title: 'The Dark Knight', category: 'Action', img: './static/thedarkknight.jpg', rating: '9.0/10', date: '2008', trailer: 'https://www.youtube.com/watch?v=EXeTwQWrcwY', desc: 'Batman kontra Joker w absolutnym arcydziele gatunku.' },
+            { id: 'thorlove', title: 'Thor: Love and Thunder', category: 'Marvel', img: './static/thorlove.jpg', rating: '6.2/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=Go8nTmfrQd8', desc: 'Thor spotyka bogobójcę Gorra.' },
+            { id: 'topgun', title: 'Top Gun: Maverick', category: 'Action', img: './static/topgun.jpg', rating: '8.2/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=qSqVVswa420', desc: 'Maverick powraca, by szkolić nowe pokolenie pilotów.' },
+            { id: 'trap', title: 'Trap', category: 'Horror', img: './static/trap.jpg', rating: '6.0/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=mps1HbpECIA', desc: 'Koncert zamienia się w pułapkę na seryjnego mordercę.' },
+            { id: 'wakanda', title: 'Wakanda Forever', category: 'Marvel', img: './static/wakandaforever.jpg', rating: '6.7/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=_Z3QKkl1WyM', desc: 'Wakanda walczy o przetrwanie po śmierci T’Challi.' },
+            { id: 'alien', title: 'Alien: Romulus', category: 'Horror', img: './static/alienromolous.jpg', rating: '7.2/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=OzY2r2JXsDM', desc: 'Grupa kolonizatorów spotyka najstraszniejszą formę życia w kosmosie.' }
+        ];
+
+        let currentMovieId = null;
+        let filteredMovies = [...movies];
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        function initSlider() {
+            const track = document.getElementById('main-slider');
+            track.innerHTML = [...movies, ...movies].map(m => `
+                <div class="movie-card" onclick="openModalById('${m.id}')">
+                    <div class="rating-badge">★ ${m.rating.split('/')[0]}</div>
+                    <img src="${m.img}" class="w-full h-[400px] object-cover">
+                    <div class="p-6 text-center font-black italic uppercase tracking-tighter">
+                        <div class="text-xl mb-1">${m.title}</div>
+                        <div class="text-red-600 text-[10px] tracking-widest uppercase">${m.category}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showLibrary() {
+            document.getElementById('home-page').classList.add('hidden-section');
+            document.getElementById('library-page').classList.remove('hidden-section');
+            renderLibrary();
+        }
+
+        function showHome() {
+            document.getElementById('library-page').classList.add('hidden-section');
+            document.getElementById('home-page').classList.remove('hidden-section');
+        }
+
+        function renderLibrary() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const paginatedItems = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
+            
+            const tbody = document.getElementById('library-table-body');
+            tbody.innerHTML = paginatedItems.map(m => `
+                <tr class="border-b border-zinc-800/50 hover:bg-white/5 transition-colors group">
+                    <td class="p-6 flex items-center gap-4">
+                        <img src="${m.img}" class="w-12 h-16 object-cover rounded-lg shadow-xl border border-zinc-800">
+                        <span class="font-black italic uppercase tracking-tighter text-lg">${m.title}</span>
+                    </td>
+                    <td class="p-6 text-zinc-500 font-black text-[10px] uppercase italic tracking-widest">${m.category}</td>
+                    <td class="p-6 text-zinc-400 font-bold italic">${m.date}</td>
+                    <td class="p-6 font-black text-red-600 italic tracking-tighter text-xl">★ ${m.rating.split('/')[0]}</td>
+                    <td class="p-6 text-right">
+                        <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-red-600 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all italic">Detale</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
+            const container = document.getElementById('pagination-controls');
+            let html = '';
+            for(let i = 1; i <= totalPages; i++) {
+                html += `<button onclick="changePage(${i})" class="page-link w-10 h-10 rounded-xl font-black ${i === currentPage ? 'active' : 'bg-zinc-900/50 text-zinc-500'}">${i}</button>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderLibrary();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterCategory(cat) {
+            currentPage = 1;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText === cat);
+            });
+            filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
+            renderLibrary();
+        }
+
+        function handleSearch() {
+            currentPage = 1;
+            const term = document.getElementById('movie-search').value.toLowerCase();
+            filteredMovies = movies.filter(m => m.title.toLowerCase().includes(term));
+            renderLibrary();
+        }
+
+        function toggleModal(id, show) {
+            const modal = document.getElementById(id);
+            modal.style.display = show ? 'flex' : 'none';
+            document.body.style.overflow = show ? 'hidden' : 'auto';
+        }
+
+        function openModalById(id) {
+            const m = movies.find(x => x.id === id);
+            currentMovieId = m.id;
+            document.getElementById('modal-title').innerText = m.title;
+            document.getElementById('modal-img').src = m.img;
+            document.getElementById('modal-desc').innerText = m.desc;
+            document.getElementById('modal-rating').innerText = m.rating;
+            document.getElementById('modal-date').innerText = m.date;
+            document.getElementById('modal-trailer-link').href = m.trailer;
+            
+            const saved = localStorage.getItem(`rating-${m.id}`);
+            document.getElementsByName('u-rating').forEach(s => s.checked = (s.value === saved));
+            document.getElementById('save-status').innerText = saved ? 'Oceniono!' : '';
+            
+            toggleModal('movie-modal', true);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            localStorage.setItem('hubUser', document.getElementById('username').value);
+            updateAuthUI();
+            toggleModal('login-modal', false);
+        }
+
+        function updateAuthUI() {
+            const user = localStorage.getItem('hubUser');
+            if(user) {
+                document.getElementById('auth-section').innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <span class="text-white font-black italic underline decoration-red-600 decoration-4 underline-offset-8 uppercase tracking-tighter">${user}</span>
+                        <button onclick="logout()" class="text-[10px] text-zinc-500 hover:text-white uppercase font-black tracking-widest transition">Wyloguj</button>
+                    </div>
+                `;
+            }
+        }
+
+        function logout() { localStorage.removeItem('hubUser'); location.reload(); }
+
+        document.getElementById('star-group').addEventListener('change', (e) => {
+            if (currentMovieId) {
+                localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
+                document.getElementById('save-status').innerText = 'Dzięki za głos!';
+            }
+        });
+
+        updateAuthUI();
+        initSlider();
+    </script>
 </body>
 </html>
