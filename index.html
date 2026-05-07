@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Hub | My Lists & Reviews</title>
+    <title>Movie Hub | Custom Lists & Trailers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -15,15 +15,13 @@
         .slider-track:hover { animation-play-state: paused; }
         
         .movie-card { 
-            width: 260px; flex-shrink: 0; 
-            transition: transform 0.2s ease-in-out; 
+            width: 260px; flex-shrink: 0; transition: transform 0.2s ease-in-out; 
             cursor: pointer; border-radius: 24px; overflow: hidden; border: 1px solid #27272a;
         }
         @media (min-width: 768px) { .movie-card { width: 300px; } }
         .movie-card:hover { transform: scale(1.05); border-color: #dc2626; box-shadow: 0 20px 25px -5px rgba(220, 38, 38, 0.2); }
 
         .hidden-section { display: none !important; }
-        
         .modal-overlay { 
             display: none; position: fixed; inset: 0; z-index: 100; 
             background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); 
@@ -36,9 +34,7 @@
         .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label { color: #facc15; }
 
         .custom-scroll::-webkit-scrollbar { height: 4px; }
-        .custom-scroll::-webkit-scrollbar-track { background: #09090b; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
-
         .page-btn.active { background-color: #dc2626; color: white; border-color: #dc2626; }
     </style>
 </head>
@@ -66,80 +62,76 @@
         <div class="slider-container">
             <div class="slider-track" id="main-slider"></div>
         </div>
-
         <section class="bg-zinc-900/30 border-y border-zinc-800 py-16 md:py-24 px-5 mt-10">
             <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 md:mb-6 leading-none">Bądź <span class="text-red-600">Legendą</span> Kina</h2>
-                <p class="text-zinc-500 text-xs md:text-sm uppercase tracking-widest font-bold mb-8">Zapisz się, by otrzymywać przedpremiery i recenzje</p>
-                <form class="flex flex-col sm:flex-row gap-3 md:gap-4">
-                    <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl md:rounded-2xl px-6 md:px-8 py-4 md:py-5 focus:ring-2 focus:ring-red-600 outline-none text-white transition-all">
-                    <button type="button" class="bg-red-600 hover:bg-red-700 font-black px-10 py-4 md:py-5 rounded-xl md:rounded-2xl transition-all uppercase tracking-widest italic text-xs md:text-sm">Dołącz</button>
+                <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-red-600">Legendą</span> Kina</h2>
+                <form class="flex flex-col sm:flex-row gap-3 mt-8">
+                    <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-red-600 outline-none">
+                    <button type="button" class="bg-red-600 font-black px-10 py-4 rounded-xl uppercase italic">Dołącz</button>
                 </form>
             </div>
         </section>
     </main>
 
-    <div id="library-page" class="hidden-section max-w-7xl mx-auto p-4 md:p-5 py-8 md:py-12">
+    <div id="library-page" class="hidden-section max-w-7xl mx-auto p-4 md:p-5 py-12">
         <div class="flex flex-col lg:flex-row gap-8 md:gap-12">
             <aside class="lg:w-64 space-y-3">
-                <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 md:mb-6 italic underline decoration-red-600 decoration-2 underline-offset-8 text-center lg:text-left">Kategorie</h3>
-                <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 custom-scroll" id="category-btns">
-                    <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-red-600 text-white w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Wszystkie</button>
-                    <button onclick="filterCategory('Marvel')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Marvel</button>
-                    <button onclick="filterCategory('Sci-Fi')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Sci-Fi</button>
-                    <button onclick="filterCategory('Action')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Action</button>
-                    <button onclick="filterCategory('Horror')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 hover:bg-zinc-800 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all">Horror</button>
+                <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-6 italic underline decoration-red-600 decoration-2 underline-offset-8">Kategorie</h3>
+                <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 custom-scroll" id="category-btns">
+                    <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-red-600 text-white w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase transition-all">Wszystkie</button>
+                    <button onclick="filterCategory('Marvel')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase transition-all">Marvel</button>
+                    <button onclick="filterCategory('Sci-Fi')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase transition-all">Sci-Fi</button>
+                    <button onclick="filterCategory('Action')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase transition-all">Action</button>
+                    <button onclick="filterCategory('Horror')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-4 rounded-2xl font-black italic uppercase transition-all">Horror</button>
                 </div>
             </aside>
-
             <div class="flex-1 overflow-hidden">
-                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Szukaj w bazie..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl md:rounded-3xl px-6 md:px-8 py-4 md:py-5 mb-6 md:mb-10 outline-none focus:ring-2 focus:ring-red-600 text-lg md:text-xl font-medium transition-all text-white">
-                <div class="bg-zinc-900/50 rounded-[24px] md:rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
+                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Szukaj filmu..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-red-600 text-white text-xl">
+                <div class="bg-zinc-900/50 rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
                     <table class="w-full text-left border-collapse min-w-[600px]">
                         <thead>
                             <tr class="border-b border-zinc-800 text-zinc-500 text-[10px] uppercase font-black tracking-widest">
-                                <th class="p-4 md:p-6">Film</th>
-                                <th class="p-4 md:p-6">Gatunek</th>
-                                <th class="p-4 md:p-6">Rok</th>
-                                <th class="p-4 md:p-6">Ocena</th>
-                                <th class="p-4 md:p-6 text-right">Akcja</th>
+                                <th class="p-6">Film</th><th class="p-6">Gatunek</th><th class="p-6">Rok</th><th class="p-6">Ocena</th><th class="p-6 text-right">Akcja</th>
                             </tr>
                         </thead>
                         <tbody id="library-table-body"></tbody>
                     </table>
                 </div>
-                <div id="pagination-controls" class="flex justify-center items-center gap-2 md:gap-4 mt-6"></div>
+                <div id="pagination-controls" class="flex justify-center gap-2"></div>
             </div>
         </div>
     </div>
 
-    <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-4 md:p-5 py-8 md:py-12 text-center">
-        <h2 class="text-4xl font-black italic uppercase tracking-tighter text-red-600 mb-8">Twoja Osobista Lista</h2>
-        <div id="my-list-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-4xl font-black italic uppercase text-red-600 tracking-tighter">Twoje Listy</h2>
+            <button onclick="createNewList()" class="bg-red-600 px-6 py-3 rounded-2xl font-black uppercase italic text-xs tracking-widest">Utwórz nową listę +</button>
+        </div>
+        <div id="custom-lists-container" class="space-y-12">
             </div>
-        <div id="empty-list-msg" class="text-zinc-500 mt-10 hidden italic">Twoja lista jest pusta. Dodaj filmy w sekcji Katalog.</div>
     </div>
 
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
-        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[30px] md:rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh] md:h-[85vh]">
-            <button onclick="toggleModal('movie-modal', false)" class="absolute top-4 right-4 md:top-8 md:right-8 z-50 bg-white text-black w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:bg-red-600 hover:text-white transition-all">✕</button>
-            <div class="w-full md:w-2/5 h-48 md:h-full relative group shrink-0">
+        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[30px] md:rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
+            <button onclick="toggleModal('movie-modal', false)" class="absolute top-4 right-4 z-50 bg-white text-black w-8 h-8 rounded-full font-bold">✕</button>
+            <div class="w-full md:w-2/5 h-48 md:h-full relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
             </div>
-            <div class="flex-1 p-6 md:p-12 flex flex-col justify-between overflow-y-auto">
+            <div class="flex-1 p-8 md:p-12 overflow-y-auto flex flex-col justify-between">
                 <div>
-                    <h2 id="modal-title" class="text-3xl md:text-5xl font-black italic uppercase mb-4 md:mb-6 tracking-tighter text-red-600 leading-none"></h2>
-                    <p id="modal-desc" class="text-zinc-400 text-sm md:text-lg mb-6 md:mb-8 leading-relaxed"></p>
-                    <div class="flex gap-3 md:gap-4 mb-6 md:mb-10">
-                        <div class="bg-zinc-900 px-4 py-3 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-zinc-800 flex-1 md:flex-none">
-                            <span class="text-zinc-500 text-[8px] md:text-[10px] block uppercase font-black">Rating</span>
-                            <span id="modal-rating" class="text-lg md:text-xl font-black text-yellow-500 italic"></span>
+                    <h2 id="modal-title" class="text-4xl md:text-5xl font-black italic uppercase mb-4 text-red-600 tracking-tighter"></h2>
+                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
+                    <div class="flex gap-4 mb-8">
+                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
+                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Rating</span>
+                            <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
                         </div>
-                        <div class="bg-zinc-900 px-4 py-3 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-zinc-800 flex-1 md:flex-none">
-                            <span class="text-zinc-500 text-[8px] md:text-[10px] block uppercase font-black">Rok</span>
-                            <span id="modal-date" class="text-lg md:text-xl font-black"></span>
+                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
+                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Rok</span>
+                            <span id="modal-date" class="text-xl font-black italic"></span>
                         </div>
                     </div>
+                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10">Oglądaj Trailer</a>
                 </div>
                 <div class="pt-6 border-t border-zinc-800">
                     <h4 class="text-xs font-black uppercase italic mb-3">Twoja Prywatna Ocena:</h4>
@@ -162,13 +154,11 @@
     </div>
 
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
-        <div class="bg-zinc-900 p-8 md:p-12 rounded-[30px] md:rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4">
-            <button onclick="toggleModal('login-modal', false)" class="absolute top-6 right-6 text-zinc-500 hover:text-white">✕</button>
-            <h2 class="text-2xl md:text-3xl font-black italic uppercase mb-8 text-center text-red-600">Zaloguj się</h2>
+        <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4">
+            <h2 class="text-3xl font-black italic uppercase mb-8 text-center text-red-600">Zaloguj się</h2>
             <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="text" id="username" placeholder="Użytkownik" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-600 transition-all text-white">
-                <input type="password" placeholder="Hasło" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-600 transition-all text-white">
-                <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all text-white">Wejdź</button>
+                <input type="text" id="username" placeholder="Nick" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl text-white outline-none">
+                <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase text-white hover:bg-red-700">Wejdź</button>
             </form>
         </div>
     </div>
@@ -219,6 +209,9 @@
         let currentPage = 1;
         const itemsPerPage = 6;
         let filteredMovies = [...movies];
+        
+        // ZARZĄDZANIE LISTAMI
+        let userLists = JSON.parse(localStorage.getItem('userCustomLists')) || [{ name: 'Moje Ulubione', movies: [] }];
 
         function initSlider() {
             const track = document.getElementById('main-slider');
@@ -227,88 +220,110 @@
                     <img src="${m.img}" class="w-full h-[350px] md:h-[400px] object-cover">
                     <div class="p-6 text-center font-black italic uppercase tracking-tighter">
                         <div class="text-lg md:text-xl mb-1 truncate">${m.title}</div>
-                        <div class="text-red-600 text-[10px] tracking-[0.2em] uppercase">★ ${m.rating}</div>
+                        <div class="text-red-600 text-[10px] tracking-[0.2em] uppercase italic">★ ${m.rating}</div>
                     </div>
                 </div>
             `).join('');
         }
 
         // --- NAWIGACJA ---
-        function hideAll() {
-            document.getElementById('home-page').classList.add('hidden-section');
-            document.getElementById('library-page').classList.add('hidden-section');
-            document.getElementById('lists-page').classList.add('hidden-section');
-        }
-
         function showLibrary() {
-            hideAll();
+            document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section'));
             document.getElementById('library-page').classList.remove('hidden-section');
             filterCategory('Wszystkie');
-            window.scrollTo(0,0);
         }
-
         function showHome() {
-            hideAll();
+            document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section'));
             document.getElementById('home-page').classList.remove('hidden-section');
-            window.scrollTo(0,0);
         }
-
         function showMyLists() {
-            hideAll();
+            document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section'));
             document.getElementById('lists-page').classList.remove('hidden-section');
-            renderMyList();
-            window.scrollTo(0,0);
+            renderCustomLists();
         }
 
-        // --- LOGIKA LIST I OCEN ---
-        function addToMyList(id) {
-            let myList = JSON.parse(localStorage.getItem('myMovieHubList')) || [];
-            if (!myList.includes(id)) {
-                myList.push(id);
-                localStorage.setItem('myMovieHubList', JSON.stringify(myList));
-                alert('Film dodany do Twojej listy!');
-            } else {
-                alert('Ten film już jest na Twojej liście.');
+        // --- CUSTOM LISTS ---
+        function createNewList() {
+            const name = prompt("Podaj nazwę nowej listy:");
+            if (name) {
+                userLists.push({ name, movies: [] });
+                saveLists();
+                renderCustomLists();
             }
         }
 
-        function removeFromMyList(id) {
-            let myList = JSON.parse(localStorage.getItem('myMovieHubList')) || [];
-            myList = myList.filter(movieId => movieId !== id);
-            localStorage.setItem('myMovieHubList', JSON.stringify(myList));
-            renderMyList();
+        function renameList(index) {
+            const newName = prompt("Nowa nazwa listy:", userLists[index].name);
+            if (newName) {
+                userLists[index].name = newName;
+                saveLists();
+                renderCustomLists();
+            }
         }
 
-        function renderMyList() {
-            const container = document.getElementById('my-list-container');
-            const emptyMsg = document.getElementById('empty-list-msg');
-            const myListIds = JSON.parse(localStorage.getItem('myMovieHubList')) || [];
-            
-            if (myListIds.length === 0) {
-                container.innerHTML = '';
-                emptyMsg.classList.remove('hidden');
+        function deleteList(index) {
+            if (confirm("Czy na pewno chcesz usunąć tę listę?")) {
+                userLists.splice(index, 1);
+                saveLists();
+                renderCustomLists();
+            }
+        }
+
+        function addToList(movieId, listIndex) {
+            if (!userLists[listIndex].movies.includes(movieId)) {
+                userLists[listIndex].movies.push(movieId);
+                saveLists();
+                alert(`Dodano do listy: ${userLists[listIndex].name}`);
+            } else {
+                alert("Ten film już jest na tej liście.");
+            }
+        }
+
+        function removeFromList(listIndex, movieId) {
+            userLists[listIndex].movies = userLists[listIndex].movies.filter(id => id !== movieId);
+            saveLists();
+            renderCustomLists();
+        }
+
+        function saveLists() { localStorage.setItem('userCustomLists', JSON.stringify(userLists)); }
+
+        function renderCustomLists() {
+            const container = document.getElementById('custom-lists-container');
+            if (userLists.length === 0) {
+                container.innerHTML = `<p class="text-zinc-600 italic">Brak list. Utwórz nową, aby zacząć kolekcjonować filmy.</p>`;
                 return;
             }
-
-            emptyMsg.classList.add('hidden');
-            const listMovies = movies.filter(m => myListIds.includes(m.id));
-            
-            container.innerHTML = listMovies.map(m => {
-                const myRating = localStorage.getItem(`rating-${m.id}`) || 'Brak';
-                return `
-                    <div class="bg-zinc-900 rounded-3xl border border-zinc-800 p-4 transition-all hover:border-red-600">
-                        <img src="${m.img}" class="w-full h-64 object-cover rounded-2xl mb-4">
-                        <h3 class="text-xl font-black italic uppercase text-white">${m.title}</h3>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-zinc-500 text-xs uppercase font-bold">Twoja Ocena: <span class="text-yellow-500">★ ${myRating}</span></span>
-                            <button onclick="removeFromMyList('${m.id}')" class="text-red-500 text-[10px] uppercase font-black hover:underline italic">Usuń</button>
+            container.innerHTML = userLists.map((list, idx) => `
+                <div class="bg-zinc-900/50 p-6 md:p-10 rounded-[40px] border border-zinc-800">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 text-center md:text-left">
+                        <h3 class="text-3xl font-black italic uppercase tracking-tighter text-white underline decoration-red-600 decoration-4 underline-offset-8">${list.name}</h3>
+                        <div class="space-x-4">
+                            <button onclick="renameList(${idx})" class="text-xs font-black uppercase text-zinc-500 hover:text-white">Zmień nazwę</button>
+                            <button onclick="deleteList(${idx})" class="text-xs font-black uppercase text-red-600 hover:text-red-400">Usuń listę</button>
                         </div>
                     </div>
-                `;
-            }).join('');
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${list.movies.length ? list.movies.map(id => {
+                            const m = movies.find(x => x.id === id);
+                            const uRating = localStorage.getItem(`rating-${id}`) || '-';
+                            return `
+                                <div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4 group">
+                                    <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl shadow-lg">
+                                    <div class="flex-1 text-left">
+                                        <h4 class="font-black italic uppercase text-sm mb-1">${m.title}</h4>
+                                        <p class="text-[10px] text-zinc-500 uppercase font-black tracking-widest">Ocena: <span class="text-yellow-500">★ ${uRating}</span></p>
+                                        <button onclick="removeFromList(${idx}, '${m.id}')" class="text-[9px] text-red-500 uppercase font-black mt-2 hover:underline">Usuń</button>
+                                    </div>
+                                    <button onclick="openModalById('${m.id}')" class="text-zinc-700 group-hover:text-white transition">➔</button>
+                                </div>
+                            `;
+                        }).join('') : `<p class="text-zinc-700 text-xs italic col-span-3">Ta lista jest pusta.</p>`}
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // --- TABELA I FILTRY ---
+        // --- TABELA ---
         function renderTable() {
             const startIndex = (currentPage - 1) * itemsPerPage;
             const paginatedData = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
@@ -316,20 +331,22 @@
 
             tbody.innerHTML = paginatedData.map(m => `
                 <tr class="border-b border-zinc-800/50 hover:bg-white/5 transition-colors group">
-                    <td class="p-4 md:p-6 flex items-center gap-3 md:gap-4">
-                        <img src="${m.img}" class="w-10 h-14 md:w-12 md:h-16 object-cover rounded-lg shadow-xl shrink-0">
-                        <span class="font-black italic uppercase tracking-tighter text-sm md:text-lg leading-tight">${m.title}</span>
+                    <td class="p-4 md:p-6 flex items-center gap-4">
+                        <img src="${m.img}" class="w-10 h-14 md:w-12 md:h-16 object-cover rounded-lg shadow-xl">
+                        <span class="font-black italic uppercase text-sm md:text-lg">${m.title}</span>
                     </td>
-                    <td class="p-4 md:p-6 text-zinc-500 font-black text-[9px] md:text-xs uppercase italic tracking-widest">${m.category}</td>
-                    <td class="p-4 md:p-6 text-zinc-400 font-bold italic text-sm md:text-base">${m.date}</td>
-                    <td class="p-4 md:p-6 font-black text-red-600 italic tracking-tighter text-sm md:text-base whitespace-nowrap">★ ${m.rating}</td>
-                    <td class="p-4 md:p-6 text-right space-x-2">
-                        <button onclick="addToMyList('${m.id}')" class="bg-zinc-700 hover:bg-white hover:text-black px-3 py-1 rounded-full text-[8px] font-black uppercase transition-all">Do listy</button>
-                        <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-red-600 px-4 md:px-6 py-2 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-widest transition-all italic text-white">Opis</button>
+                    <td class="p-4 md:p-6 text-zinc-500 font-black text-[9px] uppercase tracking-widest">${m.category}</td>
+                    <td class="p-4 md:p-6 text-zinc-400 font-bold italic text-sm">${m.date}</td>
+                    <td class="p-4 md:p-6 font-black text-red-600 italic">★ ${m.rating}</td>
+                    <td class="p-4 md:p-6 text-right">
+                        <select onchange="if(this.value !== '') addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[9px] font-black uppercase rounded-lg p-1 outline-none mr-2">
+                            <option value="">+ Dodaj</option>
+                            ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
+                        </select>
+                        <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-red-600 px-4 py-2 rounded-full text-[10px] font-black uppercase italic text-white transition-all">Opis</button>
                     </td>
                 </tr>
             `).join('');
-
             renderPagination();
         }
 
@@ -338,15 +355,9 @@
             const container = document.getElementById('pagination-controls');
             let html = '';
             for (let i = 1; i <= totalPages; i++) {
-                html += `<button onclick="changePage(${i})" class="page-btn w-8 h-8 md:w-10 md:h-10 border border-zinc-800 rounded-lg font-black italic text-xs md:text-sm transition-all hover:border-red-600 ${i === currentPage ? 'active' : 'text-zinc-500'}">${i}</button>`;
+                html += `<button onclick="currentPage=${i};renderTable()" class="page-btn w-8 h-8 border border-zinc-800 rounded-lg font-black italic text-xs ${i === currentPage ? 'active' : 'text-zinc-500'}">${i}</button>`;
             }
             container.innerHTML = html;
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            renderTable();
-            window.scrollTo({ top: document.getElementById('library-page').offsetTop - 100, behavior: 'smooth' });
         }
 
         function handleSearch() {
@@ -357,22 +368,15 @@
         }
 
         function filterCategory(cat) {
-            const btns = document.querySelectorAll('.cat-btn');
-            btns.forEach(btn => {
-                if (btn.innerText === cat) {
-                    btn.classList.replace('bg-zinc-900', 'bg-red-600');
-                    btn.classList.replace('text-zinc-400', 'text-white');
-                } else {
-                    btn.classList.replace('bg-red-600', 'bg-zinc-900');
-                    btn.classList.replace('text-white', 'text-zinc-400');
-                }
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.innerText === cat) { btn.classList.replace('bg-zinc-900', 'bg-red-600'); btn.classList.replace('text-zinc-400', 'text-white'); }
+                else { btn.classList.replace('bg-red-600', 'bg-zinc-900'); btn.classList.replace('text-white', 'text-zinc-400'); }
             });
             filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
             currentPage = 1;
             renderTable();
         }
 
-        // --- MODALE ---
         function toggleModal(id, show) {
             document.getElementById(id).style.display = show ? 'flex' : 'none';
             document.body.style.overflow = show ? 'hidden' : 'auto';
@@ -386,13 +390,11 @@
             document.getElementById('modal-desc').innerText = m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
+            document.getElementById('modal-trailer-link').href = m.trailer; // TRAILER FIXED
             
-            const savedRating = localStorage.getItem(`rating-${m.id}`);
-            document.getElementsByName('u-rating').forEach(radio => {
-                radio.checked = (radio.value === savedRating);
-            });
-            document.getElementById('save-status').innerText = savedRating ? 'Twoja ocena została zapisana!' : '';
-            
+            const saved = localStorage.getItem(`rating-${m.id}`);
+            document.getElementsByName('u-rating').forEach(s => s.checked = (s.value === saved));
+            document.getElementById('save-status').innerText = saved ? 'Ocena: '+saved+'/10' : '';
             toggleModal('movie-modal', true);
         }
 
@@ -408,25 +410,19 @@
             const user = localStorage.getItem('hubUser');
             if(user) {
                 document.getElementById('auth-section').innerHTML = `
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="text-white font-black italic underline decoration-red-600 decoration-2 md:decoration-4 underline-offset-4 uppercase text-[10px] md:text-sm">${user}</span>
-                        <button onclick="logout()" class="text-[8px] md:text-[10px] text-zinc-500 hover:text-white uppercase font-black tracking-widest transition">Wyloguj</button>
+                    <div class="flex items-center gap-3">
+                        <span class="text-white font-black italic underline decoration-red-600 decoration-4 underline-offset-4 uppercase text-xs">${user}</span>
+                        <button onclick="localStorage.removeItem('hubUser'); location.reload();" class="text-[9px] text-zinc-500 font-black uppercase">Wyloguj</button>
                     </div>
                 `;
             }
         }
 
-        function logout() { localStorage.removeItem('hubUser'); location.reload(); }
-
-        // Zapisywanie oceny
         document.getElementById('star-group').addEventListener('change', (e) => {
             if (currentMovieId) {
                 localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
-                document.getElementById('save-status').innerText = 'Dziękujemy za ocenę!';
-                // Jeśli użytkownik jest na stronie list, odśwież widok
-                if (!document.getElementById('lists-page').classList.contains('hidden-section')) {
-                    renderMyList();
-                }
+                document.getElementById('save-status').innerText = 'Twoja ocena: ' + e.target.value + '/10';
+                if (!document.getElementById('lists-page').classList.contains('hidden-section')) renderCustomLists();
             }
         });
 
