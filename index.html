@@ -8,32 +8,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #09090b; scroll-behavior: smooth; color: white; overflow-x: hidden; }
-        
         #hero-bg { position: absolute; inset: 0; z-index: -1; transition: background-image 1.5s ease-in-out; background-size: cover; background-position: center; filter: brightness(0.2) blur(8px); }
         .hero-gradient { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent, #09090b); }
-
         .slider-container { width: 100%; overflow: hidden; padding: 20px 0; }
         .slider-track { display: flex; gap: 1.5rem; width: max-content; animation: scroll 100s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 0.75rem)); } }
         .slider-track:hover { animation-play-state: paused; }
-        
         .movie-card { width: 260px; flex-shrink: 0; transition: transform 0.2s; cursor: pointer; border-radius: 24px; overflow: hidden; border: 1px solid #27272a; }
         @media (min-width: 768px) { .movie-card { width: 300px; } }
         .movie-card:hover { transform: scale(1.05); border-color: #22c55e; }
-
         .hidden-section { display: none !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 15px; }
-
         .star-rating { direction: rtl; display: inline-flex; }
         .star-rating input { display: none; }
         .star-rating label { color: #333; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
         .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label { color: #22c55e; }
-
         .custom-scroll::-webkit-scrollbar { height: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 10px; }
-        .page-btn.active { background-color: #22c55e; color: black; border-color: #22c55e; }
-        
-        .heart-active { color: #22c55e !important; transform: scale(1.2); }
         .doomsday-text { color: #22c55e; text-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
         .glow-green { box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); border-color: rgba(34, 197, 94, 0.4); }
     </style>
@@ -57,11 +48,9 @@
         <header class="relative py-24 md:py-40 text-center px-4 overflow-hidden">
             <div id="hero-bg"></div>
             <div class="hero-gradient"></div>
-            <div class="relative z-10">
-                <h2 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-green-900 leading-none">
-                    HISTORIE, <span class="text-green-500">KTÓRE</span> ZOSTAJĄ.
-                </h2>
-            </div>
+            <h2 class="relative z-10 text-5xl md:text-9xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-green-900 leading-none">
+                HISTORIE, <span class="text-green-500">KTÓRE</span> ZOSTAJĄ.
+            </h2>
         </header>
 
         <div class="slider-container">
@@ -71,293 +60,244 @@
         <section class="max-w-6xl mx-auto px-5 py-16">
             <div class="bg-zinc-900/50 border border-zinc-800 rounded-[40px] p-8 glow-green flex flex-col md:flex-row items-center gap-10">
                 <div class="w-full md:w-1/3">
-                    <img src="./static/doomsday.jpg" class="rounded-3xl shadow-2xl border border-green-500/30 transform -rotate-3 hover:rotate-0 transition-transform duration-500" alt="Doomsday Poster">
+                    <img src="./static/doomsday.jpg" class="rounded-3xl shadow-2xl border border-green-500/30 transform -rotate-3 hover:rotate-0 transition-transform duration-500">
                 </div>
                 <div class="flex-1 text-center md:text-left">
-                    <h3 class="text-green-500 font-black italic uppercase tracking-[0.3em] text-sm mb-6">Protokół: Avengers Doomsday Arrival</h3>
-                    <div id="countdown" class="text-4xl md:text-7xl font-black italic flex justify-center md:justify-start gap-4 md:gap-8">
-                        </div>
+                    <h3 class="text-green-500 font-black italic uppercase tracking-[0.3em] text-sm mb-6">Protokół: Avengers Doomsday</h3>
+                    <div id="countdown" class="text-4xl md:text-7xl font-black italic flex justify-center md:justify-start gap-4 md:gap-8"></div>
                     <p class="mt-8 text-zinc-500 font-bold uppercase text-[10px] tracking-widest italic">Oczekiwanie na reset multiwersum...</p>
                 </div>
             </div>
         </section>
 
         <section class="bg-zinc-900/30 border-y border-zinc-800 py-24 px-5 mt-10 text-center">
-            <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-green-500">Legendą</span> Kina</h2>
-            <p class="text-zinc-500 max-w-xl mx-auto mb-10 font-medium leading-relaxed uppercase text-xs tracking-widest">
-                Zapisz się do naszego newslettera, aby jako pierwszy otrzymywać powiadomienia o <span class="text-white">największych premierach</span>, recenzje prosto z Hollywood oraz dostęp do unikalnych rankingów.
-            </p>
-            <form class="flex flex-col sm:flex-row gap-3 mt-8 max-w-2xl mx-auto">
-                <input type="email" placeholder="Twój adres e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-green-600 outline-none transition-all">
-                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic hover:bg-green-400 transition-all">Aktywuj Subskrypcję</button>
+            <h2 class="text-3xl md:text-5xl font-black italic uppercase mb-4">Bądź <span class="text-green-500">Legendą</span> Kina</h2>
+            <p class="text-zinc-500 max-w-xl mx-auto mb-10 text-xs tracking-widest uppercase">Zapisz się, aby otrzymywać nowości o największych premierach i recenzje prosto do Twojej skrzynki.</p>
+            <form class="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto">
+                <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800 border border-zinc-700 rounded-xl px-6 py-4 outline-none">
+                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic hover:bg-green-400">Subskrybuj</button>
             </form>
         </section>
     </main>
 
-    <div id="library-page" class="hidden-section max-w-7xl mx-auto p-4 md:p-5 py-12">
-        <div class="flex flex-col lg:flex-row gap-8 md:gap-12">
-            <aside class="lg:w-64 space-y-6">
-                <div>
-                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic underline decoration-red-600 decoration-2 underline-offset-8">Gatunki</h3>
-                    <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 custom-scroll" id="category-btns">
-                        <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-green-600 text-black px-6 py-3 rounded-xl font-black italic uppercase text-xs">Wszystkie</button>
-                        <button onclick="filterCategory('Marvel')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Marvel</button>
-                        <button onclick="filterCategory('Action')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Action</button>
-                        <button onclick="filterCategory('Sci-Fi')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Sci-Fi</button>
-                        <button onclick="filterCategory('Horror')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Horror</button>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-2 pt-6 border-t border-zinc-800">
-                    <button onclick="sortMovies('date')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Data</button>
-                    <button onclick="sortMovies('rating')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Ocena</button>
-                </div>
-            </aside>
-            <div class="flex-1 overflow-hidden">
-                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Wyszukaj tytuł w bazie danych..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-green-500 text-white text-xl">
-                <div class="bg-zinc-900/50 rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
-                    <table class="w-full text-left border-collapse min-w-[600px]">
-                        <thead>
-                            <tr class="border-b border-zinc-800 text-zinc-500 text-[10px] uppercase font-black tracking-widest">
-                                <th class="p-6">Film</th><th class="p-6">Gatunek</th><th class="p-6">Rok</th><th class="p-6">Ocena</th><th class="p-6 text-right">Akcja</th>
-                            </tr>
-                        </thead>
-                        <tbody id="library-table-body"></tbody>
-                    </table>
-                </div>
-                <div id="pagination-controls" class="flex justify-center gap-2"></div>
-            </div>
+    <div id="library-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
+        <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Wyszukaj film..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 text-white text-xl">
+        <div class="bg-zinc-900/50 rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="border-b border-zinc-800 text-zinc-500 text-[10px] uppercase font-black">
+                        <th class="p-6">Film</th><th class="p-6">Gatunek</th><th class="p-6">Rok</th><th class="p-6">Ocena</th><th class="p-6 text-right">Akcja</th>
+                    </tr>
+                </thead>
+                <tbody id="library-table-body"></tbody>
+            </table>
         </div>
+        <div id="pagination-controls" class="flex justify-center gap-2"></div>
     </div>
 
     <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
         <div class="flex justify-between items-center mb-10">
-            <h2 class="text-4xl font-black italic uppercase text-green-500 tracking-tighter">Twoje Listy</h2>
-            <button onclick="createNewList()" class="bg-green-600 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-xs tracking-widest">Nowa lista +</button>
+            <h2 class="text-4xl font-black text-green-500 italic uppercase">Twoje Listy</h2>
+            <button onclick="createNewList()" class="bg-green-600 text-black px-6 py-3 rounded-2xl font-black uppercase text-xs">Nowa lista +</button>
         </div>
         <div id="custom-lists-container" class="space-y-12"></div>
     </div>
 
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition-colors">✕</button>
-            <div class="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
+            <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-white text-black w-8 h-8 rounded-full font-bold">✕</button>
+            <div class="w-full md:w-2/5 h-64 md:h-auto shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
             </div>
-            <div class="flex-1 p-8 md:p-12 overflow-y-auto flex flex-col justify-between">
-                <div id="modal-content-area">
-                    <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
-                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
-                    <div class="flex gap-4 mb-8 text-white">
-                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Score</span>
-                            <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
-                        </div>
-                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Rok</span>
-                            <span id="modal-date" class="text-xl font-black italic"></span>
-                        </div>
-                    </div>
-                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10 hover:bg-green-400">Obejrzyj Trailer</a>
-                </div>
-                <div class="pt-6 border-t border-zinc-800">
-                    <h4 class="text-xs font-black uppercase italic mb-3 text-zinc-400">Twoja Ocena:</h4>
-                    <div class="star-rating" id="star-group">
-                        <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
-                        <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
-                        <input type="radio" id="s8" name="u-rating" value="8"><label for="s8">★</label>
-                        <input type="radio" id="s7" name="u-rating" value="7"><label for="s7">★</label>
-                        <input type="radio" id="s6" name="u-rating" value="6"><label for="s6">★</label>
-                        <input type="radio" id="s5" name="u-rating" value="5"><label for="s5">★</label>
-                        <input type="radio" id="s4" name="u-rating" value="4"><label for="s4">★</label>
-                        <input type="radio" id="s3" name="u-rating" value="3"><label for="s3">★</label>
-                        <input type="radio" id="s2" name="u-rating" value="2"><label for="s2">★</label>
-                        <input type="radio" id="s1" name="u-rating" value="1"><label for="s1">★</label>
+            <div class="flex-1 p-8 md:p-12 overflow-y-auto">
+                <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
+                <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
+                <div class="flex gap-4 mb-8">
+                    <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
+                        <span class="text-zinc-500 text-[10px] block font-black">Score</span>
+                        <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
                     </div>
                 </div>
+                <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest hover:bg-green-400 transition-all">Trailer</a>
             </div>
         </div>
     </div>
 
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
-        <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4 text-center">
-            <h2 class="text-3xl font-black italic uppercase mb-8 text-green-500 italic">Movie Hub</h2>
+        <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-w-md text-center">
+            <h2 class="text-3xl font-black text-green-500 italic mb-8">ZALOGUJ SIĘ</h2>
             <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="text" id="username" placeholder="Twoja ksywka" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                <button type="submit" class="w-full bg-green-600 py-4 rounded-2xl font-black uppercase text-black hover:bg-green-400 transition-all">Zatwierdź Protokół</button>
+                <input type="text" id="username" placeholder="Nick" required class="w-full bg-zinc-800 p-4 rounded-2xl text-white outline-none">
+                <button type="submit" class="w-full bg-green-600 py-4 rounded-2xl font-black uppercase text-black">Wejdź</button>
             </form>
         </div>
     </div>
 
-    <footer class="py-12 text-center text-zinc-600 text-[10px] font-bold uppercase tracking-widest italic border-t border-zinc-900 mt-10">
-        &copy; 2026 Movie Hub. Worldwide Cinema Authority.
-    </footer>
-
     <script>
-       const movies = [
-    { id: 'm65', title: '65', category: 'Sci-Fi', img: './static/65.jpg', rating: '5.4', date: '2023', trailer: '', desc: 'Astronauci lądują na Ziemi sprzed 65 mln lat.' },
-    { id: 'acrosstheverse', title: 'Across the Spider-Verse', category: 'Marvel', img: './static/acrosstheverse.jpg', rating: '8.6', date: '2023', trailer: '', desc: 'Miles Morales wyrusza w podróż przez Multiwersum.' },
-    { id: 'alienromolous', title: 'Alien: Romulus', category: 'Horror', img: './static/alienromolous.jpg', rating: '7.2', date: '2024', trailer: '', desc: 'Grupa młodych ludzi kontra ksenomorf.' },
-    { id: 'amator', title: 'Amator', category: 'Action', img: './static/amator.jpg', rating: '7.5', date: '2024', trailer: '', desc: 'Thriller akcji.' },
-    { id: 'ambulance', title: 'Ambulance', category: 'Action', img: './static/ambulance.jpg', rating: '6.1', date: '2022', trailer: '', desc: 'Ucieczka przez LA ambulansem.' },
-    { id: 'anaconda', title: 'Anaconda', category: 'Action', img: './static/anaconda.jpg', rating: '4.9', date: '2025', trailer: '', desc: 'Ekipa filmowa kontra gigantyczny wąż.' },
-    { id: 'antman', title: 'Ant-Man & Wasp', category: 'Marvel', img: './static/antman.jpg', rating: '6.1', date: '2023', trailer: '', desc: 'Eksploracja wymiaru kwantowego.' },
-    { id: 'avatar', title: 'Avatar', category: 'Sci-Fi', img: './static/avatar.jpg', rating: '7.9', date: '2009', trailer: '', desc: 'Wyprawa na Pandorę.' },
-    { id: 'avatar2', title: 'Avatar: Way of Water', category: 'Sci-Fi', img: './static/avatar2.jpg', rating: '7.6', date: '2022', trailer: '', desc: 'Powrót do świata Na\'vi.' },
-    { id: 'avatar3', title: 'Avatar: Fire and Ash', category: 'Sci-Fi', img: './static/avatar3.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Trzecia część sagi Camerona.' },
-    { id: 'backrooms', title: 'The Backrooms', category: 'Horror', img: './static/backrooms.jpg', rating: '6.5', date: '2024', trailer: '', desc: 'Zjawiska paranormalne w korytarzach.' },
-    { id: 'badboysride', title: 'Bad Boys: Ride or Die', category: 'Action', img: './static/badboysride.jpg', rating: '7.0', date: '2024', trailer: '', desc: 'Mike i Marcus uciekają przed prawem.' },
-    { id: 'ballerina', title: 'Ballerina', category: 'Action', img: './static/ballerina.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Spin-off Johna Wicka.' },
-    { id: 'batman', title: 'The Batman', category: 'Action', img: './static/batman.jpg', rating: '7.8', date: '2022', trailer: '', desc: 'Bruce Wayne tropi Riddlera.' },
-    { id: 'blackadam', title: 'Black Adam', category: 'Action', img: './static/blackadam.jpg', rating: '6.3', date: '2022', trailer: '', desc: 'Starożytny antybohater powraca.' },
-    { id: 'blackphone', title: 'The Black Phone', category: 'Horror', img: './static/blackphone.jpg', rating: '7.0', date: '2021', trailer: '', desc: 'Telefon od zmarłych ofiar.' },
-    { id: 'blackphone2', title: 'The Black Phone 2', category: 'Horror', img: './static/blackphone2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Kontynuacja hitu.' },
-    { id: 'blackwidow', title: 'Black Widow', category: 'Marvel', img: './static/blackwidow.jpg', rating: '6.7', date: '2021', trailer: '', desc: 'Przeszłość Natashy Romanoff.' },
-    { id: 'bloodlines', title: 'Final Destination: Bloodlines', category: 'Horror', img: './static/bloodlines.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Śmierć powraca.' },
-    { id: 'bullettrain', title: 'Bullet Train', category: 'Action', img: './static/bullettrain.jpg', rating: '7.3', date: '2022', trailer: '', desc: 'Zabójcy w szybkim pociągu.' },
-    { id: 'buzzastral', title: 'Buzz Astral', category: 'Sci-Fi', img: './static/buzzastral.jpg', rating: '6.1', date: '2022', trailer: '', desc: 'Historia legendy.' },
-    { id: 'capitanamerica', title: 'Capitan America: BNW', category: 'Marvel', img: './static/capitanamericabnw.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Sam Wilson jako Kapitan.' },
-    { id: 'carryon', title: 'Carry On', category: 'Action', img: './static/carryon.jpg', rating: '6.8', date: '2024', trailer: '', desc: 'Terrorysta na lotnisku.' },
-    { id: 'civilwar', title: 'Civil War', category: 'Action', img: './static/civilwar.jpg', rating: '7.1', date: '2024', trailer: '', desc: 'Wojna domowa w USA.' },
-    { id: 'coldstorage', title: 'Cold Storage', category: 'Horror', img: './static/coldstorage.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Wirus w laboratorium.' },
-    { id: 'creed3', title: 'Creed III', category: 'Action', img: './static/creed3.jpg', rating: '6.7', date: '2023', trailer: '', desc: 'Adonis walczy o dziedzictwo.' },
-    { id: 'crime101', title: 'Crime 101', category: 'Action', img: './static/crime101.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Wielki napad.' },
-    { id: 'deadpool', title: 'Deadpool & Wolverine', category: 'Marvel', img: './static/deadpool.jpg', rating: '8.2', date: '2024', trailer: '', desc: 'Duet wszechczasów.' },
-    { id: 'deadreckoning', title: 'Mission Impossible 7', category: 'Action', img: './static/DeadReckoning.jpg', rating: '7.7', date: '2023', trailer: '', desc: 'Ethan Hunt kontra AI.' },
-    { id: 'diabel', title: 'Diabeł', category: 'Action', img: './static/diabel.jpg', rating: '6.5', date: '2024', trailer: '', desc: 'Polski thriller akcji.' },
-    { id: 'disclousureday', title: 'Disclosure Day', category: 'Sci-Fi', img: './static/disclousureday.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Kontakt z obcymi.' },
-    { id: 'diuna3', title: 'Dune: Messiah', category: 'Sci-Fi', img: './static/diuna3.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Finał trylogii Paula Atrydy.' },
-    { id: 'drstrange2', title: 'Doctor Strange 2', category: 'Marvel', img: './static/doctorstrange2.jpg', rating: '6.9', date: '2022', trailer: '', desc: 'Multiwersum obłędu.' },
-    { id: 'dominion', title: 'Jurassic World: Dominion', category: 'Sci-Fi', img: './static/dominion.jpg', rating: '5.6', date: '2022', trailer: '', desc: 'Dinozaury na świecie.' },
-    { id: 'doomsday', title: 'Avengers: Doomsday', category: 'Marvel', img: './static/doomsday.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Robert Downey Jr jako Dr Doom.' },
-    { id: 'dune', title: 'Dune: Part One', category: 'Sci-Fi', img: './static/dune.jpg', rating: '8.0', date: '2021', trailer: '', desc: 'Początek drogi Paula Atrydy.' },
-    { id: 'dune2', title: 'Dune: Part Two', category: 'Sci-Fi', img: './static/dune2.jpg', rating: '8.6', date: '2024', trailer: '', desc: 'Wojna o Arrakis.' },
-    { id: 'elevation', title: 'Elevation', category: 'Sci-Fi', img: './static/elevation.jpg', rating: '6.4', date: '2024', trailer: '', desc: 'Świat powyżej chmur.' },
-    { id: 'endgame', title: 'Avengers: Endgame', category: 'Marvel', img: './static/endgame.jpg', rating: '8.4', date: '2019', trailer: '', desc: 'Ostateczne starcie z Thanosem.' },
-    { id: 'equalizer3', title: 'Equalizer 3', category: 'Action', img: './static/equalizer3.jpg', rating: '6.8', date: '2023', trailer: '', desc: 'Robert McCall we Włoszech.' },
-    { id: 'f1', title: 'F1', category: 'Action', img: './static/f1.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Brad Pitt jako kierowca.' },
-    { id: 'f4', title: 'Fantastic Four', category: 'Marvel', img: './static/f4.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Pierwsza rodzina MCU.' },
-    { id: 'fall', title: 'Fall', category: 'Action', img: './static/fall.jpg', rating: '6.4', date: '2022', trailer: '', desc: 'Uwięzione na wieży radiowej.' },
-    { id: 'fallguy', title: 'The Fall Guy', category: 'Action', img: './static/fallguy.jpg', rating: '6.9', date: '2024', trailer: '', desc: 'Ryan Gosling jako kaskader.' },
-    { id: 'fastX', title: 'Fast X', category: 'Action', img: './static/fastX.jpg', rating: '5.8', date: '2023', trailer: '', desc: 'Dante kontra rodzina Toretto.' },
-    { id: 'ff9', title: 'Fast & Furious 9', category: 'Action', img: './static/FF9.jpg', rating: '5.2', date: '2021', trailer: '', desc: 'Pojedynek braci.' },
-    { id: 'flash', title: 'The Flash', category: 'Action', img: './static/flash.jpg', rating: '6.7', date: '2023', trailer: '', desc: 'Podróż w czasie i multiwersum DC.' },
-    { id: 'flightrisk', title: 'Flight Risk', category: 'Action', img: './static/flightrisk.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Morderca w samolocie.' },
-    { id: 'fnat1', title: 'FNaF 1', category: 'Horror', img: './static/fnat1.jpg', rating: '5.4', date: '2023', trailer: '', desc: 'Nocny stróż w pizzerii.' },
-    { id: 'fnaf2', title: 'FNaF 2', category: 'Horror', img: './static/fnaf2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Kontynuacja horroru.' },
-    { id: 'frendo', title: 'Frendo', category: 'Horror', img: './static/frendo.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Mordercza zabawka.' },
-    { id: 'furiosa', title: 'Furiosa: Mad Max', category: 'Sci-Fi', img: './static/furiosa.jpg', rating: '7.7', date: '2024', trailer: '', desc: 'Historia młodej Furiosy.' },
-    { id: 'ghostbusters', title: 'Ghostbusters: Frozen Empire', category: 'Sci-Fi', img: './static/ghostbusters.jpg', rating: '6.1', date: '2024', trailer: '', desc: 'Nowy Jork zamarza.' },
-    { id: 'gladiator', title: 'Gladiator', category: 'Action', img: './static/gladiator.jpg', rating: '8.5', date: '2000', trailer: '', desc: 'Generał staje się niewolnikiem.' },
-    { id: 'gladiator2', title: 'Gladiator II', category: 'Action', img: './static/gladiator2.jpg', rating: '7.0', date: '2024', trailer: '', desc: 'Lucius wraca na arenę.' },
-    { id: 'godzillavskong', title: 'Godzilla vs Kong', category: 'Sci-Fi', img: './static/godzillavskong.jpg', rating: '6.3', date: '2021', trailer: '', desc: 'Starcie tytanów.' },
-    { id: 'godzillaxkong', title: 'Godzilla x Kong', category: 'Sci-Fi', img: './static/godzillaxkong.jpg', rating: '6.1', date: '2024', trailer: '', desc: 'Nowe Imperium.' },
-    { id: 'grayman', title: 'The Gray Man', category: 'Action', img: './static/grayman.jpg', rating: '6.5', date: '2022', trailer: '', desc: 'Agent CIA ścigany przez zabójców.' },
-    { id: 'greenland2', title: 'Greenland: Migration', category: 'Action', img: './static/greenland2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Przetrwanie po katastrofie.' },
-    { id: 'guardians3', title: 'Guardians of the Galaxy 3', category: 'Marvel', img: './static/guardians3.jpg', rating: '7.9', date: '2023', trailer: '', desc: 'Ostatnia misja Strażników.' },
-    { id: 'hailmarry', title: 'Project Hail Mary', category: 'Sci-Fi', img: './static/hailmarry.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Ryan Gosling ratuje Ziemię.' },
-    { id: 'iluzja3', title: 'Now You See Me 3', category: 'Action', img: './static/iluzja3.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Jeźdźcy powracają.' },
-    { id: 'inception', title: 'Inception', category: 'Sci-Fi', img: './static/inception.jpg', rating: '8.8', date: '2010', trailer: '', desc: 'Kradzież snów.' },
-    { id: 'interstellar', title: 'Interstellar', category: 'Sci-Fi', img: './static/interstellar.jpg', rating: '8.7', date: '2014', trailer: '', desc: 'Podróż przez czarną dziurę.' },
-    { id: 'johnwick4', title: 'John Wick 4', category: 'Action', img: './static/johnwick4.jpg', rating: '7.7', date: '2023', trailer: '', desc: 'John walczy z Radą.' },
-    { id: 'joker', title: 'Joker', category: 'Action', img: './static/joker.jpg', rating: '8.4', date: '2019', trailer: '', desc: 'Narodziny złoczyńcy.' },
-    { id: 'joker2', title: 'Joker: Folie à Deux', category: 'Action', img: './static/joker2.jpg', rating: '5.2', date: '2024', trailer: '', desc: 'Arthur i Harley Quinn.' },
-    { id: 'kraven', title: 'Kraven the Hunter', category: 'Marvel', img: './static/kraven.jpg', rating: 'COMING', date: '2024', trailer: '', desc: 'Wróg Spider-Mana w akcji.' },
-    { id: 'krzyk5', title: 'Scream 5', category: 'Horror', img: './static/krzyk5.jpg', rating: '6.3', date: '2022', trailer: '', desc: 'Ghostface w nowym pokoleniu.' },
-    { id: 'krzyk6', title: 'Scream VI', category: 'Horror', img: './static/krzyk6.html.jpg', rating: '6.5', date: '2023', trailer: '', desc: 'Ghostface w Nowym Jorku.' },
-    { id: 'krzyk7', title: 'Scream VII', category: 'Horror', img: './static/krzyk7.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Powrót Sidney Prescott.' },
-    { id: 'luther', title: 'Luther: Fallen Sun', category: 'Action', img: './static/luther.jpg', rating: '6.4', date: '2023', trailer: '', desc: 'Luther ucieka z więzienia.' },
-    { id: 'madameweb', title: 'Madame Web', category: 'Marvel', img: './static/madameweb.jpg', rating: '3.9', date: '2024', trailer: '', desc: 'Przeszłość w pajęczynie.' },
-    { id: 'majkel', title: 'Michael', category: 'Action', img: './static/majkel.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Biopic o Michaelu Jacksonie.' },
-    { id: 'malpa', title: 'Kingdom of the Apes', category: 'Sci-Fi', img: './static/malpa.jpg', rating: '7.0', date: '2024', trailer: '', desc: 'Nowa era małp.' },
-    { id: 'mandalorian', title: 'The Mandalorian & Grogu', category: 'Sci-Fi', img: './static/mandalorian.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Gwiezdne Wojny w kinach.' },
-    { id: 'martian', title: 'The Martian', category: 'Sci-Fi', img: './static/martian.jpg', rating: '8.0', date: '2015', trailer: '', desc: 'Samotny na Marsie.' },
-    { id: 'martysupreme', title: 'Marty Supreme', category: 'Action', img: './static/martysupreme.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Timothée Chalamet jako pingpongista.' },
-    { id: 'marvels', title: 'The Marvels', category: 'Marvel', img: './static/marvels.jpg', rating: '5.5', date: '2023', trailer: '', desc: 'Połączone moce.' },
-    { id: 'matrix', title: 'Matrix: Resurrections', category: 'Sci-Fi', img: './static/matrix.jpg', rating: '5.7', date: '2021', trailer: '', desc: 'Powrót Neo.' },
-    { id: 'meg2', title: 'Meg 2: The Trench', category: 'Action', img: './static/meg2.jpg', rating: '5.0', date: '2023', trailer: '', desc: 'Wielkie rekiny.' },
-    { id: 'megalopolis', title: 'Megalopolis', category: 'Sci-Fi', img: './static/megalopolis.jpg', rating: '5.2', date: '2024', trailer: '', desc: 'Wizja Coppoli.' },
-    { id: 'megan', title: 'M3GAN', category: 'Horror', img: './static/megan.jpg', rating: '6.4', date: '2022', trailer: '', desc: 'Mordercza lalka AI.' },
-    { id: 'megan2', title: 'M3GAN 2.0', category: 'Horror', img: './static/megan2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Powrót M3GAN.' },
-    { id: 'mercy', title: 'Mercy', category: 'Action', img: './static/mercy.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Detektyw w akcji.' },
-    { id: 'mickey17', title: 'Mickey 17', category: 'Sci-Fi', img: './static/mickey17.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Bong Joon-ho i klony.' },
-    { id: 'minecraft', title: 'Minecraft Movie', category: 'Sci-Fi', img: './static/minecraft.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Jack Black w świecie bloków.' },
-    { id: 'moonfall', title: 'Moonfall', category: 'Sci-Fi', img: './static/moonfall.jpg', rating: '5.1', date: '2022', trailer: '', desc: 'Księżyc spada na Ziemię.' },
-    { id: 'morbius', title: 'Morbius', category: 'Marvel', img: './static/morbius.jpg', rating: '5.2', date: '2022', trailer: '', desc: 'Wampir z komiksów Marvela.' },
-    { id: 'mortal', title: 'Mortal Kombat', category: 'Action', img: './static/mortal.jpg', rating: '6.0', date: '2021', trailer: '', desc: 'Turniej na śmierć i życie.' },
-    { id: 'mortal2', title: 'Mortal Kombat 2', category: 'Action', img: './static/mortal2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Johnny Cage wkracza do akcji.' },
-    { id: 'nakedgun', title: 'Naked Gun Reboot', category: 'Action', img: './static/nakedgun.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Liam Neeson jako Frank Drebin.' },
-    { id: 'niezniszczalni4', title: 'Expendables 4', category: 'Action', img: './static/niezniszczalni4.jpg', rating: '4.8', date: '2023', trailer: '', desc: 'Stara gwardia wraca.' },
-    { id: 'odyseja', title: '2001: Space Odyssey', category: 'Sci-Fi', img: './static/odyseja.jpg', rating: '8.3', date: '1968', trailer: '', desc: 'Klasyka Kubricka.' },
-    { id: 'operationfortune', title: 'Operation Fortune', category: 'Action', img: './static/operationfortune.jpg', rating: '6.3', date: '2023', trailer: '', desc: 'Szpiedzy Guya Ritchiego.' },
-    { id: 'oppenheimer', title: 'Oppenheimer', category: 'Action', img: './static/oppenhaimer.jpg', rating: '8.3', date: '2023', trailer: '', desc: 'Twórca bomby atomowej.' },
-    { id: 'pierwszygol', title: 'Next Goal Wins', category: 'Action', img: './static/pierwszygol.jpg', rating: '6.5', date: '2023', trailer: '', desc: 'Trener piłkarski na Samoa.' },
-    { id: 'plane', title: 'Plane', category: 'Action', img: './static/plane.jpg', rating: '6.5', date: '2023', trailer: '', desc: 'Awaryjne lądowanie na wyspie.' },
-    { id: 'pomocdomowa', title: 'Housemaid', category: 'Horror', img: './static/pomocdomowa.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Niebezpieczna praca.' },
-    { id: 'predator', title: 'Badlands (Predator)', category: 'Sci-Fi', img: './static/predator.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Nowy Predator.' },
-    { id: 'prey', title: 'Prey', category: 'Sci-Fi', img: './static/prey.jpg', rating: '7.1', date: '2022', trailer: '', desc: 'Predator kontra Komancze.' },
-    { id: 'psychokiller', title: 'Psycho Killer', category: 'Horror', img: './static/psychokiller.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Morderca w masce.' },
-    { id: 'pszczelarz', title: 'The Beekeeper', category: 'Action', img: './static/pszczelarz.jpg', rating: '6.4', date: '2024', trailer: '', desc: 'Jason Statham się mści.' },
-    { id: 'rebirth', title: 'Jurassic World: Rebirth', category: 'Sci-Fi', img: './static/rebirth.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Nowa era dinozaurów.' },
-    { id: 'redone', title: 'Red One', category: 'Action', img: './static/redone.jpg', rating: '6.8', date: '2024', trailer: '', desc: 'Ratowanie Świętego Mikołaja.' },
-    { id: 'renfield', title: 'Renfield', category: 'Horror', img: './static/renfield.jpg', rating: '6.4', date: '2023', trailer: '', desc: 'Sługa Draculi.' },
-    { id: 'riseofgru', title: 'Minions: Rise of Gru', category: 'Sci-Fi', img: './static/riseofgru.jpg', rating: '6.6', date: '2022', trailer: '', desc: 'Początki złoczyńcy.' },
-    { id: 'runningman', title: 'The Running Man', category: 'Sci-Fi', img: './static/runningman.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Śmiertelne show.' },
-    { id: 'sawx', title: 'Saw X', category: 'Horror', img: './static/sawx.jpg', rating: '6.6', date: '2023', trailer: '', desc: 'John Kramer w Meksyku.' },
-    { id: 'scarymovie', title: 'Scary Movie Reboot', category: 'Horror', img: './static/scarymovie.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Parodia horrorów.' },
-    { id: 'shangchi', title: 'Shang-Chi', category: 'Marvel', img: './static/shangchi.jpg', rating: '7.4', date: '2021', trailer: '', desc: 'Legenda dziesięciu pierścieni.' },
-    { id: 'shazam2', title: 'Shazam! Fury of Gods', category: 'Sci-Fi', img: './static/shazam2.jpg', rating: '6.0', date: '2023', trailer: '', desc: 'Bohaterowie kontra boginie.' },
-    { id: 'shelter', title: 'The Shelter', category: 'Horror', img: './static/shelter.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Klaustrofobiczny thriller.' },
-    { id: 'sisu', title: 'Sisu', category: 'Action', img: './static/sisu2.jpg', rating: '6.9', date: '2023', trailer: '', desc: 'Fina mści się na nazistach.' },
-    { id: 'spidermanNWH', title: 'Spider-Man: No Way Home', category: 'Marvel', img: './static/spidermanNWH.jpg', rating: '8.2', date: '2021', trailer: '', desc: 'Trzech Pajączków w jednym filmie.' },
-    { id: 'spiral', title: 'Spiral: From Book of Saw', category: 'Horror', img: './static/spiral.jpg', rating: '5.2', date: '2021', trailer: '', desc: 'Nowy naśladowca Jigsawa.' },
-    { id: 'supergirl', title: 'Supergirl: Woman of Tomorrow', category: 'Sci-Fi', img: './static/supergirl.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Kuzynka Supermana.' },
-    { id: 'superman', title: 'Superman', category: 'Sci-Fi', img: './static/superman.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Restart uniwersum DC.' },
-    { id: 'darkknight', title: 'The Dark Knight', category: 'Action', img: './static/thedarkknight.jpg', rating: '9.0', date: '2008', trailer: '', desc: 'Batman kontra Joker.' },
-    { id: 'thorlove', title: 'Thor: Love and Thunder', category: 'Marvel', img: './static/thorlove.jpg', rating: '6.2', date: '2022', trailer: '', desc: 'Thor i Jane Foster.' },
-    { id: 'thunderbolts', title: 'Thunderbolts*', category: 'Marvel', img: './static/thunderbolts.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Antybohaterowie Marvela.' },
-    { id: 'topgun', title: 'Top Gun: Maverick', category: 'Action', img: './static/topgun.jpg', rating: '8.2', date: '2022', trailer: '', desc: 'Powrót Mavericka.' },
-    { id: 'transformers', title: 'Transformers: Rise of Beasts', category: 'Sci-Fi', img: './static/transformers.jpg', rating: '6.0', date: '2023', trailer: '', desc: 'Maximoale w akcji.' },
-    { id: 'trap', title: 'Trap', category: 'Horror', img: './static/trap.jpg', rating: '6.0', date: '2024', trailer: '', desc: 'Seryjny morderca na koncercie.' },
-    { id: 'tron', title: 'Tron: Ares', category: 'Sci-Fi', img: './static/tronares.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Powrót do Gridu.' },
-    { id: 'ultimatum', title: 'Bourne Ultimatum', category: 'Action', img: './static/ultimatum.jpg', rating: '8.0', date: '2007', trailer: '', desc: 'Jason Bourne na finiszu.' },
-    { id: 'uncharted', title: 'Uncharted', category: 'Action', img: './static/uncharted.jpg', rating: '6.3', date: '2022', trailer: '', desc: 'Przygody Nathana Drake\'a.' },
-    { id: 'venom2', title: 'Venom: Let There Be Carnage', category: 'Marvel', img: './static/venom2.jpg', rating: '5.9', date: '2021', trailer: '', desc: 'Venom kontra Carnage.' },
-    { id: 'venom3', title: 'Venom: Last Dance', category: 'Marvel', img: './static/venom3.jpg', rating: '6.2', date: '2024', trailer: '', desc: 'Ostatni taniec Eddie\'ego.' },
-    { id: 'wakandaforever', title: 'Wakanda Forever', category: 'Marvel', img: './static/wakandaforever.jpg', rating: '6.7', date: '2022', trailer: '', desc: 'Pożegnanie T\'Challi.' },
-    { id: 'warfare', title: 'Warfare', category: 'Action', img: './static/warfare.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Film o wojnie.' },
-    { id: 'weapons', title: 'Weapons', category: 'Horror', img: './static/weapons.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Mroczna opowieść.' },
-    { id: 'wielkimarsz', title: 'The Long Walk', category: 'Horror', img: './static/wielkimarsz.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Ekranizacja Stephena Kinga.' },
-    { id: 'wolfman', title: 'Wolfman', category: 'Horror', img: './static/wolfman.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Klasyczny potwór w nowej odsłonie.' }
-];
+        // BAZA DANYCH - 131 FILMÓW
+        const movies = [
+            { id: 'm65', title: '65', category: 'Sci-Fi', img: './static/65.jpg', rating: '5.4/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=bHXejJq5VR0', desc: 'Astronauci lądują na Ziemi sprzed 65 mln lat.' },
+            { id: 'acrosstheverse', title: 'Spider-Man: Across the Spider-Verse', category: 'Marvel', img: './static/acrosstheverse.jpg', rating: '8.6/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=shW9i6k8cB0', desc: 'Miles Morales wyrusza w podróż przez Multiwersum.' },
+            { id: 'alienromolous', title: 'Alien: Romulus', category: 'Horror', img: './static/alienromolous.jpg', rating: '7.2/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=OzY2r2JXsDM', desc: 'Grupa młodych ludzi kontra ksenomorf.' },
+            { id: 'amator', title: 'Amator', category: 'Action', img: './static/amator.jpg', rating: '7.5/10', date: '2024', trailer: '', desc: 'Thriller akcji o człowieku, który nie ma nic do stracenia.' },
+            { id: 'ambulance', title: 'Ambulance', category: 'Action', img: './static/ambulance.jpg', rating: '6.1/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=7NU-STboFeI', desc: 'Ucieczka przez LA ambulansem po nieudanym skoku.' },
+            { id: 'anaconda', title: 'Anaconda', category: 'Action', img: './static/anaconda.jpg', rating: '4.9/10', date: '2025', trailer: '', desc: 'Ekipa filmowa kontra gigantyczny wąż.' },
+            { id: 'antman', title: 'Ant-Man & Wasp: Quantumania', category: 'Marvel', img: './static/antman.jpg', rating: '6.1/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=ZlNFpri-Y40', desc: 'Eksploracja wymiaru kwantowego i starcie z Kangiem.' },
+            { id: 'avatar', title: 'Avatar', category: 'Sci-Fi', img: './static/avatar.jpg', rating: '7.9/10', date: '2009', trailer: '', desc: 'Wyprawa na Pandorę.' },
+            { id: 'avatar2', title: 'Avatar: Way of Water', category: 'Sci-Fi', img: './static/avatar2.jpg', rating: '7.6/10', date: '2022', trailer: '', desc: 'Powrót do świata Na\'vi i eksploracja oceanów.' },
+            { id: 'avatar3', title: 'Avatar: Fire and Ash', category: 'Sci-Fi', img: './static/avatar3.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Trzecia część sagi Camerona.' },
+            { id: 'backrooms', title: 'The Backrooms', category: 'Horror', img: './static/backrooms.jpg', rating: '6.5/10', date: '2024', trailer: '', desc: 'Zjawiska paranormalne w nieskończonych korytarzach.' },
+            { id: 'badboysride', title: 'Bad Boys: Ride or Die', category: 'Action', img: './static/badboysride.jpg', rating: '7.0/10', date: '2024', trailer: '', desc: 'Mike i Marcus uciekają przed prawem.' },
+            { id: 'ballerina', title: 'Ballerina', category: 'Action', img: './static/ballerina.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Spin-off Johna Wicka z Aną de Armas.' },
+            { id: 'batman', title: 'The Batman', category: 'Action', img: './static/batman.jpg', rating: '7.8/10', date: '2022', trailer: '', desc: 'Bruce Wayne tropi Riddlera w mrocznym Gotham.' },
+            { id: 'blackadam', title: 'Black Adam', category: 'Action', img: './static/blackadam.jpg', rating: '6.3/10', date: '2022', trailer: '', desc: 'Starożytny antybohater powraca do współczesności.' },
+            { id: 'blackphone', title: 'The Black Phone', category: 'Horror', img: './static/blackphone.jpg', rating: '7.0/10', date: '2021', trailer: '', desc: 'Telefon od zmarłych ofiar seryjnego mordercy.' },
+            { id: 'blackphone2', title: 'The Black Phone 2', category: 'Horror', img: './static/blackphone2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Kontynuacja hitowego horroru.' },
+            { id: 'blackwidow', title: 'Black Widow', category: 'Marvel', img: './static/blackwidow.jpg', rating: '6.7/10', date: '2021', trailer: '', desc: 'Przeszłość Natashy Romanoff.' },
+            { id: 'bloodlines', title: 'Final Destination: Bloodlines', category: 'Horror', img: './static/bloodlines.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Śmierć powraca po nowe ofiary.' },
+            { id: 'bullettrain', title: 'Bullet Train', category: 'Action', img: './static/bullettrain.jpg', rating: '7.3/10', date: '2022', trailer: '', desc: 'Zabójcy w szybkim pociągu jadącym przez Japonię.' },
+            { id: 'buzzastral', title: 'Buzz Astral', category: 'Sci-Fi', img: './static/buzzastral.jpg', rating: '6.1/10', date: '2022', trailer: '', desc: 'Historia legendy Strażników Kosmosu.' },
+            { id: 'capitanamerica', title: 'Captain America: BNW', category: 'Marvel', img: './static/capitanamericabnw.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Sam Wilson jako nowy Kapitan Ameryka.' },
+            { id: 'carryon', title: 'Carry On', category: 'Action', img: './static/carryon.jpg', rating: '6.8/10', date: '2024', trailer: '', desc: 'Terrorysta na lotnisku szantażuje młodego agenta.' },
+            { id: 'civilwar', title: 'Civil War', category: 'Action', img: './static/civilwar.jpg', rating: '7.1/10', date: '2024', trailer: '', desc: 'Wojna domowa w USA widziana oczami fotoreporterów.' },
+            { id: 'coldstorage', title: 'Cold Storage', category: 'Horror', img: './static/coldstorage.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Wirus w tajnym laboratorium.' },
+            { id: 'creed3', title: 'Creed III', category: 'Action', img: './static/creed3.jpg', rating: '6.7/10', date: '2023', trailer: '', desc: 'Adonis walczy o swoje dziedzictwo.' },
+            { id: 'crime101', title: 'Crime 101', category: 'Action', img: './static/crime101.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Wielki napad na jubilera.' },
+            { id: 'deadpool', title: 'Deadpool & Wolverine', category: 'Marvel', img: './static/deadpool.jpg', rating: '8.2/10', date: '2024', trailer: '', desc: 'Duet wszechczasów ratuje multiwersum.' },
+            { id: 'deadreckoning', title: 'Mission Impossible 7', category: 'Action', img: './static/DeadReckoning.jpg', rating: '7.7/10', date: '2023', trailer: '', desc: 'Ethan Hunt kontra sztuczna inteligencja.' },
+            { id: 'diabel', title: 'Diabeł', category: 'Action', img: './static/diabel.jpg', rating: '6.5/10', date: '2024', trailer: '', desc: 'Polski thriller akcji o weteranie.' },
+            { id: 'disclousureday', title: 'Disclosure Day', category: 'Sci-Fi', img: './static/disclousureday.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Pierwszy oficjalny kontakt z obcymi.' },
+            { id: 'diuna3', title: 'Dune: Messiah', category: 'Sci-Fi', img: './static/diuna3.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Finał trylogii Paula Atrydy.' },
+            { id: 'drstrange2', title: 'Doctor Strange 2', category: 'Marvel', img: './static/doctorstrange2.jpg', rating: '6.9/10', date: '2022', trailer: '', desc: 'Wędrówka przez multiwersum obłędu.' },
+            { id: 'dominion', title: 'Jurassic World: Dominion', category: 'Sci-Fi', img: './static/dominion.jpg', rating: '5.6/10', date: '2022', trailer: '', desc: 'Dinozaury żyją wśród ludzi.' },
+            { id: 'doomsday', title: 'Avengers: Doomsday', category: 'Marvel', img: './static/doomsday.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Robert Downey Jr jako Dr Doom.' },
+            { id: 'dune', title: 'Dune: Part One', category: 'Sci-Fi', img: './static/dune.jpg', rating: '8.0/10', date: '2021', trailer: '', desc: 'Początek drogi Paula Atrydy na Arrakis.' },
+            { id: 'dune2', title: 'Dune: Part Two', category: 'Sci-Fi', img: './static/dune2.jpg', rating: '8.6/10', date: '2024', trailer: '', desc: 'Wojna wyzwoleńcza o przyprawę.' },
+            { id: 'elevation', title: 'Elevation', category: 'Sci-Fi', img: './static/elevation.jpg', rating: '6.4/10', date: '2024', trailer: '', desc: 'Świat opanowany przez potwory żyjące nisko.' },
+            { id: 'endgame', title: 'Avengers: Endgame', category: 'Marvel', img: './static/endgame.jpg', rating: '8.4/10', date: '2019', trailer: '', desc: 'Ostateczne starcie z Thanosem o losy świata.' },
+            { id: 'equalizer3', title: 'Equalizer 3', category: 'Action', img: './static/equalizer3.jpg', rating: '6.8/10', date: '2023', trailer: '', desc: 'Robert McCall kontra mafia we Włoszech.' },
+            { id: 'f1', title: 'F1', category: 'Action', img: './static/f1.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Brad Pitt jako kierowca Formuły 1.' },
+            { id: 'f4', title: 'Fantastic Four', category: 'Marvel', img: './static/f4.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Pierwsza rodzina MCU wkracza do akcji.' },
+            { id: 'fall', title: 'Fall', category: 'Action', img: './static/fall.jpg', rating: '6.4/10', date: '2022', trailer: '', desc: 'Dwie dziewczyny uwięzione na wieży radiowej.' },
+            { id: 'fallguy', title: 'The Fall Guy', category: 'Action', img: './static/fallguy.jpg', rating: '6.9/10', date: '2024', trailer: '', desc: 'Ryan Gosling jako kaskader w tarapatach.' },
+            { id: 'fastX', title: 'Fast X', category: 'Action', img: './static/fastX.jpg', rating: '5.8/10', date: '2023', trailer: '', desc: 'Dante Reyes mści się na rodzinie Toretto.' },
+            { id: 'ff9', title: 'Fast & Furious 9', category: 'Action', img: './static/FF9.jpg', rating: '5.2/10', date: '2021', trailer: '', desc: 'Pojedynek braci Toretto.' },
+            { id: 'flash', title: 'The Flash', category: 'Action', img: './static/flash.jpg', rating: '6.7/10', date: '2023', trailer: '', desc: 'Podróż w czasie, która psuje rzeczywistość.' },
+            { id: 'flightrisk', title: 'Flight Risk', category: 'Action', img: './static/flightrisk.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Mel Gibson reżyseruje thriller w samolocie.' },
+            { id: 'fnat1', title: 'Five Nights at Freddys', category: 'Horror', img: './static/fnat1.jpg', rating: '5.4/10', date: '2023', trailer: '', desc: 'Nocny stróż w pizzerii pełnej morderczych robotów.' },
+            { id: 'fnaf2', title: 'FNaF 2', category: 'Horror', img: './static/fnaf2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Kontynuacja kinowego hitu na podstawie gry.' },
+            { id: 'frendo', title: 'Frendo', category: 'Horror', img: './static/frendo.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Mordercza zabawka nowej generacji.' },
+            { id: 'furiosa', title: 'Furiosa: Mad Max', category: 'Sci-Fi', img: './static/furiosa.jpg', rating: '7.7/10', date: '2024', trailer: '', desc: 'Geneza wielkiej wojowniczki z drogi gniewu.' },
+            { id: 'ghostbusters', title: 'Ghostbusters: Frozen Empire', category: 'Sci-Fi', img: './static/ghostbusters.jpg', rating: '6.1/10', date: '2024', trailer: '', desc: 'Nowy Jork zamarza pod wpływem starożytnej mocy.' },
+            { id: 'gladiator', title: 'Gladiator', category: 'Action', img: './static/gladiator.jpg', rating: '8.5/10', date: '2000', trailer: '', desc: 'Generał staje się niewolnikiem, by pomścić rodzinę.' },
+            { id: 'gladiator2', title: 'Gladiator II', category: 'Action', img: './static/gladiator2.jpg', rating: '7.0/10', date: '2024', trailer: '', desc: 'Lucius wraca na arenę Koloseum.' },
+            { id: 'godzillavskong', title: 'Godzilla vs Kong', category: 'Sci-Fi', img: './static/godzillavskong.jpg', rating: '6.3/10', date: '2021', trailer: '', desc: 'Starcie dwóch największych tytanów.' },
+            { id: 'godzillaxkong', title: 'Godzilla x Kong', category: 'Sci-Fi', img: './static/godzillaxkong.jpg', rating: '6.1/10', date: '2024', trailer: '', desc: 'Sojusz potworów przeciwko nowemu zagrożeniu.' },
+            { id: 'grayman', title: 'The Gray Man', category: 'Action', img: './static/grayman.jpg', rating: '6.5/10', date: '2022', trailer: '', desc: 'Agent CIA odkrywa mroczne sekrety agencji.' },
+            { id: 'greenland2', title: 'Greenland: Migration', category: 'Action', img: './static/greenland2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Przetrwanie w świecie po uderzeniu komety.' },
+            { id: 'guardians3', title: 'Guardians of the Galaxy 3', category: 'Marvel', img: './static/guardians3.jpg', rating: '7.9/10', date: '2023', trailer: '', desc: 'Ostatnia misja Strażników w tym składzie.' },
+            { id: 'hailmarry', title: 'Project Hail Mary', category: 'Sci-Fi', img: './static/hailmarry.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Samotny astronauta ratuje ludzkość.' },
+            { id: 'iluzja3', title: 'Now You See Me 3', category: 'Action', img: './static/iluzja3.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Czterej Jeźdźcy powracają z nowymi trikami.' },
+            { id: 'inception', title: 'Inception', category: 'Sci-Fi', img: './static/inception.jpg', rating: '8.8/10', date: '2010', trailer: '', desc: 'Złodziej snów próbuje dokonać niemożliwego.' },
+            { id: 'interstellar', title: 'Interstellar', category: 'Sci-Fi', img: './static/interstellar.jpg', rating: '8.7/10', date: '2014', trailer: '', desc: 'Podróż przez czarną dziurę w poszukiwaniu domu.' },
+            { id: 'johnwick4', title: 'John Wick 4', category: 'Action', img: './static/johnwick4.jpg', rating: '7.7/10', date: '2023', trailer: '', desc: 'John rzuca wyzwanie całej Radzie Najwyższej.' },
+            { id: 'joker', title: 'Joker', category: 'Action', img: './static/joker.jpg', rating: '8.4/10', date: '2019', trailer: '', desc: 'Upadek psychiczny Arthura Flecka.' },
+            { id: 'joker2', title: 'Joker: Folie à Deux', category: 'Action', img: './static/joker2.jpg', rating: '5.2/10', date: '2024', trailer: '', desc: 'Arthur i Harley w muzycznym amoku.' },
+            { id: 'kraven', title: 'Kraven the Hunter', category: 'Marvel', img: './static/kraven.jpg', rating: 'COMING', date: '2024', trailer: '', desc: 'Krwawe polowanie antybohatera Marvela.' },
+            { id: 'krzyk5', title: 'Scream 5', category: 'Horror', img: './static/krzyk5.jpg', rating: '6.3/10', date: '2022', trailer: '', desc: 'Ghostface wraca do Woodsboro.' },
+            { id: 'krzyk6', title: 'Scream VI', category: 'Horror', img: './static/krzyk6.jpg', rating: '6.5/10', date: '2023', trailer: '', desc: 'Morderca w masce w samym centrum Nowego Jorku.' },
+            { id: 'krzyk7', title: 'Scream VII', category: 'Horror', img: './static/krzyk7.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Neve Campbell wraca jako Sidney Prescott.' },
+            { id: 'luther', title: 'Luther: Fallen Sun', category: 'Action', img: './static/luther.jpg', rating: '6.4/10', date: '2023', trailer: '', desc: 'Detektyw ucieka z więzienia, by dorwać psychopatę.' },
+            { id: 'madameweb', title: 'Madame Web', category: 'Marvel', img: './static/madameweb.jpg', rating: '3.9/10', date: '2024', trailer: '', desc: 'Cassandra Webb widzi przyszłość.' },
+            { id: 'majkel', title: 'Michael', category: 'Action', img: './static/majkel.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Historia życia Króla Popu.' },
+            { id: 'malpa', title: 'Kingdom of the Apes', category: 'Sci-Fi', img: './static/malpa.jpg', rating: '7.0/10', date: '2024', trailer: '', desc: 'Nowy król małp i poszukiwanie wolności.' },
+            { id: 'mandalorian', title: 'The Mandalorian & Grogu', category: 'Sci-Fi', img: './static/mandalorian.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Kinowa przygoda Mando i Baby Yody.' },
+            { id: 'martian', title: 'The Martian', category: 'Sci-Fi', img: './static/martian.jpg', rating: '8.0/10', date: '2015', trailer: '', desc: 'Człowiek próbuje przetrwać samotnie na Marsie.' },
+            { id: 'martysupreme', title: 'Marty Supreme', category: 'Action', img: './static/martysupreme.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Timothée Chalamet w świecie profesjonalnego ping-ponga.' },
+            { id: 'marvels', title: 'The Marvels', category: 'Marvel', img: './static/marvels.jpg', rating: '5.5/10', date: '2023', trailer: '', desc: 'Zamiana miejscami trzech superbohaterek.' },
+            { id: 'matrix', title: 'Matrix: Resurrections', category: 'Sci-Fi', img: './static/matrix.jpg', rating: '5.7/10', date: '2021', trailer: '', desc: 'Neo i Trinity znowu w symulacji.' },
+            { id: 'meg2', title: 'Meg 2: The Trench', category: 'Action', img: './static/meg2.jpg', rating: '5.0/10', date: '2023', trailer: '', desc: 'Więcej prehistorycznych rekinów.' },
+            { id: 'megalopolis', title: 'Megalopolis', category: 'Sci-Fi', img: './static/megalopolis.jpg', rating: '5.2/10', date: '2024', trailer: '', desc: 'Epicka wizja przyszłości Nowego Jorku.' },
+            { id: 'megan', title: 'M3GAN', category: 'Horror', img: './static/megan.jpg', rating: '6.4/10', date: '2022', trailer: '', desc: 'Robot-zabawka, która kocha za bardzo.' },
+            { id: 'megan2', title: 'M3GAN 2.0', category: 'Horror', img: './static/megan2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Powrót śmiercionośnej lalki AI.' },
+            { id: 'mercy', title: 'Mercy', category: 'Action', img: './static/mercy.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Kobieta detektyw ściga przestępcę.' },
+            { id: 'mickey17', title: 'Mickey 17', category: 'Sci-Fi', img: './static/mickey17.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Robot-klon, który nie chce umrzeć.' },
+            { id: 'minecraft', title: 'Minecraft Movie', category: 'Sci-Fi', img: './static/minecraft.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Ekranizacja najpopularniejszej gry świata.' },
+            { id: 'moonfall', title: 'Moonfall', category: 'Sci-Fi', img: './static/moonfall.jpg', rating: '5.1/10', date: '2022', trailer: '', desc: 'Tajemnicza siła spycha Księżyc na Ziemię.' },
+            { id: 'morbius', title: 'Morbius', category: 'Marvel', img: './static/morbius.jpg', rating: '5.2/10', date: '2022', trailer: '', desc: 'Żyjący wampir w uniwersum Spider-Mana.' },
+            { id: 'mortal', title: 'Mortal Kombat', category: 'Action', img: './static/mortal.jpg', rating: '6.0/10', date: '2021', trailer: '', desc: 'Krwawy turniej o losy Ziemi.' },
+            { id: 'mortal2', title: 'Mortal Kombat 2', category: 'Action', img: './static/mortal2.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Pojedynek mistrzów trwa dalej.' },
+            { id: 'nakedgun', title: 'Naked Gun Reboot', category: 'Action', img: './static/nakedgun.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Liam Neeson jako Frank Drebin.' },
+            { id: 'niezniszczalni4', title: 'Expendables 4', category: 'Action', img: './static/niezniszczalni4.jpg', rating: '4.8/10', date: '2023', trailer: '', desc: 'Ostatni raz starej ekipy twardzieli.' },
+            { id: 'odyseja', title: '2001: Space Odyssey', category: 'Sci-Fi', img: './static/odyseja.jpg', rating: '8.3/10', date: '1968', trailer: '', desc: 'Arcydzieło Kubricka o ewolucji ludzkości.' },
+            { id: 'operationfortune', title: 'Operation Fortune', category: 'Action', img: './static/operationfortune.jpg', rating: '6.3/10', date: '2023', trailer: '', desc: 'Szpiedzy Guya Ritchiego w akcji.' },
+            { id: 'oppenheimer', title: 'Oppenheimer', category: 'Action', img: './static/oppenhaimer.jpg', rating: '8.3/10', date: '2023', trailer: '', desc: 'Historia twórcy najpotężniejszej broni świata.' },
+            { id: 'pierwszygol', title: 'Next Goal Wins', category: 'Action', img: './static/pierwszygol.jpg', rating: '6.5/10', date: '2023', trailer: '', desc: 'Najgorsza drużyna świata próbuje strzelić gola.' },
+            { id: 'plane', title: 'Plane', category: 'Action', img: './static/plane.jpg', rating: '6.5/10', date: '2023', trailer: '', desc: 'Przetrwanie na wyspie po awaryjnym lądowaniu.' },
+            { id: 'pomocdomowa', title: 'Housemaid', category: 'Horror', img: './static/pomocdomowa.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Niepokojąca pomoc domowa ukrywa sekret.' },
+            { id: 'predator', title: 'Badlands (Predator)', category: 'Sci-Fi', img: './static/predator.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Nowe spojrzenie na kosmicznego łowcę.' },
+            { id: 'prey', title: 'Prey', category: 'Sci-Fi', img: './static/prey.jpg', rating: '7.1/10', date: '2022', trailer: '', desc: 'Predator poluje w XVIII wieku.' },
+            { id: 'psychokiller', title: 'Psycho Killer', category: 'Horror', img: './static/psychokiller.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Ucieczka przed zamaskowanym mordercą.' },
+            { id: 'pszczelarz', title: 'The Beekeeper', category: 'Action', img: './static/pszczelarz.jpg', rating: '6.4/10', date: '2024', trailer: '', desc: 'Zemsta emerytowanego agenta.' },
+            { id: 'rebirth', title: 'Jurassic World: Rebirth', category: 'Sci-Fi', img: './static/rebirth.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Scarlett Johansson w świecie dinozaurów.' },
+            { id: 'redone', title: 'Red One', category: 'Action', img: './static/redone.jpg', rating: '6.8/10', date: '2024', trailer: '', desc: 'Rock ratuje święta.' },
+            { id: 'renfield', title: 'Renfield', category: 'Horror', img: './static/renfield.jpg', rating: '6.4/10', date: '2023', trailer: '', desc: 'Sługa Draculi chce mieć wolne.' },
+            { id: 'riseofgru', title: 'Minions: Rise of Gru', category: 'Sci-Fi', img: './static/riseofgru.jpg', rating: '6.6/10', date: '2022', trailer: '', desc: 'Jak Gru stał się złoczyńcą.' },
+            { id: 'runningman', title: 'The Running Man', category: 'Sci-Fi', img: './static/runningman.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Śmiertelne show w przyszłości.' },
+            { id: 'sawx', title: 'Saw X', category: 'Horror', img: './static/sawx.jpg', rating: '6.6/10', date: '2023', trailer: '', desc: 'John Kramer gra w swoją grę w Meksyku.' },
+            { id: 'scarymovie', title: 'Scary Movie Reboot', category: 'Horror', img: './static/scarymovie.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Parodia współczesnych horrorów.' },
+            { id: 'shangchi', title: 'Shang-Chi', category: 'Marvel', img: './static/shangchi.jpg', rating: '7.4/10', date: '2021', trailer: '', desc: 'Mistrz kung-fu kontra dziesięć pierścieni.' },
+            { id: 'shazam2', title: 'Shazam! Fury of Gods', category: 'Sci-Fi', img: './static/shazam2.jpg', rating: '6.0/10', date: '2023', trailer: '', desc: 'Młodzi bohaterowie kontra mściwe boginie.' },
+            { id: 'shelter', title: 'The Shelter', category: 'Horror', img: './static/shelter.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Ucieczka do schronu przed końcem świata.' },
+            { id: 'sisu', title: 'Sisu', category: 'Action', img: './static/sisu2.jpg', rating: '6.9/10', date: '2023', trailer: '', desc: 'Jeden Fin kontra cały oddział nazistów.' },
+            { id: 'spidermanNWH', title: 'Spider-Man: No Way Home', category: 'Marvel', img: './static/spidermanNWH.jpg', rating: '8.2/10', date: '2021', trailer: '', desc: 'Multiwersum pajączków w jednym filmie.' },
+            { id: 'spiral', title: 'Spiral: Saw', category: 'Horror', img: './static/spiral.jpg', rating: '5.2/10', date: '2021', trailer: '', desc: 'Nowy naśladowca Jigsawa poluje na policjantów.' },
+            { id: 'supergirl', title: 'Supergirl', category: 'Sci-Fi', img: './static/supergirl.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Kuzynka Supermana w kinach.' },
+            { id: 'superman', title: 'Superman', category: 'Sci-Fi', img: './static/superman.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'James Gunn startuje z nowym DC.' },
+            { id: 'darkknight', title: 'The Dark Knight', category: 'Action', img: './static/thedarkknight.jpg', rating: '9.0/10', date: '2008', trailer: '', desc: 'Batman kontra chaos w wykonaniu Jokera.' },
+            { id: 'thorlove', title: 'Thor: Love and Thunder', category: 'Marvel', img: './static/thorlove.jpg', rating: '6.2/10', date: '2022', trailer: '', desc: 'Dwaj Thorowie kontra bogobójca.' },
+            { id: 'thunderbolts', title: 'Thunderbolts*', category: 'Marvel', img: './static/thunderbolts.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Ekipa wyrzutków Marvela.' },
+            { id: 'topgun', title: 'Top Gun: Maverick', category: 'Action', img: './static/topgun.jpg', rating: '8.2/10', date: '2022', trailer: '', desc: 'Maverick uczy młode pokolenie pilotów.' },
+            { id: 'transformers', title: 'Transformers: Beast', category: 'Sci-Fi', img: './static/transformers.jpg', rating: '6.0/10', date: '2023', trailer: '', desc: 'Autoboty i Maximalne w starciu.' },
+            { id: 'trap', title: 'Trap', category: 'Horror', img: './static/trap.jpg', rating: '6.0/10', date: '2024', trailer: '', desc: 'Seryjny morderca próbuje uciec z koncertu.' },
+            { id: 'tron', title: 'Tron: Ares', category: 'Sci-Fi', img: './static/tronares.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Program wkracza do świata ludzi.' },
+            { id: 'ultimatum', title: 'Bourne Ultimatum', category: 'Action', img: './static/ultimatum.jpg', rating: '8.0/10', date: '2007', trailer: '', desc: 'Jason Bourne poznaje całą prawdę o sobie.' },
+            { id: 'uncharted', title: 'Uncharted', category: 'Action', img: './static/uncharted.jpg', rating: '6.3/10', date: '2022', trailer: '', desc: 'Przygody Nathana Drake\'a na wielkim ekranie.' },
+            { id: 'venom2', title: 'Venom 2: Carnage', category: 'Marvel', img: './static/venom2.jpg', rating: '5.9/10', date: '2021', trailer: '', desc: 'Venom kontra jego morderczy potomek.' },
+            { id: 'venom3', title: 'Venom: Last Dance', category: 'Marvel', img: './static/venom3.jpg', rating: '6.2/10', date: '2024', trailer: '', desc: 'Ostatni rozdział przygód Eddiego i Venoma.' },
+            { id: 'wakandaforever', title: 'Wakanda Forever', category: 'Marvel', img: './static/wakandaforever.jpg', rating: '6.7/10', date: '2022', trailer: '', desc: 'Wakanda walczy o przetrwanie po stracie króla.' },
+            { id: 'warfare', title: 'Warfare', category: 'Action', img: './static/warfare.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Krwawy film wojenny od A24.' },
+            { id: 'weapons', title: 'Weapons', category: 'Horror', img: './static/weapons.jpg', rating: 'COMING', date: '2026', trailer: '', desc: 'Mroczny horror od twórcy Barbarzyńców.' },
+            { id: 'wielkimarsz', title: 'The Long Walk', category: 'Horror', img: './static/wielkimarsz.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Ekranizacja kultowej książki Stephena Kinga.' },
+            { id: 'wolfman', title: 'Wolfman', category: 'Horror', img: './static/wolfman.jpg', rating: 'COMING', date: '2025', trailer: '', desc: 'Wilkołak w nowej, przerażającej wersji.' }
+        ];
 
         let currentMovieId = null;
         let currentPage = 1;
-        const itemsPerPage = 6;
+        const itemsPerPage = 8;
         let filteredMovies = [...movies];
         let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
         let userLists = JSON.parse(localStorage.getItem('userCustomLists')) || [{ name: 'Moje Ulubione', movies: [] }];
 
-        // 1. ZIELONY COUNTDOWN (18.12.2026)
+        // COUNTDOWN
         function updateCountdown() {
             const target = new Date('December 18, 2026 00:00:00').getTime();
             const now = new Date().getTime();
             const diff = target - now;
-            
             const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
             const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
             document.getElementById('countdown').innerHTML = `
-                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Miesięcy</span></div>
-                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Dni</span></div>
-                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Godz</span></div>
-                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Min</span></div>`;
+                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-600 mt-2">Miesięcy</span></div>
+                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-600 mt-2">Dni</span></div>
+                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-600 mt-2">Godz</span></div>
+                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-600 mt-2">Min</span></div>`;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // 2. HERO BG ROTATION
+        // HERO BG
         function rotateHeroBg() {
             const randomMovie = movies[Math.floor(Math.random() * movies.length)];
             document.getElementById('hero-bg').style.backgroundImage = `url('${randomMovie.img}')`;
@@ -365,173 +305,98 @@
         setInterval(rotateHeroBg, 5000);
         rotateHeroBg();
 
-        // 3. LOGIKA KATALOGU (Naprawione Opisy)
+        // LIBRARY & TABLE
         function renderTable() {
             const startIndex = (currentPage - 1) * itemsPerPage;
             const paginatedData = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
             const tbody = document.getElementById('library-table-body');
             const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
 
-            tbody.innerHTML = paginatedData.map(m => {
-                const isLiked = wl.includes(m.id);
-                return `
+            tbody.innerHTML = paginatedData.map(m => `
                 <tr class="border-b border-zinc-800/50 hover:bg-green-500/5 transition-all group">
                     <td class="p-4 md:p-6 flex items-center gap-4">
-                        <img src="${m.img}" class="w-12 h-16 object-cover rounded-lg shadow-xl shrink-0">
-                        <span class="font-black italic uppercase text-lg leading-none">${m.title}</span>
+                        <img src="${m.img}" class="w-12 h-16 object-cover rounded-lg shrink-0" onerror="this.src='https://via.placeholder.com/150x200?text=Brak+Plakatu'">
+                        <span class="font-black italic uppercase text-lg">${m.title}</span>
                     </td>
                     <td class="p-4 md:p-6 text-zinc-500 font-black text-xs uppercase">${m.category}</td>
                     <td class="p-4 md:p-6 text-zinc-400 font-bold italic">${m.date}</td>
                     <td class="p-4 md:p-6 font-black text-green-500 italic">★ ${m.rating}</td>
                     <td class="p-4 md:p-6 text-right">
                         <div class="flex items-center justify-end gap-3">
-                            <button onclick="toggleWatchlist('${m.id}')" class="text-zinc-600 transition ${isLiked ? 'heart-active' : ''}">❤</button>
-                            <select onchange="addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[10px] rounded p-1 outline-none font-black uppercase">
-                                <option value="">+ Lista</option>
-                                ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
-                            </select>
-                            <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-green-600 group-hover:text-black px-4 md:px-6 py-2 rounded-full text-[10px] font-black uppercase transition-all text-white">Opis</button>
+                            <button onclick="toggleWatchlist('${m.id}')" class="text-zinc-600 transition ${wl.includes(m.id) ? 'text-green-500 scale-125' : ''}">❤</button>
+                            <button onclick="openModalById('${m.id}')" class="bg-zinc-800 hover:bg-green-600 hover:text-black px-6 py-2 rounded-full text-[10px] font-black uppercase transition-all">Opis</button>
                         </div>
                     </td>
-                </tr>`;}).join('');
+                </tr>`).join('');
             renderPagination();
         }
 
         function openModalById(id) {
-            // FIX: Najpierw czyścimy modal, żeby nie pokazywał starych danych przy lagach
-            document.getElementById('modal-title').innerText = "Ładowanie...";
-            document.getElementById('modal-desc').innerText = "";
-            
             const m = movies.find(x => x.id === id);
             if(!m) return;
             currentMovieId = m.id;
+            // Clear content before showing
             document.getElementById('modal-title').innerText = m.title;
             document.getElementById('modal-img').src = m.img;
             document.getElementById('modal-desc').innerText = m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
-            document.getElementById('modal-date').innerText = m.date;
-            document.getElementById('modal-trailer-link').href = m.trailer;
-            
-            const saved = localStorage.getItem(`rating-${m.id}`);
-            document.getElementsByName('u-rating').forEach(s => s.checked = (s.value === saved));
+            document.getElementById('modal-trailer-link').href = m.trailer || '#';
             toggleModal('movie-modal', true);
         }
 
-        // --- NAWIGACJA & AUTH ---
+        // NAVIGATION
         function hideAll() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); }
         function showHome() { hideAll(); document.getElementById('home-page').classList.remove('hidden-section'); }
         function showLibrary() { hideAll(); document.getElementById('library-page').classList.remove('hidden-section'); renderTable(); }
         function showMyLists() { hideAll(); document.getElementById('lists-page').classList.remove('hidden-section'); renderCustomLists(); }
 
+        // AUTH
         function handleLogin(e) { e.preventDefault(); localStorage.setItem('hubUser', document.getElementById('username').value); location.reload(); }
         function logout() { localStorage.removeItem('hubUser'); location.reload(); }
-
         function updateAuthUI() { 
             const user = localStorage.getItem('hubUser');
             if(user) {
                 document.getElementById('auth-section').innerHTML = `
-                    <span class="text-white font-black italic underline decoration-green-600 decoration-4 text-xs uppercase mr-2">${user}</span>
-                    <button onclick="logout()" class="text-[9px] font-black uppercase text-red-600 hover:text-white transition">Wyloguj</button>
+                    <span class="text-white font-black italic text-xs uppercase mr-2">${user}</span>
+                    <button onclick="logout()" class="text-[9px] font-black uppercase text-red-600">Wyloguj</button>
                 `;
             }
         }
 
-        // --- CUSTOM LISTS ---
-        function createNewList() {
-            const name = prompt("Podaj nazwę listy:");
-            if(name) { userLists.push({name, movies:[]}); saveLists(); renderCustomLists(); }
-        }
-        function saveLists() { localStorage.setItem('userCustomLists', JSON.stringify(userLists)); }
-        function addToList(movieId, idx) { 
-            if(idx === "") return;
-            if(!userLists[idx].movies.includes(movieId)) { userLists[idx].movies.push(movieId); saveLists(); alert("Dodano do listy!"); }
-        }
-
-        function renderCustomLists() {
-            const container = document.getElementById('custom-lists-container');
-            const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
-            
-            let html = `<div class="bg-green-600/10 p-8 rounded-[40px] border border-green-600/20 mb-12">
-                <h3 class="text-2xl font-black italic uppercase text-green-500 mb-6">❤ Watchlista</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    ${wl.map(id => {
-                        const m = movies.find(x => x.id === id);
-                        return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4">
-                            <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl shadow-lg">
-                            <h4 class="font-black italic uppercase text-sm">${m.title}</h4>
-                        </div>`;}).join('')}
-                </div>
-            </div>`;
-
-            html += userLists.map((list, i) => `
-                <div class="bg-zinc-900/50 p-8 rounded-[40px] border border-zinc-800">
-                    <div class="flex justify-between items-center mb-8">
-                        <h3 class="text-3xl font-black italic uppercase text-white underline decoration-green-600 decoration-4">${list.name}</h3>
-                        <div class="flex gap-4">
-                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-zinc-500 hover:text-white transition">Zmień nazwę</button>
-                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-red-600 transition">Usuń listę</button>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        ${list.movies.map(id => {
-                            const m = movies.find(x => x.id === id);
-                            return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4 group">
-                                <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl">
-                                <div class="flex-1 text-left"><h4 class="font-black italic uppercase text-sm mb-1">${m.title}</h4></div>
-                                <button onclick="userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveLists();renderCustomLists();" class="text-red-500 text-[10px]">✕</button>
-                            </div>`;}).join('')}
-                    </div>
-                </div>`).join('');
-            container.innerHTML = html;
-        }
-
-        // --- SORT & SEARCH ---
-        function sortMovies(criteria) {
-            if (criteria === 'date') filteredMovies.sort((a, b) => b.date - a.date);
-            else if (criteria === 'rating') filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+        function handleSearch() {
+            const t = document.getElementById('movie-search').value.toLowerCase();
+            filteredMovies = movies.filter(m => m.title.toLowerCase().includes(t));
             currentPage = 1; renderTable();
         }
+
         function toggleWatchlist(id) {
             let wl = JSON.parse(localStorage.getItem('watchlist')) || [];
             wl = wl.includes(id) ? wl.filter(x => x !== id) : [...wl, id];
             localStorage.setItem('watchlist', JSON.stringify(wl));
             renderTable();
         }
-        function handleSearch() { const t = document.getElementById('movie-search').value.toLowerCase(); filteredMovies = movies.filter(m => m.title.toLowerCase().includes(t)); currentPage = 1; renderTable(); }
-        function filterCategory(cat) { 
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                if (btn.innerText === cat) { btn.classList.replace('bg-zinc-900', 'bg-green-600'); btn.classList.replace('text-zinc-400', 'text-black'); }
-                else { btn.classList.replace('bg-green-600', 'bg-zinc-900'); btn.classList.replace('text-black', 'text-zinc-400'); }
-            });
-            filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
-            currentPage = 1; renderTable();
-        }
 
-        // --- INIT ---
-        function initSlider() {
-            document.getElementById('main-slider').innerHTML = [...movies, ...movies].map(m => `
-                <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
-                    <img src="${m.img}" class="w-full h-[400px] object-cover">
-                    <div class="p-6 text-center font-black italic uppercase tracking-tighter">
-                        <div class="text-xl mb-1">${m.title}</div>
-                        <div class="text-green-500 text-xs italic">★ ${m.rating}</div>
-                    </div>
-                </div>`).join('');
-        }
         function renderPagination() {
             const total = Math.ceil(filteredMovies.length / itemsPerPage);
             let html = '';
             for (let i = 1; i <= total; i++) {
-                html += `<button onclick="currentPage=${i};renderTable()" class="w-10 h-10 border border-zinc-800 rounded-lg font-black italic ${i === currentPage ? 'bg-green-600 text-black' : 'text-zinc-500'}">${i}</button>`;
+                html += `<button onclick="currentPage=${i};renderTable()" class="w-10 h-10 border border-zinc-800 rounded-lg font-black ${i === currentPage ? 'bg-green-600 text-black' : 'text-zinc-500'}">${i}</button>`;
             }
             document.getElementById('pagination-controls').innerHTML = html;
         }
 
         function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
-        document.getElementById('star-group').addEventListener('change', (e) => { if (currentMovieId) localStorage.setItem(`rating-${currentMovieId}`, e.target.value); });
 
+        // INIT
         updateAuthUI();
-        initSlider();
+        document.getElementById('main-slider').innerHTML = [...movies].sort(() => 0.5 - Math.random()).slice(0, 15).map(m => `
+            <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
+                <img src="${m.img}" class="w-full h-[400px] object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Film'">
+                <div class="p-6 text-center font-black uppercase italic">
+                    <div class="text-xl mb-1">${m.title}</div>
+                    <div class="text-green-500 text-xs">★ ${m.rating}</div>
+                </div>
+            </div>`).join('');
     </script>
 </body>
 </html>
