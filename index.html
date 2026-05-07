@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Hub | Worldwide Film Reviews</title>
+    <title>Movie Hub | My Lists & Reviews</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -49,6 +49,7 @@
             <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-red-600 tracking-tighter uppercase italic cursor-pointer">Movie Hub</h1>
             <div class="flex items-center space-x-4 md:space-x-8">
                 <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
+                <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
                 <div id="auth-section">
                     <button onclick="toggleModal('login-modal', true)" class="bg-red-600 hover:bg-red-700 text-white px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px] transition-all">Zaloguj się</button>
                 </div>
@@ -107,23 +108,23 @@
                         <tbody id="library-table-body"></tbody>
                     </table>
                 </div>
-                <!-- PAGINACJA -->
                 <div id="pagination-controls" class="flex justify-center items-center gap-2 md:gap-4 mt-6"></div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL FILMU -->
+    <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-4 md:p-5 py-8 md:py-12 text-center">
+        <h2 class="text-4xl font-black italic uppercase tracking-tighter text-red-600 mb-8">Twoja Osobista Lista</h2>
+        <div id="my-list-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        <div id="empty-list-msg" class="text-zinc-500 mt-10 hidden italic">Twoja lista jest pusta. Dodaj filmy w sekcji Katalog.</div>
+    </div>
+
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[30px] md:rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh] md:h-[85vh]">
             <button onclick="toggleModal('movie-modal', false)" class="absolute top-4 right-4 md:top-8 md:right-8 z-50 bg-white text-black w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:bg-red-600 hover:text-white transition-all">✕</button>
             <div class="w-full md:w-2/5 h-48 md:h-full relative group shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
-                <a id="modal-trailer-link" href="#" target="_blank" class="absolute inset-0 flex items-center justify-center bg-black/40 md:opacity-0 group-hover:opacity-100 transition-all">
-                    <div class="bg-red-600 p-4 md:p-6 rounded-full transform hover:scale-110 transition">
-                        <svg class="h-6 w-6 md:h-10 md:w-10 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </div>
-                </a>
             </div>
             <div class="flex-1 p-6 md:p-12 flex flex-col justify-between overflow-y-auto">
                 <div>
@@ -141,7 +142,7 @@
                     </div>
                 </div>
                 <div class="pt-6 border-t border-zinc-800">
-                    <h4 class="text-xs font-black uppercase italic mb-3">Oceń ten tytuł:</h4>
+                    <h4 class="text-xs font-black uppercase italic mb-3">Twoja Prywatna Ocena:</h4>
                     <div class="star-rating" id="star-group">
                         <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
                         <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
@@ -160,7 +161,6 @@
         </div>
     </div>
 
-    <!-- MODAL LOGOWANIA -->
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
         <div class="bg-zinc-900 p-8 md:p-12 rounded-[30px] md:rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4">
             <button onclick="toggleModal('login-modal', false)" class="absolute top-6 right-6 text-zinc-500 hover:text-white">✕</button>
@@ -168,7 +168,7 @@
             <form onsubmit="handleLogin(event)" class="space-y-4">
                 <input type="text" id="username" placeholder="Użytkownik" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-600 transition-all text-white">
                 <input type="password" placeholder="Hasło" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-600 transition-all text-white">
-                <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all">Wejdź</button>
+                <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all text-white">Wejdź</button>
             </form>
         </div>
     </div>
@@ -233,12 +233,87 @@
             `).join('');
         }
 
+        // --- NAWIGACJA ---
+        function hideAll() {
+            document.getElementById('home-page').classList.add('hidden-section');
+            document.getElementById('library-page').classList.add('hidden-section');
+            document.getElementById('lists-page').classList.add('hidden-section');
+        }
+
+        function showLibrary() {
+            hideAll();
+            document.getElementById('library-page').classList.remove('hidden-section');
+            filterCategory('Wszystkie');
+            window.scrollTo(0,0);
+        }
+
+        function showHome() {
+            hideAll();
+            document.getElementById('home-page').classList.remove('hidden-section');
+            window.scrollTo(0,0);
+        }
+
+        function showMyLists() {
+            hideAll();
+            document.getElementById('lists-page').classList.remove('hidden-section');
+            renderMyList();
+            window.scrollTo(0,0);
+        }
+
+        // --- LOGIKA LIST I OCEN ---
+        function addToMyList(id) {
+            let myList = JSON.parse(localStorage.getItem('myMovieHubList')) || [];
+            if (!myList.includes(id)) {
+                myList.push(id);
+                localStorage.setItem('myMovieHubList', JSON.stringify(myList));
+                alert('Film dodany do Twojej listy!');
+            } else {
+                alert('Ten film już jest na Twojej liście.');
+            }
+        }
+
+        function removeFromMyList(id) {
+            let myList = JSON.parse(localStorage.getItem('myMovieHubList')) || [];
+            myList = myList.filter(movieId => movieId !== id);
+            localStorage.setItem('myMovieHubList', JSON.stringify(myList));
+            renderMyList();
+        }
+
+        function renderMyList() {
+            const container = document.getElementById('my-list-container');
+            const emptyMsg = document.getElementById('empty-list-msg');
+            const myListIds = JSON.parse(localStorage.getItem('myMovieHubList')) || [];
+            
+            if (myListIds.length === 0) {
+                container.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            const listMovies = movies.filter(m => myListIds.includes(m.id));
+            
+            container.innerHTML = listMovies.map(m => {
+                const myRating = localStorage.getItem(`rating-${m.id}`) || 'Brak';
+                return `
+                    <div class="bg-zinc-900 rounded-3xl border border-zinc-800 p-4 transition-all hover:border-red-600">
+                        <img src="${m.img}" class="w-full h-64 object-cover rounded-2xl mb-4">
+                        <h3 class="text-xl font-black italic uppercase text-white">${m.title}</h3>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-zinc-500 text-xs uppercase font-bold">Twoja Ocena: <span class="text-yellow-500">★ ${myRating}</span></span>
+                            <button onclick="removeFromMyList('${m.id}')" class="text-red-500 text-[10px] uppercase font-black hover:underline italic">Usuń</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // --- TABELA I FILTRY ---
         function renderTable() {
             const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const paginatedData = filteredMovies.slice(startIndex, endIndex);
-
+            const paginatedData = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
             const tbody = document.getElementById('library-table-body');
+
             tbody.innerHTML = paginatedData.map(m => `
                 <tr class="border-b border-zinc-800/50 hover:bg-white/5 transition-colors group">
                     <td class="p-4 md:p-6 flex items-center gap-3 md:gap-4">
@@ -248,7 +323,8 @@
                     <td class="p-4 md:p-6 text-zinc-500 font-black text-[9px] md:text-xs uppercase italic tracking-widest">${m.category}</td>
                     <td class="p-4 md:p-6 text-zinc-400 font-bold italic text-sm md:text-base">${m.date}</td>
                     <td class="p-4 md:p-6 font-black text-red-600 italic tracking-tighter text-sm md:text-base whitespace-nowrap">★ ${m.rating}</td>
-                    <td class="p-4 md:p-6 text-right">
+                    <td class="p-4 md:p-6 text-right space-x-2">
+                        <button onclick="addToMyList('${m.id}')" class="bg-zinc-700 hover:bg-white hover:text-black px-3 py-1 rounded-full text-[8px] font-black uppercase transition-all">Do listy</button>
                         <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-red-600 px-4 md:px-6 py-2 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-widest transition-all italic text-white">Opis</button>
                     </td>
                 </tr>
@@ -260,14 +336,9 @@
         function renderPagination() {
             const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
             const container = document.getElementById('pagination-controls');
-            
             let html = '';
             for (let i = 1; i <= totalPages; i++) {
-                html += `
-                    <button onclick="changePage(${i})" class="page-btn w-8 h-8 md:w-10 md:h-10 border border-zinc-800 rounded-lg font-black italic text-xs md:text-sm transition-all hover:border-red-600 ${i === currentPage ? 'active' : 'text-zinc-500'}">
-                        ${i}
-                    </button>
-                `;
+                html += `<button onclick="changePage(${i})" class="page-btn w-8 h-8 md:w-10 md:h-10 border border-zinc-800 rounded-lg font-black italic text-xs md:text-sm transition-all hover:border-red-600 ${i === currentPage ? 'active' : 'text-zinc-500'}">${i}</button>`;
             }
             container.innerHTML = html;
         }
@@ -301,19 +372,7 @@
             renderTable();
         }
 
-        function showLibrary() {
-            document.getElementById('home-page').classList.add('hidden-section');
-            document.getElementById('library-page').classList.remove('hidden-section');
-            filterCategory('Wszystkie');
-            window.scrollTo(0,0);
-        }
-
-        function showHome() {
-            document.getElementById('library-page').classList.add('hidden-section');
-            document.getElementById('home-page').classList.remove('hidden-section');
-            window.scrollTo(0,0);
-        }
-
+        // --- MODALE ---
         function toggleModal(id, show) {
             document.getElementById(id).style.display = show ? 'flex' : 'none';
             document.body.style.overflow = show ? 'hidden' : 'auto';
@@ -327,7 +386,13 @@
             document.getElementById('modal-desc').innerText = m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
-            document.getElementById('modal-trailer-link').href = m.trailer;
+            
+            const savedRating = localStorage.getItem(`rating-${m.id}`);
+            document.getElementsByName('u-rating').forEach(radio => {
+                radio.checked = (radio.value === savedRating);
+            });
+            document.getElementById('save-status').innerText = savedRating ? 'Twoja ocena została zapisana!' : '';
+            
             toggleModal('movie-modal', true);
         }
 
@@ -352,6 +417,18 @@
         }
 
         function logout() { localStorage.removeItem('hubUser'); location.reload(); }
+
+        // Zapisywanie oceny
+        document.getElementById('star-group').addEventListener('change', (e) => {
+            if (currentMovieId) {
+                localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
+                document.getElementById('save-status').innerText = 'Dziękujemy za ocenę!';
+                // Jeśli użytkownik jest na stronie list, odśwież widok
+                if (!document.getElementById('lists-page').classList.contains('hidden-section')) {
+                    renderMyList();
+                }
+            }
+        });
 
         updateAuthUI();
         initSlider();
