@@ -9,11 +9,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #09090b; scroll-behavior: smooth; color: white; overflow-x: hidden; }
         
-        /* Dynamiczne tło Hero */
         #hero-bg { position: absolute; inset: 0; z-index: -1; transition: background-image 1.5s ease-in-out; background-size: cover; background-position: center; filter: brightness(0.2) blur(8px); }
         .hero-gradient { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent, #09090b); }
 
-        /* Slider */
         .slider-container { width: 100%; overflow: hidden; padding: 20px 0; }
         .slider-track { display: flex; gap: 1.5rem; width: max-content; animation: scroll 100s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 0.75rem)); } }
@@ -21,7 +19,7 @@
         
         .movie-card { width: 260px; flex-shrink: 0; transition: transform 0.2s; cursor: pointer; border-radius: 24px; overflow: hidden; border: 1px solid #27272a; }
         @media (min-width: 768px) { .movie-card { width: 300px; } }
-        .movie-card:hover { transform: scale(1.05); border-color: #dc2626; }
+        .movie-card:hover { transform: scale(1.05); border-color: #22c55e; }
 
         .hidden-section { display: none !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 15px; }
@@ -29,25 +27,26 @@
         .star-rating { direction: rtl; display: inline-flex; }
         .star-rating input { display: none; }
         .star-rating label { color: #333; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
-        .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label { color: #facc15; }
+        .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label { color: #22c55e; }
 
         .custom-scroll::-webkit-scrollbar { height: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
-        .page-btn.active { background-color: #dc2626; color: white; border-color: #dc2626; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 10px; }
+        .page-btn.active { background-color: #22c55e; color: black; border-color: #22c55e; }
         
-        .heart-active { color: #dc2626 !important; transform: scale(1.2); }
+        .heart-active { color: #22c55e !important; transform: scale(1.2); }
+        .doomsday-text { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
     </style>
 </head>
-<body class="selection:bg-red-600">
+<body class="selection:bg-green-600">
 
     <nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 md:p-5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-red-600 tracking-tighter uppercase italic cursor-pointer">Movie Hub</h1>
+            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer text-green-500">Movie Hub</h1>
             <div class="flex items-center space-x-4 md:space-x-8">
                 <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
                 <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
                 <div id="auth-section">
-                    <button onclick="toggleModal('login-modal', true)" class="bg-red-600 hover:bg-red-700 text-white px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
+                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
                 </div>
             </div>
         </div>
@@ -58,8 +57,8 @@
             <div id="hero-bg"></div>
             <div class="hero-gradient"></div>
             <div class="relative z-10">
-                <h2 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-600 leading-none">
-                    HISTORIE, <span class="text-red-600">KTÓRE</span> ZOSTAJĄ.
+                <h2 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-green-900 leading-none">
+                    HISTORIE, <span class="text-green-500">KTÓRE</span> ZOSTAJĄ.
                 </h2>
             </div>
         </header>
@@ -69,21 +68,18 @@
         </div>
 
         <section class="max-w-4xl mx-auto px-5 py-10 text-center">
-            <div class="bg-zinc-900/50 border border-zinc-800 rounded-[40px] p-8">
-                <h3 class="text-red-600 font-black italic uppercase tracking-widest text-xs mb-4">Najbliższa wielka premiera: Avengers Doomsday</h3>
-                <div id="countdown" class="text-3xl md:text-5xl font-black italic flex justify-center gap-6">
-                    <div>00<span class="block text-[10px] text-zinc-500 uppercase not-italic">Dni</span></div>
-                    <div>00<span class="block text-[10px] text-zinc-500 uppercase not-italic">Godz</span></div>
-                    <div>00<span class="block text-[10px] text-zinc-500 uppercase not-italic">Min</span></div>
-                </div>
+            <div class="bg-zinc-900/50 border border-zinc-800 rounded-[40px] p-8 border-green-900/30">
+                <h3 class="text-green-500 font-black italic uppercase tracking-widest text-xs mb-6">DOOMSDAY ARRIVAL: 18.12.2026</h3>
+                <div id="countdown" class="text-3xl md:text-6xl font-black italic flex justify-center gap-4 md:gap-10">
+                    </div>
             </div>
         </section>
 
         <section class="bg-zinc-900/30 border-y border-zinc-800 py-24 px-5 mt-10 text-center">
-            <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-red-600">Legendą</span> Kina</h2>
+            <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-green-500">Legendą</span> Kina</h2>
             <form class="flex flex-col sm:flex-row gap-3 mt-8 max-w-2xl mx-auto">
-                <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-red-600 outline-none">
-                <button type="button" class="bg-red-600 font-black px-10 py-4 rounded-xl uppercase italic">Dołącz</button>
+                <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-green-600 outline-none transition-all">
+                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic">Dołącz</button>
             </form>
         </section>
     </main>
@@ -92,25 +88,22 @@
         <div class="flex flex-col lg:flex-row gap-8 md:gap-12">
             <aside class="lg:w-64 space-y-6">
                 <div>
-                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic underline decoration-red-600 decoration-2 underline-offset-8">Gatunki</h3>
+                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic underline decoration-green-600 decoration-2 underline-offset-8">Gatunki</h3>
                     <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 custom-scroll" id="category-btns">
-                        <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-red-600 text-white w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Wszystkie</button>
+                        <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-green-600 text-black px-6 py-3 rounded-xl font-black italic uppercase text-xs">Wszystkie</button>
                         <button onclick="filterCategory('Marvel')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Marvel</button>
                         <button onclick="filterCategory('Action')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Action</button>
                         <button onclick="filterCategory('Sci-Fi')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Sci-Fi</button>
                         <button onclick="filterCategory('Horror')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Horror</button>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic">Sortowanie</h3>
-                    <div class="flex flex-col gap-2">
-                        <button onclick="sortMovies('date')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white">Data wydania</button>
-                        <button onclick="sortMovies('rating')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white">Najwyższa ocena</button>
-                    </div>
+                <div class="flex flex-col gap-2 border-t border-zinc-800 pt-6">
+                    <button onclick="sortMovies('date')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Data</button>
+                    <button onclick="sortMovies('rating')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Ocena</button>
                 </div>
             </aside>
             <div class="flex-1 overflow-hidden">
-                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Szukaj filmu..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-red-600 text-white text-xl">
+                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Szukaj filmu..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-green-600 text-white text-xl">
                 <div class="bg-zinc-900/50 rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
                     <table class="w-full text-left border-collapse min-w-[600px]">
                         <thead>
@@ -128,36 +121,36 @@
 
     <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
         <div class="flex justify-between items-center mb-10">
-            <h2 class="text-4xl font-black italic uppercase text-red-600 tracking-tighter">Twoje Listy</h2>
-            <button onclick="createNewList()" class="bg-red-600 px-6 py-3 rounded-2xl font-black uppercase italic text-xs tracking-widest text-white">Nowa lista +</button>
+            <h2 class="text-4xl font-black italic uppercase text-green-500 tracking-tighter">Twoje Listy</h2>
+            <button onclick="createNewList()" class="bg-green-600 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-xs tracking-widest">Nowa lista +</button>
         </div>
         <div id="custom-lists-container" class="space-y-12"></div>
     </div>
 
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="toggleModal('movie-modal', false)" class="absolute top-4 right-4 z-50 bg-white text-black w-8 h-8 rounded-full font-bold">✕</button>
-            <div class="w-full md:w-2/5 h-48 md:h-full relative shrink-0">
+            <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-green-500 text-black w-10 h-10 rounded-full font-bold">✕</button>
+            <div class="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
             </div>
             <div class="flex-1 p-8 md:p-12 overflow-y-auto flex flex-col justify-between">
                 <div>
-                    <h2 id="modal-title" class="text-4xl md:text-5xl font-black italic uppercase mb-4 text-red-600"></h2>
-                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8"></p>
+                    <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
+                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
                     <div class="flex gap-4 mb-8">
                         <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic text-white">Krytycy</span>
+                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Score</span>
                             <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
                         </div>
                         <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic text-white">Premiera</span>
+                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Rok</span>
                             <span id="modal-date" class="text-xl font-black italic"></span>
                         </div>
                     </div>
-                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-red-600 text-white px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest mb-10">Oglądaj Trailer</a>
+                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10">Obejrzyj Trailer</a>
                 </div>
                 <div class="pt-6 border-t border-zinc-800">
-                    <h4 class="text-xs font-black uppercase italic mb-3">Twoja Ocena:</h4>
+                    <h4 class="text-xs font-black uppercase italic mb-3 text-zinc-500">Twoja Prywatna Ocena:</h4>
                     <div class="star-rating" id="star-group">
                         <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
                         <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
@@ -177,20 +170,24 @@
 
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
         <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4 text-center">
-            <h2 class="text-3xl font-black italic uppercase mb-8 text-red-600">Zaloguj się</h2>
+            <h2 class="text-3xl font-black italic uppercase mb-8 text-green-500">Movie Hub</h2>
             <form onsubmit="handleLogin(event)" class="space-y-4">
                 <input type="text" id="username" placeholder="Nick" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl text-white outline-none">
-                <button type="submit" class="w-full bg-red-600 py-4 rounded-2xl font-black uppercase text-white">Wejdź</button>
+                <button type="submit" class="w-full bg-green-600 py-4 rounded-2xl font-black uppercase text-black">Wejdź</button>
             </form>
         </div>
     </div>
+
+    <footer class="py-12 text-center text-zinc-600 text-[10px] font-bold uppercase tracking-widest italic border-t border-zinc-900 mt-10">
+        &copy; 2026 Movie Hub. Worldwide Cinema Authority.
+    </footer>
 
     <script>
         const movies = [
             { id: 'batman', title: 'The Batman', category: 'Action', img: './static/batman.jpg', rating: '7.8/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=mqqft2x_Aa4', desc: 'Mroczny rycerz Gotham tropi Riddlera.' },
             { id: 'f4', title: 'Fantastic Four', category: 'Marvel', img: './static/f4.jpg', rating: '6.8/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=18QQWa5MEcs', desc: 'Pierwsza Rodzina Marvela w MCU.' },
             { id: 'f1', title: 'F1', category: 'Action', img: './static/f1.jpg', rating: '7.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=69ffwl-8pCU', desc: 'Brad Pitt w świecie Formuły 1.' },
-            { id: 'doomsday', title: 'Avengers: Doomsday', category: 'Marvel', img: './static/doomsday.jpg', rating: '9.0/10', date: '2026', trailer: 'https://www.youtube.com/watch?v=UiMg566PREA', desc: 'Robert Downey Jr. jako Victor Von Doom.' },
+            { id: 'doomsday', title: 'Avengers: Doomsday', category: 'Marvel', img: './static/doomsday.jpg', rating: 'COMING', date: '2026', trailer: 'https://www.youtube.com/watch?v=UiMg566PREA', desc: 'Robert Downey Jr. jako Victor Von Doom.' },
             { id: 'inception', title: 'Inception', category: 'Sci-Fi', img: './static/inception.jpg', rating: '8.8/10', date: '2010', trailer: 'https://www.youtube.com/watch?v=YoHD9XEInc0', desc: 'Złodziej snów i jego ostatnie zadanie.' },
             { id: 'dune2', title: 'Dune: Part Two', category: 'Sci-Fi', img: './static/dune2.jpg', rating: '8.6/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=Way9Dexny3w', desc: 'Paul Atryda prowadzi Fremenów do walki.' },
             { id: 'anaconda', title: 'Anaconda', category: 'Action', img: './static/anaconda.jpg', rating: '4.9/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=az8M5Mai0X4', desc: 'Ekipa filmowa kontra gigantyczny wąż w Amazonii.' },
@@ -230,170 +227,67 @@
         let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
         let userLists = JSON.parse(localStorage.getItem('userCustomLists')) || [{ name: 'Moje Ulubione', movies: [] }];
 
-        // --- 6. DYNAMICZNE TŁO HERO ---
+        // 1. ZIELONY COUNTDOWN (18.12.2026)
+        function updateCountdown() {
+            const target = new Date('December 18, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('countdown').innerHTML = `
+                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Miesięcy</span></div>
+                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Dni</span></div>
+                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Godz</span></div>
+                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Min</span></div>`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. HERO BG ROTATION
         function rotateHeroBg() {
-            const bg = document.getElementById('hero-bg');
             const randomMovie = movies[Math.floor(Math.random() * movies.length)];
-            bg.style.backgroundImage = `url('${randomMovie.img}')`;
+            document.getElementById('hero-bg').style.backgroundImage = `url('${randomMovie.img}')`;
         }
         setInterval(rotateHeroBg, 5000);
         rotateHeroBg();
 
-        // --- 7. ODLICZANIE (COMING SOON) ---
-        function updateCountdown() {
-            const releaseDate = new Date('May 1, 2026 00:00:00').getTime();
-            const now = new Date().getTime();
-            const diff = releaseDate - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('countdown').innerHTML = `
-                <div>${days}<span class="block text-[10px] text-zinc-500 uppercase not-italic">Dni</span></div>
-                <div>${hours}<span class="block text-[10px] text-zinc-500 uppercase not-italic">Godz</span></div>
-                <div>${mins}<span class="block text-[10px] text-zinc-500 uppercase not-italic">Min</span></div>`;
-        }
-        setInterval(updateCountdown, 60000);
-        updateCountdown();
-
-        // --- 3. SORTOWANIE ---
-        function sortMovies(criteria) {
-            if (criteria === 'date') {
-                filteredMovies.sort((a, b) => b.date - a.date);
-            } else if (criteria === 'rating') {
-                filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-            }
-            currentPage = 1;
-            renderTable();
-        }
-
-        // --- 1. WATCHLIST (SERCA) ---
-        function toggleWatchlist(id) {
-            if (watchlist.includes(id)) {
-                watchlist = watchlist.filter(mId => mId !== id);
-            } else {
-                watchlist.push(id);
-            }
-            localStorage.setItem('watchlist', JSON.stringify(watchlist));
-            renderTable();
-        }
-
-        function initSlider() {
-            const track = document.getElementById('main-slider');
-            track.innerHTML = [...movies, ...movies].map(m => `
-                <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
-                    <img src="${m.img}" class="w-full h-[350px] md:h-[400px] object-cover">
-                    <div class="p-6 text-center font-black italic uppercase tracking-tighter">
-                        <div class="text-lg md:text-xl mb-1 truncate">${m.title}</div>
-                        <div class="text-red-600 text-[10px] tracking-[0.2em] uppercase italic">★ ${m.rating}</div>
-                    </div>
-                </div>`).join('');
-        }
-
+        // 3. LOGIKA KATALOGU (Fixed OpenModal)
         function renderTable() {
             const startIndex = (currentPage - 1) * itemsPerPage;
             const paginatedData = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
             const tbody = document.getElementById('library-table-body');
+            const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
 
             tbody.innerHTML = paginatedData.map(m => {
-                const isLiked = watchlist.includes(m.id);
+                const isLiked = wl.includes(m.id);
                 return `
-                <tr class="border-b border-zinc-800/50 hover:bg-white/5 transition-colors group">
+                <tr class="border-b border-zinc-800/50 hover:bg-green-500/5 transition-all group">
                     <td class="p-4 md:p-6 flex items-center gap-4">
-                        <img src="${m.img}" class="w-10 h-14 md:w-12 md:h-16 object-cover rounded-lg shadow-xl shrink-0">
-                        <span class="font-black italic uppercase text-sm md:text-lg">${m.title}</span>
+                        <img src="${m.img}" class="w-12 h-16 object-cover rounded-lg shadow-xl shrink-0">
+                        <span class="font-black italic uppercase text-lg">${m.title}</span>
                     </td>
-                    <td class="p-4 md:p-6 text-zinc-500 font-black text-[9px] uppercase tracking-widest">${m.category}</td>
-                    <td class="p-4 md:p-6 text-zinc-400 font-bold italic text-sm">${m.date}</td>
-                    <td class="p-4 md:p-6 font-black text-red-600 italic">★ ${m.rating}</td>
+                    <td class="p-4 md:p-6 text-zinc-500 font-black text-xs uppercase">${m.category}</td>
+                    <td class="p-4 md:p-6 text-zinc-400 font-bold italic">${m.date}</td>
+                    <td class="p-4 md:p-6 font-black text-green-500 italic">★ ${m.rating}</td>
                     <td class="p-4 md:p-6 text-right">
-                        <button onclick="toggleWatchlist('${m.id}')" class="mr-4 text-zinc-600 transition-all ${isLiked ? 'heart-active' : ''}">❤</button>
-                        <select onchange="if(this.value !== '') addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[9px] font-black uppercase rounded-lg p-1 outline-none mr-2">
-                            <option value="">+ Dodaj</option>
+                        <button onclick="toggleWatchlist('${m.id}')" class="mr-4 text-zinc-600 transition ${isLiked ? 'heart-active' : ''}">❤</button>
+                        <select onchange="addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[10px] rounded p-1 outline-none mr-2 font-black uppercase">
+                            <option value="">+ Lista</option>
                             ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
                         </select>
-                        <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-red-600 px-4 md:px-6 py-2 rounded-full text-[10px] font-black uppercase italic text-white">Opis</button>
+                        <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-green-600 group-hover:text-black px-4 md:px-6 py-2 rounded-full text-[10px] font-black uppercase transition-all text-white">Opis</button>
                     </td>
                 </tr>`;}).join('');
             renderPagination();
         }
 
-        // Reszta Twoich funkcji (createNewList, renameList, filterCategory, modal, auth) pozostaje bez zmian
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
-            const container = document.getElementById('pagination-controls');
-            let html = '';
-            for (let i = 1; i <= totalPages; i++) {
-                html += `<button onclick="currentPage=${i};renderTable()" class="page-btn w-8 h-8 border border-zinc-800 rounded-lg font-black italic text-xs ${i === currentPage ? 'active' : 'text-zinc-500'}">${i}</button>`;
-            }
-            container.innerHTML = html;
-        }
-
-        function filterCategory(cat) {
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                if (btn.innerText === cat) { btn.classList.replace('bg-zinc-900', 'bg-red-600'); btn.classList.replace('text-zinc-400', 'text-white'); }
-                else { btn.classList.replace('bg-red-600', 'bg-zinc-900'); btn.classList.replace('text-white', 'text-zinc-400'); }
-            });
-            filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
-            currentPage = 1;
-            renderTable();
-        }
-
-        function showLibrary() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); document.getElementById('library-page').classList.remove('hidden-section'); filterCategory('Wszystkie'); }
-        function showHome() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); document.getElementById('home-page').classList.remove('hidden-section'); }
-        function showMyLists() { 
-            document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); 
-            document.getElementById('lists-page').classList.remove('hidden-section'); 
-            
-            // Dodaj sekcję Watchlist na górze Moich List
-            const container = document.getElementById('custom-lists-container');
-            let wlHtml = `<div class="bg-red-600/10 p-6 rounded-[40px] border border-red-600/20 mb-10 text-center">
-                <h3 class="text-2xl font-black italic uppercase text-red-600 mb-6 underline">❤ Twoja Watchlista</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    ${watchlist.map(id => {
-                        const m = movies.find(x => x.id === id);
-                        return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4">
-                            <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl">
-                            <div class="text-left"><h4 class="font-black italic uppercase text-sm">${m.title}</h4></div>
-                        </div>`;}).join('')}
-                </div>
-            </div>`;
-            container.innerHTML = wlHtml;
-            renderCustomLists(); 
-        }
-
-        function createNewList() {
-            const name = prompt("Podaj nazwę nowej listy:");
-            if (name) { userLists.push({ name, movies: [] }); saveLists(); renderCustomLists(); }
-        }
-
-        function saveLists() { localStorage.setItem('userCustomLists', JSON.stringify(userLists)); }
-        function addToList(movieId, listIndex) {
-            if (!userLists[listIndex].movies.includes(movieId)) {
-                userLists[listIndex].movies.push(movieId);
-                saveLists();
-                alert(`Dodano!`);
-            }
-        }
-
-        function renderCustomLists() {
-            const container = document.getElementById('custom-lists-container');
-            userLists.map((list, idx) => {
-                container.innerHTML += `
-                <div class="bg-zinc-900/50 p-6 md:p-10 rounded-[40px] border border-zinc-800">
-                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                        <h3 class="text-3xl font-black italic uppercase tracking-tighter text-white underline decoration-red-600 decoration-4 underline-offset-8">${list.name}</h3>
-                        <div class="space-x-4">
-                            <button onclick="userLists[${idx}].name=prompt('Nazwa:');saveLists();showMyLists();" class="text-xs font-black uppercase text-zinc-500">Zmień nazwę</button>
-                            <button onclick="userLists.splice(${idx},1);saveLists();showMyLists();" class="text-xs font-black uppercase text-red-600">Usuń</button>
-                        </div>
-                    </div>
-                </div>`;
-            });
-        }
-
-        function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
         function openModalById(id) {
-            const m = movies.find(x => x.id === id);
+            const m = movies.find(x => x.id === id); // FIX: Szuka po unikalnym ID
+            if(!m) return;
             currentMovieId = m.id;
             document.getElementById('modal-title').innerText = m.title;
             document.getElementById('modal-img').src = m.img;
@@ -401,32 +295,118 @@
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
             document.getElementById('modal-trailer-link').href = m.trailer;
+            
+            const saved = localStorage.getItem(`rating-${m.id}`);
+            document.getElementsByName('u-rating').forEach(s => s.checked = (s.value === saved));
             toggleModal('movie-modal', true);
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            localStorage.setItem('hubUser', document.getElementById('username').value);
-            location.reload();
+        // --- SORTOWANIE ---
+        function sortMovies(criteria) {
+            if (criteria === 'date') filteredMovies.sort((a, b) => b.date - a.date);
+            else if (criteria === 'rating') filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+            currentPage = 1; renderTable();
         }
 
-        function updateAuthUI() {
-            const user = localStorage.getItem('hubUser');
-            if(user) {
-                document.getElementById('auth-section').innerHTML = `<span class="text-white font-black italic underline decoration-red-600 decoration-4 uppercase text-xs">${user}</span>`;
-            }
+        // --- RESZTA FUNKCJI ---
+        function hideAll() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); }
+        function showHome() { hideAll(); document.getElementById('home-page').classList.remove('hidden-section'); }
+        function showLibrary() { hideAll(); document.getElementById('library-page').classList.remove('hidden-section'); renderTable(); }
+        function showMyLists() { hideAll(); document.getElementById('lists-page').classList.remove('hidden-section'); renderCustomLists(); }
+
+        function createNewList() {
+            const name = prompt("Podaj nazwę listy:");
+            if(name) { userLists.push({name, movies:[]}); saveLists(); renderCustomLists(); }
+        }
+        function saveLists() { localStorage.setItem('userCustomLists', JSON.stringify(userLists)); }
+        function addToList(movieId, idx) { 
+            if(idx === "") return;
+            if(!userLists[idx].movies.includes(movieId)) { userLists[idx].movies.push(movieId); saveLists(); alert("Dodano do listy!"); }
         }
 
-        function handleSearch() {
-            const term = document.getElementById('movie-search').value.toLowerCase();
-            filteredMovies = movies.filter(m => m.title.toLowerCase().includes(term));
-            currentPage = 1;
+        function toggleWatchlist(id) {
+            let wl = JSON.parse(localStorage.getItem('watchlist')) || [];
+            wl = wl.includes(id) ? wl.filter(x => x !== id) : [...wl, id];
+            localStorage.setItem('watchlist', JSON.stringify(wl));
             renderTable();
         }
 
-        document.getElementById('star-group').addEventListener('change', (e) => {
-            if (currentMovieId) localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
-        });
+        function renderCustomLists() {
+            const container = document.getElementById('custom-lists-container');
+            const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
+            
+            let html = `<div class="bg-green-600/10 p-8 rounded-[40px] border border-green-600/20 mb-12">
+                <h3 class="text-2xl font-black italic uppercase text-green-500 mb-6">❤ Twoja Watchlista</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${wl.map(id => {
+                        const m = movies.find(x => x.id === id);
+                        return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4">
+                            <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl shadow-lg">
+                            <h4 class="font-black italic uppercase text-sm">${m.title}</h4>
+                        </div>`;}).join('')}
+                </div>
+            </div>`;
+
+            html += userLists.map((list, i) => `
+                <div class="bg-zinc-900/50 p-8 rounded-[40px] border border-zinc-800">
+                    <div class="flex justify-between items-center mb-8 gap-4">
+                        <h3 class="text-3xl font-black italic uppercase text-white underline decoration-green-600 decoration-4">${list.name}</h3>
+                        <div class="flex gap-4">
+                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-zinc-500">Zmień nazwę</button>
+                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-red-600">Usuń listę</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${list.movies.map(id => {
+                            const m = movies.find(x => x.id === id);
+                            return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4">
+                                <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl">
+                                <div class="flex-1"><h4 class="font-black italic uppercase text-sm text-left">${m.title}</h4></div>
+                                <button onclick="userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveLists();renderCustomLists();" class="text-red-500 text-[10px]">✕</button>
+                            </div>`;}).join('')}
+                    </div>
+                </div>`).join('');
+            container.innerHTML = html;
+        }
+
+        function initSlider() {
+            document.getElementById('main-slider').innerHTML = [...movies, ...movies].map(m => `
+                <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
+                    <img src="${m.img}" class="w-full h-[400px] object-cover">
+                    <div class="p-6 text-center font-black italic uppercase tracking-tighter">
+                        <div class="text-xl mb-1">${m.title}</div>
+                        <div class="text-green-500 text-xs italic tracking-widest">★ ${m.rating}</div>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderPagination() {
+            const total = Math.ceil(filteredMovies.length / itemsPerPage);
+            let html = '';
+            for (let i = 1; i <= total; i++) {
+                html += `<button onclick="currentPage=${i};renderTable()" class="w-10 h-10 border border-zinc-800 rounded-lg font-black italic ${i === currentPage ? 'bg-green-600 text-black' : 'text-zinc-500'}">${i}</button>`;
+            }
+            document.getElementById('pagination-controls').innerHTML = html;
+        }
+
+        function handleSearch() { const t = document.getElementById('movie-search').value.toLowerCase(); filteredMovies = movies.filter(m => m.title.toLowerCase().includes(t)); currentPage = 1; renderTable(); }
+        function filterCategory(cat) { 
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.innerText === cat) { btn.classList.replace('bg-zinc-900', 'bg-green-600'); btn.classList.replace('text-zinc-400', 'text-black'); }
+                else { btn.classList.replace('bg-green-600', 'bg-zinc-900'); btn.classList.replace('text-black', 'text-zinc-400'); }
+            });
+            filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
+            currentPage = 1; renderTable();
+        }
+
+        function handleLogin(e) { e.preventDefault(); localStorage.setItem('hubUser', document.getElementById('username').value); location.reload(); }
+        function updateAuthUI() { 
+            const user = localStorage.getItem('hubUser');
+            if(user) document.getElementById('auth-section').innerHTML = `<span class="text-white font-black italic underline decoration-green-600 decoration-4 text-xs">${user}</span>`;
+        }
+
+        function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
+        document.getElementById('star-group').addEventListener('change', (e) => { if (currentMovieId) localStorage.setItem(`rating-${currentMovieId}`, e.target.value); });
 
         updateAuthUI();
         initSlider();
