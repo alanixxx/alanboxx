@@ -34,18 +34,19 @@
         .page-btn.active { background-color: #22c55e; color: black; border-color: #22c55e; }
         
         .heart-active { color: #22c55e !important; transform: scale(1.2); }
-        .doomsday-text { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
+        .doomsday-text { color: #22c55e; text-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
+        .glow-green { box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); border-color: rgba(34, 197, 94, 0.4); }
     </style>
 </head>
 <body class="selection:bg-green-600">
 
     <nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 md:p-5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer text-green-500">Movie Hub</h1>
-            <div class="flex items-center space-x-4 md:space-x-8">
+            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer">Movie Hub</h1>
+            <div class="flex items-center space-x-4 md:space-x-8 text-white">
                 <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
                 <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
-                <div id="auth-section">
+                <div id="auth-section" class="flex items-center gap-3">
                     <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
                 </div>
             </div>
@@ -67,19 +68,28 @@
             <div class="slider-track" id="main-slider"></div>
         </div>
 
-        <section class="max-w-4xl mx-auto px-5 py-10 text-center">
-            <div class="bg-zinc-900/50 border border-zinc-800 rounded-[40px] p-8 border-green-900/30">
-                <h3 class="text-green-500 font-black italic uppercase tracking-widest text-xs mb-6">DOOMSDAY ARRIVAL: 18.12.2026</h3>
-                <div id="countdown" class="text-3xl md:text-6xl font-black italic flex justify-center gap-4 md:gap-10">
-                    </div>
+        <section class="max-w-6xl mx-auto px-5 py-16">
+            <div class="bg-zinc-900/50 border border-zinc-800 rounded-[40px] p-8 glow-green flex flex-col md:flex-row items-center gap-10">
+                <div class="w-full md:w-1/3">
+                    <img src="./static/doomsday.jpg" class="rounded-3xl shadow-2xl border border-green-500/30 transform -rotate-3 hover:rotate-0 transition-transform duration-500" alt="Doomsday Poster">
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h3 class="text-green-500 font-black italic uppercase tracking-[0.3em] text-sm mb-6">Protokół: Avengers Doomsday Arrival</h3>
+                    <div id="countdown" class="text-4xl md:text-7xl font-black italic flex justify-center md:justify-start gap-4 md:gap-8">
+                        </div>
+                    <p class="mt-8 text-zinc-500 font-bold uppercase text-[10px] tracking-widest italic">Oczekiwanie na reset multiwersum...</p>
+                </div>
             </div>
         </section>
 
         <section class="bg-zinc-900/30 border-y border-zinc-800 py-24 px-5 mt-10 text-center">
             <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-green-500">Legendą</span> Kina</h2>
+            <p class="text-zinc-500 max-w-xl mx-auto mb-10 font-medium leading-relaxed uppercase text-xs tracking-widest">
+                Zapisz się do naszego newslettera, aby jako pierwszy otrzymywać powiadomienia o <span class="text-white">największych premierach</span>, recenzje prosto z Hollywood oraz dostęp do unikalnych rankingów.
+            </p>
             <form class="flex flex-col sm:flex-row gap-3 mt-8 max-w-2xl mx-auto">
-                <input type="email" placeholder="Twój e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-green-600 outline-none transition-all">
-                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic">Dołącz</button>
+                <input type="email" placeholder="Twój adres e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-green-600 outline-none transition-all">
+                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic hover:bg-green-400 transition-all">Aktywuj Subskrypcję</button>
             </form>
         </section>
     </main>
@@ -88,7 +98,7 @@
         <div class="flex flex-col lg:flex-row gap-8 md:gap-12">
             <aside class="lg:w-64 space-y-6">
                 <div>
-                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic underline decoration-green-600 decoration-2 underline-offset-8">Gatunki</h3>
+                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic underline decoration-red-600 decoration-2 underline-offset-8">Gatunki</h3>
                     <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 custom-scroll" id="category-btns">
                         <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-green-600 text-black px-6 py-3 rounded-xl font-black italic uppercase text-xs">Wszystkie</button>
                         <button onclick="filterCategory('Marvel')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Marvel</button>
@@ -97,13 +107,13 @@
                         <button onclick="filterCategory('Horror')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Horror</button>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 border-t border-zinc-800 pt-6">
+                <div class="flex flex-col gap-2 pt-6 border-t border-zinc-800">
                     <button onclick="sortMovies('date')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Data</button>
                     <button onclick="sortMovies('rating')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Ocena</button>
                 </div>
             </aside>
             <div class="flex-1 overflow-hidden">
-                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Szukaj filmu..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-green-600 text-white text-xl">
+                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Wyszukaj tytuł w bazie danych..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-green-500 text-white text-xl">
                 <div class="bg-zinc-900/50 rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
                     <table class="w-full text-left border-collapse min-w-[600px]">
                         <thead>
@@ -129,15 +139,15 @@
 
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-green-500 text-black w-10 h-10 rounded-full font-bold">✕</button>
+            <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition-colors">✕</button>
             <div class="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
             </div>
             <div class="flex-1 p-8 md:p-12 overflow-y-auto flex flex-col justify-between">
-                <div>
+                <div id="modal-content-area">
                     <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
                     <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
-                    <div class="flex gap-4 mb-8">
+                    <div class="flex gap-4 mb-8 text-white">
                         <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
                             <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Score</span>
                             <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
@@ -147,10 +157,10 @@
                             <span id="modal-date" class="text-xl font-black italic"></span>
                         </div>
                     </div>
-                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10">Obejrzyj Trailer</a>
+                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10 hover:bg-green-400">Obejrzyj Trailer</a>
                 </div>
                 <div class="pt-6 border-t border-zinc-800">
-                    <h4 class="text-xs font-black uppercase italic mb-3 text-zinc-500">Twoja Prywatna Ocena:</h4>
+                    <h4 class="text-xs font-black uppercase italic mb-3 text-zinc-400">Twoja Ocena:</h4>
                     <div class="star-rating" id="star-group">
                         <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
                         <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
@@ -170,10 +180,10 @@
 
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
         <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4 text-center">
-            <h2 class="text-3xl font-black italic uppercase mb-8 text-green-500">Movie Hub</h2>
+            <h2 class="text-3xl font-black italic uppercase mb-8 text-green-500 italic">Movie Hub</h2>
             <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="text" id="username" placeholder="Nick" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl text-white outline-none">
-                <button type="submit" class="w-full bg-green-600 py-4 rounded-2xl font-black uppercase text-black">Wejdź</button>
+                <input type="text" id="username" placeholder="Twoja ksywka" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                <button type="submit" class="w-full bg-green-600 py-4 rounded-2xl font-black uppercase text-black hover:bg-green-400 transition-all">Zatwierdź Protokół</button>
             </form>
         </div>
     </div>
@@ -239,10 +249,10 @@
             const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
             document.getElementById('countdown').innerHTML = `
-                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Miesięcy</span></div>
-                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Dni</span></div>
-                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Godz</span></div>
-                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-500 uppercase not-italic mt-2">Min</span></div>`;
+                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Miesięcy</span></div>
+                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Dni</span></div>
+                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Godz</span></div>
+                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-600 uppercase not-italic mt-2">Min</span></div>`;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
@@ -255,7 +265,7 @@
         setInterval(rotateHeroBg, 5000);
         rotateHeroBg();
 
-        // 3. LOGIKA KATALOGU (Fixed OpenModal)
+        // 3. LOGIKA KATALOGU (Naprawione Opisy)
         function renderTable() {
             const startIndex = (currentPage - 1) * itemsPerPage;
             const paginatedData = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
@@ -268,25 +278,31 @@
                 <tr class="border-b border-zinc-800/50 hover:bg-green-500/5 transition-all group">
                     <td class="p-4 md:p-6 flex items-center gap-4">
                         <img src="${m.img}" class="w-12 h-16 object-cover rounded-lg shadow-xl shrink-0">
-                        <span class="font-black italic uppercase text-lg">${m.title}</span>
+                        <span class="font-black italic uppercase text-lg leading-none">${m.title}</span>
                     </td>
                     <td class="p-4 md:p-6 text-zinc-500 font-black text-xs uppercase">${m.category}</td>
                     <td class="p-4 md:p-6 text-zinc-400 font-bold italic">${m.date}</td>
                     <td class="p-4 md:p-6 font-black text-green-500 italic">★ ${m.rating}</td>
                     <td class="p-4 md:p-6 text-right">
-                        <button onclick="toggleWatchlist('${m.id}')" class="mr-4 text-zinc-600 transition ${isLiked ? 'heart-active' : ''}">❤</button>
-                        <select onchange="addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[10px] rounded p-1 outline-none mr-2 font-black uppercase">
-                            <option value="">+ Lista</option>
-                            ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
-                        </select>
-                        <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-green-600 group-hover:text-black px-4 md:px-6 py-2 rounded-full text-[10px] font-black uppercase transition-all text-white">Opis</button>
+                        <div class="flex items-center justify-end gap-3">
+                            <button onclick="toggleWatchlist('${m.id}')" class="text-zinc-600 transition ${isLiked ? 'heart-active' : ''}">❤</button>
+                            <select onchange="addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[10px] rounded p-1 outline-none font-black uppercase">
+                                <option value="">+ Lista</option>
+                                ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
+                            </select>
+                            <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-green-600 group-hover:text-black px-4 md:px-6 py-2 rounded-full text-[10px] font-black uppercase transition-all text-white">Opis</button>
+                        </div>
                     </td>
                 </tr>`;}).join('');
             renderPagination();
         }
 
         function openModalById(id) {
-            const m = movies.find(x => x.id === id); // FIX: Szuka po unikalnym ID
+            // FIX: Najpierw czyścimy modal, żeby nie pokazywał starych danych przy lagach
+            document.getElementById('modal-title').innerText = "Ładowanie...";
+            document.getElementById('modal-desc').innerText = "";
+            
+            const m = movies.find(x => x.id === id);
             if(!m) return;
             currentMovieId = m.id;
             document.getElementById('modal-title').innerText = m.title;
@@ -301,19 +317,26 @@
             toggleModal('movie-modal', true);
         }
 
-        // --- SORTOWANIE ---
-        function sortMovies(criteria) {
-            if (criteria === 'date') filteredMovies.sort((a, b) => b.date - a.date);
-            else if (criteria === 'rating') filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-            currentPage = 1; renderTable();
-        }
-
-        // --- RESZTA FUNKCJI ---
+        // --- NAWIGACJA & AUTH ---
         function hideAll() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); }
         function showHome() { hideAll(); document.getElementById('home-page').classList.remove('hidden-section'); }
         function showLibrary() { hideAll(); document.getElementById('library-page').classList.remove('hidden-section'); renderTable(); }
         function showMyLists() { hideAll(); document.getElementById('lists-page').classList.remove('hidden-section'); renderCustomLists(); }
 
+        function handleLogin(e) { e.preventDefault(); localStorage.setItem('hubUser', document.getElementById('username').value); location.reload(); }
+        function logout() { localStorage.removeItem('hubUser'); location.reload(); }
+
+        function updateAuthUI() { 
+            const user = localStorage.getItem('hubUser');
+            if(user) {
+                document.getElementById('auth-section').innerHTML = `
+                    <span class="text-white font-black italic underline decoration-green-600 decoration-4 text-xs uppercase mr-2">${user}</span>
+                    <button onclick="logout()" class="text-[9px] font-black uppercase text-red-600 hover:text-white transition">Wyloguj</button>
+                `;
+            }
+        }
+
+        // --- CUSTOM LISTS ---
         function createNewList() {
             const name = prompt("Podaj nazwę listy:");
             if(name) { userLists.push({name, movies:[]}); saveLists(); renderCustomLists(); }
@@ -324,19 +347,12 @@
             if(!userLists[idx].movies.includes(movieId)) { userLists[idx].movies.push(movieId); saveLists(); alert("Dodano do listy!"); }
         }
 
-        function toggleWatchlist(id) {
-            let wl = JSON.parse(localStorage.getItem('watchlist')) || [];
-            wl = wl.includes(id) ? wl.filter(x => x !== id) : [...wl, id];
-            localStorage.setItem('watchlist', JSON.stringify(wl));
-            renderTable();
-        }
-
         function renderCustomLists() {
             const container = document.getElementById('custom-lists-container');
             const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
             
             let html = `<div class="bg-green-600/10 p-8 rounded-[40px] border border-green-600/20 mb-12">
-                <h3 class="text-2xl font-black italic uppercase text-green-500 mb-6">❤ Twoja Watchlista</h3>
+                <h3 class="text-2xl font-black italic uppercase text-green-500 mb-6">❤ Watchlista</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     ${wl.map(id => {
                         const m = movies.find(x => x.id === id);
@@ -349,19 +365,19 @@
 
             html += userLists.map((list, i) => `
                 <div class="bg-zinc-900/50 p-8 rounded-[40px] border border-zinc-800">
-                    <div class="flex justify-between items-center mb-8 gap-4">
+                    <div class="flex justify-between items-center mb-8">
                         <h3 class="text-3xl font-black italic uppercase text-white underline decoration-green-600 decoration-4">${list.name}</h3>
                         <div class="flex gap-4">
-                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-zinc-500">Zmień nazwę</button>
-                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-red-600">Usuń listę</button>
+                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-zinc-500 hover:text-white transition">Zmień nazwę</button>
+                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);saveLists();renderCustomLists();}" class="text-[10px] uppercase font-black text-red-600 transition">Usuń listę</button>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         ${list.movies.map(id => {
                             const m = movies.find(x => x.id === id);
-                            return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4">
+                            return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4 group">
                                 <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl">
-                                <div class="flex-1"><h4 class="font-black italic uppercase text-sm text-left">${m.title}</h4></div>
+                                <div class="flex-1 text-left"><h4 class="font-black italic uppercase text-sm mb-1">${m.title}</h4></div>
                                 <button onclick="userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveLists();renderCustomLists();" class="text-red-500 text-[10px]">✕</button>
                             </div>`;}).join('')}
                     </div>
@@ -369,26 +385,18 @@
             container.innerHTML = html;
         }
 
-        function initSlider() {
-            document.getElementById('main-slider').innerHTML = [...movies, ...movies].map(m => `
-                <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
-                    <img src="${m.img}" class="w-full h-[400px] object-cover">
-                    <div class="p-6 text-center font-black italic uppercase tracking-tighter">
-                        <div class="text-xl mb-1">${m.title}</div>
-                        <div class="text-green-500 text-xs italic tracking-widest">★ ${m.rating}</div>
-                    </div>
-                </div>`).join('');
+        // --- SORT & SEARCH ---
+        function sortMovies(criteria) {
+            if (criteria === 'date') filteredMovies.sort((a, b) => b.date - a.date);
+            else if (criteria === 'rating') filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+            currentPage = 1; renderTable();
         }
-
-        function renderPagination() {
-            const total = Math.ceil(filteredMovies.length / itemsPerPage);
-            let html = '';
-            for (let i = 1; i <= total; i++) {
-                html += `<button onclick="currentPage=${i};renderTable()" class="w-10 h-10 border border-zinc-800 rounded-lg font-black italic ${i === currentPage ? 'bg-green-600 text-black' : 'text-zinc-500'}">${i}</button>`;
-            }
-            document.getElementById('pagination-controls').innerHTML = html;
+        function toggleWatchlist(id) {
+            let wl = JSON.parse(localStorage.getItem('watchlist')) || [];
+            wl = wl.includes(id) ? wl.filter(x => x !== id) : [...wl, id];
+            localStorage.setItem('watchlist', JSON.stringify(wl));
+            renderTable();
         }
-
         function handleSearch() { const t = document.getElementById('movie-search').value.toLowerCase(); filteredMovies = movies.filter(m => m.title.toLowerCase().includes(t)); currentPage = 1; renderTable(); }
         function filterCategory(cat) { 
             document.querySelectorAll('.cat-btn').forEach(btn => {
@@ -399,10 +407,24 @@
             currentPage = 1; renderTable();
         }
 
-        function handleLogin(e) { e.preventDefault(); localStorage.setItem('hubUser', document.getElementById('username').value); location.reload(); }
-        function updateAuthUI() { 
-            const user = localStorage.getItem('hubUser');
-            if(user) document.getElementById('auth-section').innerHTML = `<span class="text-white font-black italic underline decoration-green-600 decoration-4 text-xs">${user}</span>`;
+        // --- INIT ---
+        function initSlider() {
+            document.getElementById('main-slider').innerHTML = [...movies, ...movies].map(m => `
+                <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
+                    <img src="${m.img}" class="w-full h-[400px] object-cover">
+                    <div class="p-6 text-center font-black italic uppercase tracking-tighter">
+                        <div class="text-xl mb-1">${m.title}</div>
+                        <div class="text-green-500 text-xs italic">★ ${m.rating}</div>
+                    </div>
+                </div>`).join('');
+        }
+        function renderPagination() {
+            const total = Math.ceil(filteredMovies.length / itemsPerPage);
+            let html = '';
+            for (let i = 1; i <= total; i++) {
+                html += `<button onclick="currentPage=${i};renderTable()" class="w-10 h-10 border border-zinc-800 rounded-lg font-black italic ${i === currentPage ? 'bg-green-600 text-black' : 'text-zinc-500'}">${i}</button>`;
+            }
+            document.getElementById('pagination-controls').innerHTML = html;
         }
 
         function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
