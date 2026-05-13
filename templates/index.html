@@ -97,6 +97,20 @@
             </div>
         </section>
 
+        <!-- START KALENDARZA -->
+        <section class="max-w-7xl mx-auto px-5 py-16 border-t border-zinc-800/50">
+            <div class="flex items-center gap-6 mb-12">
+                <h2 class="text-4xl md:text-6xl font-black italic uppercase text-white">
+                    Kalendarz <span class="text-green-500">Premier</span> 2026
+                </h2>
+            <div class="h-[2px] flex-1 bg-zinc-800"></div>
+            </div>
+            <div id="calendar-container" class="space-y-4 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar">
+             <!-- JS wstawi tu dane -->
+           </div>
+        </section>
+        <!-- KONIEC KALENDARZA -->
+
         <section class="bg-zinc-900/30 border-y border-zinc-800 py-24 px-5 mt-10 text-center">
             <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-green-500">Legendą</span> Kina</h2>
             <p class="text-zinc-500 max-w-xl mx-auto mb-10 font-medium leading-relaxed uppercase text-xs tracking-widest">
@@ -144,6 +158,7 @@
         </div>
     </div>
 
+   
     <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
         <div class="flex justify-between items-center mb-10">
             <h2 class="text-4xl font-black italic uppercase text-green-500 tracking-tighter">Twoje Listy</h2>
@@ -586,7 +601,107 @@
             </div>`).join('');
 
         updateAuthUI();
-        renderTop2026();
+        
+
+        const upcomingReleases = [
+           // STYCZEŃ
+            { date: "2026-01-16", title: "Greenland 2", genre: "Katastroficzny / Thriller" },
+            { date: "2026-01-16", title: "28 Years Later: Bone Temple", genre: "Horror" },
+            { date: "2026-01-23", title: "Mercy", genre: "Thriller / IMAX" },
+            { date: "2026-01-29", title: "Send Help", genre: "Horror / Thriller" },
+
+            // LUTY
+            { date: "2026-02-13", title: "101 Crime", genre: "Kryminał" },
+            { date: "2026-02-13", title: "GOAT", genre: "Dramat" },
+            { date: "2026-02-20", title: "Psycho Killer", genre: "Horror / Thriller" },
+            { date: "2026-02-27", title: "Scream 7", genre: "Horror" },
+            { date: "2026-02-27", title: "How to Make a Killing", genre: "Kryminał / Komedia" },
+
+            // MARZEC
+            { date: "2026-03-13", title: "They Will Kill You", genre: "Horror" },
+            { date: "2026-03-20", title: "Project Hail Mary", genre: "Sci-Fi" },
+            { date: "2026-03-27", title: "Good Luck Have Fun Dont Die", genre: "Sci-Fi / Komedia" },
+
+            // KWIECIEŃ
+            { date: "2026-04-03", title: "Super Mario World", genre: "Animacja / Przygodowy" },
+            { date: "2026-04-10", title: "Ready or Not 2", genre: "Horror / Thriller" },
+            { date: "2026-04-17", title: "The Mummy", genre: "Fantasy / Horror" },
+            { date: "2026-04-24", title: "Normal", genre: "Thriller" },
+            { date: "2026-04-24", title: "Michael", genre: "Biograficzny" },
+
+            // MAJ
+            { date: "2026-05-15", title: "Mortal Kombat 2", genre: "Akcja / Fantasy" },
+            { date: "2026-05-22", title: "The Mandalorian & Grogu", genre: "Sci-Fi / Star Wars" },
+            { date: "2026-05-29", title: "In the Grey", genre: "Akcja / Thriller" },
+
+            // CZERWIEC
+            { date: "2026-06-05", title: "Masters of the Universe", genre: "Fantasy / Akcja" },
+            { date: "2026-06-05", title: "Scary Movie", genre: "Komedia / Horror" },
+            { date: "2026-06-12", title: "Disclosure Day", genre: "Sci-Fi / Thriller" },
+            { date: "2026-06-19", title: "Toy Story 5", genre: "Animacja / Pixar" },
+            { date: "2026-06-26", title: "Supergirl", genre: "Akcja / DC" },
+            { date: "2026-06-26", title: "Backrooms", genre: "Horror" },
+
+            // LIPIEC
+            { date: "2026-07-01", title: "Minions 3", genre: "Animacja / Komedia" },
+            { date: "2026-07-03", title: "Shiver", genre: "Thriller / Horror" },
+            { date: "2026-07-17", title: "The Odyssey", genre: "Przygodowy / IMAX" },
+            { date: "2026-07-31", title: "Spider-Man: Brand New Day", genre: "Akcja / Marvel" },
+
+            // SIERPIEŃ
+            { date: "2026-08-07", title: "Ice Cream Man", genre: "Horror" },
+            { date: "2026-08-14", title: "End of the Oak Street", genre: "Thriller / IMAX" },
+            { date: "2026-08-14", title: "Fall 2", genre: "Thriller" },
+            { date: "2026-08-21", title: "Mutiny", genre: "Akcja / Thriller" },
+            { date: "2026-08-26", title: "The Dog Stars", genre: "Sci-Fi / Thriller" },
+            { date: "2026-08-28", title: "Cliffhanger", genre: "Akcja / Thriller" },
+
+            // WRZESIEŃ
+            { date: "2026-09-04", title: "How to Rob a Bank", genre: "Kryminał / Thriller" },
+            { date: "2026-09-11", title: "Clayface", genre: "Horror / DC" },
+            { date: "2026-09-18", title: "Resident Evil", genre: "Horror / Akcja" },
+
+            // PAŹDZIERNIK
+            { date: "2026-10-02", title: "Digger", genre: "Sci-Fi / Thriller" },
+            { date: "2026-10-08", title: "Social Reckoning 2", genre: "Thriller" },
+            { date: "2026-10-08", title: "Terrifier 4", genre: "Horror" },
+            { date: "2026-10-15", title: "Whalefall", genre: "Thriller / Dramat" },
+            { date: "2026-10-15", title: "Street Fighter", genre: "Akcja / Fantasy" },
+
+            // LISTOPAD
+            { date: "2026-11-06", title: "Archangel", genre: "Thriller" },
+            { date: "2026-11-06", title: "Godzilla Minus Zero 2", genre: "Sci-Fi / Kaiju" },
+            { date: "2026-11-13", title: "Return of the Living Dead", genre: "Horror / Komedia" },
+            { date: "2026-11-20", title: "The Hunger Games: Sunrise on the Reaping", genre: "Akcja / Sci-Fi" },
+
+            // GRUDZIEŃ
+            { date: "2026-12-03", title: "Violent Night 2", genre: "Akcja / Komedia" },
+            { date: "2026-12-11", title: "Jumanji 4", genre: "Przygodowy / Komedia" },
+            { date: "2026-12-18", title: "Avengers: Doomsday", genre: "Akcja / Marvel" },
+            { date: "2026-12-18", title: "Dune: Part Three", genre: "Sci-Fi" },
+            { date: "2026-12-18", title: "Ice Age 6", genre: "Animacja / Komedia" }
+        ];
+        function renderCalendar() {
+             const container = document.getElementById('calendar-container');
+             if (container) {
+                 container.innerHTML = upcomingReleases.map(m => `
+                     <div class="flex items-center p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-green-500 transition-all">
+                         <div class="w-32 flex-shrink-0 text-green-500 font-black text-lg">${m.date}</div>
+                         <div class="flex-1 text-white font-black uppercase italic text-xl">${m.title}</div>
+                         <div class="text-zinc-500 text-xs uppercase font-bold">${m.genre}</div>
+                     </div>
+                 `).join('');
+             }
+         }
+         renderCalendar();
+      renderTop2026();
+
+      window.addEventListener('DOMContentLoaded', () => {
+          renderTop2026();
+          renderCalendar();
+         });
+
+
     </script>
 </body>
 </html>
