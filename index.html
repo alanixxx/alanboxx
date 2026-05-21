@@ -46,6 +46,7 @@
             <div class="flex items-center space-x-4 md:space-x-8 text-white">
                 <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
                 <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
+                <button onclick="renderRatingHistory()" class="text-zinc-400 hover:text-green-500 font-bold uppercase text-[10px] md:text-xs tracking-widest transition italic">Oceny</button>
                 <div id="auth-section">
                     <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
                 </div>
@@ -245,7 +246,7 @@
             { id: 'bloodlines', title: 'Final Destination: Bloodlines', category: 'Horror', img: './static/bloodlines.jpg', rating: '6.7/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=UWMzKXsY9A4', desc: 'Śmierć powraca po nowe ofiary.' },
             { id: 'bullettrain', title: 'Bullet Train', category: 'Action', img: './static/bullettrain.jpg', rating: '7.3/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=0IOsk2Vlc4o', desc: 'Zabójcy w szybkim pociągu jadącym przez Japonię.' },
             { id: 'buzzastral', title: 'Buzz Astral', category: 'Sci-Fi', img: './static/buzzastral.jpg', rating: '6.1/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=BwPL0Md_QFQ', desc: 'Historia legendy Strażników Kosmosu.' },
-            { id: 'capitanamerica', title: 'Captain America: BNW', category: 'Marvel', img: './static/capitanamericabnw.jpg', rating: '5.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=1pHDWnXmK7Y', desc: 'Sam Wilson jako nowy Kapitan Ameryka.' },
+            { id: 'capitanamerica', title: 'Captain America: Brave new World', category: 'Marvel', img: './static/capitanamericaBNW.jpg', rating: '5.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=1pHDWnXmK7Y', desc: 'Sam Wilson jako nowy Kapitan Ameryka.' },
             { id: 'carryon', title: 'Carry On', category: 'Action', img: './static/carryon.jpg', rating: '6.8/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=KS0XacjMmOc', desc: 'Terrorysta na lotnisku szantażuje agenta.' },
             { id: 'civilwar', title: 'Civil War', category: 'Action', img: './static/civilwar.jpg', rating: '7.1/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=aDyQxtg0V2w', desc: 'Wojna domowa w USA widziana oczami fotoreporterów.' },
             { id: 'coldstorage', title: 'Cold Storage', category: 'Horror', img: './static/coldstorage.jpg', rating: '6.1/10', date: '2026', trailer: 'https://www.youtube.com/watch?v=kea7gnh1uYA', desc: 'Wirus w tajnym laboratorium.' },
@@ -316,7 +317,7 @@
             { id: 'mortal2', title: 'Mortal Kombat 2', category: 'Action', img: './static/mortal2.jpg', rating: '7.0/10', date: '2026', trailer: 'https://www.youtube.com/watch?v=ZdC5mFHPldg', desc: 'Dalszy pojedynek.' },
             { id: 'nakedgun', title: 'Naked Gun Reboot', category: 'Action', img: './static/nakedgun.jpg', rating: '6.3/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=uLguU7WLreA', desc: 'Neeson jako kaskader.' },
             { id: 'niezniszczalni4', title: 'Expendables 4', category: 'Action', img: './static/niezniszczalni4.jpg', rating: '4.8/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=Cm3Z1jEjHHc', desc: 'Stara gwardia.' },
-            { id: 'odyseja', title: '2001: Space Odyssey', category: 'Sci-Fi', img: './static/odyseja.jpg', rating: '8.3/10', date: '1968', trailer: 'https://www.youtube.com/watch?v=Mzw2ttJD2qQ', desc: 'Klasyka Kubricka.' },
+            { id: 'odyseja', title: 'Odyssey', category: 'Sci-Fi', img: './static/odyseja.jpg', rating: 'COMING', date: '2026', trailer: 'https://www.youtube.com/watch?v=Mzw2ttJD2qQ', desc: 'Klasyka Kubricka.' },
             { id: 'operationfortune', title: 'Operation Fortune', category: 'Action', img: './static/operationfortune.jpg', rating: '6.3/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=WdZ-BWWQcWQ', desc: 'Szpiedzy Ritchiego.' },
             { id: 'oppenheimer', title: 'Oppenheimer', category: 'Action', img: './static/oppenhaimer.jpg', rating: '8.3/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=uYPbbksJxIg', desc: 'Twórca bomby.' },
             { id: 'pierwszygol', title: 'Next Goal Wins', category: 'Action', img: './static/pierwszygol.jpg', rating: '6.5/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=pRH5u5lpArQ', desc: 'Trener na Samoa.' },
@@ -397,7 +398,19 @@
         function hideAll() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); }
         function showHome() { hideAll(); document.getElementById('home-page').classList.remove('hidden-section'); }
         function showLibrary() { hideAll(); document.getElementById('library-page').classList.remove('hidden-section'); renderTable(); }
-        function showMyLists() { hideAll(); document.getElementById('lists-page').classList.remove('hidden-section'); renderCustomLists(); }
+        function showMyLists() {
+            hideAll();
+            const listsPage = document.getElementById('lists-page');
+            listsPage.classList.remove('hidden-section');
+            
+            // ODKRYWAMY NAGŁÓWKI LIST (na wypadek gdybyśmy wcześniej byli w Ocenach)
+            const listsHeader = listsPage.querySelector('h2');
+            const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
+            if (listsHeader) listsHeader.style.display = 'block';
+            if (newListBtn) newListBtn.style.display = 'block';
+
+            renderCustomLists();
+        }
         function handleLogin(e) { e.preventDefault(); localStorage.setItem('hubUser', document.getElementById('username').value); location.reload(); }
         function logout() { localStorage.removeItem('hubUser'); location.reload(); }
         function updateAuthUI() { 
@@ -601,8 +614,39 @@
             </div>`).join('');
 
         updateAuthUI();
-        
 
+        // --- NOWA FUNKCJONALNOŚĆ: HISTORIA OCEN ---
+        
+        function getTodayDate() {
+            const d = new Date();
+            const months = ["Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "Czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia"];
+            return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+        }
+
+        // Rozszerzenie Twojego listenera gwiazdek o zapis do historii
+        document.getElementById('star-group').addEventListener('change', (e) => {
+            if (typeof currentMovieId !== 'undefined' && currentMovieId) {
+                const movie = movies.find(m => m.id === currentMovieId);
+                if (!movie) return;
+
+                let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+                
+                const newEntry = {
+                    id: movie.id,
+                    title: movie.title,
+                    rating: e.target.value,
+                    date: getTodayDate(),
+                    img: movie.img,
+                    timestamp: Date.now()
+                };
+
+                // Dodaj na początek i zachowaj unikalność (opcjonalnie)
+                history = [newEntry, ...history.filter(h => h.id !== movie.id)].slice(0, 50); 
+                localStorage.setItem('ratingHistory', JSON.stringify(history));
+            }
+        });
+
+        
         const upcomingReleases = [
            // STYCZEŃ
             { date: "2026-01-16", title: "Greenland 2", genre: "Katastroficzny / Thriller" },
@@ -620,7 +664,7 @@
             // MARZEC
             { date: "2026-03-13", title: "They Will Kill You", genre: "Horror" },
             { date: "2026-03-20", title: "Project Hail Mary", genre: "Sci-Fi" },
-            { date: "2026-03-27", title: "Good Luck Have Fun Dont Die", genre: "Sci-Fi / Komedia" },
+            { date: "2026-03-27", title: "Good Luck Have Fun Don't Die", genre: "Sci-Fi / Komedia" },
 
             // KWIECIEŃ
             { date: "2026-04-03", title: "Super Mario World", genre: "Animacja / Przygodowy" },
@@ -672,7 +716,7 @@
             { date: "2026-11-06", title: "Archangel", genre: "Thriller" },
             { date: "2026-11-06", title: "Godzilla Minus Zero 2", genre: "Sci-Fi / Kaiju" },
             { date: "2026-11-13", title: "Return of the Living Dead", genre: "Horror / Komedia" },
-            { date: "2026-11-20", title: "The Hunger Games: Sunrise on the Reaping", genre: "Akcja / Sci-Fi" },
+            { date: "2026-11-20", title: "The Hunger Games 6", genre: "Akcja / Sci-Fi" },
 
             // GRUDZIEŃ
             { date: "2026-12-03", title: "Violent Night 2", genre: "Akcja / Komedia" },
@@ -681,20 +725,121 @@
             { date: "2026-12-18", title: "Dune: Part Three", genre: "Sci-Fi" },
             { date: "2026-12-18", title: "Ice Age 6", genre: "Animacja / Komedia" }
         ];
+
         function renderCalendar() {
-             const container = document.getElementById('calendar-container');
-             if (container) {
-                 container.innerHTML = upcomingReleases.map(m => `
-                     <div class="flex items-center p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-green-500 transition-all">
-                         <div class="w-32 flex-shrink-0 text-green-500 font-black text-lg">${m.date}</div>
-                         <div class="flex-1 text-white font-black uppercase italic text-xl">${m.title}</div>
-                         <div class="text-zinc-500 text-xs uppercase font-bold">${m.genre}</div>
-                     </div>
-                 `).join('');
-             }
-         }
-         renderCalendar();
-      renderTop2026();
+            const container = document.getElementById('calendar-container');
+            if (!container) return;
+
+            // Słownik miesięcy dla ładniejszego formatowania
+            const months = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
+
+            container.innerHTML = upcomingReleases.map(m => {
+                const d = new Date(m.date);
+                const day = d.getDate();
+                const month = months[d.getMonth()];
+                
+                // Automatyczne wyróżnienie dużych marek
+                const isBigHit = m.genre.includes("Marvel") || m.genre.includes("Star Wars") || m.title.includes("Dune") || m.title.includes("Avengers") || m.title.includes("Odyssey") || m.title.includes("Project Hail Mary") || m.title.includes("Scream") ;
+
+                return `
+                    <div class="group relative flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 rounded-3xl transition-all duration-300 
+                        ${isBigHit ? 'bg-green-500/10 border border-green-500/30 glow-green' : 'bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-600'}">
+                        
+                        <!-- Badge Daty -->
+                        <div class="flex sm:flex-col items-center justify-center bg-zinc-950 border border-zinc-800 rounded-2xl p-3 min-w-[70px] sm:min-w-[85px] shadow-xl group-hover:scale-105 transition-transform">
+                            <span class="text-2xl font-black italic leading-none text-white">${day}</span>
+                            <span class="text-[10px] font-bold text-green-500 uppercase tracking-widest ml-2 sm:ml-0">${month}</span>
+                        </div>
+
+                        <!-- Treść -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-col gap-1">
+                                <h4 class="text-lg md:text-xl font-black uppercase italic tracking-tight text-white truncate group-hover:text-green-400 transition-colors">
+                                    ${m.title}
+                                </h4>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest px-2 py-1 bg-zinc-950 rounded-md">
+                                        ${m.genre}
+                                    </span>
+                                    ${isBigHit ? '<span class="animate-pulse text-[9px] font-black text-green-500 uppercase italic">● Wielka Premiera</span>' : ''}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Przycisk Info (Opcjonalny) -->
+                        <div class="hidden md:block">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-950 border border-zinc-800 text-zinc-500 group-hover:text-green-500 group-hover:border-green-500 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderRatingHistory() {
+            // 1. Ukrywamy stronę główną i pokazujemy stronę list
+            const homePage = document.getElementById('home-page');
+            const listsPage = document.getElementById('lists-page');
+            const container = document.getElementById('custom-lists-container');
+
+            if (homePage) homePage.classList.add('hidden-section');
+            if (listsPage) listsPage.classList.remove('hidden-section');
+
+            // 2. KLUCZ: Czyścimy cały kontener, żeby usunąć napisy "Twoje Listy" itp.
+            // Jeśli napisy "Twoje Listy" są poza kontenerem 'custom-lists-container', 
+            // musimy je ukryć selektywnie:
+            const listsHeader = listsPage.querySelector('h2'); // Znajduje napis "Twoje Listy"
+            const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
+            
+            if (listsHeader) listsHeader.style.display = 'none';
+            if (newListBtn) newListBtn.style.display = 'none';
+
+            const history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+            
+            let html = `
+                <div class="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <h2 class="text-4xl font-black italic uppercase text-white mb-8 tracking-tighter">
+                        TWOJA <span class="text-green-500">HISTORIA OCEN</span>
+                    </h2>
+                    <div class="bg-zinc-900/40 border border-zinc-800/50 rounded-[40px] overflow-hidden backdrop-blur-md">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-zinc-900/80 text-zinc-500 text-[10px] uppercase font-bold tracking-widest">
+                                <tr>
+                                    <th class="p-6">Film</th>
+                                    <th class="p-6">Data wystawienia</th>
+                                    <th class="p-6 text-right">Ocena</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-800/30">
+            `;
+
+            if (history.length === 0) {
+                html += `<tr><td colspan="3" class="p-32 text-center text-zinc-600 font-black uppercase italic opacity-20 text-2xl">Brak ocen</td></tr>`;
+            } else {
+                html += history.map(entry => `
+                    <tr class="hover:bg-green-500/[0.03] transition-all group">
+                        <td class="p-6 flex items-center gap-5">
+                            <img src="${entry.img}" class="w-14 h-20 object-cover rounded-2xl shadow-2xl border border-zinc-800 group-hover:border-green-500/50 transition-colors">
+                            <span class="text-white font-black uppercase italic text-lg tracking-tight">${entry.title}</span>
+                        </td>
+                        <td class="p-6 text-zinc-500 text-xs font-medium uppercase tracking-tighter">${entry.date}</td>
+                        <td class="p-6 text-right">
+                            <span class="bg-green-500 text-black px-5 py-2 rounded-2xl font-black italic text-sm shadow-[0_8px_20px_rgba(34,197,94,0.3)]">
+                                ${entry.rating}/10
+                            </span>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            html += `</tbody></table></div></div>`;
+            
+            container.innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
       window.addEventListener('DOMContentLoaded', () => {
           renderTop2026();
