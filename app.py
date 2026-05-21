@@ -40,5 +40,40 @@ def subscribe():
             return "<h1>Ten e-mail już jest w bazie!</h1><a href='/'>Wróć</a>"
     return redirect('/')
 
+import os
+from flask import request, jsonify
+
+# Konfiguracja folderu na avatary (zapisujemy do Twojego folderu static)
+UPLOAD_FOLDER = os.path.join('static', 'avatars')
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+@app.route('/upload_avatar', methods=['POST'])
+def upload_avatar():
+    # Sprawdzamy, czy w żądaniu jest plik
+    if 'avatar' not in request.files:
+        return jsonify({'error': 'Brak pliku w żądaniu'}), 400
+        
+    file = request.files['avatar']
+    username = request.form.get('username') # Wiążemy avatar z użytkownikiem
+    
+    if file.filename == '':
+        return jsonify({'error': 'Nie wybrano pliku'}), 400
+        
+    if file and username:
+        # Tworzymy unikalną nazwę pliku, np. avatar_alan.png
+        ext = os.path.splitext(file.filename)[1]
+        filename = f"avatar_{username.lower()}{ext}"
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        
+        # Zapisujemy plik na serwerze
+        file.save(filepath)
+        
+        # Zwracamy ścieżkę do zapisanego avatara (zamieniamy backslashe na slashe)
+        return jsonify({'avatar_url': '/' + filepath.replace('\\', '/')})
+        
+    # Tutaj poprawiona literówka oraz dodane prawidłowe wcięcie!
+    return jsonify({'error': 'Coś poszło nie tak'}), 400
+
 if __name__ == '__main__':
     app.run(debug=True)
