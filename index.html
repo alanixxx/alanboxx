@@ -16,10 +16,304 @@
         .slider-track { display: flex; gap: 1.5rem; width: max-content; animation: scroll 100s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 0.75rem)); } }
         .slider-track:hover { animation-play-state: paused; }
+        .slider-container, .slider-track, .movie-card {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
         
+
+
+        .rating-studio-shell {
+            background:
+                radial-gradient(circle at top left, rgba(34,211,238,.14), transparent 34%),
+                linear-gradient(180deg, rgba(24,24,27,.95), rgba(9,9,11,.98));
+        }
+
+        .studio-chip {
+            flex-shrink: 0;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.9);
+            color: #a1a1aa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            transition: .2s ease;
+        }
+
+        .studio-chip:hover,
+        .studio-chip.active {
+            border-color: #22d3ee;
+            background: rgba(34,211,238,.14);
+            color: white;
+            box-shadow: 0 0 22px rgba(34,211,238,.12);
+        }
+
+        .rating-pick-card {
+            border: 1px solid #27272a;
+            background: #18181b;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: .22s ease;
+        }
+
+        .rating-pick-card:hover,
+        .rating-pick-card.selected {
+            transform: translateY(-5px);
+            border-color: #22d3ee;
+            box-shadow: 0 20px 45px rgba(0,0,0,.45), 0 0 28px rgba(34,211,238,.16);
+        }
+
+       
+
+        .rating-stars {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .rating-stars button {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #52525b;
+            font-size: 18px;
+            transition: .15s ease;
+        }
+
+        .rating-stars button.active,
+        .rating-stars button:hover {
+            background: rgba(34,211,238,.16);
+            border-color: #22d3ee;
+            color: #22d3ee;
+        }
+
+        .rating-history-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        @media (min-width: 640px) {
+            .rating-history-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .rating-history-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        .rating-card {
+            border: 1px solid rgba(39, 39, 42, 1);
+            background: linear-gradient(180deg, rgba(24,24,27,.92), rgba(9,9,11,.98));
+            border-radius: 26px;
+            overflow: hidden;
+            transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+
+        .rating-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 211, 238, .7);
+            box-shadow: 0 18px 50px rgba(0,0,0,.45), 0 0 32px rgba(34,211,238,.14);
+        }
+
+        .rating-poster,
+        .rating-poster-box {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            height: auto;
+            background: #09090b;
+            overflow: hidden;
+            position: relative;
+            border-radius: 18px;
+        }
+
+        .rating-poster img,
+        .rating-poster-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .rating-history-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .rating-history-card .p-4 {
+            flex: 1;
+        }
+
+        .rating-score-badge {
+            background: linear-gradient(135deg, rgba(34, 211, 238, .95), rgba(37, 99, 235, .95));
+            color: white;
+            box-shadow: 0 0 24px rgba(34,211,238,.25);
+        }
+
+        .rating-score-badge span {
+            color: inherit;
+        }
+
+        .rating-info {
+            padding: 16px;
+            min-height: 126px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .rating-title {
+            color: white;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            font-size: 18px;
+            line-height: 1.05;
+            word-break: break-word;
+        }
+
+        .rating-meta {
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            margin-top: 12px;
+        }
+
+        .library-hero {
+            background: radial-gradient(circle at top left, rgba(34,197,94,.14), transparent 38%),
+                        linear-gradient(180deg, rgba(24,24,27,.92), rgba(9,9,11,.96));
+        }
+        .lib-chip {
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.9);
+            color: #a1a1aa;
+            transition: .2s ease;
+        }
+        .lib-chip:hover, .lib-chip.active {
+            border-color: #22c55e;
+            background: rgba(34,197,94,.16);
+            color: white;
+            box-shadow: 0 0 22px rgba(34,197,94,.12);
+        }
+        .poster-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid #27272a;
+            background: #18181b;
+            transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+        .poster-card:hover {
+            transform: translateY(-6px);
+            border-color: #22c55e;
+            box-shadow: 0 18px 45px rgba(0,0,0,.45), 0 0 30px rgba(34,197,94,.16);
+        }
+        .poster-img-wrap {
+            aspect-ratio: 2 / 3;
+            overflow: hidden;
+            background: #09090b;
+        }
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .45s ease;
+        }
+        .poster-card:hover img {
+            transform: scale(1.06);
+        }
+        .poster-overlay {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 18px;
+            background: linear-gradient(to top, rgba(0,0,0,.96), rgba(0,0,0,.55), transparent);
+        }
+        .poster-actions {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: .2s ease;
+        }
+        .poster-card:hover .poster-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .poster-actions {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        /* --- KLASA DLA EMISJI "COMING SOON" --- */
+        .movie-card.coming-soon {
+            border-color: rgba(249, 115, 22, 0.4) !important;
+        }
+        .movie-card.coming-soon:hover {
+            border-color: #f97316 !important;
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.3);
+        }
+        .coming-badge {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: #000;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
         .movie-card { width: 260px; flex-shrink: 0; transition: transform 0.2s; cursor: pointer; border-radius: 24px; overflow: hidden; border: 1px solid #27272a; }
         @media (min-width: 768px) { .movie-card { width: 300px; } }
         .movie-card:hover { transform: scale(1.05); border-color: #22c55e; }
+
+         /* --- POPRAWKA WYMIARÓW: IDEALNE WYRÓWNANIE PLAKATÓW I KART --- */
+        .movie-card {
+            display: flex !important;
+            flex-direction: column !important;
+            height: 490px !important; /* Wszystkie karty będą identycznej wysokości */
+            justify-content: space-between !important;
+        }
+
+        .movie-card img {
+            width: 100% !important;
+            height: 380px !important; /* Każdy plakat utnie się dokładnie w tym samym miejscu */
+            object-fit: cover !important; /* Obraz dostosuje się bez rozciągania */
+        }
+
+        .movie-card .p-4 {
+            flex-grow: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important; /* Zrówna oceny i Coming Soon w idealnej linii na dole */
+            height: 110px !important;
+        }
+
+
+        .rating-pick-poster {
+            width: 100% !important;
+            aspect-ratio: 2 / 3 !important;
+            overflow: hidden !important;
+            background: #09090b !important;
+            position: relative !important;
+        }
+
+       
 
         .hidden-section { display: none !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 15px; }
@@ -36,6 +330,61 @@
         .heart-active { color: #22c55e !important; transform: scale(1.2); }
         .doomsday-text { color: #22c55e; text-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
         .glow-green { box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); border-color: rgba(34, 197, 94, 0.4); }
+
+
+       
+
+        .list-movie-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        @media (min-width: 768px) {
+            .list-movie-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        .list-tile {
+            border: 1px solid #27272a;
+            background: #18181b;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: .22s ease;
+        }
+
+        .list-tile:hover {
+            transform: translateY(-5px);
+            border-color: #22c55e;
+            box-shadow: 0 18px 45px rgba(0,0,0,.4);
+        }
+
+ 
+        .rating-pick-card {
+            border: 1px solid #27272a;
+            background: #18181b;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: .22s ease;
+        }
+
+        .rating-pick-poster {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background: #09090b;
+        }
+
+        .rating-pick-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 38%;
+            display: block;
+        }
+
+       
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -46,7 +395,7 @@
             <div class="flex items-center space-x-4 md:space-x-8 text-white">
                 <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
                 <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
-                <button onclick="renderRatingHistory()" class="text-zinc-400 hover:text-green-500 font-bold uppercase text-[10px] md:text-xs tracking-widest transition italic">Oceny</button>
+                <button onclick="renderCalendar()" class="hover:text-green-500 font-black text-xs uppercase tracking-wider transition-colors">KALENDARZ</button>
                 <div id="auth-section">
                     <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
                 </div>
@@ -55,13 +404,26 @@
     </nav>
 
     <main id="home-page">
-        <header class="relative py-24 md:py-40 text-center px-4 overflow-hidden">
-            <div id="hero-bg"></div>
+        <header class="relative py-24 md:py-40 text-center px-4 overflow-hidden bg-zinc-950">
+            <div id="hero-bg" class="opacity-10"></div> 
             <div class="hero-gradient"></div>
+            
+            <div id="particles-js-header" class="absolute inset-0 z-0 pointer-events-none"></div>
+
             <div class="relative z-10">
                 <h2 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-green-900 leading-none">
                     HISTORIE, <span class="text-green-500">KTÓRE</span> ZOSTAJĄ.
                 </h2>
+                <!-- 🔥 NOWY, WIĘKSZY I IDEALNIE WYŚRODKOWANY PRZYCISK: -->
+                <!-- 🔥 NOWY, WIĘKSZY I IDEALNIE WYŚRODKOWANY PRZYCISK: -->
+                <div class="flex justify-center mt-20 mb-24 animate-in fade-in duration-500">
+                    <button onclick="openRatingStudio()" class="group relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-green-600 hover:bg-green-400 text-black border-4 border-zinc-900 shadow-2xl shadow-green-600/25 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 mx-auto">
+                        <span class="text-6xl md:text-7xl font-black leading-none -mt-2">+</span>
+                        <span class="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">
+                            Oceń film
+                        </span>
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -69,6 +431,55 @@
             <div class="slider-track" id="main-slider"></div>
         </div>
 
+        
+
+        <section class="max-w-7xl mx-auto px-4 mb-16 mt-12">
+            <div class="relative bg-zinc-950 border border-yellow-600/20 rounded-[40px] overflow-hidden p-8 md:p-12 shadow-[0_0_50px_rgba(234,179,8,0.05)] group">
+                
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(234,179,8,0.08),transparent_70%)] pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-[10px] font-black text-yellow-500/20 uppercase tracking-widest select-none animate-pulse">ASYNC_ANOMALY_DETECTION // LOG_#84FC</div>
+
+                <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                    
+                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 group-hover:border-yellow-500/40 transition-all duration-500">
+                        <img src="/static/backrooms.jpg" alt="The Backrooms Movie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=THE+BACKROOMS'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-yellow-500 text-black px-3 py-1 text-[9px] font-black uppercase italic rounded-lg tracking-wider shadow-lg">🎯 WYBÓR MIESIĄCA</span>
+                    </div>
+
+                    <div class="flex-grow text-center lg:text-left">
+                        <h4 class="text-xs font-black tracking-widest text-yellow-500 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
+                        <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
+                            The Backrooms <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Movie</span>
+                        </h2>
+                        <p class="text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-8">
+                            Przeżyj horror zagubienia w nieskończonych, żółtych korytarzach poziomu 0. Kinowa adaptacja internetowego fenomenu zbliża się wielkimi krokami. Czy uda Ci się przetrwać i odnaleźć wyjście przed końcem czasu?
+                        </p>
+
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                            <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
+                                <div id="countdown-days" class="text-2xl md:text-3xl font-black text-white italic leading-none">00</div>
+                                <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Dni</div>
+                            </div>
+                            <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
+                                <div id="countdown-hours" class="text-2xl md:text-3xl font-black text-yellow-500 italic leading-none">00</div>
+                                <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Godz</div>
+                            </div>
+                            <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
+                                <div id="countdown-minutes" class="text-2xl md:text-3xl font-black text-white italic leading-none">00</div>
+                                <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Min</div>
+                            </div>
+                            <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
+                                <div id="countdown-seconds" class="text-2xl md:text-3xl font-black text-amber-500 italic leading-none">00</div>
+                                <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Sek</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
         <section class="max-w-6xl mx-auto px-5 py-16">
             <div class="bg-zinc-900/50 border border-zinc-800 rounded-[40px] p-8 glow-green flex flex-col md:flex-row items-center gap-10">
                 <div class="w-full md:w-1/3">
@@ -124,39 +535,60 @@
         </section>
     </main>
 
-    <div id="library-page" class="hidden-section max-w-7xl mx-auto p-4 md:p-5 py-12">
-        <div class="flex flex-col lg:flex-row gap-8 md:gap-12">
-            <aside class="lg:w-64 space-y-6">
+    <div id="library-page" class="hidden-section max-w-7xl mx-auto px-4 md:px-5 py-8 md:py-12">
+        <section class="library-hero border border-zinc-800 rounded-[32px] p-5 md:p-8 mb-8 shadow-2xl shadow-black/40">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
                 <div>
-                    <h3 class="text-[10px] font-black uppercase text-zinc-500 tracking-widest mb-4 italic underline decoration-red-600 decoration-2 underline-offset-8">Gatunki</h3>
-                    <div class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 custom-scroll" id="category-btns">
-                        <button onclick="filterCategory('Wszystkie')" class="cat-btn whitespace-nowrap bg-green-600 text-black px-6 py-3 rounded-xl font-black italic uppercase text-xs">Wszystkie</button>
-                        <button onclick="filterCategory('Marvel')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Marvel</button>
-                        <button onclick="filterCategory('Action')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Action</button>
-                        <button onclick="filterCategory('Sci-Fi')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Sci-Fi</button>
-                        <button onclick="filterCategory('Horror')" class="cat-btn whitespace-nowrap bg-zinc-900 text-zinc-400 w-full text-left px-6 py-3 rounded-xl font-black italic uppercase text-xs">Horror</button>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Library</p>
+                    <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white">
+                        Wybierz <span class="text-green-500">film</span>
+                    </h2>
+                    <p id="library-count" class="text-zinc-500 text-xs font-black uppercase tracking-widest mt-3">Ładowanie...</p>
+                </div>
+
+                <div class="w-full lg:w-[460px]">
+                    <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Szukaj tytułu..."
+                        class="w-full bg-zinc-950/80 border border-zinc-800 rounded-2xl px-6 py-4 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 text-white text-base md:text-lg font-bold">
+                </div>
+            </div>
+
+            <div class="mt-7 grid gap-5">
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500 mb-3">Gatunki</p>
+                    <div class="flex gap-2 overflow-x-auto pb-2 custom-scroll" id="category-btns">
+                        <button onclick="filterCategory('Wszystkie')" class="cat-btn lib-chip active shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Wszystkie</button>
+                        <button onclick="filterCategory('Marvel')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Marvel</button>
+                        <button onclick="filterCategory('Action')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Action</button>
+                        <button onclick="filterCategory('Sci-Fi')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Sci-Fi</button>
+                        <button onclick="filterCategory('Horror')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Horror</button>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 pt-6 border-t border-zinc-800">
-                    <button onclick="sortMovies('date')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Data</button>
-                    <button onclick="sortMovies('rating')" class="bg-zinc-900 text-zinc-400 px-6 py-3 rounded-xl font-black uppercase text-[10px] text-left hover:text-white transition">Sortuj: Ocena</button>
+
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500 mb-3">Tryb</p>
+                    <div class="flex gap-2 overflow-x-auto pb-2 custom-scroll">
+                        <button onclick="filterQuick('all')" class="quick-btn lib-chip active shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-filter="all">Wszystkie</button>
+                        <button onclick="filterQuick('top')" class="quick-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-filter="top">Ocena 8+</button>
+                        <button onclick="filterQuick('coming')" class="quick-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-filter="coming">Coming Soon</button>
+                        <button onclick="filterQuick('2026')" class="quick-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-filter="2026">Premiery 2026</button>
+                        <button onclick="filterQuick('watchlist')" class="quick-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-filter="watchlist">Watchlista</button>
+                    </div>
                 </div>
-            </aside>
-            <div class="flex-1 overflow-hidden">
-                <input type="text" id="movie-search" oninput="handleSearch()" placeholder="Wyszukaj tytuł w bazie danych..." class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-8 py-5 mb-10 outline-none focus:ring-2 focus:ring-green-500 text-white text-xl">
-                <div class="bg-zinc-900/50 rounded-[32px] border border-zinc-800 overflow-x-auto custom-scroll mb-8">
-                    <table class="w-full text-left border-collapse min-w-[600px]">
-                        <thead>
-                            <tr class="border-b border-zinc-800 text-zinc-500 text-[10px] uppercase font-black tracking-widest">
-                                <th class="p-6">Film</th><th class="p-6">Gatunek</th><th class="p-6">Rok</th><th class="p-6">Ocena</th><th class="p-6 text-right">Akcja</th>
-                            </tr>
-                        </thead>
-                        <tbody id="library-table-body"></tbody>
-                    </table>
+
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500 mb-3">Kolejność</p>
+                    <div class="flex gap-2 overflow-x-auto pb-2 custom-scroll">
+                        <button onclick="sortMovies('default')" class="sort-btn lib-chip active shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-sort="default">Domyślnie</button>
+                        <button onclick="sortMovies('rating')" class="sort-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-sort="rating">Ocena</button>
+                        <button onclick="sortMovies('date')" class="sort-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-sort="date">Rok</button>
+                        <button onclick="sortMovies('title')" class="sort-btn lib-chip shrink-0 px-4 py-3 rounded-2xl font-black uppercase text-[10px]" data-sort="title">A-Z</button>
+                    </div>
                 </div>
-                <div id="pagination-controls" class="flex justify-center gap-2"></div>
             </div>
-        </div>
+        </section>
+
+        <div id="library-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"></div>
+        <div id="pagination-controls" class="flex justify-center items-center gap-2 mt-10"></div>
     </div>
 
    
@@ -166,6 +598,74 @@
             <button onclick="createNewList()" class="bg-green-600 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-xs tracking-widest">Nowa lista +</button>
         </div>
         <div id="custom-lists-container" class="space-y-12"></div>
+    </div>
+
+    <div id="calendar-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
+        <div id="calendar-page-container"></div>
+    </div>
+
+    <div id="rating-studio-page" class="hidden-section max-w-7xl mx-auto px-4 md:px-5 py-8 md:py-12">
+        <section class="rating-studio-shell border border-zinc-800 rounded-[32px] p-5 md:p-8 shadow-2xl shadow-black/50">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-7">
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub Rating</p>
+                    <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
+                        Oceń <span class="text-cyan-400">film</span>
+                    </h2>
+                    <p class="text-zinc-500 font-bold text-sm mt-4 max-w-xl">
+                        Wybierz plakat, kliknij ocenę i zapisz. Prosto, szybko, bez brzydkiego formularza.
+                    </p>
+                </div>
+
+                <button onclick="showHome()" class="w-fit bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition">
+                    Wróć
+                </button>
+            </div>
+
+            <div class="grid gap-4 mb-7">
+                <input id="rating-studio-search" oninput="renderRatingStudioMovies()" type="text" placeholder="Wpisz tytuł filmu..."
+                    class="w-full bg-zinc-950/80 border border-zinc-800 rounded-2xl px-6 py-4 text-white font-bold outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20">
+
+                <div class="flex gap-2 overflow-x-auto pb-2 custom-scroll">
+                    <button onclick="setRatingStudioFilter('all')" class="rating-filter-btn studio-chip active" data-filter="all">Wszystkie</button>
+                    <button onclick="setRatingStudioFilter('Marvel')" class="rating-filter-btn studio-chip" data-filter="Marvel">Marvel</button>
+                    <button onclick="setRatingStudioFilter('Action')" class="rating-filter-btn studio-chip" data-filter="Action">Action</button>
+                    <button onclick="setRatingStudioFilter('Sci-Fi')" class="rating-filter-btn studio-chip" data-filter="Sci-Fi">Sci-Fi</button>
+                    <button onclick="setRatingStudioFilter('Horror')" class="rating-filter-btn studio-chip" data-filter="Horror">Horror</button>
+                </div>
+            </div>
+
+            <div id="rating-studio-selected" class="hidden mb-7 rounded-[28px] border border-cyan-500/30 bg-cyan-500/[0.08] p-4 md:p-5">
+                <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                    <img id="selected-rating-img" src="" class="w-24 h-36 object-cover rounded-2xl border border-zinc-800 shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-2">Wybrany film</p>
+                        <h3 id="selected-rating-title" class="text-2xl md:text-4xl font-black italic uppercase text-white leading-tight"></h3>
+
+                        <div class="rating-stars mt-4" id="rating-stars">
+                            <button onclick="setStudioRating(1)">★</button>
+                            <button onclick="setStudioRating(2)">★</button>
+                            <button onclick="setStudioRating(3)">★</button>
+                            <button onclick="setStudioRating(4)">★</button>
+                            <button onclick="setStudioRating(5)">★</button>
+                            <button onclick="setStudioRating(6)">★</button>
+                            <button onclick="setStudioRating(7)">★</button>
+                            <button onclick="setStudioRating(8)">★</button>
+                            <button onclick="setStudioRating(9)">★</button>
+                            <button onclick="setStudioRating(10)">★</button>
+                        </div>
+
+                        <p id="selected-rating-value" class="text-zinc-500 text-xs font-black uppercase tracking-widest mt-3">Wybierz ocenę</p>
+                    </div>
+
+                    <button onclick="saveStudioRating()" class="bg-cyan-400 hover:bg-cyan-300 text-black rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest transition">
+                        Zapisz
+                    </button>
+                </div>
+            </div>
+
+            <div id="rating-studio-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6"></div>
+        </section>
     </div>
 
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
@@ -210,12 +710,48 @@
     </div>
 
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
-        <div class="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 w-full max-w-md relative mx-4 text-center">
-            <h2 class="text-3xl font-black italic uppercase mb-8 text-green-500 italic">Movie Hub</h2>
-            <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="text" id="username" placeholder="Twoja ksywka" required class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                <button type="submit" class="w-full bg-green-600 py-4 rounded-2xl font-black uppercase text-black hover:bg-green-400 transition-all">Zatwierdź Protokół</button>
+        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-md rounded-[32px] p-6 md:p-8 relative shadow-2xl shadow-black/80">
+            <button onclick="toggleModal('login-modal', false)" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
+
+            <div class="mb-7">
+                <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Account</p>
+                <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white">
+                    Wejdź do <span class="text-green-500">kina</span>
+                </h2>
+                <p class="text-zinc-500 text-sm mt-2 font-medium">Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 bg-zinc-900/70 border border-zinc-800 rounded-2xl p-1 mb-5">
+                <button id="login-tab" onclick="switchAuthTab('login')" class="auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Logowanie</button>
+                <button id="register-tab" onclick="switchAuthTab('register')" class="auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Rejestracja</button>
+            </div>
+
+            <button onclick="loginWithGoogle()" class="w-full mb-5 bg-white hover:bg-zinc-200 text-black rounded-2xl py-3.5 font-black uppercase text-xs tracking-wider transition flex items-center justify-center gap-3">
+                <span class="text-lg">G</span>
+                Kontynuuj z Google
+            </button>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="h-px flex-1 bg-zinc-800"></div>
+                <span class="text-[9px] font-black uppercase text-zinc-600 tracking-widest">albo</span>
+                <div class="h-px flex-1 bg-zinc-800"></div>
+            </div>
+
+            <form id="login-form" onsubmit="loginWithEmail(event)" class="space-y-3">
+                <input id="login-email" type="email" placeholder="E-mail" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <input id="login-password" type="password" placeholder="Hasło" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">Zaloguj</button>
             </form>
+
+            <form id="register-form" onsubmit="registerWithEmail(event)" class="space-y-3 hidden">
+                <input id="register-nick" type="text" placeholder="Nick" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <input id="register-birthdate" type="date" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <input id="register-email" type="email" placeholder="E-mail" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <input id="register-password" type="password" placeholder="Hasło min. 6 znaków" required minlength="6" class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">Utwórz konto</button>
+            </form>
+
+            <p id="auth-error" class="hidden mt-4 text-red-400 text-xs font-bold text-center"></p>
         </div>
     </div>
 
@@ -246,7 +782,7 @@
             { id: 'bloodlines', title: 'Final Destination: Bloodlines', category: 'Horror', img: './static/bloodlines.jpg', rating: '6.7/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=UWMzKXsY9A4', desc: 'Śmierć powraca po nowe ofiary.' },
             { id: 'bullettrain', title: 'Bullet Train', category: 'Action', img: './static/bullettrain.jpg', rating: '7.3/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=0IOsk2Vlc4o', desc: 'Zabójcy w szybkim pociągu jadącym przez Japonię.' },
             { id: 'buzzastral', title: 'Buzz Astral', category: 'Sci-Fi', img: './static/buzzastral.jpg', rating: '6.1/10', date: '2022', trailer: 'https://www.youtube.com/watch?v=BwPL0Md_QFQ', desc: 'Historia legendy Strażników Kosmosu.' },
-            { id: 'capitanamerica', title: 'Captain America: Brave new World', category: 'Marvel', img: './static/capitanamericaBNW.jpg', rating: '5.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=1pHDWnXmK7Y', desc: 'Sam Wilson jako nowy Kapitan Ameryka.' },
+            { id: 'capitanamerica', title: 'Captain America: BNW', category: 'Marvel', img: './static/capitanamericabnw.jpg', rating: '5.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=1pHDWnXmK7Y', desc: 'Sam Wilson jako nowy Kapitan Ameryka.' },
             { id: 'carryon', title: 'Carry On', category: 'Action', img: './static/carryon.jpg', rating: '6.8/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=KS0XacjMmOc', desc: 'Terrorysta na lotnisku szantażuje agenta.' },
             { id: 'civilwar', title: 'Civil War', category: 'Action', img: './static/civilwar.jpg', rating: '7.1/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=aDyQxtg0V2w', desc: 'Wojna domowa w USA widziana oczami fotoreporterów.' },
             { id: 'coldstorage', title: 'Cold Storage', category: 'Horror', img: './static/coldstorage.jpg', rating: '6.1/10', date: '2026', trailer: 'https://www.youtube.com/watch?v=kea7gnh1uYA', desc: 'Wirus w tajnym laboratorium.' },
@@ -360,12 +896,71 @@
             { id: 'wolfman', title: 'Wolfman', category: 'Horror', img: './static/wolfman.jpg', rating: '5.6/10', date: '2025', trailer: 'https://www.youtube.com/watch?v=kAw4PH2IQgo', desc: 'Wilkołak w nowej wersji.' }
         ];
 
+        
+
         let currentMovieId = null;
         let currentPage = 1;
-        const itemsPerPage = 8;
+        let activeCategory = 'Wszystkie';
+        let activeQuickFilter = 'all';
+        let activeSort = 'default';
+        let searchQuery = '';
+        const itemsPerPage = 10;
         let filteredMovies = [...movies];
-        let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
-        let userLists = JSON.parse(localStorage.getItem('userCustomLists')) || [{ name: 'Moje Ulubione', movies: [] }];
+        let watchlist = [];
+        let userLists = [];
+        window.activeView = 'home';
+
+        function getActiveUserIdFromFirebase() {
+            return typeof window.getFirebaseUserId === 'function' ? window.getFirebaseUserId() : 'guest';
+        }
+
+        function userStorageKey(name) {
+            return `${name}_${getActiveUserIdFromFirebase()}`;
+        }
+
+        function loadWatchlist() {
+            return JSON.parse(localStorage.getItem(userStorageKey('watchlist'))) || [];
+        }
+
+        function saveWatchlist(newWatchlist) {
+            localStorage.setItem(userStorageKey('watchlist'), JSON.stringify(newWatchlist));
+        }
+
+        function loadUserLists() {
+            return JSON.parse(localStorage.getItem(userStorageKey('userCustomLists'))) || [{ name: 'Moje Ulubione', movies: [] }];
+        }
+
+        function saveUserLists(newLists) {
+            localStorage.setItem(userStorageKey('userCustomLists'), JSON.stringify(newLists));
+        }
+
+        function refreshUserScopedData() {
+            watchlist = loadWatchlist();
+            userLists = loadUserLists();
+        }
+
+        refreshUserScopedData();
+
+        function renderListMovieTile(id, removeButton = '') {
+            const m = movies.find(x => x.id === id);
+            if (!m) return '';
+
+            return `
+                <article class="list-tile group">
+                    <button onclick="openModalById('${m.id}')" class="block w-full text-left">
+                        <div class="poster-fit">
+                            <img class="poster-fit-bg" src="${m.img}" alt="" onerror="this.style.display='none'">
+                            <img class="poster-fit-main" src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-white font-black italic uppercase text-sm leading-tight line-clamp-2">${m.title}</h4>
+                            <p class="text-green-400 font-black uppercase text-[9px] tracking-widest mt-2">${m.category} • ${m.date}</p>
+                        </div>
+                    </button>
+                    ${removeButton}
+                </article>
+            `;
+        }
 
         // 1. ZIELONY COUNTDOWN (18.12.2026)
         function updateCountdown() {
@@ -395,15 +990,41 @@
         rotateHeroBg();
 
         // 3. NAWIGACJA & AUTH
-        function hideAll() { document.querySelectorAll('main, #library-page, #lists-page').forEach(el => el.classList.add('hidden-section')); }
-        function showHome() { hideAll(); document.getElementById('home-page').classList.remove('hidden-section'); }
-        function showLibrary() { hideAll(); document.getElementById('library-page').classList.remove('hidden-section'); renderTable(); }
+        function hideAll() { 
+            document
+                .querySelectorAll('main, #library-page, #lists-page, #calendar-page, #rating-studio-page')
+                .forEach(el => el.classList.add('hidden-section')); 
+        }
+
+        function showHome() { 
+            window.activeView = 'home';
+            hideAll(); 
+            const homePage = document.getElementById('home-page');
+            if (homePage) homePage.classList.remove('hidden-section');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showLibrary() {
+            window.activeView = 'library';
+            hideAll();
+
+            const libraryPage = document.getElementById('library-page');
+            if (libraryPage) libraryPage.classList.remove('hidden-section');
+
+            filteredMovies = [...movies];
+            currentPage = 1;
+            renderTable();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function showMyLists() {
+            window.activeView = 'lists';
             hideAll();
             const listsPage = document.getElementById('lists-page');
-            listsPage.classList.remove('hidden-section');
-            
-            // ODKRYWAMY NAGŁÓWKI LIST (na wypadek gdybyśmy wcześniej byli w Ocenach)
+            if (listsPage) listsPage.classList.remove('hidden-section');
+
+            // Odkrywamy domyślne nagłówki list
             const listsHeader = listsPage.querySelector('h2');
             const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
             if (listsHeader) listsHeader.style.display = 'block';
@@ -411,150 +1032,591 @@
 
             renderCustomLists();
         }
-        function handleLogin(e) { e.preventDefault(); localStorage.setItem('hubUser', document.getElementById('username').value); location.reload(); }
-        function logout() { localStorage.removeItem('hubUser'); location.reload(); }
-        function updateAuthUI() { 
-            const user = localStorage.getItem('hubUser');
-            if(user) {
-                document.getElementById('auth-section').innerHTML = `
-                    <span class="text-white font-black italic underline decoration-green-600 decoration-4 text-xs uppercase mr-2">${user}</span>
-                    <button onclick="logout()" class="text-[9px] font-black uppercase text-red-600">Wyloguj</button>
+
+        
+ 
+        
+
+        // ==========================================
+        // 2. NOWA, RESPONSYWNA HISTORIA OCEN
+        // ==========================================
+        function renderRatingHistory() {
+            window.activeView = 'ratings';
+
+            const homePage = document.getElementById('home-page');
+            const libraryPage = document.getElementById('library-page');
+            const listsPage = document.getElementById('lists-page');
+            const calendarPage = document.getElementById('calendar-page');
+            const container = document.getElementById('custom-lists-container');
+
+            if (homePage) homePage.classList.add('hidden-section');
+            if (libraryPage) libraryPage.classList.add('hidden-section');
+            if (calendarPage) calendarPage.classList.add('hidden-section');
+            if (listsPage) listsPage.classList.remove('hidden-section');
+            if (!container) return;
+
+            const listsHeader = listsPage.querySelector('h2');
+            const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
+
+            if (listsHeader) listsHeader.style.display = 'none';
+            if (newListBtn) newListBtn.style.display = 'none';
+
+            const history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <section class="rating-history-shell rounded-[32px] border border-zinc-800 p-8 md:p-12 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
+                        <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white mb-4">
+                            Historia <span class="text-cyan-400">ocen</span>
+                        </h2>
+                        <p class="text-zinc-500 font-black uppercase tracking-widest text-xs">
+                            Nie masz jeszcze zapisanych ocen.
+                        </p>
+                    </section>
                 `;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
             }
+
+            const ratingValues = history
+                .map(entry => parseFloat(entry.rating))
+                .filter(score => !isNaN(score));
+
+            const averageRating = ratingValues.length
+                ? (ratingValues.reduce((sum, score) => sum + score, 0) / ratingValues.length).toFixed(1)
+                : '0.0';
+
+            let html = `
+                <section class="rating-history-shell rounded-[32px] border border-zinc-800 p-5 md:p-8 shadow-2xl shadow-black/50">
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Twoje kino</p>
+                            <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
+                                Historia <span class="text-cyan-400">ocen</span>
+                            </h2>
+                            <p class="text-zinc-500 font-bold text-sm mt-4 max-w-xl">
+                                Plakaty filmów, które już oceniłeś. Ocena jest mocno wyciągnięta na wierzch, żeby na telefonie od razu było widać co dałeś.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 min-w-[220px]">
+                            <div class="rounded-2xl bg-zinc-950/80 border border-zinc-800 p-4">
+                                <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Wszystkie</p>
+                                <p class="text-2xl font-black italic text-white">${history.length}</p>
+                            </div>
+                            <div class="rounded-2xl bg-cyan-500/10 border border-cyan-500/30 p-4">
+                                <p class="text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-1">Średnia</p>
+                                <p class="text-2xl font-black italic text-cyan-400">${averageRating}/10</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            `;
+
+            html += history.map((entry, index) => {
+                const matchedMovie = movies.find(m =>
+                    (entry.id && m.id === entry.id) ||
+                    (entry.title && m.title.toUpperCase() === String(entry.title).toUpperCase())
+                );
+
+                const poster = entry.img && entry.img !== 'DIAMOND'
+                    ? entry.img
+                    : matchedMovie?.img;
+
+                const title = entry.title || matchedMovie?.title || 'Nieznany film';
+                const date = entry.date || 'Brak daty';
+                const cleanRating = String(entry.rating || '-').replace('/10', '');
+                const canOpen = matchedMovie ? `onclick="openModalById('${matchedMovie.id}')"` : '';
+
+                const posterHTML = poster
+                    ? `<img src="${poster}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-3xl\\'>${cleanRating}</div>'">`
+                    : `<div class="w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-4xl">${cleanRating}</div>`;
+
+                return `
+                    <article class="rating-history-card group">
+                        <button ${canOpen} class="rating-poster-box block w-full text-left relative ${matchedMovie ? 'cursor-pointer' : 'cursor-default'}">
+                            ${posterHTML}
+
+                            <div class="absolute left-3 right-3 bottom-3 rating-score-badge rounded-2xl px-3 py-2 flex items-center justify-between">
+                                <span class="text-[9px] font-black uppercase tracking-widest opacity-80">Twoja ocena</span>
+                                <span class="font-black italic text-2xl leading-none">
+                                    ${cleanRating}<span class="text-xs opacity-75">/10</span>
+                                </span>
+                            </div>
+                        </button>
+
+                        <div class="p-4 flex flex-col justify-between min-w-0">
+                            <div>
+                                
+
+                                <h3 class="text-white font-black italic uppercase text-lg leading-tight tracking-tight">
+                                    ${title}
+                                </h3>
+
+                                <button onclick="deleteRatingHistoryItem(${index})"
+                                    class="mt-3 w-fit rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-2 text-[9px] font-black uppercase tracking-widest text-zinc-500 hover:text-red-400 hover:border-red-500 transition">
+                                    Usuń ocenę
+                                </button>
+                            </div>
+
+                            <div class="mt-5 flex items-center justify-between gap-3">
+                                <p class="text-zinc-500 font-black uppercase tracking-widest text-[9px] leading-tight">
+                                    ${date}
+                                </p>
+
+                                ${matchedMovie ? `
+                                    <button onclick="openModalById('${matchedMovie.id}')"
+                                        class="bg-zinc-900 hover:bg-cyan-500 hover:text-black border border-zinc-800 hover:border-cyan-500 text-white rounded-xl px-3 py-2 text-[9px] font-black uppercase transition">
+                                        Opis
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            html += `
+                    </div>
+                </section>
+            `;
+
+            container.innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function deleteRatingHistoryItem(index) {
+            const history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+
+            history.splice(index, 1);
+            localStorage.setItem('ratingHistory', JSON.stringify(history));
+
+            renderRatingHistory();
+        }
+
+        let selectedStudioMovieId = null;
+        let selectedStudioRating = null;
+        let ratingStudioFilter = 'all';
+
+        function openRatingStudio() {
+            window.activeView = 'ratingStudio';
+            hideAll();
+
+            const page = document.getElementById('rating-studio-page');
+            if (page) page.classList.remove('hidden-section');
+
+            selectedStudioMovieId = null;
+            selectedStudioRating = null;
+
+            const selectedBox = document.getElementById('rating-studio-selected');
+            if (selectedBox) selectedBox.classList.add('hidden');
+
+            renderRatingStudioMovies();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setRatingStudioFilter(filter) {
+            ratingStudioFilter = filter;
+
+            document.querySelectorAll('.rating-filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+
+            renderRatingStudioMovies();
+        }
+
+        function renderRatingStudioMovies() {
+            const grid = document.getElementById('rating-studio-grid');
+            const search = document.getElementById('rating-studio-search');
+            if (!grid) return;
+
+            const query = search ? search.value.toLowerCase().trim() : '';
+
+            const data = movies.filter(movie => {
+                const matchesSearch = movie.title.toLowerCase().includes(query);
+                const matchesFilter = ratingStudioFilter === 'all' || movie.category === ratingStudioFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            if (!data.length) {
+                grid.innerHTML = `
+                    <div class="col-span-full rounded-[28px] border border-zinc-800 bg-zinc-950 p-10 text-center">
+                        <p class="text-zinc-600 font-black uppercase tracking-widest text-xs">Nie ma takiego filmu w bazie</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = data.map(movie => `
+                <button onclick="selectStudioMovie('${movie.id}')" class="rating-pick-card ${selectedStudioMovieId === movie.id ? 'selected' : ''} text-left">
+                    <div class="rating-pick-poster">
+                        <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                    </div>
+                    <div class="p-3">
+                        <h3 class="text-white font-black italic uppercase text-sm leading-tight line-clamp-2">${movie.title}</h3>
+                        <p class="text-cyan-400 font-black uppercase tracking-widest text-[9px] mt-2">${movie.category} • ${movie.date}</p>
+                    </div>
+                </button>
+            `).join('');
+        }
+
+       
+
+        function selectStudioMovie(id) {
+            const movie = movies.find(m => m.id === id);
+            if (!movie) return;
+
+            selectedStudioMovieId = id;
+            selectedStudioRating = null;
+
+            document.getElementById('selected-rating-img').src = movie.img;
+            document.getElementById('selected-rating-title').textContent = movie.title;
+            document.getElementById('selected-rating-value').textContent = 'Wybierz ocenę';
+
+            document.getElementById('rating-studio-selected').classList.remove('hidden');
+
+            updateStudioStars();
+            renderRatingStudioMovies();
+
+            document.getElementById('rating-studio-selected').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function setStudioRating(value) {
+            selectedStudioRating = value;
+            document.getElementById('selected-rating-value').textContent = `Twoja ocena: ${value}/10`;
+            updateStudioStars();
+        }
+
+        function updateStudioStars() {
+            document.querySelectorAll('#rating-stars button').forEach((btn, index) => {
+                btn.classList.toggle('active', index < selectedStudioRating);
+            });
+        }
+
+        function saveStudioRating() {
+            if (!selectedStudioMovieId) {
+                alert('Najpierw wybierz film.');
+                return;
+            }
+
+            if (!selectedStudioRating) {
+                alert('Wybierz ocenę od 1 do 10.');
+                return;
+            }
+
+            const movie = movies.find(m => m.id === selectedStudioMovieId);
+            if (!movie) return;
+
+            const newEntry = {
+                id: movie.id,
+                img: movie.img,
+                title: movie.title,
+                date: getTodayDate().toUpperCase(),
+                rating: String(selectedStudioRating),
+                timestamp: Date.now()
+            };
+
+            let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+            history = [newEntry, ...history.filter(entry => entry.id !== movie.id)].slice(0, 50);
+
+            localStorage.setItem('ratingHistory', JSON.stringify(history));
+            localStorage.setItem(`rating-${movie.id}`, String(selectedStudioRating));
+
+            renderRatingHistory();
+        }
+
+        window.openRatingStudio = openRatingStudio;
+        window.setRatingStudioFilter = setRatingStudioFilter;
+        window.renderRatingStudioMovies = renderRatingStudioMovies;
+        window.selectStudioMovie = selectStudioMovie;
+        window.setStudioRating = setStudioRating;
+        window.saveStudioRating = saveStudioRating;
+
+
         // 4. KATALOG (Naprawione Opisy i Inteligentna Paginacja)
+        function getNumericRating(movie) {
+            return parseFloat(movie.rating) || 0;
+        }
+
+        function applyLibraryFilters() {
+            refreshUserScopedData();
+
+            filteredMovies = movies.filter(m => {
+                const matchesCategory = activeCategory === 'Wszystkie' || m.category === activeCategory;
+                const matchesSearch = m.title.toLowerCase().includes(searchQuery);
+
+                let matchesQuick = true;
+                if (activeQuickFilter === 'top') matchesQuick = getNumericRating(m) >= 8;
+                if (activeQuickFilter === 'coming') matchesQuick = String(m.rating).toUpperCase().includes('COMING');
+                if (activeQuickFilter === '2026') matchesQuick = m.date === '2026';
+                if (activeQuickFilter === 'watchlist') matchesQuick = watchlist.includes(m.id);
+
+                return matchesCategory && matchesSearch && matchesQuick;
+            });
+
+            if (activeSort === 'rating') filteredMovies.sort((a, b) => getNumericRating(b) - getNumericRating(a));
+            if (activeSort === 'date') filteredMovies.sort((a, b) => parseInt(b.date) - parseInt(a.date));
+            if (activeSort === 'title') filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
+        }
+
+        function updateLibraryButtons() {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.trim().toLowerCase() === activeCategory.toLowerCase());
+            });
+
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === activeQuickFilter);
+            });
+
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.sort === activeSort);
+            });
+        }
+
         function renderTable() {
+            applyLibraryFilters();
+            updateLibraryButtons();
+
             const startIndex = (currentPage - 1) * itemsPerPage;
             const data = filteredMovies.slice(startIndex, startIndex + itemsPerPage);
-            const tbody = document.getElementById('library-table-body');
-            const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
+            const grid = document.getElementById('library-grid');
+            const count = document.getElementById('library-count');
 
-            tbody.innerHTML = data.map(m => {
-                const isLiked = wl.includes(m.id);
+            if (count) count.textContent = `${filteredMovies.length} filmów w aktualnym widoku`;
+            if (!grid) return;
+
+            if (data.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full border border-zinc-800 rounded-[28px] bg-zinc-950 p-12 text-center">
+                        <p class="text-zinc-600 font-black uppercase italic tracking-widest">Nic tu nie ma po tych filtrach</p>
+                    </div>
+                `;
+                renderPagination();
+                return;
+            }
+
+            grid.innerHTML = data.map(m => {
+                const isLiked = watchlist.includes(m.id);
+                const coming = String(m.rating).toUpperCase().includes('COMING');
+
                 return `
-                <tr class="border-b border-zinc-800/50 hover:bg-green-500/5 transition-all group">
-                    <td class="p-4 md:p-6 flex items-center gap-4">
-                        <img src="${m.img}" class="w-12 h-16 object-cover rounded-lg shadow-xl shrink-0" onerror="this.src='https://via.placeholder.com/150x200?text=Brak'">
-                        <span class="font-black italic uppercase text-lg leading-none">${m.title}</span>
-                    </td>
-                    <td class="p-4 md:p-6 text-zinc-500 font-black text-xs uppercase">${m.category}</td>
-                    <td class="p-4 md:p-6 text-zinc-400 font-bold italic">${m.date}</td>
-                    <td class="p-4 md:p-6 font-black text-green-500 italic whitespace-nowrap">★ ${m.rating}</td>
-                    <td class="p-4 md:p-6 text-right">
-                        <div class="flex items-center justify-end gap-3">
-                            <button onclick="toggleWatchlist('${m.id}')" class="text-zinc-600 transition ${isLiked ? 'heart-active' : ''}">❤</button>
-                            <select onchange="addToList('${m.id}', this.value); this.value='';" class="bg-zinc-800 text-[10px] rounded p-1 outline-none font-black uppercase">
+                    <article class="poster-card group">
+                        <button onclick="openModalById('${m.id}')" class="block w-full text-left">
+                            <div class="poster-img-wrap">
+                                <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                            </div>
+
+                            <div class="poster-overlay">
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="text-[9px] font-black uppercase tracking-widest ${coming ? 'text-orange-400' : 'text-green-400'}">
+                                        ${coming ? 'Coming Soon' : '★ ' + m.rating}
+                                    </span>
+                                    <span class="text-[9px] font-black uppercase tracking-widest text-zinc-400">${m.date}</span>
+                                </div>
+
+                                <h3 class="text-white font-black italic uppercase text-sm md:text-base leading-tight line-clamp-2">
+                                    ${m.title}
+                                </h3>
+
+                                <p class="text-zinc-400 font-black uppercase text-[9px] tracking-widest mt-2">${m.category}</p>
+                            </div>
+                        </button>
+
+                        <div class="poster-actions absolute top-3 right-3 flex gap-2">
+                            <button onclick="event.stopPropagation(); toggleWatchlist('${m.id}')"
+                                class="w-10 h-10 rounded-full bg-black/75 border border-white/10 backdrop-blur-md flex items-center justify-center text-lg ${isLiked ? 'text-green-500' : 'text-zinc-400'}">
+                                ❤
+                            </button>
+                        </div>
+
+                        <div class="poster-actions absolute left-3 right-3 bottom-3 flex gap-2">
+                            <select onclick="event.stopPropagation()" onchange="addToList('${m.id}', this.value); this.value='';"
+                                class="min-w-0 flex-1 bg-black/80 border border-white/10 rounded-xl px-2 py-2 text-[9px] font-black uppercase text-white outline-none">
                                 <option value="">+ Lista</option>
                                 ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
                             </select>
-                            <button onclick="openModalById('${m.id}')" class="bg-zinc-800 group-hover:bg-green-600 group-hover:text-black px-4 md:px-6 py-2 rounded-full text-[10px] font-black uppercase transition-all text-white">Opis</button>
+
+                            <button onclick="openModalById('${m.id}')"
+                                class="bg-green-600 hover:bg-green-500 text-black rounded-xl px-4 py-2 text-[9px] font-black uppercase">
+                                Opis
+                            </button>
                         </div>
-                    </td>
-                </tr>`;}).join('');
+                    </article>
+                `;
+            }).join('');
+
             renderPagination();
         }
 
         function openModalById(id) {
             const m = movies.find(x => x.id === id);
-            if(!m) return;
+            if (!m) return;
+
             currentMovieId = m.id;
+
             document.getElementById('modal-title').innerText = m.title;
             document.getElementById('modal-img').src = m.img;
             document.getElementById('modal-desc').innerText = m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
             document.getElementById('modal-trailer-link').href = m.trailer || '#';
+
             const saved = localStorage.getItem(`rating-${m.id}`);
-            document.getElementsByName('u-rating').forEach(s => s.checked = (s.value === saved));
+            document.getElementsByName('u-rating').forEach(star => {
+                star.checked = star.value === saved;
+            });
+
             toggleModal('movie-modal', true);
         }
 
         function handleSearch() {
-            const t = document.getElementById('movie-search').value.toLowerCase();
-            filteredMovies = movies.filter(m => m.title.toLowerCase().includes(t));
-            currentPage = 1; renderTable();
+            searchQuery = document.getElementById('movie-search').value.toLowerCase().trim();
+            currentPage = 1;
+            renderTable();
         }
 
         function filterCategory(cat) {
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                if (btn.innerText === cat) { btn.classList.replace('bg-zinc-900', 'bg-green-600'); btn.classList.replace('text-zinc-400', 'text-black'); }
-                else { btn.classList.replace('bg-green-600', 'bg-zinc-900'); btn.classList.replace('text-black', 'text-zinc-400'); }
-            });
-            filteredMovies = cat === 'Wszystkie' ? movies : movies.filter(m => m.category === cat);
-            currentPage = 1; renderTable();
+            activeCategory = cat;
+            currentPage = 1;
+            renderTable();
+        }
+
+        function filterQuick(type) {
+            activeQuickFilter = type;
+            currentPage = 1;
+            renderTable();
         }
 
         function sortMovies(criteria) {
-            if (criteria === 'date') filteredMovies.sort((a, b) => parseInt(b.date) - parseInt(a.date));
-            else if (criteria === 'rating') filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-            currentPage = 1; renderTable();
+            activeSort = criteria;
+            currentPage = 1;
+            renderTable();
         }
 
-        // INTELIGENTNA PAGINACJA (1 2 3 ... 10)
         function renderPagination() {
             const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
             const container = document.getElementById('pagination-controls');
-            if (totalPages <= 1) { container.innerHTML = ''; return; }
+            if (!container) return;
+
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
 
             let buttons = [];
-            const range = 1; // Ile stron wokół aktualnej
+            const range = 1;
 
             for (let i = 1; i <= totalPages; i++) {
                 if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
-                    buttons.push(`<button onclick="currentPage=${i};renderTable();window.scrollTo(0,0)" class="w-10 h-10 border border-zinc-800 rounded-lg font-black italic ${i === currentPage ? 'bg-green-600 text-black border-green-600' : 'text-zinc-500'}">${i}</button>`);
+                    buttons.push(`
+                        <button onclick="currentPage=${i};renderTable();window.scrollTo({top:0,behavior:'smooth'})"
+                            class="w-11 h-11 rounded-2xl border font-black italic transition
+                            ${i === currentPage ? 'bg-green-600 text-black border-green-600' : 'border-zinc-800 text-zinc-500 bg-zinc-950 hover:text-white'}">
+                            ${i}
+                        </button>
+                    `);
                 } else if (i === currentPage - range - 1 || i === currentPage + range + 1) {
                     buttons.push(`<span class="text-zinc-700 px-1">...</span>`);
                 }
             }
+
             container.innerHTML = buttons.join('');
         }
 
         function toggleWatchlist(id) {
-            let wl = JSON.parse(localStorage.getItem('watchlist')) || [];
+            let wl = loadWatchlist();
+
             wl = wl.includes(id) ? wl.filter(x => x !== id) : [...wl, id];
-            localStorage.setItem('watchlist', JSON.stringify(wl));
+
+            saveWatchlist(wl);
+            refreshUserScopedData();
             renderTable();
         }
 
         function createNewList() {
             const name = prompt("Podaj nazwę listy:");
-            if(name) { userLists.push({name, movies:[]}); localStorage.setItem('userCustomLists', JSON.stringify(userLists)); renderCustomLists(); }
+            if (!name) return;
+
+            const lists = loadUserLists();
+            lists.push({ name, movies: [] });
+
+            saveUserLists(lists);
+            refreshUserScopedData();
+            renderCustomLists();
         }
 
-        function addToList(movieId, idx) { 
-            if(idx === "") return;
-            if(!userLists[idx].movies.includes(movieId)) { userLists[idx].movies.push(movieId); localStorage.setItem('userCustomLists', JSON.stringify(userLists)); alert("Dodano do listy!"); }
+        function addToList(movieId, idx) {
+            if (idx === "") return;
+
+            const lists = loadUserLists();
+
+            if (!lists[idx].movies.includes(movieId)) {
+                lists[idx].movies.push(movieId);
+                saveUserLists(lists);
+                refreshUserScopedData();
+                alert("Dodano do listy!");
+            }
         }
 
         function renderCustomLists() {
+            refreshUserScopedData();
+
             const container = document.getElementById('custom-lists-container');
-            const wl = JSON.parse(localStorage.getItem('watchlist')) || [];
-            let html = `<div class="bg-green-600/10 p-8 rounded-[40px] border border-green-600/20 mb-12"><h3 class="text-2xl font-black italic uppercase text-green-500 mb-6 underline decoration-4 underline-offset-8">❤ Twoja Watchlista</h3><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">`;
-            html += wl.map(id => {
-                const m = movies.find(x => x.id === id);
-                return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4"><img src="${m.img}" class="w-16 h-20 object-cover rounded-xl shadow-lg"><h4 class="font-black italic uppercase text-sm">${m.title}</h4></div>`;
-            }).join('') + `</div></div>`;
-            
+            const wl = watchlist;
+
+            const emptyState = `
+                <div class="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-center">
+                    <p class="text-zinc-600 font-black uppercase italic tracking-widest text-xs">Pusto</p>
+                </div>
+            `;
+
+            let html = `
+                <section class="rounded-[32px] border border-green-500/20 bg-green-500/[0.06] p-5 sm:p-8 mb-10 shadow-[0_0_35px_rgba(34,197,94,0.05)]">
+                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+                        <div>
+                            <p class="text-[9px] font-black text-green-500 uppercase tracking-[0.35em] mb-2">Movie Hub</p>
+                            <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter">Watchlista</h3>
+                        </div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${wl.length} filmów</span>
+                    </div>
+
+                    <div class="list-movie-grid">
+                        ${wl.length ? wl.map(id => renderListMovieTile(id)).join('') : emptyState}
+                    </div>
+                </section>
+            `;
+
             html += userLists.map((list, i) => `
-                <div class="bg-zinc-900/50 p-8 rounded-[40px] border border-zinc-800">
-                    <div class="flex justify-between items-center mb-8">
-                        <h3 class="text-3xl font-black italic uppercase text-white underline decoration-green-600 decoration-4">${list.name}</h3>
-                        <div class="flex gap-4">
-                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;localStorage.setItem('userCustomLists', JSON.stringify(userLists));renderCustomLists();}" class="text-[10px] uppercase font-black text-zinc-500">Zmień nazwę</button>
-                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);localStorage.setItem('userCustomLists', JSON.stringify(userLists));renderCustomLists();}" class="text-[10px] uppercase font-black text-red-600">Usuń listę</button>
+                <section class="rounded-[32px] border border-zinc-800 bg-zinc-950/70 p-5 sm:p-8 mb-10">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-[9px] font-black text-zinc-500 uppercase tracking-[0.35em] mb-2">Lista prywatna</p>
+                            <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${list.name}</h3>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveUserLists(userLists);renderCustomLists();}" class="px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition">
+                                Nazwa
+                            </button>
+                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);saveUserLists(userLists);renderCustomLists();}" class="px-4 py-3 rounded-2xl bg-red-950/20 border border-red-900/40 text-red-500 text-[10px] font-black uppercase tracking-widest transition">
+                                Usuń
+                            </button>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        ${list.movies.map(id => {
-                            const m = movies.find(x => x.id === id);
-                            return `<div class="bg-zinc-950 p-4 rounded-3xl border border-zinc-800 flex items-center gap-4">
-                                <img src="${m.img}" class="w-16 h-20 object-cover rounded-xl">
-                                <div class="flex-1"><h4 class="font-black italic uppercase text-sm text-left">${m.title}</h4></div>
-                                <button onclick="userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');localStorage.setItem('userCustomLists', JSON.stringify(userLists));renderCustomLists();" class="text-red-500 text-[10px]">✕</button>
-                            </div>`;}).join('')}
+
+                    <div class="list-movie-grid">
+                        ${list.movies.length ? list.movies.map(id => renderListMovieTile(id, `
+                            <button onclick="event.stopPropagation(); userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveUserLists(userLists);renderCustomLists();"
+                                class="m-4 mt-0 w-[calc(100%-2rem)] rounded-xl border border-red-900/40 bg-red-950/20 py-2 text-[9px] font-black uppercase tracking-widest text-red-400">
+                                Usuń z listy
+                            </button>
+                        `)).join('') : emptyState}
                     </div>
-                </div>`).join('');
+                </section>
+            `).join('');
+
             container.innerHTML = html;
         }
 
@@ -603,6 +1665,50 @@
         `).join('');
         }
 
+        // Funkcja odliczania do premiery The Backrooms Movie
+        function initMovieCountdown() {
+            // 19 Czerwca 2026, godzina 20:00
+            const targetDate = new Date(2026, 5, 19, 20, 0, 0).getTime();
+
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                // Obliczenia dni, godzin, minut i sekund
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                // Pobranie Twoich boksów z HTML
+                const dEl = document.getElementById("countdown-days");
+                const hEl = document.getElementById("countdown-hours");
+                const mEl = document.getElementById("countdown-minutes");
+                const sEl = document.getElementById("countdown-seconds");
+
+                // Jeśli boksy są na ekranie, aktualizujemy cyfry
+                if (dEl && hEl && mEl && sEl) {
+                    dEl.innerText = days < 10 ? "0" + days : days;
+                    hEl.innerText = hours < 10 ? "0" + hours : hours;
+                    mEl.innerText = minutes < 10 ? "0" + minutes : minutes;
+                    sEl.innerText = seconds < 10 ? "0" + seconds : seconds;
+                }
+
+                // Gdy czas minie
+                if (difference < 0) {
+                    clearInterval(timerInterval);
+                    const container = document.getElementById("countdown-days")?.parentElement?.parentElement;
+                    if (container) {
+                        container.innerHTML = `<div class="bg-yellow-500 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-sm tracking-wider animate-bounce">🎬 PREMIERA ROZPOCZĘTA!</div>`;
+                    }
+                }
+            }, 1000);
+        }
+
+        // Odpalenie licznika automatycznie po włączeniu strony
+        document.addEventListener("DOMContentLoaded", initMovieCountdown);
+
+
         // INIT SLIDER
         document.getElementById('main-slider').innerHTML = [...movies].sort(() => 0.5 - Math.random()).map(m => `
             <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
@@ -613,7 +1719,7 @@
                 </div>
             </div>`).join('');
 
-        updateAuthUI();
+    
 
         // --- NOWA FUNKCJONALNOŚĆ: HISTORIA OCEN ---
         
@@ -664,7 +1770,7 @@
             // MARZEC
             { date: "2026-03-13", title: "They Will Kill You", genre: "Horror" },
             { date: "2026-03-20", title: "Project Hail Mary", genre: "Sci-Fi" },
-            { date: "2026-03-27", title: "Good Luck Have Fun Don't Die", genre: "Sci-Fi / Komedia" },
+            { date: "2026-03-27", title: "Good Luck Have Fun Dont Die", genre: "Sci-Fi / Komedia" },
 
             // KWIECIEŃ
             { date: "2026-04-03", title: "Super Mario World", genre: "Animacja / Przygodowy" },
@@ -676,6 +1782,7 @@
             // MAJ
             { date: "2026-05-15", title: "Mortal Kombat 2", genre: "Akcja / Fantasy" },
             { date: "2026-05-22", title: "The Mandalorian & Grogu", genre: "Sci-Fi / Star Wars" },
+            { date: "2026-05-22", title: "Passager", genre: "Horror" },
             { date: "2026-05-29", title: "In the Grey", genre: "Akcja / Thriller" },
 
             // CZERWIEC
@@ -716,7 +1823,7 @@
             { date: "2026-11-06", title: "Archangel", genre: "Thriller" },
             { date: "2026-11-06", title: "Godzilla Minus Zero 2", genre: "Sci-Fi / Kaiju" },
             { date: "2026-11-13", title: "Return of the Living Dead", genre: "Horror / Komedia" },
-            { date: "2026-11-20", title: "The Hunger Games 6", genre: "Akcja / Sci-Fi" },
+            { date: "2026-11-20", title: "The Hunger Games: Sunrise on the Reaping", genre: "Akcja / Sci-Fi" },
 
             // GRUDZIEŃ
             { date: "2026-12-03", title: "Violent Night 2", genre: "Akcja / Komedia" },
@@ -727,126 +1834,800 @@
         ];
 
         function renderCalendar() {
-            const container = document.getElementById('calendar-container');
+            window.activeView = 'calendar';
+            hideAll();
+
+            const calendarPage = document.getElementById('calendar-page');
+            const container = document.getElementById('calendar-page-container');
+
+            if (calendarPage) calendarPage.classList.remove('hidden-section');
             if (!container) return;
 
-            // Słownik miesięcy dla ładniejszego formatowania
             const months = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
 
-            container.innerHTML = upcomingReleases.map(m => {
+
+            // Główna struktura karty kalendarza z nagłówkiem
+            let html = `
+                <div class="animate-in fade-in slide-in-from-bottom-4 duration-700 px-4 sm:px-0">
+                    
+                    <!-- NAGŁÓWEK KALENDARZA -->
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                        <h2 class="text-3xl sm:text-4xl font-black italic uppercase text-white tracking-tighter text-center sm:text-left">
+                            📅 KALENDARZ <span class="text-green-500">PREMIER</span>
+                        </h2>
+                        <div class="bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-zinc-400">
+                            Nadchodzące premiery
+                        </div>
+                    </div>
+
+                    <!-- LISTA FILMÓW -->
+                    <div class="flex flex-col gap-4">
+            `;
+
+            // Mapowanie Twojej tablicy danych upcomingReleases
+            html += upcomingReleases.map(m => {
                 const d = new Date(m.date);
                 const day = d.getDate();
                 const month = months[d.getMonth()];
                 
-                // Automatyczne wyróżnienie dużych marek
-                const isBigHit = m.genre.includes("Marvel") || m.genre.includes("Star Wars") || m.title.includes("Dune") || m.title.includes("Avengers") || m.title.includes("Odyssey") || m.title.includes("Project Hail Mary") || m.title.includes("Scream") ;
+                // Twoja oryginalna automatyczna selekcja hitów komercyjnych
+                const isBigHit = m.genre.includes("Marvel") || 
+                                m.genre.includes("Star Wars") || 
+                                m.genre.includes("DC") || 
+                                m.title.includes("Dune") || 
+                                m.title.includes("Avengers") || 
+                                m.title.includes("Odyssey") || 
+                                m.title.includes("Project Hail Mary") || 
+                                m.title.includes("Scream") || 
+                                m.title.includes("Backrooms") ;
 
                 return `
-                    <div class="group relative flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 rounded-3xl transition-all duration-300 
-                        ${isBigHit ? 'bg-green-500/10 border border-green-500/30 glow-green' : 'bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-600'}">
+                    <button class="group w-full text-left relative overflow-hidden rounded-3xl border transition-all duration-300
+                        ${isBigHit ? 'bg-green-500/[0.08] border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.08)]' : 'bg-zinc-950/70 border-zinc-800 hover:border-zinc-700'}">
                         
-                        <!-- Badge Daty -->
-                        <div class="flex sm:flex-col items-center justify-center bg-zinc-950 border border-zinc-800 rounded-2xl p-3 min-w-[70px] sm:min-w-[85px] shadow-xl group-hover:scale-105 transition-transform">
-                            <span class="text-2xl font-black italic leading-none text-white">${day}</span>
-                            <span class="text-[10px] font-bold text-green-500 uppercase tracking-widest ml-2 sm:ml-0">${month}</span>
-                        </div>
+                        <div class="absolute inset-y-0 left-0 w-1 ${isBigHit ? 'bg-green-500' : 'bg-zinc-800 group-hover:bg-green-500'}"></div>
 
-                        <!-- Treść -->
-                        <div class="flex-1 min-w-0">
-                            <div class="flex flex-col gap-1">
-                                <h4 class="text-lg md:text-xl font-black uppercase italic tracking-tight text-white truncate group-hover:text-green-400 transition-colors">
+                        <div class="flex items-center gap-4 p-4 sm:p-5">
+                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center shadow-xl">
+                                <span class="text-2xl sm:text-3xl font-black italic text-white leading-none">${day}</span>
+                                <span class="text-[9px] sm:text-[10px] font-black text-green-500 uppercase tracking-widest mt-1">${month}</span>
+                            </div>
+
+                            <div class="min-w-0 flex-1">
+                                <h4 class="text-base sm:text-xl font-black uppercase italic text-white tracking-tight truncate group-hover:text-green-400 transition">
                                     ${m.title}
                                 </h4>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest px-2 py-1 bg-zinc-950 rounded-md">
+
+                                <div class="flex items-center gap-2 flex-wrap mt-2">
+                                    <span class="text-[9px] font-black text-zinc-400 uppercase tracking-widest px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800">
                                         ${m.genre}
                                     </span>
-                                    ${isBigHit ? '<span class="animate-pulse text-[9px] font-black text-green-500 uppercase italic">● Wielka Premiera</span>' : ''}
+                                    ${isBigHit ? '<span class="text-[9px] font-black text-green-500 uppercase tracking-widest">Wielka premiera</span>' : ''}
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Przycisk Info (Opcjonalny) -->
-                        <div class="hidden md:block">
-                            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-950 border border-zinc-800 text-zinc-500 group-hover:text-green-500 group-hover:border-green-500 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                            <div class="hidden sm:flex w-10 h-10 rounded-full border border-zinc-800 bg-zinc-900 items-center justify-center text-zinc-500 group-hover:text-green-500 group-hover:border-green-500 transition">
+                                →
                             </div>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+
+            html += `</div></div>`;
+
+            // Wstrzyknięcie gotowego szablonu i płynny skok na górę strony
+            container.innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    
+
+        // Twoja lista 21 bangerów zintegrowana z folderem /static/
+        const myBangers = [
+            { id: "avatar2", title: "Avatar: The Way of Water", rating: "7.6/10", isComing: false },
+            { id: "backrooms", title: "The Backrooms", date: "19.06", isComing: true },
+            { id: "batman", title: "The Batman", rating: "7.8/10", isComing: false },
+            { id: "creed3", title: "Creed III", rating: "7.2/10", isComing: false },
+            { id: "interstellar", title: "Interstellar", rating: "8.7/10", isComing: false },
+            { id: "acrosstheverse", title: "Across the Spider-Verse", rating: "8.4/10", isComing: false },
+            { id: "martian", title: "The Martian", rating: "8.0/10", isComing: false },
+            { id: "odyseja", title: "Oddysey", date: "17.07", isComing: true },
+            { id: "trap", title: "Trap", rating: "6.5/10", isComing: false },
+            { id: "rebirth", title: "Rebirth", rating: "7.0/10", isComing: false },
+            
+            // Nadchodzące - automatyczny cyberpunkowy pomarańczowy look i daty
+            { id: "crime101", title: "Crime 101", rating: "6.8/10", isComing: false },
+            { id: "diuna3", title: "Diuna 3: Mesjasz", date: "26.12", isComing: true },
+            { id: "F1", title: "F1", rating: "7.6/10", isComing: false },
+            { id: "hailmarry", title: "Project Hail Mary", rating: "8.3/10", isComing: false },
+            { id: "f4", title: "The Fantastic Four", rating: "6.8/10", isComing: false },
+            { id: "doomsday", title: "Avengers: Doomsday", date: "19.12", isComing: true },
+            { id: "mandalorian", title: "The Mandalorian & Grogu", date: "22.05", isComing: true },
+            { id: "weapons", title: "Weapons", rating: "7.4/10", isComing: false },
+            { id: "scarymovie", title: "Scary Movie Reboot", date: "12.06", isComing: true }
+        ];
+
+        function renderBangerSlider() {
+            const sliderTrack = document.getElementById('main-slider');
+            if (!sliderTrack) return;
+            
+            sliderTrack.innerHTML = '';
+            
+            // Dublujemy listę dla płynnego zapętlenia
+            const infiniteBangers = [...myBangers, ...myBangers];
+            
+            infiniteBangers.forEach(movie => {
+                const card = document.createElement('div');
+                card.className = `movie-card ${movie.isComing ? 'coming-soon' : ''}`;
+                
+                // 🔥 TUTAJ: Automatycznie aktywujemy klikanie i przekazujemy ID filmu do Twojej funkcji
+                card.setAttribute('onclick', `openModalById('${movie.id}')`);
+                
+                card.innerHTML = `
+                    <img src="/static/${movie.id}.jpg" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/260x390?text=${movie.id}'">
+                    <div class="p-4">
+                        <h3 class="font-black text-white uppercase italic tracking-tight text-sm truncate">${movie.title}</h3>
+                        <div class="mt-2">
+                            ${movie.isComing ? 
+                                `<span class="coming-badge">COMING SOON</span>
+                                <p class="text-zinc-500 font-bold text-[10px] mt-1 tracking-wider uppercase">${movie.date}</p>` : 
+                                `<span class="text-green-500 font-bold text-xs">★ ${movie.rating}</span>`
+                            }
                         </div>
                     </div>
                 `;
-            }).join('');
+                sliderTrack.appendChild(card);
+            });
         }
 
-        function renderRatingHistory() {
-            // 1. Ukrywamy stronę główną i pokazujemy stronę list
-            const homePage = document.getElementById('home-page');
-            const listsPage = document.getElementById('lists-page');
-            const container = document.getElementById('custom-lists-container');
+        // Odpalamy ładowanie bangerów
+        renderBangerSlider();
 
-            if (homePage) homePage.classList.add('hidden-section');
-            if (listsPage) listsPage.classList.remove('hidden-section');
+        // ===================================================
+        // 🔥 SYSTEM DYNAMICZNEGO DODAWANIA I RENDEROWANIA OCEN
+        // ===================================================
 
-            // 2. KLUCZ: Czyścimy cały kontener, żeby usunąć napisy "Twoje Listy" itp.
-            // Jeśli napisy "Twoje Listy" są poza kontenerem 'custom-lists-container', 
-            // musimy je ukryć selektywnie:
-            const listsHeader = listsPage.querySelector('h2'); // Znajduje napis "Twoje Listy"
-            const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
-            
-            if (listsHeader) listsHeader.style.display = 'none';
-            if (newListBtn) newListBtn.style.display = 'none';
+        // ===================================================
+        // 🔥 INTELIGENTNY SYSTEM OCENIANIA I PODPOWIEDZI FILMY
+        // ===================================================
 
-            const history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
-            
-            let html = `
-                <div class="animate-in fade-in slide-in-from-bottom-4 duration-700">
-                    <h2 class="text-4xl font-black italic uppercase text-white mb-8 tracking-tighter">
-                        TWOJA <span class="text-green-500">HISTORIA OCEN</span>
-                    </h2>
-                    <div class="bg-zinc-900/40 border border-zinc-800/50 rounded-[40px] overflow-hidden backdrop-blur-md">
-                        <table class="w-full text-left border-collapse">
-                            <thead class="bg-zinc-900/80 text-zinc-500 text-[10px] uppercase font-bold tracking-widest">
-                                <tr>
-                                    <th class="p-6">Film</th>
-                                    <th class="p-6">Data wystawienia</th>
-                                    <th class="p-6 text-right">Ocena</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-zinc-800/30">
-            `;
+        // ===================================================
+        // 🔥 OSTATECZNY SYSTEM OCENIANIA ZINTEGROWANY Z TWOJĄ BAZĄ FILMÓW
+        // ===================================================
 
-            if (history.length === 0) {
-                html += `<tr><td colspan="3" class="p-32 text-center text-zinc-600 font-black uppercase italic opacity-20 text-2xl">Brak ocen</td></tr>`;
-            } else {
-                html += history.map(entry => `
-                    <tr class="hover:bg-green-500/[0.03] transition-all group">
-                        <td class="p-6 flex items-center gap-5">
-                            <img src="${entry.img}" class="w-14 h-20 object-cover rounded-2xl shadow-2xl border border-zinc-800 group-hover:border-green-500/50 transition-colors">
-                            <span class="text-white font-black uppercase italic text-lg tracking-tight">${entry.title}</span>
-                        </td>
-                        <td class="p-6 text-zinc-500 text-xs font-medium uppercase tracking-tighter">${entry.date}</td>
-                        <td class="p-6 text-right">
-                            <span class="bg-green-500 text-black px-5 py-2 rounded-2xl font-black italic text-sm shadow-[0_8px_20px_rgba(34,197,94,0.3)]">
-                                ${entry.rating}/10
-                            </span>
-                        </td>
-                    </tr>
-                `).join('');
+        function openAddRatingModal() {
+            const modal = document.getElementById('add-rating-modal');
+            if (!modal) return;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const datalist = document.getElementById('movies-list');
+            if (datalist) {
+                datalist.innerHTML = ''; 
+                
+                // Czerpiemy tytuły bezpośrednio z Twojej zmiennej 'movies' z pliku image_425711.png
+                if (typeof movies !== 'undefined' && Array.isArray(movies)) {
+                    // Mapujemy tablicę, żeby wyciągnąć same tytuły i wrzucić do podpowiedzi
+                    datalist.innerHTML = movies
+                        .map(m => `<option value="${m.title.toUpperCase()}">`)
+                        .join('');
+                }
+            }
+        }
+
+        function closeAddRatingModal() {
+            const modal = document.getElementById('add-rating-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.getElementById('modal-movie-title').value = '';
+                document.getElementById('modal-movie-rating').value = '';
+            }
+        }
+
+        // Funkcja lokalizująca rząd z filmami na Twojej stronie głównej
+        function findMoviesRow() {
+            const btn = document.querySelector('button[onclick="openAddRatingModal()"]');
+            if (!btn) return null;
+            const parentContainer = btn.closest('div');
+            return parentContainer ? parentContainer.nextElementSibling : null;
+        }
+
+        function loadUserRatings() {
+            const moviesRow = findMoviesRow();
+            if (!moviesRow) return;
+
+            // Czyścimy stare wyrenderowane oceny, żeby uniknąć duplikatów
+            document.querySelectorAll('.user-custom-movie').forEach(el => el.remove());
+
+            const currentRatings = JSON.parse(localStorage.getItem('userRatings')) || [];
+
+            currentRatings.forEach(movie => {
+                const movieCard = document.createElement('div');
+                // Klasy dopasowane do struktury i rozmiarów Twoich oryginalnych kart
+                movieCard.className = 'user-custom-movie flex-none w-[180px] h-[270px] relative rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 shadow-xl group transition-transform duration-300 hover:scale-105';
+                
+                // Jeśli film ma plakat z bazy, wyświetlamy go. Jeśli nie, dajemy elegancki, ciemny placeholder.
+                const backgroundHTML = movie.img 
+                    ? `<img src="${movie.img}" class="absolute inset-0 w-full h-full object-cover select-none">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>`
+                    : `<div class="absolute inset-0 flex flex-col items-center justify-center p-4 bg-gradient-to-b from-zinc-900 to-black text-center select-none">
+                        <span class="text-4xl mb-2 opacity-40">🎬</span>
+                    </div>`;
+
+                movieCard.innerHTML = `
+                    ${backgroundHTML}
+                    
+                    <!-- Tytuł na dole karty -->
+                    <div class="absolute bottom-0 inset-x-0 p-3 text-center">
+                        <span class="text-white font-black text-xs uppercase tracking-wider drop-shadow-md line-clamp-2">
+                            ${movie.title}
+                        </span>
+                    </div>
+
+                    <!-- Zielona plakietka z Twoją oceną w lewym górnym rogu -->
+                    <div class="absolute top-3 left-3 bg-black/85 border border-green-500/50 backdrop-blur-md px-2 py-0.5 rounded-lg shadow-md">
+                        <span class="text-green-400 font-black text-[11px]">⭐ ${movie.rating}</span>
+                    </div>
+                `;
+                
+                // Wrzucamy kartę na początek rzędu na stronie głównej
+                moviesRow.insertBefore(movieCard, moviesRow.firstChild);
+            });
+        }
+
+        function saveNewRating() {
+            const titleInput = document.getElementById('modal-movie-title');
+            const ratingInput = document.getElementById('modal-movie-rating');
+
+            const title = titleInput.value.trim().toUpperCase();
+            const rating = parseFloat(ratingInput.value);
+
+            if (!title) {
+                alert('Wpisz lub wybierz tytuł filmu!');
+                return;
+            }
+            if (isNaN(rating) || rating < 1 || rating > 10) {
+                alert('Wpisz ocenę od 1 do 10!');
+                return;
             }
 
-            html += `</tbody></table></div></div>`;
-            
-            container.innerHTML = html;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Jeśli film nie zostanie znaleziony w bazie, przypisujemy mu flagę diamentu
+            let movieImg = 'DIAMOND'; 
+            if (typeof movies !== 'undefined' && Array.isArray(movies)) {
+                const matchedMovie = movies.find(m => m.title.toUpperCase() === title);
+                if (matchedMovie) {
+                    movieImg = matchedMovie.img;
+                }
+            }
+
+            // Dopasowanie daty do Twojego formatu: "22 MAJA 2026"
+            const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+            const formattedDate = new Date().toLocaleDateString('pl-PL', dateOptions).toUpperCase();
+
+            // 🔥 POPRAWKA FORMATOWANIA: parseFloat usuwa zbędne ".0" (np. 7.0 zmieni się w 7)
+            const cleanRating = parseFloat(rating.toFixed(1)).toString();
+
+            const newEntry = {
+                img: movieImg,
+                title: title,
+                date: formattedDate,
+                rating: cleanRating
+            };
+
+            let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+            history.unshift(newEntry);
+            localStorage.setItem('ratingHistory', JSON.stringify(history));
+
+            closeAddRatingModal();
+
+            if (typeof renderRatingHistory === 'function') {
+                renderRatingHistory();
+            }
         }
 
       window.addEventListener('DOMContentLoaded', () => {
           renderTop2026();
-          renderCalendar();
+          loadUserRatings();
          });
 
 
     </script>
+
+    <!-- 🔥 OTO IDEALNE MIEJSCE! WKLEJ MODAL DOKŁADNIE TUTAJ: -->
+    <div id="add-rating-modal" class="hidden fixed inset-0 z-[9999] items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-md w-full p-6 shadow-2xl shadow-black">
+            
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-black uppercase italic text-white tracking-tight">
+                    🎬 OCEŃ <span class="text-green-500">NOWY FILM</span>
+                </h3>
+                <button onclick="closeAddRatingModal()" class="text-zinc-500 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-1.5">Tytuł filmu</label>
+                    <input type="text" id="modal-movie-title" list="movies-list" placeholder="Wpisz lub wybierz film..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 font-bold focus:outline-none focus:border-green-500 text-sm uppercase transition-colors">
+                    <datalist id="movies-list"></datalist>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-1.5">Twoja ocena (1 - 10)</label>
+                    <input type="number" id="modal-movie-rating" min="1" max="10" step="0.5" placeholder="np. 8.5" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 font-black focus:outline-none focus:border-green-500 text-sm">
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="saveNewRating()" class="w-full bg-green-600 hover:bg-green-700 text-black font-black uppercase tracking-wider py-3.5 rounded-xl text-xs transition-all transform active:scale-95 shadow-lg shadow-green-600/10">
+                        ZAPISZ W HISTORII
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="profile-data-modal" class="hidden fixed inset-0 z-[9999] items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="if(event.target === this) closeProfileDataModal()">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-[32px] max-w-lg w-full p-6 md:p-8 shadow-2xl shadow-black/80 relative">
+            <button onclick="closeProfileDataModal()" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
+
+            <div class="flex items-center gap-4 mb-8">
+                <div id="profile-data-avatar" class="w-16 h-16 rounded-full bg-green-600 text-black flex items-center justify-center font-black text-2xl border-2 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.25)]"></div>
+                <div class="min-w-0">
+                    <p class="text-[9px] font-black uppercase tracking-[0.35em] text-green-500 mb-1">Movie Hub Profile</p>
+                    <h2 id="profile-data-nick" class="text-3xl font-black italic uppercase tracking-tighter text-white truncate">Użytkownik</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">E-mail</p>
+                    <p id="profile-data-email" class="text-white font-bold text-sm truncate">-</p>
+                </div>
+
+                <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Data urodzenia</p>
+                    <p id="profile-data-birthdate" class="text-white font-bold text-sm">-</p>
+                </div>
+
+                <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Typ konta</p>
+                    <p id="profile-data-provider" class="text-green-500 font-black uppercase text-sm">-</p>
+                </div>
+
+                <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Oceny</p>
+                    <p id="profile-data-ratings" class="text-green-500 font-black text-sm">0 filmów</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="changeNick()" class="flex-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl py-3 font-black uppercase text-[10px] tracking-widest transition">
+                    Zmień nick
+                </button>
+                <button onclick="changeAvatar()" class="flex-1 bg-green-600 hover:bg-green-500 text-black rounded-2xl py-3 font-black uppercase text-[10px] tracking-widest transition">
+                    Zmień avatar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+        import {
+            getAuth,
+            GoogleAuthProvider,
+            signInWithPopup,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            onAuthStateChanged,
+            signOut,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc,
+            updateDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGeeTEChW1pOPCEVqemhKMXQzNoVCnv58",
+            authDomain: "filmsite-ba065.firebaseapp.com",
+            projectId: "filmsite-ba065",
+            storageBucket: "filmsite-ba065.firebasestorage.app",
+            messagingSenderId: "1038924136674",
+            appId: "1:1038924136674:web:ff5ba7e18f4f64cab19ebb",
+            measurementId: "G-MVEBLB3RBW"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        let currentFirebaseUser = null;
+        let currentUserProfile = null;
+
+        window.getFirebaseUserId = function() {
+            return currentFirebaseUser ? currentFirebaseUser.uid : 'guest';
+        };
+
+
+        function showAuthError(message) {
+            const box = document.getElementById("auth-error");
+            if (!box) return;
+            box.textContent = message;
+            box.classList.remove("hidden");
+        }
+
+        function clearAuthError() {
+            const box = document.getElementById("auth-error");
+            if (!box) return;
+            box.textContent = "";
+            box.classList.add("hidden");
+        }
+
+        async function createProfileIfMissing(user, extraData = {}) {
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
+
+            if (!snap.exists()) {
+                const profile = {
+                    uid: user.uid,
+                    nick: extraData.nick || user.displayName || "Użytkownik",
+                    email: user.email || "",
+                    birthDate: extraData.birthDate || "",
+                    avatarUrl: user.photoURL || "",
+                    provider: extraData.provider || "email",
+                    createdAt: serverTimestamp()
+                };
+
+                await setDoc(userRef, profile);
+                return profile;
+            }
+
+            return snap.data();
+        }
+
+        async function loadUserProfile(user) {
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
+            return snap.exists() ? snap.data() : null;
+        }
+
+        window.switchAuthTab = function(mode) {
+            clearAuthError();
+
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+            const loginTab = document.getElementById("login-tab");
+            const registerTab = document.getElementById("register-tab");
+
+            if (mode === "login") {
+                loginForm.classList.remove("hidden");
+                registerForm.classList.add("hidden");
+                loginTab.className = "auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+                registerTab.className = "auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+            } else {
+                loginForm.classList.add("hidden");
+                registerForm.classList.remove("hidden");
+                registerTab.className = "auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+                loginTab.className = "auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+            }
+        };
+
+        window.registerWithEmail = async function(event) {
+            event.preventDefault();
+            clearAuthError();
+
+            const nick = document.getElementById("register-nick").value.trim();
+            const birthDate = document.getElementById("register-birthdate").value;
+            const email = document.getElementById("register-email").value.trim();
+            const password = document.getElementById("register-password").value;
+
+            if (!nick || !birthDate || !email || password.length < 6) {
+                showAuthError("Uzupełnij dane. Hasło musi mieć minimum 6 znaków.");
+                return;
+            }
+
+            try {
+                const result = await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(result.user, { displayName: nick });
+                await createProfileIfMissing(result.user, {
+                    nick,
+                    birthDate,
+                    provider: "email"
+                });
+
+                toggleModal("login-modal", false);
+            } catch (error) {
+                showAuthError("Nie udało się utworzyć konta. Sprawdź e-mail i hasło.");
+                console.error(error);
+            }
+        };
+
+        window.loginWithEmail = async function(event) {
+            event.preventDefault();
+            clearAuthError();
+
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                toggleModal("login-modal", false);
+            } catch (error) {
+                showAuthError("Nieprawidłowy e-mail albo hasło.");
+                console.error(error);
+            }
+        };
+
+        window.loginWithGoogle = async function() {
+            clearAuthError();
+
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                await createProfileIfMissing(result.user, {
+                    provider: "google"
+                });
+
+                toggleModal("login-modal", false);
+            } catch (error) {
+                showAuthError("Logowanie Google nie zadziałało. Spróbuj ponownie.");
+                console.error(error);
+            }
+        };
+
+        window.logout = async function() {
+            await signOut(auth);
+        };
+
+        window.changeNick = async function() {
+            if (!currentFirebaseUser) return;
+
+            const newNick = prompt("Podaj nowy nick:");
+            if (!newNick || !newNick.trim()) return;
+
+            const cleanNick = newNick.trim();
+
+            await updateProfile(currentFirebaseUser, { displayName: cleanNick });
+            await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
+                nick: cleanNick
+            });
+
+            currentUserProfile.nick = cleanNick;
+            updateAuthUI();
+        };
+
+        window.changeAvatar = function() {
+            if (!currentFirebaseUser) return;
+
+            let input = document.getElementById("firebase-avatar-input");
+
+            if (!input) {
+                input = document.createElement("input");
+                input.type = "file";
+                input.id = "firebase-avatar-input";
+                input.accept = "image/*";
+                input.className = "hidden";
+                document.body.appendChild(input);
+
+                input.addEventListener("change", uploadAvatarToFirestore);
+            }
+
+            input.value = "";
+            input.click();
+        };
+
+        window.removeAvatar = async function() {
+            if (!currentFirebaseUser || !currentUserProfile) return;
+
+            await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
+                avatarUrl: ""
+            });
+
+            currentUserProfile.avatarUrl = "";
+            updateAuthUI();
+        };
+
+        function resizeImageToBase64(file, maxSize = 220, quality = 0.72) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const img = new Image();
+
+                    img.onload = function() {
+                        const canvas = document.createElement("canvas");
+                        const scale = Math.min(maxSize / img.width, maxSize / img.height, 1);
+
+                        canvas.width = Math.round(img.width * scale);
+                        canvas.height = Math.round(img.height * scale);
+
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                        resolve(canvas.toDataURL("image/jpeg", quality));
+                    };
+
+                    img.onerror = reject;
+                    img.src = event.target.result;
+                };
+
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function uploadAvatarToFirestore(event) {
+            const file = event.target.files[0];
+
+            if (!file || !currentFirebaseUser) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert("Wybierz plik graficzny.");
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Wybierz obrazek mniejszy niż 5 MB.");
+                return;
+            }
+
+            try {
+                const avatarBase64 = await resizeImageToBase64(file, 120, 0.55);
+
+                await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
+                    avatarUrl: avatarBase64
+                });
+
+                currentUserProfile.avatarUrl = avatarBase64;
+                updateAuthUI();
+            } catch (error) {
+                console.error(error);
+                alert("Nie udało się zmienić avatara.");
+            }
+        }
+
+        window.showUserData = function() {
+            if (!currentFirebaseUser || !currentUserProfile) return;
+
+            const nick = currentUserProfile.nick || currentFirebaseUser.displayName || "Użytkownik";
+            const email = currentFirebaseUser.email || "Brak e-maila";
+            const birthDate = currentUserProfile.birthDate || "Nie podano";
+            const provider = currentUserProfile.provider === "google" ? "Google" : "E-mail";
+            const avatarUrl = currentUserProfile.avatarUrl || currentFirebaseUser.photoURL || "";
+            const history = JSON.parse(localStorage.getItem("ratingHistory")) || [];
+
+            document.getElementById("profile-data-nick").textContent = nick;
+            document.getElementById("profile-data-email").textContent = email;
+            document.getElementById("profile-data-birthdate").textContent = birthDate;
+            document.getElementById("profile-data-provider").textContent = provider;
+            document.getElementById("profile-data-ratings").textContent = `${history.length} filmów`;
+
+            const avatarBox = document.getElementById("profile-data-avatar");
+
+            if (avatarUrl) {
+                avatarBox.innerHTML = `<img src="${avatarUrl}" class="w-full h-full object-cover rounded-full" alt="${nick}">`;
+            } else {
+                avatarBox.textContent = nick.charAt(0).toUpperCase();
+            }
+
+            const modal = document.getElementById("profile-data-modal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        };
+
+        window.closeProfileDataModal = function() {
+            const modal = document.getElementById("profile-data-modal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        };
+
+        window.updateAuthUI = function() {
+            const authSection = document.getElementById("auth-section");
+            if (!authSection) return;
+
+            if (!currentFirebaseUser || !currentUserProfile) {
+                authSection.innerHTML = `
+                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-xs transition">
+                        Zaloguj
+                    </button>
+                `;
+                return;
+            }
+
+            const nick = currentUserProfile.nick || currentFirebaseUser.displayName || "Użytkownik";
+            const email = currentFirebaseUser.email || "";
+            const avatarUrl = currentUserProfile.avatarUrl || currentFirebaseUser.photoURL || "";
+
+            const avatar = avatarUrl
+                ? `<img src="${avatarUrl}" class="w-11 h-11 rounded-full object-cover border-2 border-zinc-800 group-hover/avatar:border-green-500 transition">`
+                : `<div class="w-11 h-11 rounded-full bg-green-600 text-black border-2 border-zinc-800 group-hover/avatar:border-green-500 flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`;
+
+            authSection.innerHTML = `
+                <div class="relative group flex items-center gap-3">
+                    <div class="hidden sm:block text-right leading-tight">
+                        <p class="text-[9px] font-black text-green-500 uppercase tracking-widest">Online</p>
+                        <p class="text-white font-black uppercase text-xs tracking-tight max-w-[120px] truncate">${nick}</p>
+                    </div>
+
+                    <div class="relative group/avatar cursor-pointer">
+                        ${avatar}
+                        <span class="absolute -right-0.5 -bottom-0.5 w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-zinc-950 shadow-[0_0_12px_rgba(34,197,94,0.8)]"></span>
+                    </div>
+
+                    <div class="absolute top-full right-0 pt-4 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999]">
+                        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl shadow-2xl shadow-black/80 p-3">
+                            <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800 mb-2">
+                                <p class="text-[9px] font-black text-green-500 uppercase tracking-widest mb-1">Profil</p>
+                                <p class="text-white font-black uppercase text-lg italic leading-none truncate">${nick}</p>
+                                <p class="text-zinc-500 text-[11px] mt-2 truncate">${email}</p>
+                            </div>
+
+                            <div class="h-px bg-zinc-800 my-2"></div>
+
+                            <button onclick="showUserData()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-white text-[11px] font-black uppercase tracking-widest transition">Dane</button>
+                            <button onclick="renderRatingHistory()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Moje oceny</button>
+                            <button onclick="showMyLists()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Moje listy</button>
+                            <button onclick="changeNick()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Zmień nick</button>
+                            <button onclick="changeAvatar()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Zmień avatar</button>
+                            <button onclick="removeAvatar()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-red-400 text-[11px] font-black uppercase tracking-widest transition">Usuń avatar</button>
+
+                            <div class="h-px bg-zinc-800 my-2"></div>
+
+                            <button onclick="logout()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-red-950/40 text-red-500 text-[11px] font-black uppercase tracking-widest transition">Wyloguj</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        onAuthStateChanged(auth, async (user) => {
+            currentFirebaseUser = user;
+
+            if (user) {
+                currentUserProfile = await createProfileIfMissing(user);
+            } else {
+                currentUserProfile = null;
+            }
+
+            if (typeof refreshUserScopedData === "function") {
+                refreshUserScopedData();
+            }
+
+            updateAuthUI();
+
+            
+
+            if (window.activeView === 'lists' && typeof renderCustomLists === "function") {
+                renderCustomLists();
+            }
+
+            if (window.activeView === 'calendar' && typeof renderCalendar === "function") {
+                renderCalendar();
+            }
+
+            if (window.activeView === 'ratings' && typeof renderRatingHistory === "function") {
+                renderRatingHistory();
+            }
+
+            if (window.activeView === 'library' && typeof renderTable === "function") {
+                renderTable();
+            }
+        });
+
+    
+
+    </script>
+
 </body>
 </html>
