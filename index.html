@@ -2146,6 +2146,32 @@
             }
         }
 
+        @media (max-width: 640px) {
+            #top-2026-container {
+                grid-template-columns: 1fr !important;
+                gap: 28px !important;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            #top-2026-container > div {
+                width: 100%;
+                max-width: 340px;
+                margin: 0 auto;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 58px !important;
+            }
+
+            section:has(#top-2026-container) h2 {
+                white-space: normal !important;
+                font-size: 34px !important;
+                line-height: .92 !important;
+            }
+        }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
