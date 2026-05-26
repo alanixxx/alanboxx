@@ -570,6 +570,366 @@
             }
         }
 
+        @media (max-width: 768px) {
+            #movie-modal {
+                padding: 10px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+
+            #movie-modal > div {
+                width: 100%;
+                max-height: none;
+                min-height: auto;
+                border-radius: 28px;
+                margin-top: 12px;
+            }
+
+            #movie-modal .md\:w-2\/5 {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 10;
+            }
+
+            #modal-img {
+                object-fit: cover;
+                object-position: center top;
+            }
+
+            #movie-modal .p-8 {
+                padding: 22px;
+            }
+
+            #modal-title {
+                font-size: 42px;
+                line-height: .9;
+                margin-bottom: 14px;
+                word-break: break-word;
+            }
+
+            #modal-desc {
+                font-size: 15px;
+                line-height: 1.5;
+                margin-bottom: 22px;
+            }
+
+            #movie-modal .flex.gap-4.mb-8 {
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 22px;
+            }
+
+            #movie-modal .bg-zinc-900.px-6 {
+                padding: 14px 18px;
+                border-radius: 18px;
+            }
+
+            #modal-trailer-link {
+                width: 100%;
+                text-align: center;
+                padding: 16px 18px;
+            }
+
+            #modal-category {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .star-rating {
+                max-width: 100%;
+                flex-wrap: wrap;
+                direction: ltr;
+                gap: 2px;
+            }
+
+            .star-rating label {
+                font-size: 1.75rem;
+            }
+
+            #trailer-modal {
+                padding: 12px;
+            }
+
+            #trailer-modal > div {
+                border-radius: 24px;
+            }
+        }
+
+        .trailer-modal {
+            padding: 18px;
+        }
+
+        .trailer-box {
+            width: min(860px, 100%);
+            background: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 90px rgba(0,0,0,.65);
+        }
+
+        .trailer-topbar {
+            height: 72px;
+            padding: 0 18px 0 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: #0f0f12;
+            border-bottom: 1px solid #27272a;
+        }
+
+        .trailer-close {
+            flex-shrink: 0;
+            border: 1px solid #3f3f46;
+            background: #18181b;
+            color: white;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+
+        .trailer-close:hover {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: black;
+        }
+
+        .trailer-frame-wrap {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            background: black;
+        }
+
+        .trailer-frame-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .trailer-modal {
+                padding: 10px;
+                align-items: center;
+            }
+
+            .trailer-box {
+                border-radius: 22px;
+            }
+
+            .trailer-topbar {
+                height: 64px;
+                padding: 0 12px 0 16px;
+            }
+
+            .trailer-close {
+                padding: 10px 12px;
+                border-radius: 14px;
+                font-size: 9px;
+            }
+        }
+
+        body.trailer-open {
+            overflow: hidden;
+        }
+
+        body.trailer-open .slider-track {
+            animation-play-state: paused !important;
+        }
+
+        body.trailer-open #hero-bg,
+        body.trailer-open #particles-js-header {
+            display: none !important;
+        }
+
+        .trailer-modal {
+            background: #000 !important;
+            backdrop-filter: none !important;
+        }
+
+        .trailer-box {
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .trailer-frame-wrap iframe {
+            transform: translateZ(0);
+            will-change: auto;
+        }
+
+        .movie-modal-info {
+            gap: 28px;
+        }
+
+        .movie-main-content {
+            flex: 1;
+        }
+
+        .modal-description {
+            max-width: 680px;
+            min-height: 92px;
+        }
+
+        .movie-stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .movie-stat-box {
+            min-width: 112px;
+            border: 1px solid #27272a;
+            background: #18181b;
+            border-radius: 18px;
+            padding: 16px 18px;
+        }
+
+        .movie-stat-box span {
+            display: block;
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .08em;
+            margin-bottom: 6px;
+        }
+
+        .movie-stat-box strong {
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1;
+        }
+
+        .movie-stat-box:first-child strong {
+            color: #eab308;
+        }
+
+        .user-score-box {
+            border-color: rgba(34,197,94,.35);
+            background: rgba(34,197,94,.08);
+        }
+
+        .user-score-box strong {
+            color: #22c55e;
+        }
+
+        .movie-trailer-btn {
+            display: block;
+            width: min(360px, 100%);
+            background: #16a34a;
+            color: #050505;
+            border-radius: 18px;
+            padding: 18px 24px;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .12em;
+            margin-bottom: 14px;
+            transition: .2s ease;
+        }
+
+        .movie-trailer-btn:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        .movie-review-btn {
+            display: block;
+            width: min(360px, 100%);
+            border: 1px solid rgba(34,211,238,.35);
+            background: rgba(34,211,238,.08);
+            color: #67e8f9;
+            border-radius: 18px;
+            padding: 15px 22px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+
+        .movie-review-btn:hover {
+            background: rgba(34,211,238,.16);
+            border-color: #22d3ee;
+        }
+
+        .movie-genres-footer {
+            border-top: 1px solid #27272a;
+            padding-top: 20px;
+            margin-top: 28px;
+        }
+
+        .movie-genres-footer p {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            margin-bottom: 10px;
+        }
+
+        .movie-genre-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .movie-genre-list span {
+            border: 1px solid rgba(34,197,94,.35);
+            background: rgba(34,197,94,.08);
+            color: #4ade80;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        @media (max-width: 768px) {
+            .modal-description {
+                min-height: 120px;
+                max-height: none;
+            }
+
+            .movie-stats-row {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .movie-stat-box {
+                min-width: 0;
+                padding: 13px 10px;
+                border-radius: 16px;
+            }
+
+            .movie-stat-box strong {
+                font-size: 17px;
+            }
+
+            .movie-trailer-btn,
+            .movie-review-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .movie-genres-footer {
+                margin-top: 24px;
+            }
+        }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -859,36 +1219,41 @@
             <div class="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
             </div>
-            <div class="flex-1 p-8 md:p-12 overflow-y-auto flex flex-col justify-between">
-                <div>
+            <div class="movie-modal-info flex-1 p-8 md:p-12 overflow-y-auto flex flex-col">
+                <div class="movie-main-content">
                     <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
-                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
-                    <div class="flex gap-4 mb-8 text-white">
-                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Score</span>
-                            <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
+
+                    <p id="modal-desc" class="modal-description text-zinc-400 text-lg mb-8 leading-relaxed"></p>
+
+                    <div class="movie-stats-row">
+                        <div class="movie-stat-box">
+                            <span>Score</span>
+                            <strong id="modal-rating"></strong>
                         </div>
-                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Rok</span>
-                            <span id="modal-date" class="text-xl font-black italic"></span>
+
+                        <div class="movie-stat-box user-score-box">
+                            <span>My Score</span>
+                            <strong id="modal-user-rating">-</strong>
+                        </div>
+
+                        <div class="movie-stat-box">
+                            <span>Rok</span>
+                            <strong id="modal-date"></strong>
                         </div>
                     </div>
-                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10 hover:bg-green-400">Obejrzyj Trailer</a>
+
+                    <button id="modal-trailer-link" onclick="openTrailerModal()" type="button" class="movie-trailer-btn">
+                        Obejrzyj Trailer
+                    </button>
+
+                    <button onclick="openReviewDraft()" type="button" class="movie-review-btn">
+                        Dodaj Recenzję
+                    </button>
                 </div>
-                <div class="pt-6 border-t border-zinc-800">
-                    <h4 class="text-xs font-black uppercase italic mb-3 text-zinc-400">Twoja Ocena:</h4>
-                    <div class="star-rating" id="star-group">
-                        <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
-                        <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
-                        <input type="radio" id="s8" name="u-rating" value="8"><label for="s8">★</label>
-                        <input type="radio" id="s7" name="u-rating" value="7"><label for="s7">★</label>
-                        <input type="radio" id="s6" name="u-rating" value="6"><label for="s6">★</label>
-                        <input type="radio" id="s5" name="u-rating" value="5"><label for="s5">★</label>
-                        <input type="radio" id="s4" name="u-rating" value="4"><label for="s4">★</label>
-                        <input type="radio" id="s3" name="u-rating" value="3"><label for="s3">★</label>
-                        <input type="radio" id="s2" name="u-rating" value="2"><label for="s2">★</label>
-                        <input type="radio" id="s1" name="u-rating" value="1"><label for="s1">★</label>
-                    </div>
+
+                <div class="movie-genres-footer">
+                    <p>Gatunek</p>
+                    <div id="modal-genre-list" class="movie-genre-list"></div>
                 </div>
             </div>
         </div>
@@ -1641,6 +2006,58 @@
             renderPagination();
         }
 
+        let currentTrailerUrl = '';
+
+        function getYoutubeEmbedUrl(url) {
+            if (!url) return '';
+
+            try {
+                const parsed = new URL(url);
+                let videoId = '';
+
+                if (parsed.hostname.includes('youtu.be')) {
+                    videoId = parsed.pathname.replace('/', '');
+                } else {
+                    videoId = parsed.searchParams.get('v') || '';
+                }
+
+                if (!videoId) return '';
+
+                return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+            } catch {
+                return '';
+            }
+        }
+
+        function openTrailerModal() {
+            const embedUrl = getYoutubeEmbedUrl(currentTrailerUrl);
+
+            if (!embedUrl) {
+                alert('Brak trailera dla tego filmu.');
+                return;
+            }
+
+            const modal = document.getElementById('trailer-modal');
+            const frame = document.getElementById('trailer-frame');
+
+            document.body.classList.add('trailer-open');
+            frame.src = embedUrl;
+            modal.style.display = 'flex';
+        }
+
+        function closeTrailerModal() {
+            const modal = document.getElementById('trailer-modal');
+            const frame = document.getElementById('trailer-frame');
+
+            frame.src = '';
+            modal.style.display = 'none';
+            document.body.classList.remove('trailer-open');
+        }
+
+        function openReviewDraft() {
+            alert('Sekcja recenzji będzie dodana w kolejnym etapie.');
+        }
+
         function openModalById(id) {
             const m = movies.find(x => x.id === id);
             if (!m) return;
@@ -1652,7 +2069,21 @@
             document.getElementById('modal-desc').innerText = m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
-            document.getElementById('modal-trailer-link').href = m.trailer || '#';
+
+            const savedUserRating = localStorage.getItem(`rating-${m.id}`);
+            document.getElementById('modal-user-rating').innerText = savedUserRating ? `${savedUserRating}/10` : '-';
+
+            const genreBox = document.getElementById('modal-genre-list');
+            if (genreBox) {
+                const genres = String(m.category || 'Film')
+                    .split('/')
+                    .map(g => g.trim())
+                    .filter(Boolean);
+
+                genreBox.innerHTML = genres.map(g => `<span>${g}</span>`).join('');
+            }
+
+            currentTrailerUrl = m.trailer || '';
 
             const saved = localStorage.getItem(`rating-${m.id}`);
             document.getElementsByName('u-rating').forEach(star => {
@@ -1811,11 +2242,24 @@
             container.innerHTML = html;
         }
 
-        function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
-        document.getElementById('star-group').addEventListener('change', (e) => { if (currentMovieId) localStorage.setItem(`rating-${currentMovieId}`, e.target.value); });
+        
 
-            function renderTop2026() {
-                    const container = document.getElementById('top-2026-container');
+
+        function toggleModal(id, show) {
+            document.getElementById(id).style.display = show ? 'flex' : 'none';
+        }
+
+        const starGroup = document.getElementById('star-group');
+        if (starGroup) {
+            starGroup.addEventListener('change', (e) => {
+                if (currentMovieId) {
+                    localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
+                }
+            });
+        }
+
+        function renderTop2026() {
+            const container = document.getElementById('top-2026-container');
                        if (!container) return; // Zabezpieczenie przed błędem
             
                         // Szukamy filmów z 2026 i sortujemy po ocenie
@@ -1920,28 +2364,7 @@
             return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
         }
 
-        // Rozszerzenie Twojego listenera gwiazdek o zapis do historii
-        document.getElementById('star-group').addEventListener('change', (e) => {
-            if (typeof currentMovieId !== 'undefined' && currentMovieId) {
-                const movie = movies.find(m => m.id === currentMovieId);
-                if (!movie) return;
-
-                let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
-                
-                const newEntry = {
-                    id: movie.id,
-                    title: movie.title,
-                    rating: e.target.value,
-                    date: getTodayDate(),
-                    img: movie.img,
-                    timestamp: Date.now()
-                };
-
-                // Dodaj na początek i zachowaj unikalność (opcjonalnie)
-                history = [newEntry, ...history.filter(h => h.id !== movie.id)].slice(0, 50); 
-                localStorage.setItem('ratingHistory', JSON.stringify(history));
-            }
-        });
+        
 
         
         const upcomingReleases = [
@@ -2841,6 +3264,34 @@
     
 
     </script>
+
+
+    <div id="trailer-modal" class="modal-overlay trailer-modal" onclick="if(event.target === this) closeTrailerModal()">
+        <div class="trailer-box">
+            <div class="trailer-topbar">
+                <div>
+                    <p class="text-[9px] font-black uppercase tracking-[0.3em] text-green-500">Movie Hub</p>
+                    <h3 class="text-white font-black italic uppercase text-sm tracking-widest">Trailer</h3>
+                </div>
+
+                <button onclick="closeTrailerModal()" class="trailer-close" type="button">
+                    Zamknij
+                </button>
+            </div>
+
+            <div class="trailer-frame-wrap">
+                <iframe id="trailer-frame"
+                    src=""
+                    title="Trailer"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="fullscreen; encrypted-media; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>
