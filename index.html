@@ -1295,23 +1295,714 @@
                 font-size: 48px !important;
             }
         }
+
+
+        .main-menu-btn {
+            border: 1px solid #27272a;
+            background: #18181b;
+            color: white;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            transition: .2s ease;
+        }
+
+        .main-menu-btn:hover {
+            border-color: #22c55e;
+            background: rgba(34,197,94,.12);
+            color: #22c55e;
+            box-shadow: 0 0 24px rgba(34,197,94,.15);
+        }
+
+        .app-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0,0,0,.82);
+            backdrop-filter: blur(10px);
+            padding: 18px;
+            overflow-y: auto;
+        }
+
+        .app-menu-overlay.open {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app-menu-panel {
+            width: min(1120px, 100%);
+            margin: 42px auto;
+            border: 1px solid #27272a;
+            border-radius: 34px;
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,.16), transparent 35%),
+                linear-gradient(180deg, #111114, #050506);
+            box-shadow: 0 35px 100px rgba(0,0,0,.75);
+            padding: 24px;
+        }
+
+        .app-menu-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .app-menu-close {
+            border: 1px solid #3f3f46;
+            background: #18181b;
+            color: white;
+            border-radius: 18px;
+            padding: 13px 16px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .app-menu-close:hover {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: black;
+        }
+
+        .app-menu-user-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(34,197,94,.24);
+            background: rgba(34,197,94,.07);
+            border-radius: 26px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .app-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .app-menu-section {
+            border: 1px solid #27272a;
+            background: rgba(9,9,11,.72);
+            border-radius: 26px;
+            padding: 14px;
+        }
+
+        .app-menu-section > p {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .26em;
+            margin: 4px 4px 12px;
+        }
+
+        .app-menu-item {
+            width: 100%;
+            text-align: left;
+            border-radius: 18px;
+            padding: 15px;
+            color: white;
+            transition: .18s ease;
+        }
+
+        .app-menu-item:hover {
+            background: #18181b;
+            transform: translateY(-2px);
+        }
+
+        .app-menu-item span {
+            display: block;
+            color: white;
+            font-size: 14px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .app-menu-item small {
+            display: block;
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        .app-menu-item.accent {
+            background: rgba(34,197,94,.1);
+            border: 1px solid rgba(34,197,94,.26);
+        }
+
+        .app-menu-item.accent span {
+            color: #22c55e;
+        }
+
+        .app-menu-item.cyan {
+            background: rgba(34,211,238,.08);
+            border: 1px solid rgba(34,211,238,.24);
+        }
+
+        .app-menu-item.cyan span {
+            color: #67e8f9;
+        }
+
+        .app-menu-item.danger-soft span {
+            color: #fb7185;
+        }
+
+        .app-menu-login-btn,
+        .app-menu-logout-btn {
+            width: 100%;
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .1em;
+            transition: .18s ease;
+        }
+
+        .app-menu-login-btn {
+            background: #22c55e;
+            color: black;
+        }
+
+        .app-menu-login-btn:hover {
+            background: #4ade80;
+        }
+
+        .app-menu-logout-btn {
+            margin-top: 10px;
+            background: rgba(239,68,68,.1);
+            color: #f87171;
+            border: 1px solid rgba(239,68,68,.25);
+        }
+
+        .app-menu-logout-btn:hover {
+            background: rgba(239,68,68,.18);
+        }
+
+        @media (max-width: 900px) {
+            .app-menu-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 16px 14px !important;
+            }
+
+            nav h1 {
+                font-size: 25px !important;
+            }
+
+            .main-menu-btn {
+                padding: 11px 14px;
+                font-size: 9px;
+            }
+
+            .app-menu-overlay {
+                padding: 10px;
+            }
+
+            .app-menu-panel {
+                margin: 12px auto 90px;
+                border-radius: 28px;
+                padding: 16px;
+            }
+
+            .app-menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-menu-top h2 {
+                font-size: 42px;
+            }
+
+            .app-menu-user-card {
+                border-radius: 22px;
+                padding: 14px;
+            }
+        }
+
+        .hamburger-menu-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 999px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: .2s ease;
+        }
+
+        .hamburger-menu-btn span {
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: white;
+            transition: .2s ease;
+        }
+
+        .hamburger-menu-btn:hover {
+            border-color: #22c55e;
+            background: rgba(34,197,94,.12);
+            box-shadow: 0 0 24px rgba(34,197,94,.16);
+        }
+
+        .hamburger-menu-btn:hover span {
+            background: #22c55e;
+        }
+
+        .profile-pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 6px 8px 6px 12px;
+            border-radius: 16px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.82);
+            transition: .2s ease;
+        }
+
+        .profile-pill-btn:hover {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(34,197,94,.1);
+            box-shadow: 0 0 24px rgba(34,197,94,.13);
+        }
+
+        .profile-pill-text {
+            text-align: right;
+            line-height: 1;
+        }
+
+        .profile-pill-text p {
+            color: #22c55e;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            margin-bottom: 4px;
+        }
+
+        .profile-pill-text strong {
+            display: block;
+            color: white;
+            max-width: 104px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profile-avatar-box {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #27272a;
+            background: #18181b;
+        }
+
+        .profile-avatar-box img,
+        .profile-avatar-box > div {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 10px !important;
+            object-fit: cover;
+            border: 0 !important;
+        }
+
+        .profile-avatar-status {
+            position: absolute;
+            right: -3px;
+            bottom: -3px;
+            width: 13px;
+            height: 13px;
+            border-radius: 999px;
+            background: #22c55e;
+            border: 2px solid #09090b;
+            box-shadow: 0 0 10px rgba(34,197,94,.8);
+        }
+
+        @media (max-width: 640px) {
+            .profile-pill-btn {
+                min-height: 44px;
+                padding: 5px 6px 5px 10px;
+                border-radius: 14px;
+            }
+
+            .profile-pill-text {
+                display: none;
+            }
+
+            .profile-avatar-box {
+                width: 36px;
+                height: 36px;
+                border-radius: 11px;
+            }
+        }
+
+        .guest-login-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 44px;
+            padding: 6px 12px;
+            border-radius: 14px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.82);
+            color: white;
+            transition: .2s ease;
+        }
+
+        .guest-login-btn:hover {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(34,197,94,.1);
+            box-shadow: 0 0 24px rgba(34,197,94,.12);
+        }
+
+        .guest-human-icon {
+            width: 22px;
+            height: 22px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .guest-login-btn span {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .02em;
+            white-space: nowrap;
+        }
+
+        .profile-pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 6px 12px 6px 7px;
+            border-radius: 15px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.82);
+            transition: .2s ease;
+        }
+
+        .profile-pill-btn:hover {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(34,197,94,.1);
+            box-shadow: 0 0 24px rgba(34,197,94,.13);
+        }
+
+        .profile-avatar-box {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #3f3f46;
+            background: #18181b;
+            flex-shrink: 0;
+        }
+
+        .profile-avatar-box img,
+        .profile-avatar-box > div {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 9px !important;
+            object-fit: cover;
+            border: 0 !important;
+        }
+
+        .profile-pill-text {
+            text-align: left;
+            line-height: 1;
+            min-width: 0;
+        }
+
+        .profile-pill-text p {
+            color: #22c55e;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            margin-bottom: 4px;
+        }
+
+        .profile-pill-text strong {
+            display: block;
+            color: white;
+            max-width: 108px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profile-avatar-status {
+            position: absolute;
+            right: -3px;
+            bottom: -3px;
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            background: #22c55e;
+            border: 2px solid #09090b;
+            box-shadow: 0 0 10px rgba(34,197,94,.8);
+        }
+
+        @media (max-width: 640px) {
+            .guest-login-btn {
+                padding: 6px 9px;
+            }
+
+            .guest-login-btn span {
+                display: none;
+            }
+
+            .profile-pill-btn {
+                min-height: 44px;
+                padding: 5px 7px;
+                border-radius: 13px;
+            }
+
+            .profile-pill-text {
+                display: none;
+            }
+
+            .profile-avatar-box {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        .app-menu-nick {
+            display: block;
+            max-width: min(52vw, 520px);
+            color: white;
+            font-size: 24px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profile-avatar-box {
+            overflow: visible !important;
+            isolation: isolate;
+        }
+
+        .profile-avatar-box img,
+        .profile-avatar-box > div:not(.profile-avatar-status) {
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-avatar-status {
+            z-index: 20 !important;
+            right: -5px !important;
+            bottom: -5px !important;
+        }
+
+        .app-menu-user-card {
+            overflow: visible !important;
+        }
+
+        @media (max-width: 640px) {
+            .app-menu-nick {
+                max-width: 58vw;
+                font-size: 21px;
+            }
+        }
+
+        .profile-avatar-box img,
+        .app-menu-user-card img,
+        #profile-data-avatar img {
+            image-rendering: auto;
+            image-rendering: high-quality;
+            object-fit: cover;
+        }
+
+        .app-menu-user-card img {
+            width: 68px !important;
+            height: 68px !important;
+            border-radius: 18px !important;
+            border: 2px solid #22c55e !important;
+            box-shadow:
+                0 0 0 4px rgba(34,197,94,.08),
+                0 0 28px rgba(34,197,94,.28);
+        }
+
+        .profile-avatar-box img {
+            transform: scale(1.02);
+            filter: contrast(1.04) saturate(1.08);
+        }
+
+        .app-menu-user-card img,
+        .profile-avatar-box img,
+        #profile-data-avatar img {
+            image-rendering: auto;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+
     </style>
 </head>
 <body class="selection:bg-green-600">
 
     <nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 md:p-5 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer">Movie Hub</h1>
-            <div class="flex items-center space-x-4 md:space-x-8 text-white">
-                <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
-                <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
-                <button onclick="renderCalendar()" class="hover:text-green-500 font-black text-xs uppercase tracking-wider transition-colors">KALENDARZ</button>
+        <div class="max-w-7xl mx-auto flex justify-between items-center gap-4">
+            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer">
+                Movie Hub
+            </h1>
+
+            <div class="flex items-center gap-3 md:gap-5">
                 <div id="auth-section">
-                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
+                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">
+                        Zaloguj
+                    </button>
                 </div>
+
+                <button onclick="openAppMenu()" class="hamburger-menu-btn" aria-label="Otwórz menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
+
+    <div id="app-menu-modal" class="app-menu-overlay" onclick="if(event.target === this) closeAppMenu()">
+        <aside class="app-menu-panel">
+            <div class="app-menu-top">
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub</p>
+                    <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none">
+                        Menu
+                    </h2>
+                </div>
+
+                <button onclick="closeAppMenu()" class="app-menu-close">
+                    Zamknij
+                </button>
+            </div>
+
+            <div id="app-menu-user-card" class="app-menu-user-card">
+                <div class="guest-avatar">G</div>
+                <div class="min-w-0">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-yellow-400 mb-1">Tryb gościa</p>
+                    <h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3>
+                    <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać dane.</p>
+                </div>
+            </div>
+
+            <div class="app-menu-grid">
+                <section class="app-menu-section">
+                    <p>Nawigacja</p>
+
+                    <button onclick="closeAppMenu(); showHome()" class="app-menu-item">
+                        <span>Start</span>
+                        <small>Strona główna</small>
+                    </button>
+
+                    <button onclick="closeAppMenu(); showLibrary()" class="app-menu-item">
+                        <span>Filmy</span>
+                        <small>Katalog filmów</small>
+                    </button>
+
+                    <button onclick="closeAppMenu(); renderCalendar()" class="app-menu-item">
+                        <span>Kalendarz</span>
+                        <small>Premiery 2026</small>
+                    </button>
+
+                    <button onclick="closeAppMenu(); openRatingStudio()" class="app-menu-item accent">
+                        <span>Oceń film</span>
+                        <small>Dodaj swoją ocenę</small>
+                    </button>
+                </section>
+
+                <section class="app-menu-section">
+                    <p>Twoje kino</p>
+
+                    <button onclick="menuRequireLogin('list filmów', () => showMyLists())" class="app-menu-item">
+                        <span>Moje listy</span>
+                        <small>Watchlista i prywatne listy</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('historii ocen', () => renderRatingHistory())" class="app-menu-item">
+                        <span>Moje oceny</span>
+                        <small>Historia oceniania</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('recenzji', () => openReviewDraft())" class="app-menu-item cyan">
+                        <span>Dodaj recenzję</span>
+                        <small>Wkrótce rozbudujemy</small>
+                    </button>
+                </section>
+
+                <section class="app-menu-section">
+                    <p>Konto</p>
+
+                    <button onclick="menuRequireLogin('profilu', () => showUserData())" class="app-menu-item">
+                        <span>Dane profilu</span>
+                        <small>E-mail, nick, avatar</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('zmiany nicku', () => changeNick())" class="app-menu-item">
+                        <span>Zmień nick</span>
+                        <small>Nazwa profilu</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('zmiany avatara', () => changeAvatar())" class="app-menu-item">
+                        <span>Zmień avatar</span>
+                        <small>Zdjęcie profilu</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('usuwania avatara', () => removeAvatar())" class="app-menu-item danger-soft">
+                        <span>Usuń avatar</span>
+                        <small>Wyczyść zdjęcie</small>
+                    </button>
+                </section>
+
+                <section class="app-menu-section app-menu-login-section">
+                    <p>Dostęp</p>
+
+                    <button id="app-menu-login-btn" onclick="closeAppMenu(); toggleModal('login-modal', true)" class="app-menu-login-btn">
+                        Zaloguj się
+                    </button>
+
+                    <button id="app-menu-logout-btn" onclick="menuLogout()" class="app-menu-logout-btn">
+                        Wyloguj
+                    </button>
+                </section>
+            </div>
+        </aside>
+    </div>
 
     <main id="home-page">
         <header class="relative py-24 md:py-40 text-center px-4 overflow-hidden bg-zinc-950">
@@ -2628,6 +3319,47 @@
             });
         }
 
+        function openAppMenu() {
+            const menu = document.getElementById('app-menu-modal');
+            if (!menu) return;
+
+            menu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAppMenu() {
+            const menu = document.getElementById('app-menu-modal');
+            if (!menu) return;
+
+            menu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function menuRequireLogin(featureName, callback) {
+            if (typeof window.isLoggedIn === 'function' && !window.isLoggedIn()) {
+                closeAppMenu();
+
+                if (typeof showGuestGate === 'function') {
+                    showGuestGate(featureName);
+                } else {
+                    toggleModal('login-modal', true);
+                }
+
+                return;
+            }
+
+            closeAppMenu();
+            callback();
+        }
+
+        function menuLogout() {
+            closeAppMenu();
+
+            if (typeof logout === 'function') {
+                logout();
+            }
+        }
+
         function renderTop2026() {
             const container = document.getElementById('top-2026-container');
                        if (!container) return; // Zabezpieczenie przed błędem
@@ -3229,6 +3961,8 @@
         </div>
     </div>
 
+
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
         import {
@@ -3444,6 +4178,11 @@
 
             const cleanNick = newNick.trim();
 
+            if (cleanNick.length > 18) {
+                alert("Nick może mieć maksymalnie 18 znaków.");
+                return;
+            }
+
             await updateProfile(currentFirebaseUser, { displayName: cleanNick });
             await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
                 nick: cleanNick
@@ -3484,7 +4223,7 @@
             updateAuthUI();
         };
 
-        function resizeImageToBase64(file, maxSize = 220, quality = 0.72) {
+        function resizeImageToBase64(file, maxSize = 512, quality = 0.92) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
 
@@ -3529,7 +4268,7 @@
             }
 
             try {
-                const avatarBase64 = await resizeImageToBase64(file, 120, 0.55);
+                const avatarBase64 = await resizeImageToBase64(file, 512, 0.92);
 
                 await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
                     avatarUrl: avatarBase64
@@ -3578,105 +4317,89 @@
             modal.classList.remove("flex");
         };
 
+        function shortenNick(nick, max = 18) {
+            const clean = String(nick || "Użytkownik").trim();
+            return clean.length > max ? clean.slice(0, max) + "..." : clean;
+        }
+
         window.updateAuthUI = function() {
+            const appMenuLogoutBtn = document.getElementById("app-menu-logout-btn");
             const authSection = document.getElementById("auth-section");
+            const appMenuUserCard = document.getElementById("app-menu-user-card");
+            const appMenuLoginBtn = document.getElementById("app-menu-login-btn");
+            if (appMenuLoginBtn) appMenuLoginBtn.style.display = "none";
+            if (appMenuLogoutBtn) appMenuLogoutBtn.style.display = "block";
+
             if (!authSection) return;
 
             if (!currentFirebaseUser || !currentUserProfile) {
+                const appMenuLoginBtn = document.getElementById("app-menu-login-btn");
+                if (appMenuLoginBtn) appMenuLoginBtn.style.display = "block";
+                if (appMenuLogoutBtn) appMenuLogoutBtn.style.display = "none";
+                
                 authSection.innerHTML = `
-                    <div class="relative group flex items-center gap-3">
-                        <div class="hidden sm:block text-right leading-tight">
-                            <p class="text-[9px] font-black text-yellow-400 uppercase tracking-widest">Gość</p>
-                            <p class="text-white font-black uppercase text-xs tracking-tight">Tryb demo</p>
-                        </div>
-
-                        <div onclick="toggleGuestMenu(event)" class="relative cursor-pointer">
-                            <div class="guest-avatar">G</div>
-                            <span class="guest-dot"></span>
-                        </div>
-
-                        <div id="guest-dropdown" class="guest-dropdown absolute top-full right-0 pt-4 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999]">
-                            <div class="guest-card">
-                                <div class="guest-panel">
-                                    <p>Movie Hub Guest</p>
-                                    <h3>Tryb gościa</h3>
-                                    <span>Możesz oglądać katalog i trailery. Konto zapisze listy, oceny, recenzje i profil na stałe.</span>
-                                </div>
-
-                                <button onclick="closeGuestMenu(); toggleModal('login-modal', true)" class="guest-menu-btn primary">
-                                    Zaloguj / Załóż konto
-                                </button>
-
-                                <button onclick="closeGuestMenu(); showLibrary()" class="guest-menu-btn">
-                                    Przeglądaj filmy
-                                </button>
-
-                                <button onclick="closeGuestMenu(); renderCalendar()" class="guest-menu-btn">
-                                    Kalendarz premier
-                                </button>
-
-                                <button onclick="closeGuestMenu(); showGuestGate('list filmów')" class="guest-menu-btn locked">
-                                    Moje listy
-                                </button>
-
-                                <button onclick="closeGuestMenu(); showGuestGate('historii ocen')" class="guest-menu-btn locked">
-                                    Moje oceny
-                                </button>
-
-                                <button onclick="closeGuestMenu(); showGuestGate('recenzji')" class="guest-menu-btn locked">
-                                    Dodaj recenzję
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <button onclick="toggleModal('login-modal', true)" class="guest-login-btn">
+                        <svg class="guest-human-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="7.5" r="4.2" stroke="currentColor" stroke-width="1.7"></circle>
+                            <path d="M4.5 21c1.6-4.2 4.2-6.2 7.5-6.2s5.9 2 7.5 6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+                        </svg>
+                        <span>Zaloguj się</span>
+                    </button>
                 `;
+
+                if (appMenuUserCard) {
+                    appMenuUserCard.innerHTML = `
+                        <div class="guest-avatar">G</div>
+                        <div class="min-w-0">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-yellow-400 mb-1">Tryb gościa</p>
+                            <h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3>
+                            <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać oceny, listy i recenzje.</p>
+                        </div>
+                    `;
+                }
+
                 return;
             }
 
             const nick = currentUserProfile.nick || currentFirebaseUser.displayName || "Użytkownik";
+            const displayNick = shortenNick(nick, 18);
             const email = currentFirebaseUser.email || "";
             const avatarUrl = currentUserProfile.avatarUrl || currentFirebaseUser.photoURL || "";
 
             const avatar = avatarUrl
-                ? `<img src="${avatarUrl}" class="w-11 h-11 rounded-full object-cover border-2 border-zinc-800 group-hover/avatar:border-green-500 transition">`
-                : `<div class="w-11 h-11 rounded-full bg-green-600 text-black border-2 border-zinc-800 group-hover/avatar:border-green-500 flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`;
+                ? `<img src="${avatarUrl}" alt="${nick}">`
+                : `<div class="bg-green-600 text-black flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`;
 
             authSection.innerHTML = `
-                <div class="relative group flex items-center gap-3">
-                    <div class="hidden sm:block text-right leading-tight">
-                        <p class="text-[9px] font-black text-green-500 uppercase tracking-widest">Online</p>
-                        <p class="text-white font-black uppercase text-xs tracking-tight max-w-[120px] truncate">${nick}</p>
-                    </div>
-
-                    <div onclick="toggleProfileMenu(event)" class="relative group/avatar cursor-pointer">
+                <button onclick="openAppMenu()" class="profile-pill-btn">
+                    <div class="profile-avatar-box">
                         ${avatar}
-                        <span class="absolute -right-0.5 -bottom-0.5 w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-zinc-950 shadow-[0_0_12px_rgba(34,197,94,0.8)]"></span>
+                        <span class="profile-avatar-status"></span>
                     </div>
 
-                    <div id="profile-dropdown" class="profile-dropdown absolute top-full right-0 pt-4 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999]">
-                        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl shadow-2xl shadow-black/80 p-3">
-                            <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800 mb-2">
-                                <p class="text-[9px] font-black text-green-500 uppercase tracking-widest mb-1">Profil</p>
-                                <p class="text-white font-black uppercase text-lg italic leading-none truncate">${nick}</p>
-                                <p class="text-zinc-500 text-[11px] mt-2 truncate">${email}</p>
-                            </div>
-
-                            <div class="h-px bg-zinc-800 my-2"></div>
-
-                            <button onclick="closeProfileMenu(); showUserData()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-white text-[11px] font-black uppercase tracking-widest transition">Dane</button>
-                            <button onclick="closeProfileMenu(); renderRatingHistory()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Moje oceny</button>
-                            <button onclick="closeProfileMenu(); showMyLists()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Moje listy</button>
-                            <button onclick="closeProfileMenu(); changeNick()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Zmień nick</button>
-                            <button onclick="closeProfileMenu(); changeAvatar()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Zmień avatar</button>
-                            <button onclick="closeProfileMenu(); removeAvatar()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-red-400 text-[11px] font-black uppercase tracking-widest transition">Usuń avatar</button>
-
-                            <div class="h-px bg-zinc-800 my-2"></div>
-
-                            <button onclick="closeProfileMenu(); logout()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-red-950/40 text-red-500 text-[11px] font-black uppercase tracking-widest transition">Wyloguj</button>
-                        </div>
+                    <div class="profile-pill-text">
+                        <p>Online</p>
+                        <strong title="${nick}">${displayNick}</strong>
                     </div>
-                </div>
+                </button>
             `;
+
+            if (appMenuUserCard) {
+                appMenuUserCard.innerHTML = `
+                    <div class="relative shrink-0">
+                        ${avatarUrl
+                            ? `<img src="${avatarUrl}" class="w-16 h-16 rounded-full object-cover border-2 border-green-500 shadow-[0_0_22px_rgba(34,197,94,.3)]">`
+                            : `<div class="w-16 h-16 rounded-full bg-green-600 text-black flex items-center justify-center font-black text-2xl uppercase">${nick.charAt(0)}</div>`
+                        }
+                    </div>
+
+                    <div class="min-w-0">
+                        <p class="text-[9px] font-black uppercase tracking-widest text-green-500 mb-1">Online</p>
+                        <h3 class="app-menu-nick" title="${nick}">${displayNick}</h3>
+                        <p class="text-zinc-500 text-xs mt-2 truncate">${email}</p>
+                    </div>
+                `;
+            }
         };
 
         window.toggleProfileMenu = function(event) {
