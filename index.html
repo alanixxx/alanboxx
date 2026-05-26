@@ -1934,6 +1934,7 @@
             line-height: 1.05 !important;
             white-space: normal !important;
             display: -webkit-box;
+            line-clamp: 2;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             min-height: 30px;
@@ -2146,31 +2147,7 @@
             }
         }
 
-        @media (max-width: 640px) {
-            #top-2026-container {
-                grid-template-columns: 1fr !important;
-                gap: 28px !important;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            #top-2026-container > div {
-                width: 100%;
-                max-width: 340px;
-                margin: 0 auto;
-            }
-
-            #top-2026-container .text-7xl,
-            #top-2026-container .md\:text-8xl {
-                font-size: 58px !important;
-            }
-
-            section:has(#top-2026-container) h2 {
-                white-space: normal !important;
-                font-size: 34px !important;
-                line-height: .92 !important;
-            }
-        }
+       
 
         .backrooms-hype-row {
             display: flex;
@@ -3928,18 +3905,7 @@
         document.addEventListener("DOMContentLoaded", initMovieCountdown);
 
 
-        // INIT SLIDER
-        document.getElementById('main-slider').innerHTML = [...movies].sort(() => 0.5 - Math.random()).map(m => `
-            <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
-                <img src="${m.img}" class="w-full h-[400px] object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Brak'">
-                <div class="p-6 text-center font-black uppercase italic">
-                    <div class="text-xl mb-1">${m.title}</div>
-                    <div class="text-green-500 text-xs">★ ${m.rating}</div>
-                </div>
-            </div>`).join('');
-
-    
-
+        
         // --- NOWA FUNKCJONALNOŚĆ: HISTORIA OCEN ---
         
         function getTodayDate() {
