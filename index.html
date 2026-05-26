@@ -2172,6 +2172,181 @@
             }
         }
 
+        .backrooms-hype-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .backrooms-hype-row span {
+            border: 1px solid rgba(234,179,8,.28);
+            background: rgba(234,179,8,.08);
+            color: #facc15;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        @media (min-width: 1024px) {
+            .backrooms-hype-row {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section:has(#countdown-days) {
+                padding-top: 34px !important;
+                padding-bottom: 34px !important;
+                margin-top: 28px !important;
+                margin-bottom: 36px !important;
+            }
+
+            section:has(#countdown-days) > div {
+                border-radius: 28px !important;
+                padding: 22px 16px !important;
+            }
+
+            section:has(#countdown-days) .flex.flex-col.lg\:flex-row {
+                gap: 18px !important;
+            }
+
+            section:has(#countdown-days) .w-48 {
+                width: 116px !important;
+                height: 172px !important;
+                border-radius: 20px !important;
+            }
+
+            section:has(#countdown-days) h4 {
+                font-size: 9px !important;
+                margin-bottom: 8px !important;
+                letter-spacing: .12em !important;
+            }
+
+            section:has(#countdown-days) h2 {
+                font-size: 30px !important;
+                line-height: .95 !important;
+                margin-bottom: 10px !important;
+            }
+
+            .backrooms-desc {
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+                margin-bottom: 14px !important;
+            }
+
+            .backrooms-hype-row {
+                margin-bottom: 16px;
+                gap: 6px;
+            }
+
+            .backrooms-hype-row span {
+                padding: 7px 9px;
+                font-size: 8px;
+            }
+
+            section:has(#countdown-days) .flex.flex-wrap.justify-center {
+                gap: 8px !important;
+            }
+
+            section:has(#countdown-days) .bg-zinc-900\/80 {
+                min-width: 64px !important;
+                padding: 10px 8px !important;
+                border-radius: 16px !important;
+            }
+
+            #countdown-days,
+            #countdown-hours,
+            #countdown-minutes,
+            #countdown-seconds {
+                font-size: 24px !important;
+            }
+
+            section:has(#countdown-days) .text-\[9px\] {
+                font-size: 8px !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #top-2026-container {
+                display: grid !important;
+                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+                gap: 6px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+            }
+
+            #top-2026-container > div {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                min-width: 0 !important;
+            }
+
+            #top-2026-container .relative.z-20 {
+                border-radius: 12px !important;
+            }
+
+            #top-2026-container img {
+                width: 100% !important;
+                aspect-ratio: 2 / 3 !important;
+                object-fit: cover !important;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 28px !important;
+                line-height: 1 !important;
+            }
+
+            #top-2026-container .-top-10 {
+                top: -12px !important;
+            }
+
+            #top-2026-container .-left-5 {
+                left: -3px !important;
+            }
+
+            #top-2026-container .bottom-5 {
+                bottom: 6px !important;
+            }
+
+            #top-2026-container .left-5 {
+                left: 5px !important;
+            }
+
+            #top-2026-container .right-5 {
+                right: 5px !important;
+            }
+
+            #top-2026-container .text-lg {
+                font-size: 7px !important;
+                line-height: .95 !important;
+                margin-bottom: 1px !important;
+            }
+
+            #top-2026-container .text-xs {
+                font-size: 7px !important;
+                line-height: 1 !important;
+            }
+
+            section:has(#top-2026-container) {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+
+            section:has(#top-2026-container) h2 {
+                white-space: nowrap !important;
+                font-size: 28px !important;
+                line-height: .9 !important;
+            }
+        }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -2354,9 +2529,15 @@
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
                             The Backrooms <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Movie</span>
                         </h2>
-                        <p class="text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-8">
-                            Przeżyj horror zagubienia w nieskończonych, żółtych korytarzach poziomu 0. Kinowa adaptacja internetowego fenomenu zbliża się wielkimi krokami. Czy uda Ci się przetrwać i odnaleźć wyjście przed końcem czasu?
+                        <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
+                            Horror w nieskończonych żółtych korytarzach poziomu 0. Internetowy fenomen nadchodzi do kina.
                         </p>
+
+                        <div class="backrooms-hype-row">
+                            <span>34K waiting</span>
+                            
+                            <span>Premiera 2026</span>
+                        </div>
 
                         <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
