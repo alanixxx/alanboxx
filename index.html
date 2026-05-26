@@ -930,6 +930,371 @@
             }
         }
 
+        .guest-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #18181b, #22c55e);
+            border: 2px solid #27272a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 900;
+            box-shadow: 0 0 24px rgba(34,197,94,.18);
+        }
+
+        .guest-dot {
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: #facc15;
+            border: 2px solid #09090b;
+            box-shadow: 0 0 12px rgba(250,204,21,.55);
+        }
+
+        .guest-dropdown {
+            pointer-events: none;
+        }
+
+        .group:hover .guest-dropdown {
+            pointer-events: auto;
+        }
+
+        .guest-card {
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,.12), transparent 42%),
+                linear-gradient(180deg, #101013, #050506);
+            border: 1px solid #27272a;
+            border-radius: 28px;
+            box-shadow: 0 28px 70px rgba(0,0,0,.7);
+            padding: 14px;
+        }
+
+        .guest-panel {
+            border: 1px solid rgba(34,197,94,.25);
+            background: rgba(34,197,94,.06);
+            border-radius: 22px;
+            padding: 18px;
+            margin-bottom: 10px;
+        }
+
+        .guest-panel p {
+            color: #22c55e;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .3em;
+            margin-bottom: 8px;
+        }
+
+        .guest-panel h3 {
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: .95;
+            margin-bottom: 10px;
+        }
+
+        .guest-panel span {
+            display: block;
+            color: #71717a;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .guest-menu-btn {
+            width: 100%;
+            text-align: left;
+            padding: 14px 16px;
+            border-radius: 18px;
+            color: #d4d4d8;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+
+        .guest-menu-btn:hover {
+            background: #18181b;
+            color: white;
+        }
+
+        .guest-menu-btn.primary {
+            background: #22c55e;
+            color: black;
+            text-align: center;
+        }
+
+        .guest-menu-btn.primary:hover {
+            background: #4ade80;
+        }
+
+        .guest-menu-btn.locked {
+            color: #71717a;
+        }
+
+        .guest-menu-btn.locked:hover {
+            color: #facc15;
+            background: rgba(250,204,21,.08);
+        }
+
+        .guest-gate-box {
+            width: min(460px, 100%);
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,.14), transparent 45%),
+                #09090b;
+            border: 1px solid #27272a;
+            border-radius: 30px;
+            padding: 26px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.75);
+        }
+
+        @media (max-width: 768px) {
+            .guest-dropdown {
+                position: fixed !important;
+                top: 135px !important;
+                left: 16px !important;
+                right: 16px !important;
+                width: auto !important;
+                padding-top: 0 !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateY(-8px) !important;
+                pointer-events: none !important;
+            }
+
+            .group:hover .guest-dropdown:not(.open) {
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+            }
+
+            .guest-dropdown.open {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+                pointer-events: auto !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #movie-modal {
+                padding: 12px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+
+            #movie-modal > div {
+                display: grid !important;
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-height: none;
+                border-radius: 30px;
+                overflow: hidden;
+                margin: 14px 0 120px;
+            }
+
+            #movie-modal .md\:w-2\/5 {
+                width: 118px !important;
+                height: auto !important;
+                aspect-ratio: 2 / 3 !important;
+                position: absolute !important;
+                top: 86px;
+                right: 20px;
+                z-index: 5;
+                border-radius: 18px;
+                overflow: hidden;
+                border: 1px solid rgba(255,255,255,.12);
+                box-shadow: 0 18px 45px rgba(0,0,0,.55);
+                background: #09090b;
+            }
+
+            #modal-img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                object-position: center center !important;
+                background: #09090b;
+            }
+
+            .movie-modal-info {
+                padding: 32px 22px 26px !important;
+            }
+
+            .movie-main-content {
+                padding-right: 132px;
+                min-height: 265px;
+            }
+
+            #modal-title {
+                font-size: 42px !important;
+                line-height: .9 !important;
+                margin-bottom: 16px !important;
+                max-width: 100%;
+                word-break: break-word;
+            }
+
+            #modal-desc {
+                font-size: 15px !important;
+                line-height: 1.45 !important;
+                color: #a1a1aa;
+                min-height: 120px;
+                margin-bottom: 22px !important;
+            }
+
+            .movie-stats-row {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px !important;
+                margin-top: 18px;
+            }
+
+            .movie-stat-box {
+                min-width: 0 !important;
+                padding: 14px 10px !important;
+                border-radius: 18px !important;
+            }
+
+            .movie-stat-box span {
+                font-size: 8px !important;
+            }
+
+            .movie-stat-box strong {
+                font-size: 18px !important;
+            }
+
+            .movie-trailer-btn,
+            .movie-review-btn {
+                width: 100% !important;
+                margin-top: 12px;
+                text-align: center;
+            }
+
+            .movie-genres-footer {
+                margin-top: 26px !important;
+            }
+
+            #movie-modal button[onclick*="toggleModal('movie-modal'"] {
+                top: 18px !important;
+                right: 18px !important;
+                z-index: 30 !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .md\:w-2\/5 {
+                width: 104px !important;
+                right: 16px;
+            }
+
+            .movie-main-content {
+                padding-right: 116px;
+            }
+
+            #modal-title {
+                font-size: 36px !important;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            #top-2026-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 14px !important;
+            }
+
+            #top-2026-container > div {
+                min-width: 0;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 54px !important;
+                line-height: .8 !important;
+            }
+
+            #top-2026-container .-top-10 {
+                top: -22px !important;
+            }
+
+            #top-2026-container .-left-5 {
+                left: -8px !important;
+            }
+
+            #top-2026-container .rounded-\[30px\] {
+                border-radius: 22px !important;
+            }
+
+            #top-2026-container .bottom-5 {
+                bottom: 12px !important;
+            }
+
+            #top-2026-container .left-5 {
+                left: 12px !important;
+            }
+
+            #top-2026-container .right-5 {
+                right: 12px !important;
+            }
+
+            #top-2026-container .text-lg {
+                font-size: 13px !important;
+                line-height: 1.05 !important;
+            }
+
+            #top-2026-container .text-xs {
+                font-size: 10px !important;
+            }
+
+            section:has(#top-2026-container) {
+                padding-top: 42px !important;
+            }
+
+            section:has(#top-2026-container) .flex.items-center.gap-6.mb-12 {
+                gap: 8px !important;
+                margin-bottom: 34px !important;
+                align-items: center !important;
+            }
+
+            section:has(#top-2026-container) h2 {
+                font-size: clamp(28px, 8.3vw, 34px) !important;
+                line-height: .9 !important;
+                white-space: nowrap !important;
+                letter-spacing: 0 !important;
+            }
+
+            section:has(#top-2026-container) h2 span {
+                display: inline !important;
+            }
+
+            section:has(#top-2026-container) .h-\[2px\] {
+                min-width: 28px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            section:has(#top-2026-container) h2 {
+                font-size: 26px !important;
+            }
+
+            #top-2026-container {
+                gap: 12px !important;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 48px !important;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -2055,6 +2420,11 @@
         }
 
         function openReviewDraft() {
+            if (typeof window.isLoggedIn === 'function' && !window.isLoggedIn()) {
+                showGuestGate('recenzji');
+                return;
+            }
+
             alert('Sekcja recenzji będzie dodana w kolejnym etapie.');
         }
 
@@ -2786,6 +3156,34 @@
         </div>
     </div>
 
+    <div id="guest-gate-modal" class="modal-overlay" onclick="if(event.target === this) closeGuestGate()">
+        <div class="guest-gate-box">
+            <button onclick="closeGuestGate()" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
+
+            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-3">Tryb gościa</p>
+
+            <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-4">
+                Zapisz swoje <span class="text-green-500">kino</span>
+            </h2>
+
+            <p id="guest-gate-text" class="text-zinc-500 font-bold text-sm leading-relaxed mb-6">
+                Ta funkcja wymaga konta, żeby zapisać dane na stałe.
+            </p>
+
+            <div class="grid gap-3">
+                <button onclick="closeGuestGate(); toggleModal('login-modal', true)"
+                    class="bg-green-600 hover:bg-green-500 text-black rounded-2xl py-4 font-black uppercase italic text-xs tracking-widest transition">
+                    Zaloguj / Załóż konto
+                </button>
+
+                <button onclick="closeGuestGate()"
+                    class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-2xl py-4 font-black uppercase text-[10px] tracking-widest transition">
+                    Zostań w trybie gościa
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="profile-data-modal" class="hidden fixed inset-0 z-[9999] items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="if(event.target === this) closeProfileDataModal()">
         <div class="bg-zinc-950 border border-zinc-800 rounded-[32px] max-w-lg w-full p-6 md:p-8 shadow-2xl shadow-black/80 relative">
             <button onclick="closeProfileDataModal()" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
@@ -2869,6 +3267,40 @@
 
         let currentFirebaseUser = null;
         let currentUserProfile = null;
+
+        window.isLoggedIn = function() {
+            return !!currentFirebaseUser;
+        };
+
+        window.showGuestGate = function(featureName = "tej funkcji") {
+            const text = document.getElementById("guest-gate-text");
+
+            if (text) {
+                text.textContent = `Zaloguj się, żeby korzystać z ${featureName} i mieć zapisane dane na każdym urządzeniu.`;
+            }
+
+            toggleModal("guest-gate-modal", true);
+        };
+
+        window.closeGuestGate = function() {
+            toggleModal("guest-gate-modal", false);
+        };
+
+        window.toggleGuestMenu = function(event) {
+            event.stopPropagation();
+
+            const menu = document.getElementById("guest-dropdown");
+            if (!menu) return;
+
+            menu.classList.toggle("open");
+        };
+
+        window.closeGuestMenu = function() {
+            const menu = document.getElementById("guest-dropdown");
+            if (!menu) return;
+
+            menu.classList.remove("open");
+        };
 
         window.getFirebaseUserId = function() {
             return currentFirebaseUser ? currentFirebaseUser.uid : 'guest';
@@ -3152,9 +3584,51 @@
 
             if (!currentFirebaseUser || !currentUserProfile) {
                 authSection.innerHTML = `
-                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-xs transition">
-                        Zaloguj
-                    </button>
+                    <div class="relative group flex items-center gap-3">
+                        <div class="hidden sm:block text-right leading-tight">
+                            <p class="text-[9px] font-black text-yellow-400 uppercase tracking-widest">Gość</p>
+                            <p class="text-white font-black uppercase text-xs tracking-tight">Tryb demo</p>
+                        </div>
+
+                        <div onclick="toggleGuestMenu(event)" class="relative cursor-pointer">
+                            <div class="guest-avatar">G</div>
+                            <span class="guest-dot"></span>
+                        </div>
+
+                        <div id="guest-dropdown" class="guest-dropdown absolute top-full right-0 pt-4 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999]">
+                            <div class="guest-card">
+                                <div class="guest-panel">
+                                    <p>Movie Hub Guest</p>
+                                    <h3>Tryb gościa</h3>
+                                    <span>Możesz oglądać katalog i trailery. Konto zapisze listy, oceny, recenzje i profil na stałe.</span>
+                                </div>
+
+                                <button onclick="closeGuestMenu(); toggleModal('login-modal', true)" class="guest-menu-btn primary">
+                                    Zaloguj / Załóż konto
+                                </button>
+
+                                <button onclick="closeGuestMenu(); showLibrary()" class="guest-menu-btn">
+                                    Przeglądaj filmy
+                                </button>
+
+                                <button onclick="closeGuestMenu(); renderCalendar()" class="guest-menu-btn">
+                                    Kalendarz premier
+                                </button>
+
+                                <button onclick="closeGuestMenu(); showGuestGate('list filmów')" class="guest-menu-btn locked">
+                                    Moje listy
+                                </button>
+
+                                <button onclick="closeGuestMenu(); showGuestGate('historii ocen')" class="guest-menu-btn locked">
+                                    Moje oceny
+                                </button>
+
+                                <button onclick="closeGuestMenu(); showGuestGate('recenzji')" class="guest-menu-btn locked">
+                                    Dodaj recenzję
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 `;
                 return;
             }
