@@ -570,23 +570,1892 @@
             }
         }
 
+        @media (max-width: 768px) {
+            #movie-modal {
+                padding: 10px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+
+            #movie-modal > div {
+                width: 100%;
+                max-height: none;
+                min-height: auto;
+                border-radius: 28px;
+                margin-top: 12px;
+            }
+
+            #movie-modal .md\:w-2\/5 {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 10;
+            }
+
+            #modal-img {
+                object-fit: cover;
+                object-position: center top;
+            }
+
+            #movie-modal .p-8 {
+                padding: 22px;
+            }
+
+            #modal-title {
+                font-size: 42px;
+                line-height: .9;
+                margin-bottom: 14px;
+                word-break: break-word;
+            }
+
+            #modal-desc {
+                font-size: 15px;
+                line-height: 1.5;
+                margin-bottom: 22px;
+            }
+
+            #movie-modal .flex.gap-4.mb-8 {
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 22px;
+            }
+
+            #movie-modal .bg-zinc-900.px-6 {
+                padding: 14px 18px;
+                border-radius: 18px;
+            }
+
+            #modal-trailer-link {
+                width: 100%;
+                text-align: center;
+                padding: 16px 18px;
+            }
+
+            #modal-category {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .star-rating {
+                max-width: 100%;
+                flex-wrap: wrap;
+                direction: ltr;
+                gap: 2px;
+            }
+
+            .star-rating label {
+                font-size: 1.75rem;
+            }
+
+            #trailer-modal {
+                padding: 12px;
+            }
+
+            #trailer-modal > div {
+                border-radius: 24px;
+            }
+        }
+
+        .trailer-modal {
+            padding: 18px;
+        }
+
+        .trailer-box {
+            width: min(860px, 100%);
+            background: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 90px rgba(0,0,0,.65);
+        }
+
+        .trailer-topbar {
+            height: 72px;
+            padding: 0 18px 0 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: #0f0f12;
+            border-bottom: 1px solid #27272a;
+        }
+
+        .trailer-close {
+            flex-shrink: 0;
+            border: 1px solid #3f3f46;
+            background: #18181b;
+            color: white;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+
+        .trailer-close:hover {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: black;
+        }
+
+        .trailer-frame-wrap {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            background: black;
+        }
+
+        .trailer-frame-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .trailer-modal {
+                padding: 10px;
+                align-items: center;
+            }
+
+            .trailer-box {
+                border-radius: 22px;
+            }
+
+            .trailer-topbar {
+                height: 64px;
+                padding: 0 12px 0 16px;
+            }
+
+            .trailer-close {
+                padding: 10px 12px;
+                border-radius: 14px;
+                font-size: 9px;
+            }
+        }
+
+        body.trailer-open {
+            overflow: hidden;
+        }
+
+        body.trailer-open .slider-track {
+            animation-play-state: paused !important;
+        }
+
+        body.trailer-open #hero-bg,
+        body.trailer-open #particles-js-header {
+            display: none !important;
+        }
+
+        .trailer-modal {
+            background: #000 !important;
+            backdrop-filter: none !important;
+        }
+
+        .trailer-box {
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .trailer-frame-wrap iframe {
+            transform: translateZ(0);
+            will-change: auto;
+        }
+
+        .movie-modal-info {
+            gap: 28px;
+        }
+
+        .movie-main-content {
+            flex: 1;
+        }
+
+        .modal-description {
+            max-width: 680px;
+            min-height: 92px;
+        }
+
+        .movie-stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .movie-stat-box {
+            min-width: 112px;
+            border: 1px solid #27272a;
+            background: #18181b;
+            border-radius: 18px;
+            padding: 16px 18px;
+        }
+
+        .movie-stat-box span {
+            display: block;
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .08em;
+            margin-bottom: 6px;
+        }
+
+        .movie-stat-box strong {
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1;
+        }
+
+        .movie-stat-box:first-child strong {
+            color: #eab308;
+        }
+
+        .user-score-box {
+            border-color: rgba(34,197,94,.35);
+            background: rgba(34,197,94,.08);
+        }
+
+        .user-score-box strong {
+            color: #22c55e;
+        }
+
+        .movie-trailer-btn {
+            display: block;
+            width: min(360px, 100%);
+            background: #16a34a;
+            color: #050505;
+            border-radius: 18px;
+            padding: 18px 24px;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .12em;
+            margin-bottom: 14px;
+            transition: .2s ease;
+        }
+
+        .movie-trailer-btn:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        .movie-review-btn {
+            display: block;
+            width: min(360px, 100%);
+            border: 1px solid rgba(34,211,238,.35);
+            background: rgba(34,211,238,.08);
+            color: #67e8f9;
+            border-radius: 18px;
+            padding: 15px 22px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+
+        .movie-review-btn:hover {
+            background: rgba(34,211,238,.16);
+            border-color: #22d3ee;
+        }
+
+        .movie-genres-footer {
+            border-top: 1px solid #27272a;
+            padding-top: 20px;
+            margin-top: 28px;
+        }
+
+        .movie-genres-footer p {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            margin-bottom: 10px;
+        }
+
+        .movie-genre-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .movie-genre-list span {
+            border: 1px solid rgba(34,197,94,.35);
+            background: rgba(34,197,94,.08);
+            color: #4ade80;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        @media (max-width: 768px) {
+            .modal-description {
+                min-height: 120px;
+                max-height: none;
+            }
+
+            .movie-stats-row {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .movie-stat-box {
+                min-width: 0;
+                padding: 13px 10px;
+                border-radius: 16px;
+            }
+
+            .movie-stat-box strong {
+                font-size: 17px;
+            }
+
+            .movie-trailer-btn,
+            .movie-review-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .movie-genres-footer {
+                margin-top: 24px;
+            }
+        }
+
+        .guest-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #18181b, #22c55e);
+            border: 2px solid #27272a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 900;
+            box-shadow: 0 0 24px rgba(34,197,94,.18);
+        }
+
+        .guest-dot {
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: #facc15;
+            border: 2px solid #09090b;
+            box-shadow: 0 0 12px rgba(250,204,21,.55);
+        }
+
+        .guest-dropdown {
+            pointer-events: none;
+        }
+
+        .group:hover .guest-dropdown {
+            pointer-events: auto;
+        }
+
+        .guest-card {
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,.12), transparent 42%),
+                linear-gradient(180deg, #101013, #050506);
+            border: 1px solid #27272a;
+            border-radius: 28px;
+            box-shadow: 0 28px 70px rgba(0,0,0,.7);
+            padding: 14px;
+        }
+
+        .guest-panel {
+            border: 1px solid rgba(34,197,94,.25);
+            background: rgba(34,197,94,.06);
+            border-radius: 22px;
+            padding: 18px;
+            margin-bottom: 10px;
+        }
+
+        .guest-panel p {
+            color: #22c55e;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .3em;
+            margin-bottom: 8px;
+        }
+
+        .guest-panel h3 {
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: .95;
+            margin-bottom: 10px;
+        }
+
+        .guest-panel span {
+            display: block;
+            color: #71717a;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .guest-menu-btn {
+            width: 100%;
+            text-align: left;
+            padding: 14px 16px;
+            border-radius: 18px;
+            color: #d4d4d8;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+
+        .guest-menu-btn:hover {
+            background: #18181b;
+            color: white;
+        }
+
+        .guest-menu-btn.primary {
+            background: #22c55e;
+            color: black;
+            text-align: center;
+        }
+
+        .guest-menu-btn.primary:hover {
+            background: #4ade80;
+        }
+
+        .guest-menu-btn.locked {
+            color: #71717a;
+        }
+
+        .guest-menu-btn.locked:hover {
+            color: #facc15;
+            background: rgba(250,204,21,.08);
+        }
+
+        .guest-gate-box {
+            width: min(460px, 100%);
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,.14), transparent 45%),
+                #09090b;
+            border: 1px solid #27272a;
+            border-radius: 30px;
+            padding: 26px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.75);
+        }
+
+        @media (max-width: 768px) {
+            .guest-dropdown {
+                position: fixed !important;
+                top: 135px !important;
+                left: 16px !important;
+                right: 16px !important;
+                width: auto !important;
+                padding-top: 0 !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateY(-8px) !important;
+                pointer-events: none !important;
+            }
+
+            .group:hover .guest-dropdown:not(.open) {
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+            }
+
+            .guest-dropdown.open {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+                pointer-events: auto !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #movie-modal {
+                padding: 12px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+
+            #movie-modal > div {
+                display: grid !important;
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-height: none;
+                border-radius: 30px;
+                overflow: hidden;
+                margin: 14px 0 120px;
+            }
+
+            #movie-modal .md\:w-2\/5 {
+                width: 118px !important;
+                height: auto !important;
+                aspect-ratio: 2 / 3 !important;
+                position: absolute !important;
+                top: 86px;
+                right: 20px;
+                z-index: 5;
+                border-radius: 18px;
+                overflow: hidden;
+                border: 1px solid rgba(255,255,255,.12);
+                box-shadow: 0 18px 45px rgba(0,0,0,.55);
+                background: #09090b;
+            }
+
+            #modal-img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                object-position: center center !important;
+                background: #09090b;
+            }
+
+            .movie-modal-info {
+                padding: 32px 22px 26px !important;
+            }
+
+            .movie-main-content {
+                padding-right: 132px;
+                min-height: 265px;
+            }
+
+            #modal-title {
+                font-size: 42px !important;
+                line-height: .9 !important;
+                margin-bottom: 16px !important;
+                max-width: 100%;
+                word-break: break-word;
+            }
+
+            #modal-desc {
+                font-size: 15px !important;
+                line-height: 1.45 !important;
+                color: #a1a1aa;
+                min-height: 120px;
+                margin-bottom: 22px !important;
+            }
+
+            .movie-stats-row {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px !important;
+                margin-top: 18px;
+            }
+
+            .movie-stat-box {
+                min-width: 0 !important;
+                padding: 14px 10px !important;
+                border-radius: 18px !important;
+            }
+
+            .movie-stat-box span {
+                font-size: 8px !important;
+            }
+
+            .movie-stat-box strong {
+                font-size: 18px !important;
+            }
+
+            .movie-trailer-btn,
+            .movie-review-btn {
+                width: 100% !important;
+                margin-top: 12px;
+                text-align: center;
+            }
+
+            .movie-genres-footer {
+                margin-top: 26px !important;
+            }
+
+            #movie-modal button[onclick*="toggleModal('movie-modal'"] {
+                top: 18px !important;
+                right: 18px !important;
+                z-index: 30 !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .md\:w-2\/5 {
+                width: 104px !important;
+                right: 16px;
+            }
+
+            .movie-main-content {
+                padding-right: 116px;
+            }
+
+            #modal-title {
+                font-size: 36px !important;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            #top-2026-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 14px !important;
+            }
+
+            #top-2026-container > div {
+                min-width: 0;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 54px !important;
+                line-height: .8 !important;
+            }
+
+            #top-2026-container .-top-10 {
+                top: -22px !important;
+            }
+
+            #top-2026-container .-left-5 {
+                left: -8px !important;
+            }
+
+            #top-2026-container .rounded-\[30px\] {
+                border-radius: 22px !important;
+            }
+
+            #top-2026-container .bottom-5 {
+                bottom: 12px !important;
+            }
+
+            #top-2026-container .left-5 {
+                left: 12px !important;
+            }
+
+            #top-2026-container .right-5 {
+                right: 12px !important;
+            }
+
+            #top-2026-container .text-lg {
+                font-size: 13px !important;
+                line-height: 1.05 !important;
+            }
+
+            #top-2026-container .text-xs {
+                font-size: 10px !important;
+            }
+
+            section:has(#top-2026-container) {
+                padding-top: 42px !important;
+            }
+
+            section:has(#top-2026-container) .flex.items-center.gap-6.mb-12 {
+                gap: 8px !important;
+                margin-bottom: 34px !important;
+                align-items: center !important;
+            }
+
+            section:has(#top-2026-container) h2 {
+                font-size: clamp(28px, 8.3vw, 34px) !important;
+                line-height: .9 !important;
+                white-space: nowrap !important;
+                letter-spacing: 0 !important;
+            }
+
+            section:has(#top-2026-container) h2 span {
+                display: inline !important;
+            }
+
+            section:has(#top-2026-container) .h-\[2px\] {
+                min-width: 28px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            section:has(#top-2026-container) h2 {
+                font-size: 26px !important;
+            }
+
+            #top-2026-container {
+                gap: 12px !important;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 48px !important;
+            }
+        }
+
+
+        .main-menu-btn {
+            border: 1px solid #27272a;
+            background: #18181b;
+            color: white;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            transition: .2s ease;
+        }
+
+        .main-menu-btn:hover {
+            border-color: #22c55e;
+            background: rgba(34,197,94,.12);
+            color: #22c55e;
+            box-shadow: 0 0 24px rgba(34,197,94,.15);
+        }
+
+        .app-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0,0,0,.82);
+            backdrop-filter: blur(10px);
+            padding: 18px;
+            overflow-y: auto;
+        }
+
+        .app-menu-overlay.open {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app-menu-panel {
+            width: min(1120px, 100%);
+            margin: 42px auto;
+            border: 1px solid #27272a;
+            border-radius: 34px;
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,.16), transparent 35%),
+                linear-gradient(180deg, #111114, #050506);
+            box-shadow: 0 35px 100px rgba(0,0,0,.75);
+            padding: 24px;
+        }
+
+        .app-menu-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .app-menu-close {
+            border: 1px solid #3f3f46;
+            background: #18181b;
+            color: white;
+            border-radius: 18px;
+            padding: 13px 16px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .app-menu-close:hover {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: black;
+        }
+
+        .app-menu-user-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(34,197,94,.24);
+            background: rgba(34,197,94,.07);
+            border-radius: 26px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .app-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .app-menu-section {
+            border: 1px solid #27272a;
+            background: rgba(9,9,11,.72);
+            border-radius: 26px;
+            padding: 14px;
+        }
+
+        .app-menu-section > p {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .26em;
+            margin: 4px 4px 12px;
+        }
+
+        .app-menu-item {
+            width: 100%;
+            text-align: left;
+            border-radius: 18px;
+            padding: 15px;
+            color: white;
+            transition: .18s ease;
+        }
+
+        .app-menu-item:hover {
+            background: #18181b;
+            transform: translateY(-2px);
+        }
+
+        .app-menu-item span {
+            display: block;
+            color: white;
+            font-size: 14px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .app-menu-item small {
+            display: block;
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        .app-menu-item.accent {
+            background: rgba(34,197,94,.1);
+            border: 1px solid rgba(34,197,94,.26);
+        }
+
+        .app-menu-item.accent span {
+            color: #22c55e;
+        }
+
+        .app-menu-item.cyan {
+            background: rgba(34,211,238,.08);
+            border: 1px solid rgba(34,211,238,.24);
+        }
+
+        .app-menu-item.cyan span {
+            color: #67e8f9;
+        }
+
+        .app-menu-item.danger-soft span {
+            color: #fb7185;
+        }
+
+        .app-menu-login-btn,
+        .app-menu-logout-btn {
+            width: 100%;
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: .1em;
+            transition: .18s ease;
+        }
+
+        .app-menu-login-btn {
+            background: #22c55e;
+            color: black;
+        }
+
+        .app-menu-login-btn:hover {
+            background: #4ade80;
+        }
+
+        .app-menu-logout-btn {
+            margin-top: 10px;
+            background: rgba(239,68,68,.1);
+            color: #f87171;
+            border: 1px solid rgba(239,68,68,.25);
+        }
+
+        .app-menu-logout-btn:hover {
+            background: rgba(239,68,68,.18);
+        }
+
+        @media (max-width: 900px) {
+            .app-menu-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 16px 14px !important;
+            }
+
+            nav h1 {
+                font-size: 25px !important;
+            }
+
+            .main-menu-btn {
+                padding: 11px 14px;
+                font-size: 9px;
+            }
+
+            .app-menu-overlay {
+                padding: 10px;
+            }
+
+            .app-menu-panel {
+                margin: 12px auto 90px;
+                border-radius: 28px;
+                padding: 16px;
+            }
+
+            .app-menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-menu-top h2 {
+                font-size: 42px;
+            }
+
+            .app-menu-user-card {
+                border-radius: 22px;
+                padding: 14px;
+            }
+        }
+
+        .hamburger-menu-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 999px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: .2s ease;
+        }
+
+        .hamburger-menu-btn span {
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: white;
+            transition: .2s ease;
+        }
+
+        .hamburger-menu-btn:hover {
+            border-color: #22c55e;
+            background: rgba(34,197,94,.12);
+            box-shadow: 0 0 24px rgba(34,197,94,.16);
+        }
+
+        .hamburger-menu-btn:hover span {
+            background: #22c55e;
+        }
+
+        .profile-pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 6px 8px 6px 12px;
+            border-radius: 16px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.82);
+            transition: .2s ease;
+        }
+
+        .profile-pill-btn:hover {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(34,197,94,.1);
+            box-shadow: 0 0 24px rgba(34,197,94,.13);
+        }
+
+        .profile-pill-text {
+            text-align: right;
+            line-height: 1;
+        }
+
+        .profile-pill-text p {
+            color: #22c55e;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            margin-bottom: 4px;
+        }
+
+        .profile-pill-text strong {
+            display: block;
+            color: white;
+            max-width: 104px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profile-avatar-box {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #27272a;
+            background: #18181b;
+        }
+
+        .profile-avatar-box img,
+        .profile-avatar-box > div {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 10px !important;
+            object-fit: cover;
+            border: 0 !important;
+        }
+
+        .profile-avatar-status {
+            position: absolute;
+            right: -3px;
+            bottom: -3px;
+            width: 13px;
+            height: 13px;
+            border-radius: 999px;
+            background: #22c55e;
+            border: 2px solid #09090b;
+            box-shadow: 0 0 10px rgba(34,197,94,.8);
+        }
+
+        @media (max-width: 640px) {
+            .profile-pill-btn {
+                min-height: 44px;
+                padding: 5px 6px 5px 10px;
+                border-radius: 14px;
+            }
+
+            .profile-pill-text {
+                display: none;
+            }
+
+            .profile-avatar-box {
+                width: 36px;
+                height: 36px;
+                border-radius: 11px;
+            }
+        }
+
+        .guest-login-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 44px;
+            padding: 6px 12px;
+            border-radius: 14px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.82);
+            color: white;
+            transition: .2s ease;
+        }
+
+        .guest-login-btn:hover {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(34,197,94,.1);
+            box-shadow: 0 0 24px rgba(34,197,94,.12);
+        }
+
+        .guest-human-icon {
+            width: 22px;
+            height: 22px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .guest-login-btn span {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .02em;
+            white-space: nowrap;
+        }
+
+        .profile-pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 6px 12px 6px 7px;
+            border-radius: 15px;
+            border: 1px solid #27272a;
+            background: rgba(24,24,27,.82);
+            transition: .2s ease;
+        }
+
+        .profile-pill-btn:hover {
+            border-color: rgba(34,197,94,.55);
+            background: rgba(34,197,94,.1);
+            box-shadow: 0 0 24px rgba(34,197,94,.13);
+        }
+
+        .profile-avatar-box {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #3f3f46;
+            background: #18181b;
+            flex-shrink: 0;
+        }
+
+        .profile-avatar-box img,
+        .profile-avatar-box > div {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 9px !important;
+            object-fit: cover;
+            border: 0 !important;
+        }
+
+        .profile-pill-text {
+            text-align: left;
+            line-height: 1;
+            min-width: 0;
+        }
+
+        .profile-pill-text p {
+            color: #22c55e;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            margin-bottom: 4px;
+        }
+
+        .profile-pill-text strong {
+            display: block;
+            color: white;
+            max-width: 108px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profile-avatar-status {
+            position: absolute;
+            right: -3px;
+            bottom: -3px;
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            background: #22c55e;
+            border: 2px solid #09090b;
+            box-shadow: 0 0 10px rgba(34,197,94,.8);
+        }
+
+        @media (max-width: 640px) {
+            .guest-login-btn {
+                padding: 6px 9px;
+            }
+
+            .guest-login-btn span {
+                display: none;
+            }
+
+            .profile-pill-btn {
+                min-height: 44px;
+                padding: 5px 7px;
+                border-radius: 13px;
+            }
+
+            .profile-pill-text {
+                display: none;
+            }
+
+            .profile-avatar-box {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        .app-menu-nick {
+            display: block;
+            max-width: min(52vw, 520px);
+            color: white;
+            font-size: 24px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profile-avatar-box {
+            overflow: visible !important;
+            isolation: isolate;
+        }
+
+        .profile-avatar-box img,
+        .profile-avatar-box > div:not(.profile-avatar-status) {
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-avatar-status {
+            z-index: 20 !important;
+            right: -5px !important;
+            bottom: -5px !important;
+        }
+
+        .app-menu-user-card {
+            overflow: visible !important;
+        }
+
+        @media (max-width: 640px) {
+            .app-menu-nick {
+                max-width: 58vw;
+                font-size: 21px;
+            }
+        }
+
+        .profile-avatar-box img,
+        .app-menu-user-card img,
+        #profile-data-avatar img {
+            image-rendering: auto;
+            image-rendering: high-quality;
+            object-fit: cover;
+        }
+
+        .app-menu-user-card img {
+            width: 68px !important;
+            height: 68px !important;
+            border-radius: 18px !important;
+            border: 2px solid #22c55e !important;
+            box-shadow:
+                0 0 0 4px rgba(34,197,94,.08),
+                0 0 28px rgba(34,197,94,.28);
+        }
+
+        .profile-avatar-box img {
+            transform: scale(1.02);
+            filter: contrast(1.04) saturate(1.08);
+        }
+
+        .app-menu-user-card img,
+        .profile-avatar-box img,
+        #profile-data-avatar img {
+            image-rendering: auto;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+
+        .movie-card {
+            position: relative;
+            background: linear-gradient(180deg, #18181b, #09090b) !important;
+            border-radius: 26px !important;
+            border: 1px solid rgba(63,63,70,.9) !important;
+            box-shadow: 0 18px 45px rgba(0,0,0,.38);
+        }
+
+        .movie-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: inherit;
+            background:
+                linear-gradient(to top, rgba(0,0,0,.9), transparent 38%),
+                radial-gradient(circle at top, rgba(255,255,255,.08), transparent 34%);
+            opacity: .75;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-6px) scale(1.025) !important;
+            border-color: #22c55e !important;
+            box-shadow:
+                0 24px 65px rgba(0,0,0,.55),
+                0 0 28px rgba(34,197,94,.16);
+        }
+
+        .movie-card.coming-soon {
+            border-color: rgba(249,115,22,.75) !important;
+        }
+
+        .movie-card.coming-soon:hover {
+            border-color: #f97316 !important;
+            box-shadow:
+                0 24px 65px rgba(0,0,0,.55),
+                0 0 30px rgba(249,115,22,.2);
+        }
+
+        .movie-card img {
+            filter: saturate(1.06) contrast(1.03);
+            transition: transform .45s ease, filter .45s ease;
+        }
+
+        .movie-card:hover img {
+            transform: scale(1.045);
+            filter: saturate(1.14) contrast(1.08);
+        }
+
+        .movie-card .p-4 {
+            position: relative;
+            z-index: 2;
+            background:
+                linear-gradient(180deg, rgba(9,9,11,.88), rgba(9,9,11,1));
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding: 18px !important;
+        }
+
+        .movie-card h3 {
+            font-size: 14px !important;
+            line-height: 1.05 !important;
+            white-space: normal !important;
+            display: -webkit-box;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            min-height: 30px;
+        }
+
+        .movie-card .text-green-500 {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            width: fit-content;
+            border: 1px solid rgba(34,197,94,.28);
+            background: rgba(34,197,94,.1);
+            color: #4ade80 !important;
+            border-radius: 999px;
+            padding: 6px 9px;
+            font-size: 11px !important;
+            font-weight: 900 !important;
+        }
+
+        .coming-badge {
+            border-radius: 999px !important;
+            padding: 6px 10px !important;
+            background: #f97316 !important;
+            color: #050505 !important;
+            box-shadow: 0 0 18px rgba(249,115,22,.22);
+        }
+
+        .movie-card.coming-soon .p-4 {
+            background:
+                linear-gradient(180deg, rgba(20,10,4,.92), rgba(9,9,11,1));
+        }
+
+        .movie-card.coming-soon h3 {
+            color: #fff7ed !important;
+        }
+
+        .movie-card.coming-soon p {
+            color: #a1a1aa !important;
+        }
+
+        @media (max-width: 768px) {
+            .movie-card {
+                width: 220px !important;
+                height: 410px !important;
+                border-radius: 22px !important;
+            }
+
+            .movie-card img {
+                height: 315px !important;
+            }
+
+            .movie-card .p-4 {
+                height: 95px !important;
+                padding: 14px !important;
+            }
+
+            .movie-card h3 {
+                font-size: 12px !important;
+                min-height: 26px;
+            }
+        }
+
+        .banger-coming-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .banger-date {
+            color: #a1a1aa;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+
+        @media (max-width: 768px) {
+            #movie-modal > div {
+                border-radius: 30px !important;
+                overflow: hidden !important;
+                margin-bottom: 120px !important;
+            }
+
+            #movie-modal .md\:w-2\/5 {
+                top: 112px !important;
+                right: 22px !important;
+                width: 112px !important;
+                border-radius: 18px !important;
+                box-shadow: 0 18px 44px rgba(0,0,0,.62);
+            }
+
+            .movie-modal-info {
+                padding: 34px 22px 24px !important;
+                gap: 18px !important;
+            }
+
+            .movie-main-content {
+                padding-right: 132px !important;
+                min-height: 250px !important;
+            }
+
+            #modal-title {
+                font-size: clamp(34px, 11vw, 46px) !important;
+                line-height: .88 !important;
+                margin-bottom: 18px !important;
+                max-width: 100%;
+            }
+
+            #modal-desc {
+                min-height: 96px !important;
+                margin-bottom: 18px !important;
+                font-size: 15px !important;
+                line-height: 1.45 !important;
+            }
+
+            .movie-stats-row {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                gap: 9px !important;
+                margin-top: 10px !important;
+                margin-bottom: 18px !important;
+            }
+
+            .movie-stat-box {
+                min-width: 0 !important;
+                height: 92px !important;
+                padding: 12px 8px !important;
+                border-radius: 18px !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .movie-stat-box span {
+                font-size: 8px !important;
+                line-height: 1.05 !important;
+                letter-spacing: .08em !important;
+                margin-bottom: 8px !important;
+                white-space: normal !important;
+            }
+
+            .movie-stat-box strong {
+                font-size: clamp(16px, 5vw, 22px) !important;
+                line-height: 1 !important;
+                white-space: nowrap !important;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .movie-stat-box:first-child strong {
+                font-size: clamp(15px, 4.6vw, 20px) !important;
+            }
+
+            .movie-trailer-btn {
+                margin-top: 8px !important;
+                margin-bottom: 12px !important;
+                padding: 17px 18px !important;
+                border-radius: 22px !important;
+            }
+
+            .movie-review-btn {
+                padding: 16px 18px !important;
+                border-radius: 22px !important;
+            }
+
+            .movie-genres-footer {
+                margin-top: 22px !important;
+                padding-top: 18px !important;
+            }
+
+            .movie-genres-footer p {
+                margin-bottom: 12px !important;
+            }
+
+            .movie-genre-list span {
+                padding: 9px 14px !important;
+                font-size: 10px !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .md\:w-2\/5 {
+                width: 100px !important;
+                right: 18px !important;
+                top: 118px !important;
+            }
+
+            .movie-main-content {
+                padding-right: 116px !important;
+                min-height: 245px !important;
+            }
+
+            .movie-stat-box {
+                height: 86px !important;
+                padding: 10px 6px !important;
+            }
+
+            .movie-stat-box strong {
+                font-size: 16px !important;
+            }
+
+            .movie-stat-box:first-child strong {
+                font-size: 14px !important;
+            }
+        }
+
+       
+
+        .backrooms-hype-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .backrooms-hype-row span {
+            border: 1px solid rgba(234,179,8,.28);
+            background: rgba(234,179,8,.08);
+            color: #facc15;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        @media (min-width: 1024px) {
+            .backrooms-hype-row {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section:has(#countdown-days) {
+                padding-top: 34px !important;
+                padding-bottom: 34px !important;
+                margin-top: 28px !important;
+                margin-bottom: 36px !important;
+            }
+
+            section:has(#countdown-days) > div {
+                border-radius: 28px !important;
+                padding: 22px 16px !important;
+            }
+
+            section:has(#countdown-days) .flex.flex-col.lg\:flex-row {
+                gap: 18px !important;
+            }
+
+            section:has(#countdown-days) .w-48 {
+                width: 116px !important;
+                height: 172px !important;
+                border-radius: 20px !important;
+            }
+
+            section:has(#countdown-days) h4 {
+                font-size: 9px !important;
+                margin-bottom: 8px !important;
+                letter-spacing: .12em !important;
+            }
+
+            section:has(#countdown-days) h2 {
+                font-size: 30px !important;
+                line-height: .95 !important;
+                margin-bottom: 10px !important;
+            }
+
+            .backrooms-desc {
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+                margin-bottom: 14px !important;
+            }
+
+            .backrooms-hype-row {
+                margin-bottom: 16px;
+                gap: 6px;
+            }
+
+            .backrooms-hype-row span {
+                padding: 7px 9px;
+                font-size: 8px;
+            }
+
+            section:has(#countdown-days) .flex.flex-wrap.justify-center {
+                gap: 8px !important;
+            }
+
+            section:has(#countdown-days) .bg-zinc-900\/80 {
+                min-width: 64px !important;
+                padding: 10px 8px !important;
+                border-radius: 16px !important;
+            }
+
+            #countdown-days,
+            #countdown-hours,
+            #countdown-minutes,
+            #countdown-seconds {
+                font-size: 24px !important;
+            }
+
+            section:has(#countdown-days) .text-\[9px\] {
+                font-size: 8px !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #top-2026-container {
+                display: grid !important;
+                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+                gap: 6px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+            }
+
+            #top-2026-container > div {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                min-width: 0 !important;
+            }
+
+            #top-2026-container .relative.z-20 {
+                border-radius: 12px !important;
+            }
+
+            #top-2026-container img {
+                width: 100% !important;
+                aspect-ratio: 2 / 3 !important;
+                object-fit: cover !important;
+            }
+
+            #top-2026-container .text-7xl,
+            #top-2026-container .md\:text-8xl {
+                font-size: 28px !important;
+                line-height: 1 !important;
+            }
+
+            #top-2026-container .-top-10 {
+                top: -12px !important;
+            }
+
+            #top-2026-container .-left-5 {
+                left: -3px !important;
+            }
+
+            #top-2026-container .bottom-5 {
+                bottom: 6px !important;
+            }
+
+            #top-2026-container .left-5 {
+                left: 5px !important;
+            }
+
+            #top-2026-container .right-5 {
+                right: 5px !important;
+            }
+
+            #top-2026-container .text-lg {
+                font-size: 7px !important;
+                line-height: .95 !important;
+                margin-bottom: 1px !important;
+            }
+
+            #top-2026-container .text-xs {
+                font-size: 7px !important;
+                line-height: 1 !important;
+            }
+
+            section:has(#top-2026-container) {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+
+            section:has(#top-2026-container) h2 {
+                white-space: nowrap !important;
+                font-size: 28px !important;
+                line-height: .9 !important;
+            }
+        }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
 
     <nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 md:p-5 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer">Movie Hub</h1>
-            <div class="flex items-center space-x-4 md:space-x-8 text-white">
-                <button onclick="showLibrary()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Filmy</button>
-                <button onclick="showMyLists()" class="text-zinc-400 hover:text-white font-bold uppercase text-[10px] md:text-xs tracking-widest transition">Listy</button>
-                <button onclick="renderCalendar()" class="hover:text-green-500 font-black text-xs uppercase tracking-wider transition-colors">KALENDARZ</button>
+        <div class="max-w-7xl mx-auto flex justify-between items-center gap-4">
+            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer">
+                Movie Hub
+            </h1>
+
+            <div class="flex items-center gap-3 md:gap-5">
                 <div id="auth-section">
-                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">Zaloguj</button>
+                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">
+                        Zaloguj
+                    </button>
                 </div>
+
+                <button onclick="openAppMenu()" class="hamburger-menu-btn" aria-label="Otwórz menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
+
+    <div id="app-menu-modal" class="app-menu-overlay" onclick="if(event.target === this) closeAppMenu()">
+        <aside class="app-menu-panel">
+            <div class="app-menu-top">
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub</p>
+                    <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none">
+                        Menu
+                    </h2>
+                </div>
+
+                <button onclick="closeAppMenu()" class="app-menu-close">
+                    Zamknij
+                </button>
+            </div>
+
+            <div id="app-menu-user-card" class="app-menu-user-card">
+                <div class="guest-avatar">G</div>
+                <div class="min-w-0">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-yellow-400 mb-1">Tryb gościa</p>
+                    <h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3>
+                    <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać dane.</p>
+                </div>
+            </div>
+
+            <div class="app-menu-grid">
+                <section class="app-menu-section">
+                    <p>Nawigacja</p>
+
+                    <button onclick="closeAppMenu(); showHome()" class="app-menu-item">
+                        <span>Start</span>
+                        <small>Strona główna</small>
+                    </button>
+
+                    <button onclick="closeAppMenu(); showLibrary()" class="app-menu-item">
+                        <span>Filmy</span>
+                        <small>Katalog filmów</small>
+                    </button>
+
+                    <button onclick="closeAppMenu(); renderCalendar()" class="app-menu-item">
+                        <span>Kalendarz</span>
+                        <small>Premiery 2026</small>
+                    </button>
+
+                    <button onclick="closeAppMenu(); openRatingStudio()" class="app-menu-item accent">
+                        <span>Oceń film</span>
+                        <small>Dodaj swoją ocenę</small>
+                    </button>
+                </section>
+
+                <section class="app-menu-section">
+                    <p>Twoje kino</p>
+
+                    <button onclick="menuRequireLogin('list filmów', () => showMyLists())" class="app-menu-item">
+                        <span>Moje listy</span>
+                        <small>Watchlista i prywatne listy</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('historii ocen', () => renderRatingHistory())" class="app-menu-item">
+                        <span>Moje oceny</span>
+                        <small>Historia oceniania</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('recenzji', () => openReviewDraft())" class="app-menu-item cyan">
+                        <span>Dodaj recenzję</span>
+                        <small>Wkrótce rozbudujemy</small>
+                    </button>
+                </section>
+
+                <section class="app-menu-section">
+                    <p>Konto</p>
+
+                    <button onclick="menuRequireLogin('profilu', () => showUserData())" class="app-menu-item">
+                        <span>Dane profilu</span>
+                        <small>E-mail, nick, avatar</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('zmiany nicku', () => changeNick())" class="app-menu-item">
+                        <span>Zmień nick</span>
+                        <small>Nazwa profilu</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('zmiany avatara', () => changeAvatar())" class="app-menu-item">
+                        <span>Zmień avatar</span>
+                        <small>Zdjęcie profilu</small>
+                    </button>
+
+                    <button onclick="menuRequireLogin('usuwania avatara', () => removeAvatar())" class="app-menu-item danger-soft">
+                        <span>Usuń avatar</span>
+                        <small>Wyczyść zdjęcie</small>
+                    </button>
+                </section>
+
+                <section class="app-menu-section app-menu-login-section">
+                    <p>Dostęp</p>
+
+                    <button id="app-menu-login-btn" onclick="closeAppMenu(); toggleModal('login-modal', true)" class="app-menu-login-btn">
+                        Zaloguj się
+                    </button>
+
+                    <button id="app-menu-logout-btn" onclick="menuLogout()" class="app-menu-logout-btn">
+                        Wyloguj
+                    </button>
+                </section>
+            </div>
+        </aside>
+    </div>
 
     <main id="home-page">
         <header class="relative py-24 md:py-40 text-center px-4 overflow-hidden bg-zinc-950">
@@ -637,9 +2506,15 @@
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
                             The Backrooms <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Movie</span>
                         </h2>
-                        <p class="text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-8">
-                            Przeżyj horror zagubienia w nieskończonych, żółtych korytarzach poziomu 0. Kinowa adaptacja internetowego fenomenu zbliża się wielkimi krokami. Czy uda Ci się przetrwać i odnaleźć wyjście przed końcem czasu?
+                        <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
+                            Horror w nieskończonych żółtych korytarzach poziomu 0. Internetowy fenomen nadchodzi do kina.
                         </p>
+
+                        <div class="backrooms-hype-row">
+                            <span>34K waiting</span>
+                            
+                            <span>Premiera 2026</span>
+                        </div>
 
                         <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
@@ -859,36 +2734,41 @@
             <div class="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
             </div>
-            <div class="flex-1 p-8 md:p-12 overflow-y-auto flex flex-col justify-between">
-                <div>
+            <div class="movie-modal-info flex-1 p-8 md:p-12 overflow-y-auto flex flex-col">
+                <div class="movie-main-content">
                     <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
-                    <p id="modal-desc" class="text-zinc-400 text-lg mb-8 leading-relaxed"></p>
-                    <div class="flex gap-4 mb-8 text-white">
-                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Score</span>
-                            <span id="modal-rating" class="text-xl font-black text-yellow-500 italic"></span>
+
+                    <p id="modal-desc" class="modal-description text-zinc-400 text-lg mb-8 leading-relaxed"></p>
+
+                    <div class="movie-stats-row">
+                        <div class="movie-stat-box">
+                            <span>Score</span>
+                            <strong id="modal-rating"></strong>
                         </div>
-                        <div class="bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800">
-                            <span class="text-zinc-500 text-[10px] block uppercase font-black italic">Rok</span>
-                            <span id="modal-date" class="text-xl font-black italic"></span>
+
+                        <div class="movie-stat-box user-score-box">
+                            <span>My Score</span>
+                            <strong id="modal-user-rating">-</strong>
+                        </div>
+
+                        <div class="movie-stat-box">
+                            <span>Rok</span>
+                            <strong id="modal-date"></strong>
                         </div>
                     </div>
-                    <a id="modal-trailer-link" href="#" target="_blank" class="inline-block bg-green-600 text-black px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest transition-all mb-10 hover:bg-green-400">Obejrzyj Trailer</a>
+
+                    <button id="modal-trailer-link" onclick="openTrailerModal()" type="button" class="movie-trailer-btn">
+                        Obejrzyj Trailer
+                    </button>
+
+                    <button onclick="openReviewDraft()" type="button" class="movie-review-btn">
+                        Dodaj Recenzję
+                    </button>
                 </div>
-                <div class="pt-6 border-t border-zinc-800">
-                    <h4 class="text-xs font-black uppercase italic mb-3 text-zinc-400">Twoja Ocena:</h4>
-                    <div class="star-rating" id="star-group">
-                        <input type="radio" id="s10" name="u-rating" value="10"><label for="s10">★</label>
-                        <input type="radio" id="s9" name="u-rating" value="9"><label for="s9">★</label>
-                        <input type="radio" id="s8" name="u-rating" value="8"><label for="s8">★</label>
-                        <input type="radio" id="s7" name="u-rating" value="7"><label for="s7">★</label>
-                        <input type="radio" id="s6" name="u-rating" value="6"><label for="s6">★</label>
-                        <input type="radio" id="s5" name="u-rating" value="5"><label for="s5">★</label>
-                        <input type="radio" id="s4" name="u-rating" value="4"><label for="s4">★</label>
-                        <input type="radio" id="s3" name="u-rating" value="3"><label for="s3">★</label>
-                        <input type="radio" id="s2" name="u-rating" value="2"><label for="s2">★</label>
-                        <input type="radio" id="s1" name="u-rating" value="1"><label for="s1">★</label>
-                    </div>
+
+                <div class="movie-genres-footer">
+                    <p>Gatunek</p>
+                    <div id="modal-genre-list" class="movie-genre-list"></div>
                 </div>
             </div>
         </div>
@@ -1641,6 +3521,63 @@
             renderPagination();
         }
 
+        let currentTrailerUrl = '';
+
+        function getYoutubeEmbedUrl(url) {
+            if (!url) return '';
+
+            try {
+                const parsed = new URL(url);
+                let videoId = '';
+
+                if (parsed.hostname.includes('youtu.be')) {
+                    videoId = parsed.pathname.replace('/', '');
+                } else {
+                    videoId = parsed.searchParams.get('v') || '';
+                }
+
+                if (!videoId) return '';
+
+                return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+            } catch {
+                return '';
+            }
+        }
+
+        function openTrailerModal() {
+            const embedUrl = getYoutubeEmbedUrl(currentTrailerUrl);
+
+            if (!embedUrl) {
+                alert('Brak trailera dla tego filmu.');
+                return;
+            }
+
+            const modal = document.getElementById('trailer-modal');
+            const frame = document.getElementById('trailer-frame');
+
+            document.body.classList.add('trailer-open');
+            frame.src = embedUrl;
+            modal.style.display = 'flex';
+        }
+
+        function closeTrailerModal() {
+            const modal = document.getElementById('trailer-modal');
+            const frame = document.getElementById('trailer-frame');
+
+            frame.src = '';
+            modal.style.display = 'none';
+            document.body.classList.remove('trailer-open');
+        }
+
+        function openReviewDraft() {
+            if (typeof window.isLoggedIn === 'function' && !window.isLoggedIn()) {
+                showGuestGate('recenzji');
+                return;
+            }
+
+            alert('Sekcja recenzji będzie dodana w kolejnym etapie.');
+        }
+
         function openModalById(id) {
             const m = movies.find(x => x.id === id);
             if (!m) return;
@@ -1652,7 +3589,21 @@
             document.getElementById('modal-desc').innerText = m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
-            document.getElementById('modal-trailer-link').href = m.trailer || '#';
+
+            const savedUserRating = localStorage.getItem(`rating-${m.id}`);
+            document.getElementById('modal-user-rating').innerText = savedUserRating ? `${savedUserRating}/10` : '-';
+
+            const genreBox = document.getElementById('modal-genre-list');
+            if (genreBox) {
+                const genres = String(m.category || 'Film')
+                    .split('/')
+                    .map(g => g.trim())
+                    .filter(Boolean);
+
+                genreBox.innerHTML = genres.map(g => `<span>${g}</span>`).join('');
+            }
+
+            currentTrailerUrl = m.trailer || '';
 
             const saved = localStorage.getItem(`rating-${m.id}`);
             document.getElementsByName('u-rating').forEach(star => {
@@ -1811,11 +3762,65 @@
             container.innerHTML = html;
         }
 
-        function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; }
-        document.getElementById('star-group').addEventListener('change', (e) => { if (currentMovieId) localStorage.setItem(`rating-${currentMovieId}`, e.target.value); });
+        
 
-            function renderTop2026() {
-                    const container = document.getElementById('top-2026-container');
+
+        function toggleModal(id, show) {
+            document.getElementById(id).style.display = show ? 'flex' : 'none';
+        }
+
+        const starGroup = document.getElementById('star-group');
+        if (starGroup) {
+            starGroup.addEventListener('change', (e) => {
+                if (currentMovieId) {
+                    localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
+                }
+            });
+        }
+
+        function openAppMenu() {
+            const menu = document.getElementById('app-menu-modal');
+            if (!menu) return;
+
+            menu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAppMenu() {
+            const menu = document.getElementById('app-menu-modal');
+            if (!menu) return;
+
+            menu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function menuRequireLogin(featureName, callback) {
+            if (typeof window.isLoggedIn === 'function' && !window.isLoggedIn()) {
+                closeAppMenu();
+
+                if (typeof showGuestGate === 'function') {
+                    showGuestGate(featureName);
+                } else {
+                    toggleModal('login-modal', true);
+                }
+
+                return;
+            }
+
+            closeAppMenu();
+            callback();
+        }
+
+        function menuLogout() {
+            closeAppMenu();
+
+            if (typeof logout === 'function') {
+                logout();
+            }
+        }
+
+        function renderTop2026() {
+            const container = document.getElementById('top-2026-container');
                        if (!container) return; // Zabezpieczenie przed błędem
             
                         // Szukamy filmów z 2026 i sortujemy po ocenie
@@ -1900,18 +3905,7 @@
         document.addEventListener("DOMContentLoaded", initMovieCountdown);
 
 
-        // INIT SLIDER
-        document.getElementById('main-slider').innerHTML = [...movies].sort(() => 0.5 - Math.random()).map(m => `
-            <div class="movie-card bg-zinc-900" onclick="openModalById('${m.id}')">
-                <img src="${m.img}" class="w-full h-[400px] object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Brak'">
-                <div class="p-6 text-center font-black uppercase italic">
-                    <div class="text-xl mb-1">${m.title}</div>
-                    <div class="text-green-500 text-xs">★ ${m.rating}</div>
-                </div>
-            </div>`).join('');
-
-    
-
+        
         // --- NOWA FUNKCJONALNOŚĆ: HISTORIA OCEN ---
         
         function getTodayDate() {
@@ -1920,28 +3914,7 @@
             return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
         }
 
-        // Rozszerzenie Twojego listenera gwiazdek o zapis do historii
-        document.getElementById('star-group').addEventListener('change', (e) => {
-            if (typeof currentMovieId !== 'undefined' && currentMovieId) {
-                const movie = movies.find(m => m.id === currentMovieId);
-                if (!movie) return;
-
-                let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
-                
-                const newEntry = {
-                    id: movie.id,
-                    title: movie.title,
-                    rating: e.target.value,
-                    date: getTodayDate(),
-                    img: movie.img,
-                    timestamp: Date.now()
-                };
-
-                // Dodaj na początek i zachowaj unikalność (opcjonalnie)
-                history = [newEntry, ...history.filter(h => h.id !== movie.id)].slice(0, 50); 
-                localStorage.setItem('ratingHistory', JSON.stringify(history));
-            }
-        });
+        
 
         
         const upcomingReleases = [
@@ -2158,10 +4131,12 @@
                     <img src="/static/${movie.id}.jpg" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/260x390?text=${movie.id}'">
                     <div class="p-4">
                         <h3 class="font-black text-white uppercase italic tracking-tight text-sm truncate">${movie.title}</h3>
-                        <div class="mt-2">
+                        <div class="mt-3 flex flex-col items-start gap-1">
                             ${movie.isComing ? 
-                                `<span class="coming-badge">COMING SOON</span>
-                                <p class="text-zinc-500 font-bold text-[10px] mt-1 tracking-wider uppercase">${movie.date}</p>` : 
+                                `<div class="banger-coming-row">
+                                    <span class="coming-badge">COMING SOON</span>
+                                    <span class="banger-date">${movie.date}</span>
+                                </div>` : 
                                 `<span class="text-green-500 font-bold text-xs">★ ${movie.rating}</span>`
                             }
                         </div>
@@ -2363,6 +4338,34 @@
         </div>
     </div>
 
+    <div id="guest-gate-modal" class="modal-overlay" onclick="if(event.target === this) closeGuestGate()">
+        <div class="guest-gate-box">
+            <button onclick="closeGuestGate()" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
+
+            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-3">Tryb gościa</p>
+
+            <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-4">
+                Zapisz swoje <span class="text-green-500">kino</span>
+            </h2>
+
+            <p id="guest-gate-text" class="text-zinc-500 font-bold text-sm leading-relaxed mb-6">
+                Ta funkcja wymaga konta, żeby zapisać dane na stałe.
+            </p>
+
+            <div class="grid gap-3">
+                <button onclick="closeGuestGate(); toggleModal('login-modal', true)"
+                    class="bg-green-600 hover:bg-green-500 text-black rounded-2xl py-4 font-black uppercase italic text-xs tracking-widest transition">
+                    Zaloguj / Załóż konto
+                </button>
+
+                <button onclick="closeGuestGate()"
+                    class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-2xl py-4 font-black uppercase text-[10px] tracking-widest transition">
+                    Zostań w trybie gościa
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="profile-data-modal" class="hidden fixed inset-0 z-[9999] items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="if(event.target === this) closeProfileDataModal()">
         <div class="bg-zinc-950 border border-zinc-800 rounded-[32px] max-w-lg w-full p-6 md:p-8 shadow-2xl shadow-black/80 relative">
             <button onclick="closeProfileDataModal()" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
@@ -2408,6 +4411,8 @@
         </div>
     </div>
 
+
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
         import {
@@ -2446,6 +4451,40 @@
 
         let currentFirebaseUser = null;
         let currentUserProfile = null;
+
+        window.isLoggedIn = function() {
+            return !!currentFirebaseUser;
+        };
+
+        window.showGuestGate = function(featureName = "tej funkcji") {
+            const text = document.getElementById("guest-gate-text");
+
+            if (text) {
+                text.textContent = `Zaloguj się, żeby korzystać z ${featureName} i mieć zapisane dane na każdym urządzeniu.`;
+            }
+
+            toggleModal("guest-gate-modal", true);
+        };
+
+        window.closeGuestGate = function() {
+            toggleModal("guest-gate-modal", false);
+        };
+
+        window.toggleGuestMenu = function(event) {
+            event.stopPropagation();
+
+            const menu = document.getElementById("guest-dropdown");
+            if (!menu) return;
+
+            menu.classList.toggle("open");
+        };
+
+        window.closeGuestMenu = function() {
+            const menu = document.getElementById("guest-dropdown");
+            if (!menu) return;
+
+            menu.classList.remove("open");
+        };
 
         window.getFirebaseUserId = function() {
             return currentFirebaseUser ? currentFirebaseUser.uid : 'guest';
@@ -2589,6 +4628,11 @@
 
             const cleanNick = newNick.trim();
 
+            if (cleanNick.length > 18) {
+                alert("Nick może mieć maksymalnie 18 znaków.");
+                return;
+            }
+
             await updateProfile(currentFirebaseUser, { displayName: cleanNick });
             await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
                 nick: cleanNick
@@ -2629,7 +4673,7 @@
             updateAuthUI();
         };
 
-        function resizeImageToBase64(file, maxSize = 220, quality = 0.72) {
+        function resizeImageToBase64(file, maxSize = 512, quality = 0.92) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
 
@@ -2674,7 +4718,7 @@
             }
 
             try {
-                const avatarBase64 = await resizeImageToBase64(file, 120, 0.55);
+                const avatarBase64 = await resizeImageToBase64(file, 512, 0.92);
 
                 await updateDoc(doc(db, "users", currentFirebaseUser.uid), {
                     avatarUrl: avatarBase64
@@ -2723,63 +4767,89 @@
             modal.classList.remove("flex");
         };
 
+        function shortenNick(nick, max = 18) {
+            const clean = String(nick || "Użytkownik").trim();
+            return clean.length > max ? clean.slice(0, max) + "..." : clean;
+        }
+
         window.updateAuthUI = function() {
+            const appMenuLogoutBtn = document.getElementById("app-menu-logout-btn");
             const authSection = document.getElementById("auth-section");
+            const appMenuUserCard = document.getElementById("app-menu-user-card");
+            const appMenuLoginBtn = document.getElementById("app-menu-login-btn");
+            if (appMenuLoginBtn) appMenuLoginBtn.style.display = "none";
+            if (appMenuLogoutBtn) appMenuLogoutBtn.style.display = "block";
+
             if (!authSection) return;
 
             if (!currentFirebaseUser || !currentUserProfile) {
+                const appMenuLoginBtn = document.getElementById("app-menu-login-btn");
+                if (appMenuLoginBtn) appMenuLoginBtn.style.display = "block";
+                if (appMenuLogoutBtn) appMenuLogoutBtn.style.display = "none";
+                
                 authSection.innerHTML = `
-                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-xs transition">
-                        Zaloguj
+                    <button onclick="toggleModal('login-modal', true)" class="guest-login-btn">
+                        <svg class="guest-human-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="7.5" r="4.2" stroke="currentColor" stroke-width="1.7"></circle>
+                            <path d="M4.5 21c1.6-4.2 4.2-6.2 7.5-6.2s5.9 2 7.5 6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+                        </svg>
+                        <span>Zaloguj się</span>
                     </button>
                 `;
+
+                if (appMenuUserCard) {
+                    appMenuUserCard.innerHTML = `
+                        <div class="guest-avatar">G</div>
+                        <div class="min-w-0">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-yellow-400 mb-1">Tryb gościa</p>
+                            <h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3>
+                            <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać oceny, listy i recenzje.</p>
+                        </div>
+                    `;
+                }
+
                 return;
             }
 
             const nick = currentUserProfile.nick || currentFirebaseUser.displayName || "Użytkownik";
+            const displayNick = shortenNick(nick, 18);
             const email = currentFirebaseUser.email || "";
             const avatarUrl = currentUserProfile.avatarUrl || currentFirebaseUser.photoURL || "";
 
             const avatar = avatarUrl
-                ? `<img src="${avatarUrl}" class="w-11 h-11 rounded-full object-cover border-2 border-zinc-800 group-hover/avatar:border-green-500 transition">`
-                : `<div class="w-11 h-11 rounded-full bg-green-600 text-black border-2 border-zinc-800 group-hover/avatar:border-green-500 flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`;
+                ? `<img src="${avatarUrl}" alt="${nick}">`
+                : `<div class="bg-green-600 text-black flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`;
 
             authSection.innerHTML = `
-                <div class="relative group flex items-center gap-3">
-                    <div class="hidden sm:block text-right leading-tight">
-                        <p class="text-[9px] font-black text-green-500 uppercase tracking-widest">Online</p>
-                        <p class="text-white font-black uppercase text-xs tracking-tight max-w-[120px] truncate">${nick}</p>
-                    </div>
-
-                    <div onclick="toggleProfileMenu(event)" class="relative group/avatar cursor-pointer">
+                <button onclick="openAppMenu()" class="profile-pill-btn">
+                    <div class="profile-avatar-box">
                         ${avatar}
-                        <span class="absolute -right-0.5 -bottom-0.5 w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-zinc-950 shadow-[0_0_12px_rgba(34,197,94,0.8)]"></span>
+                        <span class="profile-avatar-status"></span>
                     </div>
 
-                    <div id="profile-dropdown" class="profile-dropdown absolute top-full right-0 pt-4 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999]">
-                        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl shadow-2xl shadow-black/80 p-3">
-                            <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800 mb-2">
-                                <p class="text-[9px] font-black text-green-500 uppercase tracking-widest mb-1">Profil</p>
-                                <p class="text-white font-black uppercase text-lg italic leading-none truncate">${nick}</p>
-                                <p class="text-zinc-500 text-[11px] mt-2 truncate">${email}</p>
-                            </div>
-
-                            <div class="h-px bg-zinc-800 my-2"></div>
-
-                            <button onclick="closeProfileMenu(); showUserData()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-white text-[11px] font-black uppercase tracking-widest transition">Dane</button>
-                            <button onclick="closeProfileMenu(); renderRatingHistory()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Moje oceny</button>
-                            <button onclick="closeProfileMenu(); showMyLists()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Moje listy</button>
-                            <button onclick="closeProfileMenu(); changeNick()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Zmień nick</button>
-                            <button onclick="closeProfileMenu(); changeAvatar()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-green-500 text-[11px] font-black uppercase tracking-widest transition">Zmień avatar</button>
-                            <button onclick="closeProfileMenu(); removeAvatar()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-zinc-900 text-zinc-300 hover:text-red-400 text-[11px] font-black uppercase tracking-widest transition">Usuń avatar</button>
-
-                            <div class="h-px bg-zinc-800 my-2"></div>
-
-                            <button onclick="closeProfileMenu(); logout()" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-red-950/40 text-red-500 text-[11px] font-black uppercase tracking-widest transition">Wyloguj</button>
-                        </div>
+                    <div class="profile-pill-text">
+                        <p>Online</p>
+                        <strong title="${nick}">${displayNick}</strong>
                     </div>
-                </div>
+                </button>
             `;
+
+            if (appMenuUserCard) {
+                appMenuUserCard.innerHTML = `
+                    <div class="relative shrink-0">
+                        ${avatarUrl
+                            ? `<img src="${avatarUrl}" class="w-16 h-16 rounded-full object-cover border-2 border-green-500 shadow-[0_0_22px_rgba(34,197,94,.3)]">`
+                            : `<div class="w-16 h-16 rounded-full bg-green-600 text-black flex items-center justify-center font-black text-2xl uppercase">${nick.charAt(0)}</div>`
+                        }
+                    </div>
+
+                    <div class="min-w-0">
+                        <p class="text-[9px] font-black uppercase tracking-widest text-green-500 mb-1">Online</p>
+                        <h3 class="app-menu-nick" title="${nick}">${displayNick}</h3>
+                        <p class="text-zinc-500 text-xs mt-2 truncate">${email}</p>
+                    </div>
+                `;
+            }
         };
 
         window.toggleProfileMenu = function(event) {
@@ -2841,6 +4911,34 @@
     
 
     </script>
+
+
+    <div id="trailer-modal" class="modal-overlay trailer-modal" onclick="if(event.target === this) closeTrailerModal()">
+        <div class="trailer-box">
+            <div class="trailer-topbar">
+                <div>
+                    <p class="text-[9px] font-black uppercase tracking-[0.3em] text-green-500">Movie Hub</p>
+                    <h3 class="text-white font-black italic uppercase text-sm tracking-widest">Trailer</h3>
+                </div>
+
+                <button onclick="closeTrailerModal()" class="trailer-close" type="button">
+                    Zamknij
+                </button>
+            </div>
+
+            <div class="trailer-frame-wrap">
+                <iframe id="trailer-frame"
+                    src=""
+                    title="Trailer"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="fullscreen; encrypted-media; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>
