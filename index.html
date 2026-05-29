@@ -2534,7 +2534,7 @@
                 height: 168px !important;
                 aspect-ratio: 2 / 3 !important;
                 position: absolute !important;
-                top: 235px !important;
+                top: 210px !important;
                 right: 20px !important;
                 z-index: 8;
                 border-radius: 18px;
@@ -2566,7 +2566,7 @@
             }
 
             .modal-rate-shortcut {
-                top: calc(100% + 10px);
+                top: calc(100% + 18px);
                 right: 0;
                 bottom: auto;
                 padding: 8px 10px 8px 8px;
@@ -2590,7 +2590,7 @@
                 width: 96px !important;
                 height: 144px !important;
                 right: 16px !important;
-                top: 245px !important;
+                top: 220px !important;
             }
 
             #movie-modal .movie-stats-row,
@@ -2638,144 +2638,7 @@
             padding: 22px 16px !important;
             border-radius: 30px !important;
         }
-    
-
-        /* === FINAL MOBILE MOVIE MODAL FIX === */
-        @media (max-width: 768px) {
-            #movie-modal {
-                padding: 10px !important;
-                align-items: flex-start !important;
-                overflow-y: auto !important;
-            }
-
-            #movie-modal > div {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
-                max-height: none !important;
-                overflow: hidden !important;
-                margin: 12px 0 70px !important;
-                border-radius: 30px !important;
-            }
-
-            #movie-modal .modal-poster-side {
-                position: relative !important;
-                top: auto !important;
-                right: auto !important;
-                width: 100% !important;
-                height: auto !important;
-                aspect-ratio: 16 / 10 !important;
-                order: 1 !important;
-                border-radius: 0 !important;
-                overflow: hidden !important;
-                border: 0 !important;
-                box-shadow: none !important;
-            }
-
-            #movie-modal .modal-poster-side #modal-img {
-                width: 100% !important;
-                height: 100% !important;
-                border-radius: 0 !important;
-                object-fit: cover !important;
-                object-position: center 18% !important;
-            }
-
-            #movie-modal .movie-modal-info {
-                order: 2 !important;
-                padding: 24px 20px 26px !important;
-                gap: 18px !important;
-                overflow: visible !important;
-            }
-
-            #movie-modal .movie-main-content {
-                padding-right: 0 !important;
-                min-height: 0 !important;
-            }
-
-            #modal-title {
-                font-size: clamp(38px, 12vw, 52px) !important;
-                line-height: .9 !important;
-                margin-bottom: 16px !important;
-                padding-right: 44px !important;
-            }
-
-            #modal-desc {
-                min-height: 0 !important;
-                margin-bottom: 20px !important;
-                padding-right: 0 !important;
-            }
-
-            #movie-modal .movie-stats-row {
-                margin-right: 0 !important;
-                display: grid !important;
-                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-                gap: 10px !important;
-                margin-bottom: 16px !important;
-            }
-
-            #movie-modal .movie-stat-box {
-                height: auto !important;
-                min-height: 82px !important;
-                padding: 12px 8px !important;
-                border-radius: 18px !important;
-            }
-
-            #movie-modal .movie-stat-box strong {
-                font-size: clamp(17px, 5vw, 22px) !important;
-            }
-
-            #modal-trailer-link,
-            #movie-review-action-btn {
-                width: 100% !important;
-                margin-right: 0 !important;
-                margin-top: 0 !important;
-                text-align: center !important;
-                position: relative !important;
-                z-index: 2 !important;
-            }
-
-            #modal-trailer-link {
-                margin-bottom: 12px !important;
-            }
-
-            #movie-review-action-btn {
-                margin-bottom: 0 !important;
-            }
-
-            .modal-rate-shortcut {
-                position: static !important;
-                width: 100% !important;
-                margin-top: 12px !important;
-                justify-content: center !important;
-                border-radius: 20px !important;
-                padding: 13px 16px !important;
-                background: rgba(34,197,94,.12) !important;
-                border-color: rgba(34,197,94,.35) !important;
-                box-shadow: none !important;
-            }
-
-            .modal-rate-shortcut span {
-                width: 30px !important;
-                height: 30px !important;
-                font-size: 22px !important;
-            }
-
-            .modal-rate-shortcut strong {
-                font-size: 10px !important;
-                white-space: nowrap !important;
-            }
-
-            #movie-modal button[onclick*="toggleModal('movie-modal'"] {
-                top: 18px !important;
-                right: 18px !important;
-                z-index: 50 !important;
-            }
-
-            .movie-genres-footer {
-                margin-top: 24px !important;
-                padding-top: 20px !important;
-            }
-        }
+    }
 
     </style>
 </head>
