@@ -2324,6 +2324,322 @@
             }
         }
 
+        .review-text-preview,
+        .review-full-text {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .review-full-text {
+            max-height: min(42vh, 420px);
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .review-full-text::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .review-full-text::-webkit-scrollbar-thumb {
+            background: #22c55e;
+            border-radius: 999px;
+        }
+
+        .review-view-content {
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .review-full-text {
+                max-height: 48vh;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #rating-stars {
+                display: grid;
+                grid-template-columns: repeat(10, minmax(0, 1fr));
+                gap: 4px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            #rating-stars button {
+                width: 100%;
+                height: 30px;
+                min-width: 0;
+                border-radius: 999px;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+            }
+
+            #rating-studio-selected .flex-1 {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #rating-stars {
+                gap: 3px;
+            }
+
+            #rating-stars button {
+                height: 28px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .rating-history-shell {
+                padding: 18px 14px !important;
+                border-radius: 26px !important;
+            }
+
+            .rating-history-shell h2 {
+                font-size: 38px !important;
+                line-height: .9 !important;
+            }
+
+            .rating-history-shell > div:first-child {
+                margin-bottom: 18px !important;
+            }
+
+            .rating-history-shell .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-3.xl\:grid-cols-4 {
+                display: block !important;
+            }
+
+            .rating-history-card {
+                display: grid !important;
+                grid-template-columns: 82px 1fr !important;
+                gap: 14px !important;
+                padding: 14px 0 !important;
+                border-bottom: 1px solid rgba(39, 39, 42, .95) !important;
+                min-height: 132px !important;
+            }
+
+            .rating-history-card:first-child {
+                border-top: 1px solid rgba(39, 39, 42, .95) !important;
+            }
+
+            .rating-history-card .rating-poster-box {
+                width: 82px !important;
+                height: 122px !important;
+                aspect-ratio: auto !important;
+                border-radius: 14px !important;
+            }
+
+            .rating-history-card .rating-poster-box img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+            .rating-history-card .rating-score-badge {
+                left: 5px !important;
+                right: 5px !important;
+                bottom: 5px !important;
+                padding: 5px 6px !important;
+                border-radius: 10px !important;
+            }
+
+            .rating-history-card .rating-score-badge span:first-child {
+                display: none !important;
+            }
+
+            .rating-history-card .rating-score-badge span:last-child {
+                width: 100%;
+                text-align: center;
+                font-size: 17px !important;
+            }
+
+            .rating-history-card .p-4 {
+                padding: 0 !important;
+                min-width: 0 !important;
+            }
+
+            .rating-history-card h3 {
+                font-size: 18px !important;
+                line-height: 1.05 !important;
+                margin-top: 2px;
+            }
+
+            .rating-history-card button {
+                white-space: nowrap;
+            }
+
+            .rating-history-card .mt-5 {
+                margin-top: 12px !important;
+            }
+
+            .rating-history-card button[onclick*="deleteRatingHistoryItem"] {
+                margin-top: 10px !important;
+                padding: 8px 10px !important;
+                font-size: 8px !important;
+                border-radius: 11px !important;
+            }
+
+            .rating-history-card button[onclick*="openModalById"] {
+                padding: 8px 10px !important;
+                font-size: 8px !important;
+                border-radius: 11px !important;
+            }
+        }
+
+        .modal-rate-shortcut {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(34,197,94,.35);
+            background: rgba(0,0,0,.82);
+            color: white;
+            border-radius: 999px;
+            padding: 10px 14px 10px 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 14px 34px rgba(0,0,0,.45);
+        }
+
+        .modal-rate-shortcut span {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: #22c55e;
+            color: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .modal-rate-shortcut strong {
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        @media (max-width: 768px) {
+            #movie-modal .modal-poster-side {
+                width: 112px !important;
+                height: 168px !important;
+                aspect-ratio: 2 / 3 !important;
+                position: absolute !important;
+                top: 235px !important;
+                right: 20px !important;
+                z-index: 8;
+                border-radius: 18px;
+                overflow: visible !important;
+                border: 1px solid rgba(255,255,255,.12);
+                box-shadow: 0 18px 44px rgba(0,0,0,.62);
+                background: #09090b;
+            }
+
+            #movie-modal .modal-poster-side #modal-img {
+                border-radius: 18px;
+                object-fit: cover !important;
+            }
+
+            #movie-modal .movie-main-content {
+                padding-right: 0 !important;
+                min-height: 0 !important;
+            }
+
+            #modal-title,
+            #modal-desc {
+                padding-right: 0 !important;
+            }
+
+            #movie-modal .movie-stats-row,
+            #modal-trailer-link,
+            #movie-review-action-btn {
+                margin-right: 132px;
+            }
+
+            .modal-rate-shortcut {
+                top: calc(100% + 10px);
+                right: 0;
+                bottom: auto;
+                padding: 8px 10px 8px 8px;
+                gap: 7px;
+            }
+
+            .modal-rate-shortcut span {
+                width: 24px;
+                height: 24px;
+                font-size: 18px;
+            }
+
+            .modal-rate-shortcut strong {
+                font-size: 8px;
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .modal-poster-side {
+                width: 96px !important;
+                height: 144px !important;
+                right: 16px !important;
+                top: 245px !important;
+            }
+
+            #movie-modal .movie-stats-row,
+            #modal-trailer-link,
+            #movie-review-action-btn {
+                margin-right: 112px;
+            }
+        }
+
+        .modal-rate-shortcut {
+            pointer-events: auto !important;
+            cursor: pointer;
+        }
+
+        .modal-poster-side {
+            pointer-events: auto;
+        }
+
+        #modal-img {
+            pointer-events: none;
+        }
+
+        @media (max-width: 640px) {
+        #countdown {
+            gap: 10px !important;
+            font-size: 30px !important;
+        }
+
+        #countdown .doomsday-text {
+            font-size: 30px !important;
+            line-height: 1 !important;
+        }
+
+        #countdown span.block {
+            font-size: 8px !important;
+            margin-top: 6px !important;
+        }
+
+        section:has(#countdown) {
+            padding-top: 38px !important;
+            padding-bottom: 38px !important;
+        }
+
+        section:has(#countdown) .rounded-\[40px\] {
+            padding: 22px 16px !important;
+            border-radius: 30px !important;
+        }
+    }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -2335,13 +2651,9 @@
             </h1>
 
             <div class="flex items-center gap-3 md:gap-5">
-                <div id="auth-section">
-                    <button onclick="toggleModal('login-modal', true)" class="bg-green-600 hover:bg-green-700 text-black px-4 md:px-6 py-2 rounded-full font-black uppercase text-[9px] md:text-[10px]">
-                        Zaloguj
-                    </button>
-                </div>
+                <div id="auth-section" class="opacity-0 pointer-events-none"></div>
 
-                <button onclick="openAppMenu()" class="hamburger-menu-btn" aria-label="Otwórz menu">
+                <button id="main-menu-button" onclick="openAppMenu()" class="hamburger-menu-btn" aria-label="Otwórz menu">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -2412,9 +2724,9 @@
                         <small>Historia oceniania</small>
                     </button>
 
-                    <button onclick="menuRequireLogin('recenzji', () => openReviewDraft())" class="app-menu-item cyan">
-                        <span>Dodaj recenzję</span>
-                        <small>Wkrótce rozbudujemy</small>
+                    <button onclick="menuRequireLogin('recenzji', () => renderMyReviews())" class="app-menu-item">
+                        <span>Moje recenzje</span>
+                        <small>Twoje opinie o filmach</small>
                     </button>
                 </section>
 
@@ -2452,6 +2764,17 @@
                     <button id="app-menu-logout-btn" onclick="menuLogout()" class="app-menu-logout-btn">
                         Wyloguj
                     </button>
+                    <div class="mt-4 rounded-2xl border border-zinc-800 bg-zinc-950/70 p-3">
+                        <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-2" data-i18n="Język">Język</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="lang-pl-btn" onclick="setLanguage('pl')" class="rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest">
+                                Polski
+                            </button>
+                            <button id="lang-en-btn" onclick="setLanguage('en')" class="rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest">
+                                English
+                            </button>
+                        </div>
+                    </div>
                 </section>
             </div>
         </aside>
@@ -2491,14 +2814,14 @@
             <div class="relative bg-zinc-950 border border-yellow-600/20 rounded-[40px] overflow-hidden p-8 md:p-12 shadow-[0_0_50px_rgba(234,179,8,0.05)] group">
                 
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(234,179,8,0.08),transparent_70%)] pointer-events-none"></div>
-                <div class="absolute top-4 right-6 text-[10px] font-black text-yellow-500/20 uppercase tracking-widest select-none animate-pulse">ASYNC_ANOMALY_DETECTION // LOG_#84FC</div>
+                
 
                 <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                     
                     <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 group-hover:border-yellow-500/40 transition-all duration-500">
                         <img src="/static/backrooms.jpg" alt="The Backrooms Movie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=THE+BACKROOMS'">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
-                        <span class="absolute top-4 left-4 bg-yellow-500 text-black px-3 py-1 text-[9px] font-black uppercase italic rounded-lg tracking-wider shadow-lg">🎯 WYBÓR MIESIĄCA</span>
+                        
                     </div>
 
                     <div class="flex-grow text-center lg:text-left">
@@ -2512,7 +2835,7 @@
 
                         <div class="backrooms-hype-row">
                             <span>34K waiting</span>
-                            
+                            <span>19.06</span>
                             <span>Premiera 2026</span>
                         </div>
 
@@ -2569,22 +2892,10 @@
             </div>
         </section>
 
-        <!-- START KALENDARZA -->
-        <section class="max-w-7xl mx-auto px-5 py-16 border-t border-zinc-800/50">
-            <div class="flex items-center gap-6 mb-12">
-                <h2 class="text-4xl md:text-6xl font-black italic uppercase text-white">
-                    Kalendarz <span class="text-green-500">Premier</span> 2026
-                </h2>
-            <div class="h-[2px] flex-1 bg-zinc-800"></div>
-            </div>
-            <div id="calendar-container" class="space-y-4 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar">
-             <!-- JS wstawi tu dane -->
-           </div>
-        </section>
-        <!-- KONIEC KALENDARZA -->
+        
 
         <section class="bg-zinc-900/30 border-y border-zinc-800 py-24 px-5 mt-10 text-center">
-            <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-green-500">Legendą</span> Kina</h2>
+            <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bądź <span class="text-green-500">Legendą</span></h2>
             <p class="text-zinc-500 max-w-xl mx-auto mb-10 font-medium leading-relaxed uppercase text-xs tracking-widest">
                 Zapisz się do naszego newslettera, aby jako pierwszy otrzymywać powiadomienia o <span class="text-white">największych premierach</span>, recenzje prosto z Hollywood oraz dostęp do unikalnych rankingów.
             </p>
@@ -2651,7 +2962,44 @@
         <div id="pagination-controls" class="flex justify-center items-center gap-2 mt-10"></div>
     </div>
 
-   
+    <div id="review-page" class="hidden-section min-h-screen bg-black px-4 py-8 md:py-12">
+        <div class="max-w-6xl mx-auto">
+            <button onclick="closeReviewPage()" class="mb-8 rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-3 text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-white">
+                Wróć
+            </button>
+
+            <div class="grid md:grid-cols-[320px_1fr] gap-8 md:gap-12 items-start">
+                <img id="review-page-img" src="" class="w-full max-w-[320px] mx-auto rounded-[28px] border border-zinc-800 shadow-2xl shadow-black object-cover">
+
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-3">Twoja recenzja</p>
+                    <h2 id="review-page-title" class="text-4xl md:text-7xl font-black italic uppercase tracking-tighter text-white leading-none mb-6"></h2>
+
+                    <textarea id="review-page-text"
+                        oninput="updateReviewWordCount()"
+                        placeholder="Napisz, co ten film z Tobą zrobił..."
+                        class="w-full min-h-[320px] bg-zinc-950 border border-zinc-800 rounded-[28px] p-5 text-white text-base leading-relaxed outline-none focus:border-green-500 resize-y"></textarea>
+
+                    <div class="flex justify-end mt-2">
+                        <span id="review-word-count" class="rounded-full border border-zinc-800 bg-zinc-950 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                            0 / 1000 słów
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 mt-5">
+                        <button onclick="saveReviewPage()" class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-8 py-4 font-black uppercase italic text-xs tracking-widest">
+                            Zapisz recenzję
+                        </button>
+                        <button onclick="closeReviewPage()" class="bg-zinc-950 border border-zinc-800 text-zinc-300 rounded-2xl px-8 py-4 font-black uppercase text-xs tracking-widest">
+                            Anuluj
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
     <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
         <div class="flex justify-between items-center mb-10">
             <h2 class="text-4xl font-black italic uppercase text-green-500 tracking-tighter">Twoje Listy</h2>
@@ -2731,8 +3079,13 @@
     <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition-colors">✕</button>
-            <div class="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
+            <div class="modal-poster-side w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
+
+                <button id="modal-rate-shortcut" type="button" class="modal-rate-shortcut">
+                    <span>+</span>
+                    <strong>Oceń ten film</strong>
+                </button>
             </div>
             <div class="movie-modal-info flex-1 p-8 md:p-12 overflow-y-auto flex flex-col">
                 <div class="movie-main-content">
@@ -2761,7 +3114,7 @@
                         Obejrzyj Trailer
                     </button>
 
-                    <button onclick="openReviewDraft()" type="button" class="movie-review-btn">
+                    <button id="movie-review-action-btn" onclick="openReviewDraft()" type="button" class="movie-review-btn">
                         Dodaj Recenzję
                     </button>
                 </div>
@@ -2780,7 +3133,7 @@
 
             <div class="mb-7">
                 <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Account</p>
-                <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white">
+                <h2 id="login-modal-title" class="text-3xl font-black italic uppercase tracking-tighter text-white">
                     Wejdź do <span class="text-green-500">kina</span>
                 </h2>
                 <p class="text-zinc-500 text-sm mt-2 font-medium">Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.</p>
@@ -2810,7 +3163,6 @@
 
             <form id="register-form" onsubmit="registerWithEmail(event)" class="space-y-3 hidden">
                 <input id="register-nick" type="text" placeholder="Nick" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-                <input id="register-birthdate" type="date" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
                 <input id="register-email" type="email" placeholder="E-mail" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
                 <input id="register-password" type="password" placeholder="Hasło min. 6 znaków" required minlength="6" class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
                 <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">Utwórz konto</button>
@@ -2984,19 +3336,21 @@
         }
 
         function loadWatchlist() {
-            return JSON.parse(localStorage.getItem(userStorageKey('watchlist'))) || [];
+            return window.movieHubData?.watchlist || [];
         }
 
-        function saveWatchlist(newWatchlist) {
-            localStorage.setItem(userStorageKey('watchlist'), JSON.stringify(newWatchlist));
+        async function saveWatchlist(newWatchlist) {
+            window.movieHubData.watchlist = newWatchlist;
+            await window.saveMovieHubData?.();
         }
 
         function loadUserLists() {
-            return JSON.parse(localStorage.getItem(userStorageKey('userCustomLists'))) || [{ name: 'Moje Ulubione', movies: [] }];
+            return window.movieHubData?.userLists || [{ name: 'Moje Ulubione', movies: [] }];
         }
 
-        function saveUserLists(newLists) {
-            localStorage.setItem(userStorageKey('userCustomLists'), JSON.stringify(newLists));
+        async function saveUserLists(newLists) {
+            window.movieHubData.userLists = newLists;
+            await window.saveMovieHubData?.();
         }
 
         function refreshUserScopedData() {
@@ -3037,16 +3391,44 @@
             const target = new Date('December 18, 2026 00:00:00').getTime();
             const now = new Date().getTime();
             const diff = target - now;
-            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            const months = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44)));
+            const days = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24)));
+            const hours = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+            const mins = Math.max(0, Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+
+            const labels = window.getLang?.() === "en"
+                ? {
+                    months: "Months",
+                    days: "Days",
+                    hours: "Hours",
+                    minutes: "Min"
+                }
+                : {
+                    months: "Miesięcy",
+                    days: "Dni",
+                    hours: "Godzin",
+                    minutes: "Min"
+                };
 
             document.getElementById('countdown').innerHTML = `
-                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Miesięcy</span></div>
-                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Dni</span></div>
-                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Godzin</span></div>
-                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Min</span></div>`;
+                <div>
+                    <span class="doomsday-text">${months < 10 ? '0' + months : months}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.months}</span>
+                </div>
+                <div>
+                    <span class="doomsday-text">${days < 10 ? '0' + days : days}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.days}</span>
+                </div>
+                <div>
+                    <span class="doomsday-text">${hours < 10 ? '0' + hours : hours}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.hours}</span>
+                </div>
+                <div>
+                    <span class="doomsday-text">${mins < 10 ? '0' + mins : mins}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.minutes}</span>
+                </div>
+            `;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
@@ -3062,7 +3444,7 @@
         // 3. NAWIGACJA & AUTH
         function hideAll() { 
             document
-                .querySelectorAll('main, #library-page, #lists-page, #calendar-page, #rating-studio-page')
+                .querySelectorAll('main, #library-page, #lists-page, #calendar-page, #rating-studio-page, #review-page')
                 .forEach(el => el.classList.add('hidden-section')); 
         }
 
@@ -3113,15 +3495,11 @@
         function renderRatingHistory() {
             window.activeView = 'ratings';
 
-            const homePage = document.getElementById('home-page');
-            const libraryPage = document.getElementById('library-page');
+            hideAll();
+
             const listsPage = document.getElementById('lists-page');
-            const calendarPage = document.getElementById('calendar-page');
             const container = document.getElementById('custom-lists-container');
 
-            if (homePage) homePage.classList.add('hidden-section');
-            if (libraryPage) libraryPage.classList.add('hidden-section');
-            if (calendarPage) calendarPage.classList.add('hidden-section');
             if (listsPage) listsPage.classList.remove('hidden-section');
             if (!container) return;
 
@@ -3131,14 +3509,14 @@
             if (listsHeader) listsHeader.style.display = 'none';
             if (newListBtn) newListBtn.style.display = 'none';
 
-            const history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+            const history = window.movieHubData?.ratingHistory || [];
 
             if (history.length === 0) {
                 container.innerHTML = `
                     <section class="rating-history-shell rounded-[32px] border border-zinc-800 p-8 md:p-12 text-center">
                         <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
                         <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white mb-4">
-                            Historia <span class="text-cyan-400">ocen</span>
+                            ${window.getLang?.() === "en" ? 'Rating <span class="text-cyan-400">history</span>' : 'Historia <span class="text-cyan-400">ocen</span>'}
                         </h2>
                         <p class="text-zinc-500 font-black uppercase tracking-widest text-xs">
                             Nie masz jeszcze zapisanych ocen.
@@ -3233,7 +3611,7 @@
 
                             <div class="mt-5 flex items-center justify-between gap-3">
                                 <p class="text-zinc-500 font-black uppercase tracking-widest text-[9px] leading-tight">
-                                    ${date}
+                                    ${window.translateSavedDate ? window.translateSavedDate(date) : date}
                                 </p>
 
                                 ${matchedMovie ? `
@@ -3254,14 +3632,24 @@
             `;
 
             container.innerHTML = html;
+            window.applyLanguage?.();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function deleteRatingHistoryItem(index) {
-            const history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
+        async function deleteRatingHistoryItem(index) {
+            const data = window.movieHubData || {};
+            data.ratingHistory = Array.isArray(data.ratingHistory) ? data.ratingHistory : [];
+            data.ratings = data.ratings || {};
 
-            history.splice(index, 1);
-            localStorage.setItem('ratingHistory', JSON.stringify(history));
+            const removed = data.ratingHistory[index];
+            data.ratingHistory.splice(index, 1);
+
+            if (removed?.id) {
+                delete data.ratings[removed.id];
+            }
+
+            window.movieHubData = data;
+            await window.saveMovieHubData?.();
 
             renderRatingHistory();
         }
@@ -3286,6 +3674,32 @@
             renderRatingStudioMovies();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+
+        function openRatingStudioForCurrentMovie() {
+            if (!currentMovieId) return;
+
+            toggleModal('movie-modal', false);
+            openRatingStudio();
+
+            setTimeout(() => {
+                if (typeof selectStudioMovie === 'function') {
+                    selectStudioMovie(currentMovieId);
+                }
+            }, 80);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const rateShortcut = document.getElementById('modal-rate-shortcut');
+
+            if (rateShortcut) {
+                rateShortcut.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openRatingStudioForCurrentMovie();
+                });
+            }
+        });
 
         function setRatingStudioFilter(filter) {
             ratingStudioFilter = filter;
@@ -3365,7 +3779,7 @@
             });
         }
 
-        function saveStudioRating() {
+        async function saveStudioRating() {
             if (!selectedStudioMovieId) {
                 alert('Najpierw wybierz film.');
                 return;
@@ -3388,11 +3802,26 @@
                 timestamp: Date.now()
             };
 
-            let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
-            history = [newEntry, ...history.filter(entry => entry.id !== movie.id)].slice(0, 50);
+            const data = window.movieHubData || {};
+            data.ratingHistory = Array.isArray(data.ratingHistory) ? data.ratingHistory : [];
+            data.ratings = data.ratings || {};
 
-            localStorage.setItem('ratingHistory', JSON.stringify(history));
-            localStorage.setItem(`rating-${movie.id}`, String(selectedStudioRating));
+            const history = [
+                newEntry,
+                ...data.ratingHistory.filter(entry => entry.id !== movie.id)
+            ].slice(0, 50);
+
+            data.ratingHistory = history;
+            data.ratings[movie.id] = String(selectedStudioRating);
+            window.movieHubData = data;
+
+            await window.saveMovieHubData?.();
+
+            selectedStudioMovieId = null;
+            selectedStudioRating = null;
+
+            const selectedBox = document.getElementById('rating-studio-selected');
+            if (selectedBox) selectedBox.classList.add('hidden');
 
             renderRatingHistory();
         }
@@ -3454,7 +3883,9 @@
             const grid = document.getElementById('library-grid');
             const count = document.getElementById('library-count');
 
-            if (count) count.textContent = `${filteredMovies.length} filmów w aktualnym widoku`;
+            if (count) count.textContent = window.movieCountText
+                ? window.movieCountText(filteredMovies.length)
+                : `${filteredMovies.length} filmów w aktualnym widoku`;
             if (!grid) return;
 
             if (data.length === 0) {
@@ -3586,11 +4017,14 @@
 
             document.getElementById('modal-title').innerText = m.title;
             document.getElementById('modal-img').src = m.img;
-            document.getElementById('modal-desc').innerText = m.desc;
+            document.getElementById('modal-desc').innerText =
+            typeof window.getMovieDescription === "function"
+                ? window.getMovieDescription(m)
+                : m.desc;
             document.getElementById('modal-rating').innerText = m.rating;
             document.getElementById('modal-date').innerText = m.date;
 
-            const savedUserRating = localStorage.getItem(`rating-${m.id}`);
+            const savedUserRating = window.movieHubData?.ratings?.[m.id];
             document.getElementById('modal-user-rating').innerText = savedUserRating ? `${savedUserRating}/10` : '-';
 
             const genreBox = document.getElementById('modal-genre-list');
@@ -3609,6 +4043,10 @@
             document.getElementsByName('u-rating').forEach(star => {
                 star.checked = star.value === saved;
             });
+
+            if (typeof updateReviewButtonForMovie === "function") {
+                updateReviewButtonForMovie(m.id);
+            }
 
             toggleModal('movie-modal', true);
         }
@@ -3721,7 +4159,7 @@
                             <p class="text-[9px] font-black text-green-500 uppercase tracking-[0.35em] mb-2">Movie Hub</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter">Watchlista</h3>
                         </div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${wl.length} filmów</span>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${window.listMovieCountText ? window.listMovieCountText(wl.length) : `${wl.length} filmów`}</span>
                     </div>
 
                     <div class="list-movie-grid">
@@ -3735,7 +4173,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                         <div>
                             <p class="text-[9px] font-black text-zinc-500 uppercase tracking-[0.35em] mb-2">Lista prywatna</p>
-                            <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${list.name}</h3>
+                            <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${window.displayListName ? window.displayListName(list.name) : list.name}</h3>
                         </div>
 
                         <div class="flex gap-2">
@@ -3760,6 +4198,7 @@
             `).join('');
 
             container.innerHTML = html;
+            window.applyLanguage?.();
         }
 
         
@@ -3997,6 +4436,36 @@
             { date: "2026-12-18", title: "Ice Age 6", genre: "Animacja / Komedia" }
         ];
 
+        function translateCalendarGenre(genre) {
+            if (window.getLang?.() !== "en") return genre;
+
+            const map = {
+                "Katastroficzny": "Disaster",
+                "Thriller": "Thriller",
+                "Horror": "Horror",
+                "Kryminał": "Crime",
+                "Dramat": "Drama",
+                "Komedia": "Comedy",
+                "Sci-Fi": "Sci-Fi",
+                "Animacja": "Animation",
+                "Przygodowy": "Adventure",
+                "Fantasy": "Fantasy",
+                "Biograficzny": "Biographical",
+                "Akcja": "Action",
+                "Star Wars": "Star Wars",
+                "Pixar": "Pixar",
+                "DC": "DC",
+                "Marvel": "Marvel",
+                "IMAX": "IMAX",
+                "Kaiju": "Kaiju"
+            };
+
+            return String(genre)
+                .split("/")
+                .map(part => map[part.trim()] || part.trim())
+                .join(" / ");
+        }
+
         function renderCalendar() {
             window.activeView = 'calendar';
             hideAll();
@@ -4007,7 +4476,9 @@
             if (calendarPage) calendarPage.classList.remove('hidden-section');
             if (!container) return;
 
-            const months = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
+            const months = window.getLang?.() === "en"
+                ? ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+                : ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
 
 
             // Główna struktura karty kalendarza z nagłówkiem
@@ -4017,7 +4488,10 @@
                     <!-- NAGŁÓWEK KALENDARZA -->
                     <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                         <h2 class="text-3xl sm:text-4xl font-black italic uppercase text-white tracking-tighter text-center sm:text-left">
-                            📅 KALENDARZ <span class="text-green-500">PREMIER</span>
+                            ${window.getLang?.() === "en"
+                                ? '📅 RELEASE <span class="text-green-500">CALENDAR</span>'
+                                : '📅 KALENDARZ <span class="text-green-500">PREMIER</span>'
+                            }
                         </h2>
                         <div class="bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-zinc-400">
                             Nadchodzące premiery
@@ -4064,7 +4538,7 @@
 
                                 <div class="flex items-center gap-2 flex-wrap mt-2">
                                     <span class="text-[9px] font-black text-zinc-400 uppercase tracking-widest px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800">
-                                        ${m.genre}
+                                        ${translateCalendarGenre(m.genre)}
                                     </span>
                                     ${isBigHit ? '<span class="text-[9px] font-black text-green-500 uppercase tracking-widest">Wielka premiera</span>' : ''}
                                 </div>
@@ -4082,6 +4556,7 @@
 
             // Wstrzyknięcie gotowego szablonu i płynny skok na górę strony
             container.innerHTML = html;
+            window.applyLanguage?.();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     
@@ -4101,7 +4576,7 @@
             
             // Nadchodzące - automatyczny cyberpunkowy pomarańczowy look i daty
             { id: "crime101", title: "Crime 101", rating: "6.8/10", isComing: false },
-            { id: "diuna3", title: "Diuna 3: Mesjasz", date: "26.12", isComing: true },
+            { id: "diuna3", title: "Dune 3", date: "26.12", isComing: true },
             { id: "F1", title: "F1", rating: "7.6/10", isComing: false },
             { id: "hailmarry", title: "Project Hail Mary", rating: "8.3/10", isComing: false },
             { id: "f4", title: "The Fantastic Four", rating: "6.8/10", isComing: false },
@@ -4385,11 +4860,6 @@
                 </div>
 
                 <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Data urodzenia</p>
-                    <p id="profile-data-birthdate" class="text-white font-bold text-sm">-</p>
-                </div>
-
-                <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
                     <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Typ konta</p>
                     <p id="profile-data-provider" class="text-green-500 font-black uppercase text-sm">-</p>
                 </div>
@@ -4431,6 +4901,9 @@
             getDoc,
             setDoc,
             updateDoc,
+            deleteDoc,
+            collection,
+            getDocs,
             serverTimestamp
         } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -4451,6 +4924,70 @@
 
         let currentFirebaseUser = null;
         let currentUserProfile = null;
+
+        let userReviews = {};
+        const emptyMovieHubData = () => ({
+            watchlist: [],
+            userLists: [{ name: "Moje Ulubione", movies: [] }],
+            ratingHistory: [],
+            ratings: {}
+        });
+
+        let movieHubData = emptyMovieHubData();
+        window.movieHubData = movieHubData;
+
+        function getGuestId() {
+            let guestId = localStorage.getItem("movieHubGuestId");
+
+            if (!guestId) {
+                guestId = crypto.randomUUID();
+                localStorage.setItem("movieHubGuestId", guestId);
+            }
+
+            return guestId;
+        }
+
+        function getGuestStorageKey() {
+            return `movieHubData_guest_${getGuestId()}`;
+        }
+
+        function saveGuestData() {
+            localStorage.setItem(getGuestStorageKey(), JSON.stringify(movieHubData));
+        }
+
+        function loadGuestData() {
+            movieHubData = JSON.parse(localStorage.getItem(getGuestStorageKey())) || emptyMovieHubData();
+            window.movieHubData = movieHubData;
+        }
+
+        async function loadCloudMovieHubData(user) {
+            const dataRef = doc(db, "users", user.uid, "app", "movieHub");
+            const snap = await getDoc(dataRef);
+
+            if (!snap.exists()) {
+                movieHubData = emptyMovieHubData();
+                await setDoc(dataRef, movieHubData);
+            } else {
+                movieHubData = {
+                    ...emptyMovieHubData(),
+                    ...snap.data()
+                };
+            }
+
+            window.movieHubData = movieHubData;
+        }
+
+        async function saveMovieHubData() {
+            if (currentFirebaseUser) {
+                await setDoc(doc(db, "users", currentFirebaseUser.uid, "app", "movieHub"), movieHubData, { merge: true });
+            } else {
+                saveGuestData();
+            }
+        }
+
+        window.saveMovieHubData = saveMovieHubData;
+        let editingReviewMovieId = null;
+        window.userReviews = userReviews;
 
         window.isLoggedIn = function() {
             return !!currentFirebaseUser;
@@ -4510,21 +5047,35 @@
             const snap = await getDoc(userRef);
 
             if (!snap.exists()) {
-                const profile = {
+                const newProfile = {
                     uid: user.uid,
                     nick: extraData.nick || user.displayName || "Użytkownik",
                     email: user.email || "",
-                    birthDate: extraData.birthDate || "",
                     avatarUrl: user.photoURL || "",
                     provider: extraData.provider || "email",
                     createdAt: serverTimestamp()
                 };
 
-                await setDoc(userRef, profile);
-                return profile;
+                await setDoc(userRef, newProfile);
+                return newProfile;
             }
 
-            return snap.data();
+            const profile = snap.data();
+
+            if ((!profile.nick || profile.nick === "Użytkownik") && user.displayName) {
+                const updatedProfile = {
+                    ...profile,
+                    nick: user.displayName
+                };
+
+                await updateDoc(userRef, {
+                    nick: user.displayName
+                });
+
+                return updatedProfile;
+            }
+
+            return profile;
         }
 
         async function loadUserProfile(user) {
@@ -4559,24 +5110,37 @@
             clearAuthError();
 
             const nick = document.getElementById("register-nick").value.trim();
-            const birthDate = document.getElementById("register-birthdate").value;
             const email = document.getElementById("register-email").value.trim();
             const password = document.getElementById("register-password").value;
 
-            if (!nick || !birthDate || !email || password.length < 6) {
+            if (!nick || !email || password.length < 6) {
                 showAuthError("Uzupełnij dane. Hasło musi mieć minimum 6 znaków.");
                 return;
             }
 
             try {
                 const result = await createUserWithEmailAndPassword(auth, email, password);
-                await updateProfile(result.user, { displayName: nick });
-                await createProfileIfMissing(result.user, {
-                    nick,
-                    birthDate,
-                    provider: "email"
-                });
 
+                await updateProfile(result.user, { displayName: nick });
+
+                await setDoc(doc(db, "users", result.user.uid), {
+                    uid: result.user.uid,
+                    nick,
+                    email: result.user.email || email,
+                    avatarUrl: result.user.photoURL || "",
+                    provider: "email",
+                    createdAt: serverTimestamp()
+                }, { merge: true });
+
+                currentUserProfile = {
+                    uid: result.user.uid,
+                    nick,
+                    email: result.user.email || email,
+                    avatarUrl: result.user.photoURL || "",
+                    provider: "email"
+                };
+
+                updateAuthUI();
                 toggleModal("login-modal", false);
             } catch (error) {
                 showAuthError("Nie udało się utworzyć konta. Sprawdź e-mail i hasło.");
@@ -4737,16 +5301,17 @@
 
             const nick = currentUserProfile.nick || currentFirebaseUser.displayName || "Użytkownik";
             const email = currentFirebaseUser.email || "Brak e-maila";
-            const birthDate = currentUserProfile.birthDate || "Nie podano";
             const provider = currentUserProfile.provider === "google" ? "Google" : "E-mail";
             const avatarUrl = currentUserProfile.avatarUrl || currentFirebaseUser.photoURL || "";
-            const history = JSON.parse(localStorage.getItem("ratingHistory")) || [];
+            const history = window.movieHubData?.ratingHistory || [];
 
             document.getElementById("profile-data-nick").textContent = nick;
             document.getElementById("profile-data-email").textContent = email;
-            document.getElementById("profile-data-birthdate").textContent = birthDate;
             document.getElementById("profile-data-provider").textContent = provider;
-            document.getElementById("profile-data-ratings").textContent = `${history.length} filmów`;
+            document.getElementById("profile-data-ratings").textContent =
+            window.listMovieCountText
+                ? window.listMovieCountText(history.length)
+                : `${history.length} filmów`;
 
             const avatarBox = document.getElementById("profile-data-avatar");
 
@@ -4773,6 +5338,7 @@
         }
 
         window.updateAuthUI = function() {
+            const mainMenuButton = document.getElementById("main-menu-button");
             const appMenuLogoutBtn = document.getElementById("app-menu-logout-btn");
             const authSection = document.getElementById("auth-section");
             const appMenuUserCard = document.getElementById("app-menu-user-card");
@@ -4782,10 +5348,13 @@
 
             if (!authSection) return;
 
+            authSection.classList.remove("opacity-0", "pointer-events-none");
+
             if (!currentFirebaseUser || !currentUserProfile) {
                 const appMenuLoginBtn = document.getElementById("app-menu-login-btn");
                 if (appMenuLoginBtn) appMenuLoginBtn.style.display = "block";
                 if (appMenuLogoutBtn) appMenuLogoutBtn.style.display = "none";
+                if (mainMenuButton) mainMenuButton.style.display = "flex";
                 
                 authSection.innerHTML = `
                     <button onclick="toggleModal('login-modal', true)" class="guest-login-btn">
@@ -4819,6 +5388,7 @@
             const avatar = avatarUrl
                 ? `<img src="${avatarUrl}" alt="${nick}">`
                 : `<div class="bg-green-600 text-black flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`;
+            if (mainMenuButton) mainMenuButton.style.display = "none";
 
             authSection.innerHTML = `
                 <button onclick="openAppMenu()" class="profile-pill-btn">
@@ -4874,43 +5444,803 @@
             }
         });
 
+        async function loadUserReviews() {
+            userReviews = {};
+            window.userReviews = userReviews;
+
+            if (!currentFirebaseUser) return;
+
+            const snap = await getDocs(collection(db, "users", currentFirebaseUser.uid, "reviews"));
+
+            snap.forEach(docSnap => {
+                userReviews[docSnap.id] = docSnap.data();
+            });
+
+            window.userReviews = userReviews;
+        }
+
+        window.openReviewDraft = async function() {
+            if (!currentFirebaseUser) {
+                showGuestGate("recenzji");
+                return;
+            }
+
+            if (!currentMovieId) {
+                alert("Najpierw wybierz film.");
+                return;
+            }
+
+            const movie = movies.find(m => m.id === currentMovieId);
+            if (!movie) return;
+
+            hideAll();
+            toggleModal("movie-modal", false);
+
+            document.getElementById("review-page-img").src = movie.img;
+            document.getElementById("review-page-title").textContent = movie.title;
+            const textarea = document.getElementById("review-page-text");
+            const existingReview = userReviews[currentMovieId];
+
+            editingReviewMovieId = existingReview ? currentMovieId : null;
+            textarea.value = existingReview ? existingReview.text || "" : "";
+
+            updateReviewWordCount();
+
+            document.getElementById("review-page").classList.remove("hidden-section");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        window.closeReviewPage = function() {
+            showHome();
+        };
+
+
+        window.getReviewWordCount = function() {
+            const textarea = document.getElementById("review-page-text");
+            const text = textarea ? textarea.value.trim() : "";
+
+            if (!text) return 0;
+
+            return text.split(/\s+/).filter(Boolean).length;
+        };
+
+        window.updateReviewWordCount = function() {
+            const count = getReviewWordCount();
+            const box = document.getElementById("review-word-count");
+
+            if (!box) return;
+
+            box.textContent = `${count} / 1000 słów`;
+
+            box.classList.toggle("text-red-400", count > 1000);
+            box.classList.toggle("border-red-500/50", count > 1000);
+            box.classList.toggle("text-zinc-500", count <= 1000);
+            box.classList.toggle("border-zinc-800", count <= 1000);
+        };
+
+        window.saveReviewPage = async function() {
+            if (!currentFirebaseUser || !currentMovieId) return;
+
+            const movie = movies.find(m => m.id === currentMovieId);
+            if (!movie) return;
+
+            const cleanText = document.getElementById("review-page-text").value.trim();
+            const wordCount = cleanText.split(/\s+/).filter(Boolean).length;
+
+            if (wordCount > 1000) {
+                alert(`Recenzja ma ${wordCount} słów. Limit to 1000 słów.`);
+                return;
+            }
+
+            if (!cleanText) {
+                alert("Opinia nie może być pusta.");
+                return;
+            }
+
+            const review = {
+                movieId: movie.id,
+                title: movie.title,
+                img: movie.img,
+                category: movie.category,
+                movieRating: movie.rating,
+                userRating: localStorage.getItem(`rating-${movie.id}`) || "",
+                text: cleanText,
+                updatedAt: Date.now()
+            };
+
+            try {
+                await setDoc(doc(db, "users", currentFirebaseUser.uid, "reviews", movie.id), review);
+
+                userReviews[movie.id] = review;
+                window.userReviews = userReviews;
+
+                updateReviewButtonForMovie(movie.id);
+
+                
+                renderMyReviews();
+
+            } catch (error) {
+                console.error("Nie udało się zapisać recenzji:", error);
+                alert("Nie udało się zapisać recenzji. Sprawdź Firestore Rules.");
+            }
+        };
+
+        window.openMovieReview = function(movieId = currentMovieId) {
+            const review = userReviews[movieId];
+
+            if (!review) {
+                alert("Nie masz jeszcze opinii do tego filmu.");
+                return;
+            }
+
+            const modal = document.getElementById("review-view-modal");
+            modal.dataset.movieId = movieId;
+
+            document.getElementById("review-view-img").src = review.img || "";
+            document.getElementById("review-view-title").textContent = review.title || "Film";
+            document.getElementById("review-view-user-rating").textContent = review.userRating ? `${review.userRating}/10` : "-";
+            document.getElementById("review-view-movie-rating").textContent = review.movieRating || "-";
+            document.getElementById("review-view-text").textContent = review.text || "";
+
+            toggleModal("review-view-modal", true);
+        };
+
+        window.closeReviewView = function() {
+            toggleModal("review-view-modal", false);
+        };
+
+        window.renderMyReviews = function() {
+            if (!currentFirebaseUser) {
+                showGuestGate("opinii");
+                return;
+            }
+
+            window.activeView = "reviews";
+            hideAll();
+
+            const listsPage = document.getElementById("lists-page");
+            const container = document.getElementById("custom-lists-container");
+
+            if (listsPage) listsPage.classList.remove("hidden-section");
+            if (!container) return;
+
+            const listsHeader = listsPage.querySelector("h2");
+            const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
+
+            if (listsHeader) listsHeader.style.display = "none";
+            if (newListBtn) newListBtn.style.display = "none";
+
+            const reviews = Object.values(userReviews).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+            if (!reviews.length) {
+                container.innerHTML = `
+                    <section class="rounded-[32px] border border-zinc-800 bg-zinc-950/70 p-8 md:p-12 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
+                        <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white mb-4">
+                            ${window.getLang?.() === "en" ? 'My <span class="text-cyan-400">reviews</span>' : 'Moje <span class="text-cyan-400">recenzje</span>'}
+                        </h2>
+                        <p class="text-zinc-500 font-black uppercase tracking-widest text-xs">Nie masz jeszcze opinii.</p>
+                    </section>
+                `;
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
+            }
+
+            container.innerHTML = `
+                <section class="rounded-[32px] border border-cyan-500/20 bg-cyan-500/[0.05] p-5 md:p-8">
+                    <div class="mb-8">
+                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Twoje kino</p>
+                        <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
+                            Moje <span class="text-cyan-400">recenzje</span>
+                        </h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        ${reviews.map(r => `
+                            <article class="rounded-[24px] border border-zinc-800 bg-zinc-950 overflow-hidden grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] min-h-[180px]">
+                                <button onclick="openMovieReview('${r.movieId}')" class="block w-full bg-zinc-900">
+                                    <img src="${r.img}" class="w-full h-full object-cover" alt="${r.title}">
+                                </button>
+
+                                <div class="p-4 md:p-5 min-w-0 flex flex-col">
+                                    <p class="text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-2">${r.category || "Film"}</p>
+
+                                    <h3 class="text-white font-black italic uppercase text-xl leading-tight mb-2 line-clamp-2">
+                                        ${r.title}
+                                    </h3>
+
+                                    <p class="review-text-preview text-zinc-400 text-sm leading-relaxed line-clamp-4 flex-1">
+                                        ${r.text}
+                                    </p>
+
+                                    <button onclick="openMovieReview('${r.movieId}')" class="mt-2 w-fit text-cyan-400 hover:text-cyan-300 text-[10px] font-black uppercase tracking-widest">
+                                        Czytaj dalej
+                                    </button>
+
+                                    <div class="flex gap-2 mt-4">
+                                        <button onclick="openMovieReview('${r.movieId}')" class="flex-1 rounded-2xl bg-cyan-400 text-black py-3 text-[10px] font-black uppercase tracking-widest">
+                                            Zobacz
+                                        </button>
+
+                                        <button onclick="currentMovieId='${r.movieId}'; openReviewDraft()" class="flex-1 rounded-2xl bg-zinc-900 border border-zinc-800 text-white py-3 text-[10px] font-black uppercase tracking-widest">
+                                            Edytuj
+                                        </button>
+                                    </div>
+                                </div>
+                            </article>
+                        `).join("")}
+                    </div>
+                </section>
+            `;
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        window.updateReviewButtonForMovie = function(movieId) {
+            const btn = document.getElementById("movie-review-action-btn");
+            if (!btn) return;
+
+            if (userReviews[movieId]) {
+                btn.textContent = "Zobacz swoją recenzję";
+                btn.onclick = () => openMovieReview(movieId);
+            } else {
+                btn.textContent = "Dodaj recenzję";
+                btn.onclick = () => openReviewDraft();
+            }
+        };
+
         onAuthStateChanged(auth, async (user) => {
             currentFirebaseUser = user;
 
-            if (user) {
-                currentUserProfile = await createProfileIfMissing(user);
-            } else {
-                currentUserProfile = null;
+            try {
+                if (user) {
+                    currentUserProfile = await createProfileIfMissing(user);
+
+                    if (!currentUserProfile) {
+                        currentUserProfile = {
+                            uid: user.uid,
+                            nick: user.displayName || "Użytkownik",
+                            email: user.email || "",
+                            birthDate: "",
+                            avatarUrl: user.photoURL || "",
+                            provider: user.providerData?.[0]?.providerId?.includes("google") ? "google" : "email"
+                        };
+                    }
+
+                    try {
+                        await loadUserReviews();
+                        await loadCloudMovieHubData(user);
+                    } catch (reviewError) {
+                        console.warn("Nie udało się wczytać recenzji:", reviewError);
+                        userReviews = {};
+                        window.userReviews = userReviews;
+                    }
+                } else {
+                    currentUserProfile = null;
+                    userReviews = {};
+                    window.userReviews = userReviews;
+                    loadGuestData();
+                }
+            } catch (error) {
+                console.error("Auth profile error:", error);
+
+                if (user) {
+                    currentUserProfile = {
+                        uid: user.uid,
+                        nick: user.displayName || "Użytkownik",
+                        email: user.email || "",
+                        birthDate: "",
+                        avatarUrl: user.photoURL || "",
+                        provider: user.providerData?.[0]?.providerId?.includes("google") ? "google" : "email"
+                    };
+                }
             }
 
-            if (typeof refreshUserScopedData === "function") {
-                refreshUserScopedData();
-            }
+            if (typeof refreshUserScopedData === "function") refreshUserScopedData();
 
             updateAuthUI();
 
-            
-
-            if (window.activeView === 'lists' && typeof renderCustomLists === "function") {
-                renderCustomLists();
-            }
-
-            if (window.activeView === 'calendar' && typeof renderCalendar === "function") {
-                renderCalendar();
-            }
-
-            if (window.activeView === 'ratings' && typeof renderRatingHistory === "function") {
-                renderRatingHistory();
-            }
-
-            if (window.activeView === 'library' && typeof renderTable === "function") {
-                renderTable();
-            }
+            if (window.activeView === "lists" && typeof renderCustomLists === "function") renderCustomLists();
+            if (window.activeView === "calendar" && typeof renderCalendar === "function") renderCalendar();
+            if (window.activeView === "ratings" && typeof renderRatingHistory === "function") renderRatingHistory();
+            if (window.activeView === "library" && typeof renderTable === "function") renderTable();
         });
 
+        const movieTranslations = {
+            en: {
+                m65: { desc: "Astronauts crash-land on Earth 65 million years in the past." },
+                acrosstheverse: { desc: "Miles Morales travels across the Multiverse." },
+                alienromolous: { desc: "A group of young people faces a xenomorph." },
+                amator: { desc: "A thriller about a man with nothing left to lose." },
+                ambulance: { desc: "A high-speed escape through Los Angeles after a failed robbery." },
+                anaconda: { desc: "A film crew faces a giant snake in the jungle." },
+                antman: { desc: "Ant-Man and the Wasp explore the mysterious Quantum Realm." },
+                avatar: { desc: "A journey to Pandora changes the fate of humans and Na'vi." },
+                avatar2: { desc: "The return to Pandora explores the oceans and the Sully family's survival." },
+                avatar3: { desc: "The third chapter of James Cameron's Avatar saga." },
+                backrooms: { desc: "Paranormal events inside endless, yellow corridors." },
+                badboysride: { desc: "Mike and Marcus go on the run while trying to clear their names." },
+                ballerina: { desc: "A spin-off from the John Wick universe about a deadly assassin." },
+                batman: { desc: "Bruce Wayne hunts the Riddler through Gotham's darkest secrets." },
+                blackadam: { desc: "An ancient antihero returns to the modern world." },
+                blackphone: { desc: "A kidnapped boy receives calls from the dead victims of a serial killer." },
+                blackphone2: { desc: "The continuation of the hit supernatural horror story." },
+                blackwidow: { desc: "Natasha Romanoff confronts the secrets of her past." },
+                bloodlines: { desc: "Death returns to claim a new generation of victims." },
+                bullettrain: { desc: "A group of assassins collide aboard a high-speed train in Japan." },
+                buzzastral: { desc: "The origin story of the legendary Space Ranger." },
+                capitanamerica: { desc: "Sam Wilson steps into the role of Captain America." },
+                carryon: { desc: "A terrorist blackmails an airport security officer." },
+                civilwar: { desc: "A divided America is seen through the eyes of war photographers." },
+                coldstorage: { desc: "A dangerous virus escapes from a secret facility." },
+                creed3: { desc: "Adonis Creed fights to protect his legacy." },
+                crime101: { desc: "A major jewel heist draws criminals and investigators into a dangerous game." },
+                deadpool: { desc: "Deadpool and Wolverine team up to save the multiverse." },
+                deadreckoning: { desc: "Ethan Hunt faces a powerful artificial intelligence." },
+                disclousureday: { desc: "Humanity faces its first confirmed contact with alien life." },
+                diuna3: { desc: "The next chapter in Paul Atreides' story." },
+                drstrange2: { desc: "Doctor Strange enters the madness of the multiverse." },
+                dominion: { desc: "Dinosaurs now live among humans across the world." },
+                doomsday: { desc: "Robert Downey Jr returns as Doctor Doom." },
+                dune: { desc: "The beginning of Paul Atreides' journey on Arrakis." },
+                dune2: { desc: "A war for freedom and control of the spice begins." },
+                elevation: { desc: "A world overrun by monsters fights to survive." },
+                endgame: { desc: "The Avengers face Thanos in their final battle." },
+                equalizer3: { desc: "Robert McCall finds a new fight in Italy." },
+                f1: { desc: "Brad Pitt stars as a veteran Formula 1 driver." },
+                f4: { desc: "Marvel's first family enters a new cinematic era." },
+                fall: { desc: "Two friends become trapped on top of a massive radio tower." },
+                fallguy: { desc: "Ryan Gosling plays a stuntman pulled into a dangerous mystery." },
+                fastX: { desc: "Dante Reyes seeks revenge against Dom Toretto and his family." },
+                ff9: { desc: "The Toretto brothers face each other in a global conflict." },
+                flash: { desc: "Barry Allen changes the timeline and faces the consequences." },
+                flightrisk: { desc: "A killer turns a flight into a deadly trap." },
+                fnaf1: { desc: "A night guard faces terrifying animatronics inside an old pizzeria." },
+                fnaf2: { desc: "The animatronics return for another nightmare." },
+                frendo: { desc: "A deadly toy turns playtime into horror." },
+                furiosa: { desc: "The origin story of young Furiosa in the Mad Max world." },
+                ghostbusters: { desc: "New York freezes under a supernatural threat." },
+                gladiator: { desc: "A betrayed Roman general becomes a gladiator." },
+                gladiator2: { desc: "Lucius returns to the arena in a new chapter of Rome's story." },
+                godzillavskong: { desc: "Two legendary titans collide." },
+                godzillaxkong: { desc: "Godzilla and Kong face a new threat together." },
+                grayman: { desc: "A CIA operative becomes the target of a global manhunt." },
+                greenland2: { desc: "Survivors fight to rebuild after a global catastrophe." },
+                guardians3: { desc: "The Guardians face their most personal mission yet." },
+                hailmarry: { desc: "Ryan Gosling must save Earth on a desperate space mission." },
+                iluzja3: { desc: "The Horsemen return for another impossible illusion." },
+                inception: { desc: "A thief enters dreams to steal and plant ideas." },
+                interstellar: { desc: "A journey through a wormhole may save humanity." },
+                johnwick4: { desc: "John Wick wages war against the High Table." },
+                joker: { desc: "The tragic birth of Gotham's most infamous villain." },
+                joker2: { desc: "Arthur Fleck and Harley Quinn descend into madness together." },
+                kraven: { desc: "Marvel's ruthless hunter begins his story." },
+                krzyk5: { desc: "Ghostface returns to terrorize a new group of victims." },
+                krzyk6: { desc: "Ghostface brings the horror to New York City." },
+                krzyk7: { desc: "Sidney Prescott returns for another confrontation with Ghostface." },
+                luther: { desc: "Luther escapes prison to hunt a dangerous killer." },
+                madameweb: { desc: "A woman discovers the power to see the future." },
+                majkel: { desc: "A biographical film about Michael Jackson." },
+                malpa: { desc: "A new era begins in the world of the apes." },
+                mandalorian: { desc: "A Star Wars adventure with the Mandalorian and Grogu." },
+                martian: { desc: "An astronaut fights to survive alone on Mars." },
+                martysupreme: { desc: "Timothee Chalamet stars in a story about a table tennis player." },
+                marvels: { desc: "Three Marvel heroes discover their powers are connected." },
+                matrix: { desc: "Neo returns to question reality once again." },
+                meg2: { desc: "Massive prehistoric sharks rise from the deep." },
+                megalopolis: { desc: "Francis Ford Coppola's ambitious vision of a city and its future." },
+                megan: { desc: "An AI doll becomes dangerously protective." },
+                megan2: { desc: "The killer robot doll returns in a new form." },
+                mercy: { desc: "A detective is pulled into a story of revenge and survival." },
+                mickey17: { desc: "Bong Joon-ho tells a sci-fi story about clones and identity." },
+                minecraft: { desc: "A blocky adventure inside the world of Minecraft." },
+                moonfall: { desc: "The Moon falls toward Earth, threatening all life." },
+                morbius: { desc: "A scientist becomes a living vampire." },
+                mortal: { desc: "Fighters enter a deadly tournament for the fate of worlds." },
+                mortal2: { desc: "The battle continues in the Mortal Kombat universe." },
+                nakedgun: { desc: "A reboot of the classic absurd crime comedy." },
+                niezniszczalni4: { desc: "The old team returns for another explosive mission." },
+                odyseja: { desc: "A grand cinematic journey inspired by a legendary odyssey." },
+                operationfortune: { desc: "Guy Ritchie's spies race to stop a dangerous deal." },
+                oppenheimer: { desc: "The story of the man behind the atomic bomb." },
+                pierwszygol: { desc: "A coach tries to transform one of the world's weakest football teams." },
+                plane: { desc: "A pilot makes an emergency landing in hostile territory." },
+                pomocdomowa: { desc: "Dark secrets surround a housemaid and the family she serves." },
+                predator: { desc: "A new Predator story begins in the Badlands." },
+                prey: { desc: "A young Comanche warrior faces the Predator in the 18th century." },
+                psychokiller: { desc: "A masked killer leaves terror behind." },
+                pszczelarz: { desc: "A former operative takes revenge after a brutal scam." },
+                rebirth: { desc: "A new era begins in the Jurassic World saga." },
+                redone: { desc: "A holiday rescue mission turns into a massive action adventure." },
+                renfield: { desc: "Dracula's servant tries to escape his toxic master." },
+                riseofgru: { desc: "The origin story of young Gru and his Minions." },
+                runningman: { desc: "A deadly game show turns survival into entertainment." },
+                sawx: { desc: "Jigsaw returns with a brutal game in Mexico." },
+                scarymovie: { desc: "The horror parody franchise returns." },
+                shangchi: { desc: "A martial arts master confronts his family legacy." },
+                shazam2: { desc: "Shazam and his family face the wrath of ancient gods." },
+                shelter: { desc: "A fight for survival begins inside a shelter." },
+                sisu: { desc: "A Finnish fighter takes on Nazi soldiers with brutal force." },
+                spidermanNWH: { desc: "Spider-Man faces villains from across the multiverse." },
+                spiral: { desc: "A new copycat killer continues Jigsaw's legacy." },
+                supergirl: { desc: "Superman's cousin begins her own heroic journey." },
+                superman: { desc: "A new beginning for Superman and the DC universe." },
+                darkknight: { desc: "Batman faces the Joker in Gotham's greatest trial." },
+                thorlove: { desc: "Thor faces a god-killer and reunites with Jane Foster." },
+                thunderbolts: { desc: "Marvel's outcasts are forced into a dangerous mission." },
+                topgun: { desc: "Maverick returns to train a new generation of pilots." },
+                transformers: { desc: "The Transformers join forces with the Maximals." },
+                trap: { desc: "A concert becomes a trap for a hidden killer." },
+                tron: { desc: "The world of the Grid returns with a new digital threat." },
+                ultimatum: { desc: "A man is blackmailed with a bomb inside his car." },
+                uncharted: { desc: "Nathan Drake begins a globe-trotting treasure hunt." },
+                venom2: { desc: "Venom faces the deadly Carnage." },
+                venom3: { desc: "Eddie and Venom face their final dance." },
+                wakandaforever: { desc: "Wakanda fights to protect its future after losing its king." },
+                warfare: { desc: "A tense story set in the chaos of war." },
+                weapons: { desc: "A dark and disturbing mystery unfolds." },
+                wielkimarsz: { desc: "A Stephen King adaptation about a deadly endurance march." },
+                wolfman: { desc: "A new version of the classic werewolf horror story." }
+            }
+        };
+
+        window.getMovieDescription = function(movie) {
+            return movieTranslations[currentLanguage]?.[movie.id]?.desc || movie.desc;
+        };
+
     
+        const translations = {
+            en: {
+                "Menu": "Menu",
+                "Zamknij": "Close",
+                "Nawigacja": "Navigation",
+                "Start": "Home",
+                "Strona główna": "Homepage",
+                "Filmy": "Movies",
+                "Katalog filmów": "Movie catalog",
+                "Kalendarz": "Calendar",
+                "Premiery 2026": "2026 premieres",
+                "Oceń film": "Rate movie",
+                "Dodaj swoją ocenę": "Add your rating",
+                "Twoje kino": "Your cinema",
+                "Moje listy": "My lists",
+                "Watchlista i prywatne listy": "Watchlist and private lists",
+                "Moje oceny": "My ratings",
+                "Historia oceniania": "Rating history",
+                "Moje recenzje": "My reviews",
+                "Twoje opinie o filmach": "Your movie reviews",
+                "Konto": "Account",
+                "Dane profilu": "Profile data",
+                "E-mail, nick, avatar": "Email, nickname, avatar",
+                "Zmień nick": "Change nickname",
+                "Nazwa profilu": "Profile name",
+                "Zmień avatar": "Change avatar",
+                "Zdjęcie profilu": "Profile picture",
+                "Usuń avatar": "Remove avatar",
+                "Wyczyść zdjęcie": "Clear picture",
+                "Dostęp": "Access",
+                "Zaloguj się": "Log in",
+                "Wyloguj": "Log out",
+                "Język": "Language",
+                "Polski": "Polish",
+                "English": "English",
+                "Tryb gościa": "Guest mode",
+                "Gość": "Guest",
+                "Zaloguj się, żeby zapisywać dane.": "Log in to save your data.",
+                "Zaloguj się, żeby zapisywać oceny, listy i recenzje.": "Log in to save ratings, lists and reviews.",
+                "Online": "Online",
+                "Wróć": "Back",
+                "Wszystkie": "All",
+                "Ocena": "Rating",
+                "Rok": "Year",
+                "Szukaj tytułu...": "Search title...",
+                "Wybierz film": "Choose a movie",
+                "Ładowanie...": "Loading...",
+                "Gatunki": "Genres",
+                "Tryb": "Mode",
+                "Kolejność": "Order",
+                "Domyślnie": "Default",
+                "Ocena 8+": "Rating 8+",
+                "Watchlista": "Watchlist",
+                "Opis": "Details",
+                "Oceń ten film": "Rate this movie",
+                "Obejrzyj Trailer": "Watch trailer",
+                "Dodaj Recenzję": "Add review",
+                "Dodaj recenzję": "Add review",
+                "Zobacz swoją recenzję": "View your review",
+                "Gatunek": "Genre",
+                "Wybrany film": "Selected movie",
+                "Wybierz ocenę": "Choose rating",
+                "Zapisz": "Save",
+                "Nie masz jeszcze zapisanych ocen.": "You do not have saved ratings yet.",
+                "Historia ocen": "Rating history",
+                "Wszystkie": "All",
+                "Średnia": "Average",
+                "Twoja ocena": "Your rating",
+                "Usuń ocenę": "Delete rating",
+                "Twoje Listy": "Your Lists",
+                "Nowa lista +": "New list +",
+                "Watchlista": "Watchlist",
+                "Lista prywatna": "Private list",
+                "Nazwa": "Name",
+                "Usuń": "Delete",
+                "Usuń z listy": "Remove from list",
+                "Pusto": "Empty",
+                "Wejdź do kina": "Enter the cinema",
+                "Logowanie": "Login",
+                "Rejestracja": "Register",
+                "Kontynuuj z Google": "Continue with Google",
+                "albo": "or",
+                "Zaloguj": "Log in",
+                "Utwórz konto": "Create account",
+                "Hasło min. 6 znaków": "Password min. 6 characters",
+                "Zaloguj / Załóż konto": "Log in / Create account",
+                "Zostań w trybie gościa": "Stay as guest",
+                "Ta funkcja wymaga konta, żeby zapisać dane na stałe.": "This feature requires an account to save data permanently.",
+                "Zapisz swoje kino": "Save your cinema",
+                "Typ konta": "Account type",
+                "Oceny": "Ratings",
+                "Zmień nick": "Change nickname",
+                "Zmień avatar": "Change avatar",
+                "Twoja recenzja": "Your review",
+                "Zapisz recenzję": "Save review",
+                "Anuluj": "Cancel",
+                "Moje recenzje": "My reviews",
+                "Nie masz jeszcze opinii.": "You do not have reviews yet.",
+                "Czytaj dalej": "Read more",
+                "Zobacz": "View",
+                "Edytuj": "Edit",
+                "Twoja opinia": "Your review",
+                "Film": "Movie",
+                "HISTORIE,": "STORIES,",
+                "KTÓRE": "THAT",
+                "ZOSTAJĄ.": "STAY WITH YOU.",
+                "Historia": "Rating",
+                "ocen": "history",
+                "Moje": "My",
+                "recenzje": "reviews",
+                "OCEŃ": "Rate",
+                "Wybierz plakat, kliknij ocenę i zapisz. Prosto, szybko, bez brzydkiego formularza.": "Choose a poster, click a rating, and save. Simple, fast, no ugly form.",
+
+                "Oczekiwanie na reset multiwersum...": "Waiting for the multiverse reset...",
+                "Protokół: Avengers Doomsday Arrival": "Protocol: Avengers Doomsday Arrival",
+                "Wybierz": "Choose",
+                "film": "movie",
+                "Moje Ulubione": "My Favorites",
+                "Plakaty filmów, które już oceniłeś. Ocena jest mocno wyciągnięta na wierzch, żeby na telefonie od razu było widać co dałeś.": "Posters of the movies you have already rated. Your score is shown clearly, so it is easy to read on mobile.",
+                "🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "🔥 MOST ANTICIPATED MOVIE OF THE MONTH",
+
+                "NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "MOST ANTICIPATED MOVIE OF THE MONTH",
+                "Horror w nieskończonych żółtych korytarzach poziomu 0. Internetowy fenomen nadchodzi do kina.": "Horror inside the endless yellow corridors of Level 0. The internet phenomenon is coming to cinemas.",
+                "Premiera 2026": "2026 Premiere",
+                "Dni": "Days",
+                "Godz": "Hrs",
+                "Min": "Min",
+                "Sek": "Sec",
+                "Wejdź do": "Enter the",
+                "kina": "cinema",
+                "Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.": "Log in or create an account to save ratings, lists, and your profile.",
+
+                "Top": "Top",
+                "Premiery": "Premieres",
+
+                "Bądź": "Become",
+                "Legendą": "A Cinema Legend",
+                "Kina": "Cinema",
+                "Zapisz się do naszego newslettera, aby jako pierwszy otrzymywać powiadomienia o": "Subscribe to our newsletter to be the first to get updates about",
+                "największych premierach": "the biggest premieres",
+                "recenzje prosto z Hollywood oraz dostęp do unikalnych rankingów.": "reviews straight from Hollywood and access to exclusive rankings.",
+                "Twój adres e-mail...": "Your email address...",
+                "Aktywuj Subskrypcję": "Activate Subscription",
+
+                "KALENDARZ": "CALENDAR",
+                "PREMIER": "PREMIERES",
+                "Nadchodzące premiery": "Upcoming releases",
+                "Wielka premiera": "Major premiere",
+
+                "Miesięcy": "Months",
+                "Godzin": "Hours"
+            }
+        };
+
+        let currentLanguage = localStorage.getItem("movieHubLanguage") || "pl";
+
+        window.getLang = () => currentLanguage;
+
+        window.t = function(text) {
+            return currentLanguage === "pl"
+                ? text
+                : translations.en[text] || text;
+        };
+
+        window.movieCountText = function(count) {
+            if (currentLanguage === "en") {
+                return `${count} ${count === 1 ? "movie" : "movies"} in current view`;
+            }
+
+            return `${count} filmów w aktualnym widoku`;
+        };
+
+        window.listMovieCountText = function(count) {
+            if (currentLanguage === "en") {
+                return `${count} ${count === 1 ? "movie" : "movies"}`;
+            }
+
+            if (count === 1) return "1 film";
+            if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+                return `${count} filmy`;
+            }
+
+            return `${count} filmów`;
+        };
+
+        window.displayListName = function(name) {
+            if (currentLanguage === "en" && name === "Moje Ulubione") return "My Favorites";
+            return name;
+        };
+
+        window.translateSavedDate = function(dateText) {
+            if (currentLanguage === "pl") return dateText;
+
+            return String(dateText || "")
+                .replace("STYCZNIA", "JANUARY")
+                .replace("LUTEGO", "FEBRUARY")
+                .replace("MARCA", "MARCH")
+                .replace("KWIETNIA", "APRIL")
+                .replace("MAJA", "MAY")
+                .replace("CZERWCA", "JUNE")
+                .replace("LIPCA", "JULY")
+                .replace("SIERPNIA", "AUGUST")
+                .replace("WRZEŚNIA", "SEPTEMBER")
+                .replace("PAŹDZIERNIKA", "OCTOBER")
+                .replace("LISTOPADA", "NOVEMBER")
+                .replace("GRUDNIA", "DECEMBER");
+        };
+
+        window.applyLanguage = applyLanguage;
+
+        function translateTextNode(node) {
+            const original = node.textContent;
+            const trimmed = original.trim();
+
+            if (!trimmed) return;
+
+            if (!node.datasetOriginalText) {
+                node.datasetOriginalText = trimmed;
+            }
+
+            const sourceText = node.datasetOriginalText;
+
+            if (currentLanguage === "pl") {
+                node.textContent = original.replace(trimmed, sourceText);
+                return;
+            }
+
+            const translated = translations[currentLanguage]?.[sourceText];
+
+            if (translated) {
+                node.textContent = original.replace(trimmed, translated);
+            }
+        }
+
+        function applyLanguage() {
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("body *").forEach(el => {
+                if (["SCRIPT", "STYLE", "IFRAME", "IMG", "INPUT", "TEXTAREA"].includes(el.tagName)) return;
+
+                [...el.childNodes].forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        translateTextNode(node);
+                    }
+                });
+            });
+
+            document.querySelectorAll("[placeholder]").forEach(el => {
+                if (!el.datasetOriginalPlaceholder) {
+                    el.datasetOriginalPlaceholder = el.placeholder;
+                }
+
+                const original = el.datasetOriginalPlaceholder;
+                el.placeholder = currentLanguage === "pl"
+                    ? original
+                    : translations[currentLanguage]?.[original] || original;
+            });
+
+            const plBtn = document.getElementById("lang-pl-btn");
+            const enBtn = document.getElementById("lang-en-btn");
+
+            if (plBtn && enBtn) {
+                plBtn.className = currentLanguage === "pl"
+                    ? "rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest"
+                    : "rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest";
+
+                enBtn.className = currentLanguage === "en"
+                    ? "rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest"
+                    : "rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest";
+            }
+
+            const loginTitle = document.getElementById("login-modal-title");
+            if (loginTitle) {
+                loginTitle.innerHTML = currentLanguage === "en"
+                    ? 'Enter the <span class="text-green-500">cinema</span>'
+                    : 'Wejdź do <span class="text-green-500">kina</span>';
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem("movieHubLanguage", lang);
+            applyLanguage();
+            if (typeof updateCountdown === "function") {
+                updateCountdown();
+            }
+
+            if (currentMovieId) {
+                const movie = movies.find(m => m.id === currentMovieId);
+                if (movie) {
+                    const desc = document.getElementById("modal-desc");
+                    if (desc) desc.innerText = window.getMovieDescription(movie);
+                }
+            }
+        }
+
+        window.setLanguage = setLanguage;
+
+        const languageObserver = new MutationObserver(() => {
+            clearTimeout(window.__languageApplyTimer);
+            window.__languageApplyTimer = setTimeout(applyLanguage, 40);
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            applyLanguage();
+
+            languageObserver.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
 
     </script>
+
+    <div id="review-view-modal" class="modal-overlay" onclick="if(event.target === this) closeReviewView()">
+        <div class="review-view-content bg-black border border-zinc-800 w-full max-w-6xl rounded-[34px] overflow-hidden relative shadow-2xl shadow-black/80 grid md:grid-cols-[300px_1fr]">
+            <button onclick="closeReviewView()" class="absolute top-5 right-5 z-20 bg-white text-black w-9 h-9 rounded-full font-black hover:bg-green-500 transition">
+                ✕
+            </button>
+
+            <div class="bg-zinc-950 p-5 md:p-6 flex items-center justify-center">
+                <img id="review-view-img" src="" class="w-full max-w-[230px] rounded-[24px] border border-zinc-800 object-cover shadow-2xl">
+            </div>
+
+            <div class="p-6 md:p-9">
+                <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-3">Twoja opinia</p>
+
+                <h2 id="review-view-title" class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none mb-5"></h2>
+
+                <div class="flex flex-wrap gap-3 mb-7">
+                    <div class="rounded-2xl border border-green-500/30 bg-green-500/10 px-5 py-4">
+                        <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Twoja ocena</p>
+                        <strong id="review-view-user-rating" class="text-2xl font-black italic text-green-500">-</strong>
+                    </div>
+
+                    <div class="rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4">
+                        <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Film</p>
+                        <strong id="review-view-movie-rating" class="text-2xl font-black italic text-yellow-400">-</strong>
+                    </div>
+                </div>
+
+                <div class="rounded-[26px] border border-zinc-800 bg-zinc-950/80 p-5 md:p-6">
+                    <p id="review-view-text" class="review-full-text text-zinc-300 text-base md:text-lg leading-relaxed whitespace-pre-wrap"></p>
+                </div>
+
+                <button onclick="currentMovieId = document.getElementById('review-view-modal').dataset.movieId; closeReviewView(); openReviewDraft();"
+                    class="mt-5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl px-6 py-4 text-[10px] font-black uppercase tracking-widest">
+                    Edytuj opinię
+                </button>
+            </div>
+        </div>
+    </div>
 
 
     <div id="trailer-modal" class="modal-overlay trailer-modal" onclick="if(event.target === this) closeTrailerModal()">
@@ -4938,7 +6268,6 @@
             </div>
         </div>
     </div>
-
 
 </body>
 </html>
