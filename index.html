@@ -3133,7 +3133,7 @@
 
             <div class="mb-7">
                 <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Account</p>
-                <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white">
+                <h2 id="login-modal-title" class="text-3xl font-black italic uppercase tracking-tighter text-white">
                     Wejdź do <span class="text-green-500">kina</span>
                 </h2>
                 <p class="text-zinc-500 text-sm mt-2 font-medium">Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.</p>
@@ -3391,16 +3391,44 @@
             const target = new Date('December 18, 2026 00:00:00').getTime();
             const now = new Date().getTime();
             const diff = target - now;
-            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            const months = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44)));
+            const days = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24)));
+            const hours = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+            const mins = Math.max(0, Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+
+            const labels = window.getLang?.() === "en"
+                ? {
+                    months: "Months",
+                    days: "Days",
+                    hours: "Hours",
+                    minutes: "Min"
+                }
+                : {
+                    months: "Miesięcy",
+                    days: "Dni",
+                    hours: "Godzin",
+                    minutes: "Min"
+                };
 
             document.getElementById('countdown').innerHTML = `
-                <div><span class="doomsday-text">${months < 10 ? '0'+months : months}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Miesięcy</span></div>
-                <div><span class="doomsday-text">${days < 10 ? '0'+days : days}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Dni</span></div>
-                <div><span class="doomsday-text">${hours < 10 ? '0'+hours : hours}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Godzin</span></div>
-                <div><span class="doomsday-text">${mins < 10 ? '0'+mins : mins}</span><span class="block text-[10px] text-zinc-600 uppercase mt-2">Min</span></div>`;
+                <div>
+                    <span class="doomsday-text">${months < 10 ? '0' + months : months}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.months}</span>
+                </div>
+                <div>
+                    <span class="doomsday-text">${days < 10 ? '0' + days : days}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.days}</span>
+                </div>
+                <div>
+                    <span class="doomsday-text">${hours < 10 ? '0' + hours : hours}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.hours}</span>
+                </div>
+                <div>
+                    <span class="doomsday-text">${mins < 10 ? '0' + mins : mins}</span>
+                    <span class="block text-[10px] text-zinc-600 uppercase mt-2">${labels.minutes}</span>
+                </div>
+            `;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
@@ -3488,7 +3516,7 @@
                     <section class="rating-history-shell rounded-[32px] border border-zinc-800 p-8 md:p-12 text-center">
                         <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
                         <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white mb-4">
-                            Historia <span class="text-cyan-400">ocen</span>
+                            ${window.getLang?.() === "en" ? 'Rating <span class="text-cyan-400">history</span>' : 'Historia <span class="text-cyan-400">ocen</span>'}
                         </h2>
                         <p class="text-zinc-500 font-black uppercase tracking-widest text-xs">
                             Nie masz jeszcze zapisanych ocen.
@@ -3583,7 +3611,7 @@
 
                             <div class="mt-5 flex items-center justify-between gap-3">
                                 <p class="text-zinc-500 font-black uppercase tracking-widest text-[9px] leading-tight">
-                                    ${date}
+                                    ${window.translateSavedDate ? window.translateSavedDate(date) : date}
                                 </p>
 
                                 ${matchedMovie ? `
@@ -3604,6 +3632,7 @@
             `;
 
             container.innerHTML = html;
+            window.applyLanguage?.();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -3854,7 +3883,9 @@
             const grid = document.getElementById('library-grid');
             const count = document.getElementById('library-count');
 
-            if (count) count.textContent = `${filteredMovies.length} filmów w aktualnym widoku`;
+            if (count) count.textContent = window.movieCountText
+                ? window.movieCountText(filteredMovies.length)
+                : `${filteredMovies.length} filmów w aktualnym widoku`;
             if (!grid) return;
 
             if (data.length === 0) {
@@ -4128,7 +4159,7 @@
                             <p class="text-[9px] font-black text-green-500 uppercase tracking-[0.35em] mb-2">Movie Hub</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter">Watchlista</h3>
                         </div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${wl.length} filmów</span>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${window.listMovieCountText ? window.listMovieCountText(wl.length) : `${wl.length} filmów`}</span>
                     </div>
 
                     <div class="list-movie-grid">
@@ -4142,7 +4173,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                         <div>
                             <p class="text-[9px] font-black text-zinc-500 uppercase tracking-[0.35em] mb-2">Lista prywatna</p>
-                            <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${list.name}</h3>
+                            <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${window.displayListName ? window.displayListName(list.name) : list.name}</h3>
                         </div>
 
                         <div class="flex gap-2">
@@ -4167,6 +4198,7 @@
             `).join('');
 
             container.innerHTML = html;
+            window.applyLanguage?.();
         }
 
         
@@ -4404,6 +4436,36 @@
             { date: "2026-12-18", title: "Ice Age 6", genre: "Animacja / Komedia" }
         ];
 
+        function translateCalendarGenre(genre) {
+            if (window.getLang?.() !== "en") return genre;
+
+            const map = {
+                "Katastroficzny": "Disaster",
+                "Thriller": "Thriller",
+                "Horror": "Horror",
+                "Kryminał": "Crime",
+                "Dramat": "Drama",
+                "Komedia": "Comedy",
+                "Sci-Fi": "Sci-Fi",
+                "Animacja": "Animation",
+                "Przygodowy": "Adventure",
+                "Fantasy": "Fantasy",
+                "Biograficzny": "Biographical",
+                "Akcja": "Action",
+                "Star Wars": "Star Wars",
+                "Pixar": "Pixar",
+                "DC": "DC",
+                "Marvel": "Marvel",
+                "IMAX": "IMAX",
+                "Kaiju": "Kaiju"
+            };
+
+            return String(genre)
+                .split("/")
+                .map(part => map[part.trim()] || part.trim())
+                .join(" / ");
+        }
+
         function renderCalendar() {
             window.activeView = 'calendar';
             hideAll();
@@ -4414,7 +4476,9 @@
             if (calendarPage) calendarPage.classList.remove('hidden-section');
             if (!container) return;
 
-            const months = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
+            const months = window.getLang?.() === "en"
+                ? ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+                : ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
 
 
             // Główna struktura karty kalendarza z nagłówkiem
@@ -4424,7 +4488,10 @@
                     <!-- NAGŁÓWEK KALENDARZA -->
                     <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                         <h2 class="text-3xl sm:text-4xl font-black italic uppercase text-white tracking-tighter text-center sm:text-left">
-                            📅 KALENDARZ <span class="text-green-500">PREMIER</span>
+                            ${window.getLang?.() === "en"
+                                ? '📅 RELEASE <span class="text-green-500">CALENDAR</span>'
+                                : '📅 KALENDARZ <span class="text-green-500">PREMIER</span>'
+                            }
                         </h2>
                         <div class="bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-zinc-400">
                             Nadchodzące premiery
@@ -4471,7 +4538,7 @@
 
                                 <div class="flex items-center gap-2 flex-wrap mt-2">
                                     <span class="text-[9px] font-black text-zinc-400 uppercase tracking-widest px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800">
-                                        ${m.genre}
+                                        ${translateCalendarGenre(m.genre)}
                                     </span>
                                     ${isBigHit ? '<span class="text-[9px] font-black text-green-500 uppercase tracking-widest">Wielka premiera</span>' : ''}
                                 </div>
@@ -4489,6 +4556,7 @@
 
             // Wstrzyknięcie gotowego szablonu i płynny skok na górę strony
             container.innerHTML = html;
+            window.applyLanguage?.();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     
@@ -4508,7 +4576,7 @@
             
             // Nadchodzące - automatyczny cyberpunkowy pomarańczowy look i daty
             { id: "crime101", title: "Crime 101", rating: "6.8/10", isComing: false },
-            { id: "diuna3", title: "Diuna 3: Mesjasz", date: "26.12", isComing: true },
+            { id: "diuna3", title: "Dune 3", date: "26.12", isComing: true },
             { id: "F1", title: "F1", rating: "7.6/10", isComing: false },
             { id: "hailmarry", title: "Project Hail Mary", rating: "8.3/10", isComing: false },
             { id: "f4", title: "The Fantastic Four", rating: "6.8/10", isComing: false },
@@ -5240,7 +5308,10 @@
             document.getElementById("profile-data-nick").textContent = nick;
             document.getElementById("profile-data-email").textContent = email;
             document.getElementById("profile-data-provider").textContent = provider;
-            document.getElementById("profile-data-ratings").textContent = `${history.length} filmów`;
+            document.getElementById("profile-data-ratings").textContent =
+            window.listMovieCountText
+                ? window.listMovieCountText(history.length)
+                : `${history.length} filmów`;
 
             const avatarBox = document.getElementById("profile-data-avatar");
 
@@ -5546,7 +5617,7 @@
                     <section class="rounded-[32px] border border-zinc-800 bg-zinc-950/70 p-8 md:p-12 text-center">
                         <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
                         <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white mb-4">
-                            Moje <span class="text-cyan-400">recenzje</span>
+                            ${window.getLang?.() === "en" ? 'My <span class="text-cyan-400">reviews</span>' : 'Moje <span class="text-cyan-400">recenzje</span>'}
                         </h2>
                         <p class="text-zinc-500 font-black uppercase tracking-widest text-xs">Nie masz jeszcze opinii.</p>
                     </section>
@@ -5677,30 +5748,139 @@
 
         const movieTranslations = {
             en: {
-                m65: {
-                    desc: "Astronauts crash-land on Earth 65 million years in the past."
-                },
-                acrosstheverse: {
-                    desc: "Miles Morales travels across the Multiverse."
-                },
-                alienromolous: {
-                    desc: "A group of young people faces a xenomorph."
-                },
-                backrooms: {
-                    desc: "Paranormal events inside endless corridors."
-                },
-                doomsday: {
-                    desc: "Robert Downey Jr returns as Doctor Doom."
-                },
-                dune2: {
-                    desc: "A liberation war for the spice begins."
-                },
-                interstellar: {
-                    desc: "A journey through a black hole to save humanity."
-                },
-                inception: {
-                    desc: "A thief enters dreams to steal secrets."
-                }
+                m65: { desc: "Astronauts crash-land on Earth 65 million years in the past." },
+                acrosstheverse: { desc: "Miles Morales travels across the Multiverse." },
+                alienromolous: { desc: "A group of young people faces a xenomorph." },
+                amator: { desc: "A thriller about a man with nothing left to lose." },
+                ambulance: { desc: "A high-speed escape through Los Angeles after a failed robbery." },
+                anaconda: { desc: "A film crew faces a giant snake in the jungle." },
+                antman: { desc: "Ant-Man and the Wasp explore the mysterious Quantum Realm." },
+                avatar: { desc: "A journey to Pandora changes the fate of humans and Na'vi." },
+                avatar2: { desc: "The return to Pandora explores the oceans and the Sully family's survival." },
+                avatar3: { desc: "The third chapter of James Cameron's Avatar saga." },
+                backrooms: { desc: "Paranormal events inside endless, yellow corridors." },
+                badboysride: { desc: "Mike and Marcus go on the run while trying to clear their names." },
+                ballerina: { desc: "A spin-off from the John Wick universe about a deadly assassin." },
+                batman: { desc: "Bruce Wayne hunts the Riddler through Gotham's darkest secrets." },
+                blackadam: { desc: "An ancient antihero returns to the modern world." },
+                blackphone: { desc: "A kidnapped boy receives calls from the dead victims of a serial killer." },
+                blackphone2: { desc: "The continuation of the hit supernatural horror story." },
+                blackwidow: { desc: "Natasha Romanoff confronts the secrets of her past." },
+                bloodlines: { desc: "Death returns to claim a new generation of victims." },
+                bullettrain: { desc: "A group of assassins collide aboard a high-speed train in Japan." },
+                buzzastral: { desc: "The origin story of the legendary Space Ranger." },
+                capitanamerica: { desc: "Sam Wilson steps into the role of Captain America." },
+                carryon: { desc: "A terrorist blackmails an airport security officer." },
+                civilwar: { desc: "A divided America is seen through the eyes of war photographers." },
+                coldstorage: { desc: "A dangerous virus escapes from a secret facility." },
+                creed3: { desc: "Adonis Creed fights to protect his legacy." },
+                crime101: { desc: "A major jewel heist draws criminals and investigators into a dangerous game." },
+                deadpool: { desc: "Deadpool and Wolverine team up to save the multiverse." },
+                deadreckoning: { desc: "Ethan Hunt faces a powerful artificial intelligence." },
+                disclousureday: { desc: "Humanity faces its first confirmed contact with alien life." },
+                diuna3: { desc: "The next chapter in Paul Atreides' story." },
+                drstrange2: { desc: "Doctor Strange enters the madness of the multiverse." },
+                dominion: { desc: "Dinosaurs now live among humans across the world." },
+                doomsday: { desc: "Robert Downey Jr returns as Doctor Doom." },
+                dune: { desc: "The beginning of Paul Atreides' journey on Arrakis." },
+                dune2: { desc: "A war for freedom and control of the spice begins." },
+                elevation: { desc: "A world overrun by monsters fights to survive." },
+                endgame: { desc: "The Avengers face Thanos in their final battle." },
+                equalizer3: { desc: "Robert McCall finds a new fight in Italy." },
+                f1: { desc: "Brad Pitt stars as a veteran Formula 1 driver." },
+                f4: { desc: "Marvel's first family enters a new cinematic era." },
+                fall: { desc: "Two friends become trapped on top of a massive radio tower." },
+                fallguy: { desc: "Ryan Gosling plays a stuntman pulled into a dangerous mystery." },
+                fastX: { desc: "Dante Reyes seeks revenge against Dom Toretto and his family." },
+                ff9: { desc: "The Toretto brothers face each other in a global conflict." },
+                flash: { desc: "Barry Allen changes the timeline and faces the consequences." },
+                flightrisk: { desc: "A killer turns a flight into a deadly trap." },
+                fnaf1: { desc: "A night guard faces terrifying animatronics inside an old pizzeria." },
+                fnaf2: { desc: "The animatronics return for another nightmare." },
+                frendo: { desc: "A deadly toy turns playtime into horror." },
+                furiosa: { desc: "The origin story of young Furiosa in the Mad Max world." },
+                ghostbusters: { desc: "New York freezes under a supernatural threat." },
+                gladiator: { desc: "A betrayed Roman general becomes a gladiator." },
+                gladiator2: { desc: "Lucius returns to the arena in a new chapter of Rome's story." },
+                godzillavskong: { desc: "Two legendary titans collide." },
+                godzillaxkong: { desc: "Godzilla and Kong face a new threat together." },
+                grayman: { desc: "A CIA operative becomes the target of a global manhunt." },
+                greenland2: { desc: "Survivors fight to rebuild after a global catastrophe." },
+                guardians3: { desc: "The Guardians face their most personal mission yet." },
+                hailmarry: { desc: "Ryan Gosling must save Earth on a desperate space mission." },
+                iluzja3: { desc: "The Horsemen return for another impossible illusion." },
+                inception: { desc: "A thief enters dreams to steal and plant ideas." },
+                interstellar: { desc: "A journey through a wormhole may save humanity." },
+                johnwick4: { desc: "John Wick wages war against the High Table." },
+                joker: { desc: "The tragic birth of Gotham's most infamous villain." },
+                joker2: { desc: "Arthur Fleck and Harley Quinn descend into madness together." },
+                kraven: { desc: "Marvel's ruthless hunter begins his story." },
+                krzyk5: { desc: "Ghostface returns to terrorize a new group of victims." },
+                krzyk6: { desc: "Ghostface brings the horror to New York City." },
+                krzyk7: { desc: "Sidney Prescott returns for another confrontation with Ghostface." },
+                luther: { desc: "Luther escapes prison to hunt a dangerous killer." },
+                madameweb: { desc: "A woman discovers the power to see the future." },
+                majkel: { desc: "A biographical film about Michael Jackson." },
+                malpa: { desc: "A new era begins in the world of the apes." },
+                mandalorian: { desc: "A Star Wars adventure with the Mandalorian and Grogu." },
+                martian: { desc: "An astronaut fights to survive alone on Mars." },
+                martysupreme: { desc: "Timothee Chalamet stars in a story about a table tennis player." },
+                marvels: { desc: "Three Marvel heroes discover their powers are connected." },
+                matrix: { desc: "Neo returns to question reality once again." },
+                meg2: { desc: "Massive prehistoric sharks rise from the deep." },
+                megalopolis: { desc: "Francis Ford Coppola's ambitious vision of a city and its future." },
+                megan: { desc: "An AI doll becomes dangerously protective." },
+                megan2: { desc: "The killer robot doll returns in a new form." },
+                mercy: { desc: "A detective is pulled into a story of revenge and survival." },
+                mickey17: { desc: "Bong Joon-ho tells a sci-fi story about clones and identity." },
+                minecraft: { desc: "A blocky adventure inside the world of Minecraft." },
+                moonfall: { desc: "The Moon falls toward Earth, threatening all life." },
+                morbius: { desc: "A scientist becomes a living vampire." },
+                mortal: { desc: "Fighters enter a deadly tournament for the fate of worlds." },
+                mortal2: { desc: "The battle continues in the Mortal Kombat universe." },
+                nakedgun: { desc: "A reboot of the classic absurd crime comedy." },
+                niezniszczalni4: { desc: "The old team returns for another explosive mission." },
+                odyseja: { desc: "A grand cinematic journey inspired by a legendary odyssey." },
+                operationfortune: { desc: "Guy Ritchie's spies race to stop a dangerous deal." },
+                oppenheimer: { desc: "The story of the man behind the atomic bomb." },
+                pierwszygol: { desc: "A coach tries to transform one of the world's weakest football teams." },
+                plane: { desc: "A pilot makes an emergency landing in hostile territory." },
+                pomocdomowa: { desc: "Dark secrets surround a housemaid and the family she serves." },
+                predator: { desc: "A new Predator story begins in the Badlands." },
+                prey: { desc: "A young Comanche warrior faces the Predator in the 18th century." },
+                psychokiller: { desc: "A masked killer leaves terror behind." },
+                pszczelarz: { desc: "A former operative takes revenge after a brutal scam." },
+                rebirth: { desc: "A new era begins in the Jurassic World saga." },
+                redone: { desc: "A holiday rescue mission turns into a massive action adventure." },
+                renfield: { desc: "Dracula's servant tries to escape his toxic master." },
+                riseofgru: { desc: "The origin story of young Gru and his Minions." },
+                runningman: { desc: "A deadly game show turns survival into entertainment." },
+                sawx: { desc: "Jigsaw returns with a brutal game in Mexico." },
+                scarymovie: { desc: "The horror parody franchise returns." },
+                shangchi: { desc: "A martial arts master confronts his family legacy." },
+                shazam2: { desc: "Shazam and his family face the wrath of ancient gods." },
+                shelter: { desc: "A fight for survival begins inside a shelter." },
+                sisu: { desc: "A Finnish fighter takes on Nazi soldiers with brutal force." },
+                spidermanNWH: { desc: "Spider-Man faces villains from across the multiverse." },
+                spiral: { desc: "A new copycat killer continues Jigsaw's legacy." },
+                supergirl: { desc: "Superman's cousin begins her own heroic journey." },
+                superman: { desc: "A new beginning for Superman and the DC universe." },
+                darkknight: { desc: "Batman faces the Joker in Gotham's greatest trial." },
+                thorlove: { desc: "Thor faces a god-killer and reunites with Jane Foster." },
+                thunderbolts: { desc: "Marvel's outcasts are forced into a dangerous mission." },
+                topgun: { desc: "Maverick returns to train a new generation of pilots." },
+                transformers: { desc: "The Transformers join forces with the Maximals." },
+                trap: { desc: "A concert becomes a trap for a hidden killer." },
+                tron: { desc: "The world of the Grid returns with a new digital threat." },
+                ultimatum: { desc: "A man is blackmailed with a bomb inside his car." },
+                uncharted: { desc: "Nathan Drake begins a globe-trotting treasure hunt." },
+                venom2: { desc: "Venom faces the deadly Carnage." },
+                venom3: { desc: "Eddie and Venom face their final dance." },
+                wakandaforever: { desc: "Wakanda fights to protect its future after losing its king." },
+                warfare: { desc: "A tense story set in the chaos of war." },
+                weapons: { desc: "A dark and disturbing mystery unfolds." },
+                wielkimarsz: { desc: "A Stephen King adaptation about a deadly endurance march." },
+                wolfman: { desc: "A new version of the classic werewolf horror story." }
             }
         };
 
@@ -5815,9 +5995,20 @@
                 "HISTORIE,": "STORIES,",
                 "KTÓRE": "THAT",
                 "ZOSTAJĄ.": "STAY WITH YOU.",
+                "Historia": "Rating",
+                "ocen": "history",
+                "Moje": "My",
+                "recenzje": "reviews",
+                "OCEŃ": "Rate",
+                "Wybierz plakat, kliknij ocenę i zapisz. Prosto, szybko, bez brzydkiego formularza.": "Choose a poster, click a rating, and save. Simple, fast, no ugly form.",
 
                 "Oczekiwanie na reset multiwersum...": "Waiting for the multiverse reset...",
                 "Protokół: Avengers Doomsday Arrival": "Protocol: Avengers Doomsday Arrival",
+                "Wybierz": "Choose",
+                "film": "movie",
+                "Moje Ulubione": "My Favorites",
+                "Plakaty filmów, które już oceniłeś. Ocena jest mocno wyciągnięta na wierzch, żeby na telefonie od razu było widać co dałeś.": "Posters of the movies you have already rated. Your score is shown clearly, so it is easy to read on mobile.",
+                "🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "🔥 MOST ANTICIPATED MOVIE OF THE MONTH",
 
                 "NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "MOST ANTICIPATED MOVIE OF THE MONTH",
                 "Horror w nieskończonych żółtych korytarzach poziomu 0. Internetowy fenomen nadchodzi do kina.": "Horror inside the endless yellow corridors of Level 0. The internet phenomenon is coming to cinemas.",
@@ -5826,6 +6017,9 @@
                 "Godz": "Hrs",
                 "Min": "Min",
                 "Sek": "Sec",
+                "Wejdź do": "Enter the",
+                "kina": "cinema",
+                "Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.": "Log in or create an account to save ratings, lists, and your profile.",
 
                 "Top": "Top",
                 "Premiery": "Premieres",
@@ -5838,7 +6032,6 @@
                 "recenzje prosto z Hollywood oraz dostęp do unikalnych rankingów.": "reviews straight from Hollywood and access to exclusive rankings.",
                 "Twój adres e-mail...": "Your email address...",
                 "Aktywuj Subskrypcję": "Activate Subscription",
-                "NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "MOST ANTICIPATED FILM THIS MONTH",
 
                 "KALENDARZ": "CALENDAR",
                 "PREMIER": "PREMIERES",
@@ -5851,6 +6044,60 @@
         };
 
         let currentLanguage = localStorage.getItem("movieHubLanguage") || "pl";
+
+        window.getLang = () => currentLanguage;
+
+        window.t = function(text) {
+            return currentLanguage === "pl"
+                ? text
+                : translations.en[text] || text;
+        };
+
+        window.movieCountText = function(count) {
+            if (currentLanguage === "en") {
+                return `${count} ${count === 1 ? "movie" : "movies"} in current view`;
+            }
+
+            return `${count} filmów w aktualnym widoku`;
+        };
+
+        window.listMovieCountText = function(count) {
+            if (currentLanguage === "en") {
+                return `${count} ${count === 1 ? "movie" : "movies"}`;
+            }
+
+            if (count === 1) return "1 film";
+            if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+                return `${count} filmy`;
+            }
+
+            return `${count} filmów`;
+        };
+
+        window.displayListName = function(name) {
+            if (currentLanguage === "en" && name === "Moje Ulubione") return "My Favorites";
+            return name;
+        };
+
+        window.translateSavedDate = function(dateText) {
+            if (currentLanguage === "pl") return dateText;
+
+            return String(dateText || "")
+                .replace("STYCZNIA", "JANUARY")
+                .replace("LUTEGO", "FEBRUARY")
+                .replace("MARCA", "MARCH")
+                .replace("KWIETNIA", "APRIL")
+                .replace("MAJA", "MAY")
+                .replace("CZERWCA", "JUNE")
+                .replace("LIPCA", "JULY")
+                .replace("SIERPNIA", "AUGUST")
+                .replace("WRZEŚNIA", "SEPTEMBER")
+                .replace("PAŹDZIERNIKA", "OCTOBER")
+                .replace("LISTOPADA", "NOVEMBER")
+                .replace("GRUDNIA", "DECEMBER");
+        };
+
+        window.applyLanguage = applyLanguage;
 
         function translateTextNode(node) {
             const original = node.textContent;
@@ -5912,12 +6159,22 @@
                     ? "rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest"
                     : "rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest";
             }
+
+            const loginTitle = document.getElementById("login-modal-title");
+            if (loginTitle) {
+                loginTitle.innerHTML = currentLanguage === "en"
+                    ? 'Enter the <span class="text-green-500">cinema</span>'
+                    : 'Wejdź do <span class="text-green-500">kina</span>';
+            }
         }
 
         function setLanguage(lang) {
             currentLanguage = lang;
             localStorage.setItem("movieHubLanguage", lang);
             applyLanguage();
+            if (typeof updateCountdown === "function") {
+                updateCountdown();
+            }
 
             if (currentMovieId) {
                 const movie = movies.find(m => m.id === currentMovieId);
