@@ -2639,6 +2639,42 @@
             border-radius: 30px !important;
         }
     }
+        @media (max-width: 768px) {
+        #movie-modal .modal-poster-side {
+            top: 205px !important;
+        }
+
+        #modal-trailer-link,
+        #movie-review-action-btn {
+            width: auto !important;
+            max-width: none !important;
+            margin-right: 132px !important;
+        }
+
+        .movie-genres-footer .genre-rate-shortcut {
+            position: static !important;
+            inset: auto !important;
+            width: 100% !important;
+            margin-top: 14px !important;
+            justify-content: center !important;
+            border-radius: 20px !important;
+            padding: 13px 16px !important;
+            background: rgba(34,197,94,.12) !important;
+            border-color: rgba(34,197,94,.35) !important;
+            box-shadow: none !important;
+        }
+    }
+
+    @media (max-width: 390px) {
+        #movie-modal .modal-poster-side {
+            top: 215px !important;
+        }
+
+        #modal-trailer-link,
+        #movie-review-action-btn {
+            margin-right: 112px !important;
+        }
+    }
 
     </style>
 </head>
@@ -3081,11 +3117,6 @@
             <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition-colors">✕</button>
             <div class="modal-poster-side w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
-
-                <button id="modal-rate-shortcut" type="button" class="modal-rate-shortcut">
-                    <span>+</span>
-                    <strong>Oceń ten film</strong>
-                </button>
             </div>
             <div class="movie-modal-info flex-1 p-8 md:p-12 overflow-y-auto flex flex-col">
                 <div class="movie-main-content">
@@ -3122,6 +3153,15 @@
                 <div class="movie-genres-footer">
                     <p>Gatunek</p>
                     <div id="modal-genre-list" class="movie-genre-list"></div>
+                </div>
+                <div class="movie-genres-footer">
+                    <p>Gatunek</p>
+                    <div id="modal-genre-list" class="movie-genre-list"></div>
+
+                    <button id="modal-rate-shortcut" type="button" class="modal-rate-shortcut genre-rate-shortcut">
+                        <span>+</span>
+                        <strong>Oceń ten film</strong>
+                    </button>
                 </div>
             </div>
         </div>
