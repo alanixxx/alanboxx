@@ -235,6 +235,39 @@
         .poster-card:hover img {
             transform: scale(1.06);
         }
+        .poster-missing,
+        .poster-missing-card {
+            position: relative;
+        }
+        .poster-missing::before {
+            content: "Brak plakatu";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #18181b, #050505);
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+        .poster-missing-card::before {
+            content: "Brak plakatu";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #18181b, #050505);
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
         .poster-overlay {
             position: absolute;
             inset: auto 0 0 0;
@@ -3036,9 +3069,188 @@
                 font-size: 8px !important;
             }
         }
+
+        .admin-panel-shell {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, .92);
+            backdrop-filter: blur(18px);
+            padding: 18px;
+            overflow-y: auto;
+        }
+
+        .admin-panel-shell.open {
+            display: block;
+        }
+
+        .admin-field {
+            width: 100%;
+            border: 1px solid #27272a;
+            background: #09090b;
+            color: white;
+            border-radius: 16px;
+            padding: 14px 16px;
+            outline: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .admin-field:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, .12);
+        }
+
+        .admin-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+        }
+
+        .admin-movie-row {
+            display: grid;
+            grid-template-columns: 54px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid #27272a;
+            background: #09090b;
+            border-radius: 18px;
+            padding: 10px;
+        }
+
+        .admin-movie-row img {
+            width: 54px;
+            height: 78px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #18181b;
+        }
+
+        .featured-spider {
+            border-color: rgba(239, 68, 68, .35) !important;
+            box-shadow: 0 0 55px rgba(37, 99, 235, .14), 0 0 70px rgba(220, 38, 38, .1) !important;
+        }
+
+        .featured-spider::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 22% 18%, rgba(37, 99, 235, .24), transparent 34%),
+                radial-gradient(circle at 82% 74%, rgba(220, 38, 38, .28), transparent 38%);
+            pointer-events: none;
+        }
+
+        .featured-chip-spider span {
+            border-color: rgba(239, 68, 68, .35);
+            background: rgba(37, 99, 235, .16);
+            color: #bfdbfe;
+        }
+
+        .featured-title-accent {
+            background-image: linear-gradient(90deg, #ef4444, #2563eb);
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
+
+    <div id="admin-panel" class="admin-panel-shell" onclick="if(event.target === this) closeAdminPanel()">
+        <div class="max-w-5xl mx-auto bg-zinc-950 border border-zinc-800 rounded-[30px] shadow-2xl shadow-black overflow-hidden">
+            <div class="flex items-start justify-between gap-4 border-b border-zinc-800 p-5 md:p-7">
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Admin</p>
+                    <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white">Panel szefa</h2>
+                    <p class="text-zinc-500 text-xs md:text-sm font-bold mt-2 max-w-2xl">Dodawaj filmy do biblioteki bez grzebania w kodzie. Panel otworzysz przez dopisanie <span class="text-zinc-300">#admin</span> do adresu strony albo skrótem Ctrl + Shift + A.</p>
+                </div>
+                <button onclick="closeAdminPanel()" class="shrink-0 bg-white text-black hover:bg-green-500 w-10 h-10 rounded-full font-black transition" type="button">X</button>
+            </div>
+
+            <div id="admin-login" class="p-5 md:p-7">
+                <div class="max-w-md">
+                    <label class="admin-label" for="admin-password">Hasło</label>
+                    <input id="admin-password" class="admin-field" type="password" placeholder="Wpisz hasło admina" autocomplete="current-password">
+                    <button onclick="loginAdmin()" class="mt-4 bg-green-600 hover:bg-green-500 text-black rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest" type="button">Wejdź do panelu</button>
+                    <p id="admin-login-msg" class="mt-3 text-xs font-bold text-red-400"></p>
+                </div>
+            </div>
+
+            <div id="admin-content" class="hidden p-5 md:p-7">
+                <form id="admin-movie-form" class="grid lg:grid-cols-[1fr_260px] gap-6" onsubmit="saveAdminMovie(event)">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="admin-label" for="admin-title">Tytuł</label>
+                            <input id="admin-title" class="admin-field" required placeholder="np. Nowy film">
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-category">Gatunek</label>
+                            <select id="admin-category" class="admin-field">
+                                <option>Action</option>
+                                <option>Marvel</option>
+                                <option>Sci-Fi</option>
+                                <option>Horror</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-date">Rok</label>
+                            <input id="admin-date" class="admin-field" placeholder="2026">
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-rating">Ocena</label>
+                            <input id="admin-rating" class="admin-field" placeholder="7.5/10 albo COMING">
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-trailer">Trailer YouTube</label>
+                            <input id="admin-trailer" class="admin-field" placeholder="https://www.youtube.com/watch?v=...">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="admin-label" for="admin-desc">Opis</label>
+                            <textarea id="admin-desc" class="admin-field min-h-[120px] resize-y" placeholder="Krótki opis filmu"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-img-url">Adres plakatu</label>
+                            <input id="admin-img-url" class="admin-field" placeholder="./static/plakat.jpg albo https://...">
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-img-file">Albo wybierz zdjęcie</label>
+                            <input id="admin-img-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*" onchange="previewAdminImage()">
+                        </div>
+
+                        <div class="sm:col-span-2 flex flex-col sm:flex-row gap-3">
+                            <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest" type="submit">Dodaj film</button>
+                            <button onclick="resetAdminForm()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest" type="button">Wyczyść</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="admin-label">Podgląd plakatu</label>
+                        <div class="aspect-[2/3] rounded-[24px] border border-zinc-800 bg-black overflow-hidden">
+                            <img id="admin-img-preview" src="https://via.placeholder.com/300x450?text=Plakat" class="w-full h-full object-cover" alt="Podgląd plakatu">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="mt-8">
+                    <div class="flex items-center justify-between gap-3 mb-4">
+                        <h3 class="text-white font-black uppercase italic tracking-tight">Twoje dodane filmy</h3>
+                        <button onclick="logoutAdmin()" class="text-zinc-400 hover:text-white text-[10px] font-black uppercase tracking-widest" type="button">Wyloguj panel</button>
+                    </div>
+                    <div id="admin-movie-list" class="grid gap-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 md:p-5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center gap-4">
@@ -3215,7 +3427,7 @@
                 <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                     
                     <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 group-hover:border-yellow-500/40 transition-all duration-500">
-                        <img src="/static/backrooms.jpg" alt="The Backrooms Movie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=THE+BACKROOMS'">
+                        <img src="./static/spidermanbrandnewday.jpg" alt="Spider-Man: Brand New Day" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
                         
                     </div>
@@ -3223,15 +3435,15 @@
                     <div class="flex-grow text-center lg:text-left">
                         <h4 class="text-xs font-black tracking-widest text-yellow-500 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
-                            The Backrooms <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Movie</span>
+                            Spider-Man <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Brand New Day</span>
                         </h2>
                         <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
-                            Horror w nieskończonych żółtych korytarzach poziomu 0. Internetowy fenomen nadchodzi do kina.
+                            Nowa era Spider-Mana i najbardziej wyczekiwana premiera Marvela w kalendarzu.
                         </p>
 
                         <div class="backrooms-hype-row">
-                            <span>34K waiting</span>
-                            <span>19.06</span>
+                            <span>52K waiting</span>
+                            <span>31.07</span>
                             <span>Premiera 2026</span>
                         </div>
 
@@ -3896,7 +4108,374 @@
             {id:'iceage6',title:'Ice Age 6',category:'Sci-Fi',img:'./static/iceage6.jpg',rating:'COMING',date:'2026',trailer:'',desc:'Powrót Sida i spółki.'}
         ];
 
-        
+        const ADMIN_PASSWORD = 'szef123';
+        const ADMIN_MOVIES_KEY = 'movieHubAdminMovies';
+        const ADMIN_SESSION_KEY = 'movieHubAdminUnlocked';
+
+        function safeAdminText(value) {
+            return String(value || '').replace(/[<>]/g, '').trim();
+        }
+
+        function makeAdminMovieId(title) {
+            const slug = safeAdminText(title)
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .slice(0, 42) || 'film';
+
+            return `admin-${slug}-${Date.now().toString(36)}`;
+        }
+
+        function getAdminMovies() {
+            try {
+                return JSON.parse(localStorage.getItem(ADMIN_MOVIES_KEY)) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveAdminMovies(items) {
+            localStorage.setItem(ADMIN_MOVIES_KEY, JSON.stringify(items));
+        }
+
+        function loadAdminMoviesIntoLibrary() {
+            const adminMovies = getAdminMovies();
+            const existingIds = new Set(movies.map(movie => movie.id));
+
+            adminMovies.forEach(movie => {
+                if (!existingIds.has(movie.id)) {
+                    movies.push(movie);
+                    existingIds.add(movie.id);
+                }
+            });
+        }
+
+        loadAdminMoviesIntoLibrary();
+
+        function isAdminUnlocked() {
+            return sessionStorage.getItem(ADMIN_SESSION_KEY) === '1';
+        }
+
+        function openAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            if (!panel) return;
+
+            panel.classList.add('open');
+
+            if (isAdminUnlocked()) {
+                showAdminContent();
+            } else {
+                document.getElementById('admin-login')?.classList.remove('hidden');
+                document.getElementById('admin-content')?.classList.add('hidden');
+                setTimeout(() => document.getElementById('admin-password')?.focus(), 50);
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel')?.classList.remove('open');
+            if (location.hash === '#admin') {
+                history.replaceState(null, '', location.pathname + location.search);
+            }
+        }
+
+        function showAdminContent() {
+            document.getElementById('admin-login')?.classList.add('hidden');
+            document.getElementById('admin-content')?.classList.remove('hidden');
+            renderAdminMovieList();
+        }
+
+        function loginAdmin() {
+            const password = document.getElementById('admin-password')?.value || '';
+            const message = document.getElementById('admin-login-msg');
+
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+                if (message) message.textContent = '';
+                showAdminContent();
+                return;
+            }
+
+            if (message) message.textContent = 'Nieprawidlowe haslo.';
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem(ADMIN_SESSION_KEY);
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-login')?.classList.remove('hidden');
+            document.getElementById('admin-content')?.classList.add('hidden');
+        }
+
+        function getAdminImageSource() {
+            const fileInput = document.getElementById('admin-img-file');
+            const urlInput = document.getElementById('admin-img-url');
+            const file = fileInput?.files?.[0];
+
+            if (!file) {
+                return Promise.resolve(safeAdminText(urlInput?.value) || 'https://via.placeholder.com/300x450?text=Movie');
+            }
+
+            return new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function previewAdminImage() {
+            getAdminImageSource().then(src => {
+                const preview = document.getElementById('admin-img-preview');
+                if (preview) preview.src = src;
+            });
+        }
+
+        function resetAdminForm() {
+            document.getElementById('admin-movie-form')?.reset();
+            const preview = document.getElementById('admin-img-preview');
+            if (preview) preview.src = 'https://via.placeholder.com/300x450?text=Plakat';
+        }
+
+        async function saveAdminMovie(event) {
+            event.preventDefault();
+
+            const title = safeAdminText(document.getElementById('admin-title')?.value);
+            if (!title) return;
+
+            const movie = {
+                id: makeAdminMovieId(title),
+                title,
+                category: safeAdminText(document.getElementById('admin-category')?.value) || 'Action',
+                img: await getAdminImageSource(),
+                rating: safeAdminText(document.getElementById('admin-rating')?.value) || 'COMING',
+                date: safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
+                trailer: safeAdminText(document.getElementById('admin-trailer')?.value),
+                desc: safeAdminText(document.getElementById('admin-desc')?.value) || 'Brak opisu.'
+            };
+
+            const adminMovies = getAdminMovies();
+            adminMovies.unshift(movie);
+            saveAdminMovies(adminMovies);
+            movies.push(movie);
+            filteredMovies = [...movies];
+            currentPage = 1;
+            resetAdminForm();
+            renderAdminMovieList();
+
+            if (typeof renderTable === 'function') renderTable();
+            if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
+        }
+
+        function deleteAdminMovie(id) {
+            if (!confirm('Usunac ten film z dodanych pozycji?')) return;
+
+            saveAdminMovies(getAdminMovies().filter(movie => movie.id !== id));
+
+            const index = movies.findIndex(movie => movie.id === id);
+            if (index !== -1) movies.splice(index, 1);
+
+            filteredMovies = filteredMovies.filter(movie => movie.id !== id);
+            renderAdminMovieList();
+            if (typeof renderTable === 'function') renderTable();
+            if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
+        }
+
+        function renderAdminMovieList() {
+            const list = document.getElementById('admin-movie-list');
+            if (!list) return;
+
+            const adminMovies = getAdminMovies();
+
+            if (!adminMovies.length) {
+                list.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Nie masz jeszcze filmow dodanych przez panel.</div>';
+                return;
+            }
+
+            list.innerHTML = adminMovies.map(movie => `
+                <div class="admin-movie-row">
+                    <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${movie.title}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date} / ${movie.rating}</p>
+                    </div>
+                    <button onclick="deleteAdminMovie('${movie.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usun</button>
+                </div>
+            `).join('');
+        }
+
+        window.openAdminPanel = openAdminPanel;
+        window.closeAdminPanel = closeAdminPanel;
+        window.loginAdmin = loginAdmin;
+        window.logoutAdmin = logoutAdmin;
+        window.previewAdminImage = previewAdminImage;
+        window.resetAdminForm = resetAdminForm;
+        window.saveAdminMovie = saveAdminMovie;
+        window.deleteAdminMovie = deleteAdminMovie;
+
+        window.addEventListener('hashchange', () => {
+            if (location.hash === '#admin') openAdminPanel();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (location.hash === '#admin') openAdminPanel();
+
+            document.addEventListener('keydown', event => {
+                if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'a') {
+                    event.preventDefault();
+                    openAdminPanel();
+                }
+            });
+        });
+
+        function installLocalAuthFallback() {
+            if (typeof window.loginWithEmail === 'function' && typeof window.registerWithEmail === 'function') return;
+
+            const LOCAL_USERS_KEY = 'movieHubLocalUsers';
+            const LOCAL_SESSION_KEY = 'movieHubLocalSession';
+
+            function getLocalUsers() {
+                try {
+                    return JSON.parse(localStorage.getItem(LOCAL_USERS_KEY)) || {};
+                } catch {
+                    return {};
+                }
+            }
+
+            function saveLocalUsers(users) {
+                localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
+            }
+
+            function getLocalUser() {
+                const email = localStorage.getItem(LOCAL_SESSION_KEY);
+                if (!email) return null;
+                return getLocalUsers()[email] || null;
+            }
+
+            function setLocalUser(user) {
+                if (user) {
+                    localStorage.setItem(LOCAL_SESSION_KEY, user.email);
+                } else {
+                    localStorage.removeItem(LOCAL_SESSION_KEY);
+                }
+
+                window.movieHubData = window.movieHubData || {
+                    watchlist: [],
+                    userLists: [],
+                    ratingHistory: []
+                };
+
+                if (typeof refreshUserScopedData === 'function') refreshUserScopedData();
+                if (typeof window.updateAuthUI === 'function') window.updateAuthUI();
+            }
+
+            if (typeof window.showAuthError !== 'function') {
+                window.showAuthError = function(message) {
+                    const errorBox = document.getElementById('auth-error');
+                    if (!errorBox) {
+                        alert(message);
+                        return;
+                    }
+
+                    errorBox.textContent = message;
+                    errorBox.classList.remove('hidden');
+                };
+            }
+
+            if (typeof window.clearAuthError !== 'function') {
+                window.clearAuthError = function() {
+                    const errorBox = document.getElementById('auth-error');
+                    if (!errorBox) return;
+
+                    errorBox.textContent = '';
+                    errorBox.classList.add('hidden');
+                };
+            }
+
+            window.getFirebaseUserId = () => getLocalUser()?.email || 'guest';
+            window.isLoggedIn = () => !!getLocalUser();
+
+            window.updateAuthUI = function() {
+                const authSection = document.getElementById('auth-section');
+                const menuLogin = document.getElementById('app-menu-login-btn');
+                const menuLogout = document.getElementById('app-menu-logout-btn');
+                const menuUserCard = document.getElementById('app-menu-user-card');
+                const mainMenuButton = document.getElementById('main-menu-button');
+                const user = getLocalUser();
+
+                if (authSection) {
+                    authSection.classList.remove('opacity-0', 'pointer-events-none');
+                    authSection.innerHTML = user
+                        ? `<button onclick="openAppMenu()" class="profile-pill-btn"><div class="profile-avatar-box"><div class="bg-green-600 text-black flex items-center justify-center font-black uppercase">${user.nick.charAt(0)}</div><span class="profile-avatar-status"></span></div><span>${user.nick}</span></button>`
+                        : `<button onclick="toggleModal('login-modal', true)" class="guest-login-btn"><svg class="guest-human-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="7.5" r="4.2" stroke="currentColor" stroke-width="1.7"></circle><path d="M4.5 21c1.6-4.2 4.2-6.2 7.5-6.2s5.9 2 7.5 6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg><span>Zaloguj się</span></button>`;
+                }
+
+                if (mainMenuButton) mainMenuButton.style.display = user ? 'none' : 'flex';
+                if (menuLogin) menuLogin.style.display = user ? 'none' : 'block';
+                if (menuLogout) menuLogout.style.display = user ? 'block' : 'none';
+                if (menuUserCard) {
+                    menuUserCard.innerHTML = user
+                        ? `<div class="w-14 h-14 rounded-2xl bg-green-600 text-black flex items-center justify-center font-black text-xl">${user.nick.charAt(0)}</div><div class="min-w-0"><p class="text-[9px] font-black uppercase tracking-widest text-green-500 mb-1">Online lokalnie</p><h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">${user.nick}</h3><p class="text-zinc-500 text-xs mt-2 truncate">${user.email}</p></div>`
+                        : `<div class="w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center"><svg class="guest-human-icon text-yellow-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="7.5" r="4.2" stroke="currentColor" stroke-width="1.7"></circle><path d="M4.5 21c1.6-4.2 4.2-6.2 7.5-6.2s5.9 2 7.5 6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></div><div><p class="text-[9px] font-black uppercase tracking-widest text-yellow-400 mb-1">Tryb gościa</p><h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3><p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać dane.</p></div>`;
+                }
+            };
+
+            window.registerWithEmail = function(event) {
+                event.preventDefault();
+                window.clearAuthError();
+
+                const nick = document.getElementById('register-nick')?.value.trim();
+                const email = document.getElementById('register-email')?.value.trim().toLowerCase();
+                const password = document.getElementById('register-password')?.value;
+                const users = getLocalUsers();
+
+                if (!nick || !email || !password || password.length < 6) {
+                    showAuthError('Uzupełnij dane. Hasło musi mieć minimum 6 znaków.');
+                    return;
+                }
+
+                users[email] = { nick, email, password };
+                saveLocalUsers(users);
+                setLocalUser(users[email]);
+                toggleModal('login-modal', false);
+            };
+
+            window.loginWithEmail = function(event) {
+                event.preventDefault();
+                window.clearAuthError();
+
+                const email = document.getElementById('login-email')?.value.trim().toLowerCase();
+                const password = document.getElementById('login-password')?.value;
+                const user = getLocalUsers()[email];
+
+                if (!user || user.password !== password) {
+                    showAuthError('Nieprawidłowy e-mail albo hasło.');
+                    return;
+                }
+
+                setLocalUser(user);
+                toggleModal('login-modal', false);
+            };
+
+            window.loginWithGoogle = function() {
+                showAuthError('Google działa tylko w wersji z Firebase/serwerem. W tym pliku użyj e-maila.');
+            };
+
+            window.logout = function() {
+                setLocalUser(null);
+            };
+
+            window.showUserData = function() {
+                const user = getLocalUser();
+                if (!user) return;
+                alert(`Nick: ${user.nick}\nE-mail: ${user.email}\nTryb: lokalny`);
+            };
+
+            setLocalUser(getLocalUser());
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(installLocalAuthFallback, 1500);
+        });
 
         let currentMovieId = null;
         let currentPage = 1;
@@ -3951,7 +4530,7 @@
                 <article class="poster-card group">
                     <button onclick="openModalById('${m.id}')" class="block w-full text-left">
                         <div class="poster-img-wrap">
-                            <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                            <img src="${m.img}" alt="${m.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                         </div>
 
                         <div class="poster-overlay">
@@ -4489,7 +5068,7 @@
                     <article class="poster-card group ${isLiked ? 'is-watchlisted' : ''}">
                         <button onclick="openModalById('${m.id}')" class="block w-full text-left">
                             <div class="poster-img-wrap">
-                                <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                                <img src="${m.img}" alt="${m.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                             </div>
 
                             <div class="poster-overlay">
@@ -5189,7 +5768,7 @@
                 card.setAttribute('onclick', `openModalById('${movie.id}')`);
                 
                 card.innerHTML = `
-                    <img src="/static/${movie.id}.jpg" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/260x390?text=${movie.id}'">
+                    <img src="./static/${movie.id}.jpg" alt="${movie.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing-card')">
                     <div class="p-4">
                         <h3 class="font-black text-white uppercase italic tracking-tight text-sm truncate">${movie.title}</h3>
                         <div class="mt-3 flex flex-col items-start gap-1">
