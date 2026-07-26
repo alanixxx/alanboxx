@@ -3241,6 +3241,8 @@
                     </div>
                 </form>
 
+                
+
                 <div class="mt-8">
                     <div class="flex items-center justify-between gap-3 mb-4">
                         <h3 class="text-white font-black uppercase italic tracking-tight">Twoje dodane filmy</h3>
@@ -3426,16 +3428,16 @@
 
                 <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                     
-                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 group-hover:border-yellow-500/40 transition-all duration-500">
+                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 group-hover:border-red-500/40 transition-all duration-500">
                         <img src="./static/spidermanbrandnewday.jpg" alt="Spider-Man: Brand New Day" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
                         
                     </div>
 
                     <div class="flex-grow text-center lg:text-left">
-                        <h4 class="text-xs font-black tracking-widest text-yellow-500 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
+                        <h4 class="text-xs font-black tracking-widest text-red-500 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
-                            Spider-Man <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Brand New Day</span>
+                            Spider-Man <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">Brand New Day</span>
                         </h2>
                         <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
                             Nowa era Spider-Mana i najbardziej wyczekiwana premiera Marvela w kalendarzu.
@@ -3453,7 +3455,7 @@
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Dni</div>
                             </div>
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
-                                <div id="countdown-hours" class="text-2xl md:text-3xl font-black text-yellow-500 italic leading-none">00</div>
+                                <div id="countdown-hours" class="text-2xl md:text-3xl font-black text-red-500 italic leading-none">00</div>
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Godz</div>
                             </div>
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
@@ -3461,7 +3463,7 @@
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Min</div>
                             </div>
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
-                                <div id="countdown-seconds" class="text-2xl md:text-3xl font-black text-amber-500 italic leading-none">00</div>
+                                <div id="countdown-seconds" class="text-2xl md:text-3xl font-black text-red-600 italic leading-none">00</div>
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Sek</div>
                             </div>
                         </div>
@@ -5470,7 +5472,7 @@
         // Funkcja odliczania do premiery The Backrooms Movie
         function initMovieCountdown() {
             // 19 Czerwca 2026, godzina 20:00
-            const targetDate = new Date(2026, 5, 19, 20, 0, 0).getTime();
+            const targetDate = new Date(2026, 6, 31, 20, 0, 0).getTime();
 
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
