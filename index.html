@@ -3131,6 +3131,50 @@
             background: #18181b;
         }
 
+        .admin-toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .admin-toast {
+            background: #18181b;
+            border: 1px solid #22c55e;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 20px rgba(34,197,94,.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: transform .3s ease, opacity .3s ease;
+            max-width: 320px;
+        }
+        .admin-toast.show { transform: translateX(0); opacity: 1; }
+        .admin-toast.error { border-color: #ef4444; }
+        .admin-toast .toast-icon {
+            width: 22px; height: 22px; border-radius: 999px;
+            background: #22c55e; color: black;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .admin-toast.error .toast-icon { background: #ef4444; color: white; }
+
+        @media (max-width: 640px) {
+            .admin-toast-container { top: 12px; right: 12px; left: 12px; }
+            .admin-toast { max-width: none; }
+        }
+
         .featured-spider {
             border-color: rgba(239, 68, 68, .35) !important;
             box-shadow: 0 0 55px rgba(37, 99, 235, .14), 0 0 70px rgba(220, 38, 38, .1) !important;
@@ -3160,6 +3204,7 @@
 <body class="selection:bg-green-600">
 
     <div id="admin-panel" class="admin-panel-shell" onclick="if(event.target === this) closeAdminPanel()">
+        <div id="admin-toast-container" class="admin-toast-container"></div>
         <div class="max-w-5xl mx-auto bg-zinc-950 border border-zinc-800 rounded-[30px] shadow-2xl shadow-black overflow-hidden">
             <div class="flex items-start justify-between gap-4 border-b border-zinc-800 p-5 md:p-7">
                 <div>
@@ -3183,6 +3228,7 @@
                 <div class="flex flex-wrap gap-3 mb-6">
                     <button id="admin-add-tab" onclick="setAdminTab('add')" class="bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Dodaj film</button>
                     <button id="admin-manage-tab" onclick="setAdminTab('manage')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Zarządzaj katalogiem</button>
+                    <button id="admin-bangers-tab" onclick="setAdminTab('bangers')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Główny slider</button>
                 </div>
 
                 <form id="admin-movie-form" class="grid lg:grid-cols-[1fr_260px] gap-6" onsubmit="saveAdminMovie(event)">
@@ -3247,11 +3293,30 @@
                 </form>
 
                 <div id="admin-manage-section" class="mt-8 hidden">
-                    <div class="flex items-center justify-between gap-3 mb-4">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
                         <h3 class="text-white font-black uppercase italic tracking-tight">Zarządzanie filmami</h3>
                         <button onclick="logoutAdmin()" class="text-zinc-400 hover:text-white text-[10px] font-black uppercase tracking-widest" type="button">Wyloguj panel</button>
                     </div>
+
+                    <input id="admin-manage-search" class="admin-field mb-4" type="text" placeholder="Szukaj filmu po nazwie..." oninput="handleAdminManageSearch(this.value)">
+
                     <div id="admin-movie-list" class="grid gap-3"></div>
+                    <div id="admin-movie-pagination" class="flex justify-center items-center gap-2 mt-6 flex-wrap"></div>
+                </div>
+
+                <div id="admin-bangers-section" class="mt-8 hidden">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+                        <div>
+                            <h3 class="text-white font-black uppercase italic tracking-tight">Filmy na głównym sliderze</h3>
+                            <p class="text-zinc-500 text-xs font-bold mt-1">Maksymalnie 15 filmów. Strzałki zmieniają kolejność.</p>
+                        </div>
+                        <span id="admin-bangers-count" class="text-[10px] font-black uppercase tracking-widest text-zinc-500">0 / 15</span>
+                    </div>
+
+                    <input id="admin-bangers-search" class="admin-field mb-4" type="text" placeholder="Szukaj filmu do dodania..." oninput="renderAdminBangerSearchResults(this.value)">
+                    <div id="admin-bangers-search-results" class="grid gap-2 mb-6"></div>
+
+                    <div id="admin-bangers-selected-list" class="grid gap-3"></div>
                 </div>
             </div>
         </div>
@@ -3440,7 +3505,7 @@
                     <div class="flex-grow text-center lg:text-left">
                         <h4 class="text-xs font-black tracking-widest text-yellow-500 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
-                            Spider-Man <span class="text-zinc-500 font-light font-sans">/</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Brand New Day</span>
+                            Spider-Man <span class="text-zinc-500 font-light font-sans">/</span> <span class="inline-block pr-2 text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500">Brand New Day</span>
                         </h2>
                         <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
                             Nowa era Spider-Mana i najbardziej wyczekiwana premiera Marvela w kalendarzu.
@@ -3872,7 +3937,6 @@
             { id: 'krzyk7', title: 'Scream VII', category: 'Horror', img: './static/krzyk7.jpg', rating: '5.5/10', date: '2026', trailer: 'https://www.youtube.com/watch?v=UJrghaPJ0RY', desc: 'Powrót Sidney Prescott.' },
             { id: 'luther', title: 'Luther: Fallen Sun', category: 'Action', img: './static/luther.jpg', rating: '6.4/10', date: '2023', trailer: 'https://www.youtube.com/watch?v=EGK5qtXuc1Q', desc: 'Luther ucieka z więzienia.' },
             { id: 'madameweb', title: 'Madame Web', category: 'Marvel', img: './static/madameweb.jpg', rating: '3.9/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=s_76M4c4LTo', desc: 'Widzenie przyszłości.' },
-            { id: 'majkel', title: 'Michael', category: 'Action', img: './static/majkel.jpg', rating: '7.7/10', date: '2026', trailer: 'https://www.youtube.com/watch?v=3zOLzsbOleM', desc: 'Biopic MJ.' },
             { id: 'malpa', title: 'Kingdom of the Apes', category: 'Sci-Fi', img: './static/malpa.jpg', rating: '7.0/10', date: '2024', trailer: 'https://www.youtube.com/watch?v=XtFI7SNtVpY', desc: 'Era małp.' },
             { id: 'mandalorian', title: 'Mandalorian & Grogu', category: 'Sci-Fi', img: './static/mandalorian.jpg', rating: 'COMING', date: '2026', trailer: 'https://www.youtube.com/watch?v=uwild1rw7Aw', desc: 'Gwiezdne Wojny.' },
             { id: 'martian', title: 'The Martian', category: 'Sci-Fi', img: './static/martian.jpg', rating: '8.0/10', date: '2015', trailer: 'https://www.youtube.com/watch?v=ej3ioOneTy8', desc: 'Samotny na Marsie.' },
@@ -4121,6 +4185,9 @@
         let editingAdminMovieId = null;
         let editingAdminImageSource = '';
         let activeAdminTab = 'add';
+        let adminManageSearch = '';
+        let adminManagePage = 1;
+        const ADMIN_MANAGE_PAGE_SIZE = 8;
 
         function safeAdminText(value) {
             return String(value || '').replace(/[<>]/g, '').trim();
@@ -4213,6 +4280,24 @@
             return sessionStorage.getItem(ADMIN_SESSION_KEY) === '1';
         }
 
+        function showAdminToast(message, type = 'success') {
+            const container = document.getElementById('admin-toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `admin-toast ${type === 'error' ? 'error' : ''}`;
+            toast.innerHTML = `<span class="toast-icon">${type === 'error' ? '!' : '✓'}</span><span>${escapeAdminHtml(message)}</span>`;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
+        }
+        window.showAdminToast = showAdminToast;
+
         function openAdminPanel() {
             const panel = document.getElementById('admin-panel');
             if (!panel) return;
@@ -4243,24 +4328,28 @@
         }
 
         function setAdminTab(tab) {
-            activeAdminTab = tab === 'manage' ? 'manage' : 'add';
+            activeAdminTab = ['add', 'manage', 'bangers'].includes(tab) ? tab : 'add';
 
             const addTab = document.getElementById('admin-add-tab');
             const manageTab = document.getElementById('admin-manage-tab');
+            const bangersTab = document.getElementById('admin-bangers-tab');
             const form = document.getElementById('admin-movie-form');
             const manageSection = document.getElementById('admin-manage-section');
+            const bangersSection = document.getElementById('admin-bangers-section');
 
-            if (addTab) addTab.className = activeAdminTab === 'add'
-                ? 'bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest'
-                : 'bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
+            const activeClass = 'bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
+            const inactiveClass = 'bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
 
-            if (manageTab) manageTab.className = activeAdminTab === 'manage'
-                ? 'bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest'
-                : 'bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
+            if (addTab) addTab.className = activeAdminTab === 'add' ? activeClass : inactiveClass;
+            if (manageTab) manageTab.className = activeAdminTab === 'manage' ? activeClass : inactiveClass;
+            if (bangersTab) bangersTab.className = activeAdminTab === 'bangers' ? activeClass : inactiveClass;
 
             form?.classList.toggle('hidden', activeAdminTab !== 'add');
             manageSection?.classList.toggle('hidden', activeAdminTab !== 'manage');
+            bangersSection?.classList.toggle('hidden', activeAdminTab !== 'bangers');
+
             if (activeAdminTab === 'manage') renderAdminMovieList();
+            if (activeAdminTab === 'bangers') fetchSharedBangerIds().then(renderAdminBangerList);
         }
 
         function loginAdmin() {
@@ -4373,12 +4462,15 @@
             renderAdminMovieList();
             setAdminTab('manage');
 
+            showAdminToast(`Zapisano film: "${movie.title}"`);
             if (typeof renderTable === 'function') renderTable();
             if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
         }
 
         async function deleteAdminMovie(id) {
             if (!confirm('Usunac ten film z dodanych pozycji?')) return;
+
+            const removedTitle = (getAdminMovies().find(m => m.id === id) || movies.find(m => m.id === id))?.title || 'Film';
 
             saveAdminMovies(getAdminMovies().filter(movie => movie.id !== id));
             if (typeof window.deleteCloudAdminMovie === 'function') await window.deleteCloudAdminMovie(id);
@@ -4396,6 +4488,8 @@
             renderAdminMovieList();
             if (typeof renderTable === 'function') renderTable();
             if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
+
+            showAdminToast(`Usunięto: "${removedTitle}"`);
         }
 
         function editAdminMovie(id) {
@@ -4440,9 +4534,17 @@
             if (index !== -1) movies[index] = updatedMovie;
             filteredMovies = [...movies];
             renderAdminMovieList();
+            showAdminToast(`Zaktualizowano: "${updatedMovie.title}"`);
             if (typeof renderTable === 'function') renderTable();
             if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
         }
+
+        function handleAdminManageSearch(value) {
+            adminManageSearch = value.toLowerCase().trim();
+            adminManagePage = 1;
+            renderAdminMovieList();
+        }
+        window.handleAdminManageSearch = handleAdminManageSearch;
 
         function renderAdminMovieList() {
             const list = document.getElementById('admin-movie-list');
@@ -4450,17 +4552,30 @@
 
             const adminMovies = getAdminMovies();
             const overriddenIds = new Set(adminMovies.map(movie => movie.id));
-            const displayMovies = [
+            let displayMovies = [
                 ...adminMovies,
                 ...movies.filter(movie => !overriddenIds.has(movie.id))
             ];
 
+            if (adminManageSearch) {
+                displayMovies = displayMovies.filter(movie =>
+                    movie.title.toLowerCase().includes(adminManageSearch)
+                );
+            }
+
             if (!displayMovies.length) {
-                list.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Katalog jest pusty.</div>';
+                list.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Brak filmów pasujących do wyszukiwania.</div>';
+                renderAdminManagePagination(0);
                 return;
             }
 
-            list.innerHTML = displayMovies.map(movie => {
+            const totalPages = Math.max(1, Math.ceil(displayMovies.length / ADMIN_MANAGE_PAGE_SIZE));
+            if (adminManagePage > totalPages) adminManagePage = totalPages;
+
+            const startIndex = (adminManagePage - 1) * ADMIN_MANAGE_PAGE_SIZE;
+            const pageMovies = displayMovies.slice(startIndex, startIndex + ADMIN_MANAGE_PAGE_SIZE);
+
+            list.innerHTML = pageMovies.map(movie => {
                 const isAdminManaged = overriddenIds.has(movie.id);
 
                 return `
@@ -4483,6 +4598,37 @@
                 </div>
             `;
             }).join('');
+
+            renderAdminManagePagination(totalPages);
+        }
+
+        function renderAdminManagePagination(totalPages) {
+            const box = document.getElementById('admin-movie-pagination');
+            if (!box) return;
+
+            if (totalPages <= 1) {
+                box.innerHTML = '';
+                return;
+            }
+
+            let buttons = [];
+            const range = 1;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= adminManagePage - range && i <= adminManagePage + range)) {
+                    buttons.push(`
+                        <button onclick="adminManagePage=${i};renderAdminMovieList()"
+                            class="w-9 h-9 rounded-xl border font-black italic text-xs transition
+                            ${i === adminManagePage ? 'bg-green-600 text-black border-green-600' : 'border-zinc-800 text-zinc-500 bg-zinc-950 hover:text-white'}">
+                            ${i}
+                        </button>
+                    `);
+                } else if (i === adminManagePage - range - 1 || i === adminManagePage + range + 1) {
+                    buttons.push(`<span class="text-zinc-700 px-1">...</span>`);
+                }
+            }
+
+            box.innerHTML = buttons.join('');
         }
 
         window.openAdminPanel = openAdminPanel;
@@ -4494,6 +4640,7 @@
         window.resetAdminForm = resetAdminForm;
         window.saveAdminMovie = saveAdminMovie;
         window.deleteAdminMovie = deleteAdminMovie;
+        window.renderAdminMovieList = renderAdminMovieList;
         window.editAdminMovie = editAdminMovie;
         window.quickUpdateAdminMovie = quickUpdateAdminMovie;
         window.loadAdminMoviesIntoLibrary = loadAdminMoviesIntoLibrary;
@@ -5281,15 +5428,9 @@
                             </button>
                         </div>
 
-                        <div class="poster-actions poster-actions-bottom absolute left-3 right-3 bottom-3 flex gap-2">
-                            <select onclick="event.stopPropagation()" onchange="addToList('${m.id}', this.value); this.value='';"
-                                class="min-w-0 flex-1 bg-black/80 border border-white/10 rounded-xl px-2 py-2 text-[9px] font-black uppercase text-white outline-none">
-                                <option value="">+ Lista</option>
-                                ${userLists.map((l, i) => `<option value="${i}">${l.name}</option>`).join('')}
-                            </select>
-
+                        <div class="poster-actions poster-actions-bottom absolute left-3 right-3 bottom-3 flex justify-end">
                             <button onclick="openModalById('${m.id}')"
-                                class="bg-green-600 hover:bg-green-500 text-black rounded-xl px-4 py-2 text-[9px] font-black uppercase">
+                                class="bg-green-600 hover:bg-green-500 text-black rounded-xl px-5 py-2 text-[9px] font-black uppercase">
                                 Opis
                             </button>
                         </div>
@@ -5656,7 +5797,7 @@
         // Funkcja odliczania do premiery The Backrooms Movie
         function initMovieCountdown() {
             // 19 Czerwca 2026, godzina 20:00
-            const targetDate = new Date(2026, 6, 31, 20, 0, 0).getTime();
+            const targetDate = new Date(2026, 6, 31, 0, 0, 0).getTime();
 
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
@@ -5914,55 +6055,89 @@
     
 
         // Twoja lista 21 bangerów zintegrowana z folderem /static/
-        const myBangers = [
-            { id: "avatar2", title: "Avatar: The Way of Water", rating: "7.6/10", isComing: false },
-            { id: "backrooms", title: "The Backrooms", date: "19.06", isComing: true },
-            { id: "batman", title: "The Batman", rating: "7.8/10", isComing: false },
-            { id: "creed3", title: "Creed III", rating: "7.2/10", isComing: false },
-            { id: "interstellar", title: "Interstellar", rating: "8.7/10", isComing: false },
-            { id: "acrosstheverse", title: "Across the Spider-Verse", rating: "8.4/10", isComing: false },
-            { id: "martian", title: "The Martian", rating: "8.0/10", isComing: false },
-            { id: "odyseja", title: "Oddysey", date: "17.07", isComing: true },
-            { id: "trap", title: "Trap", rating: "6.5/10", isComing: false },
-            { id: "rebirth", title: "Rebirth", rating: "7.0/10", isComing: false },
-            
-            // Nadchodzące - automatyczny cyberpunkowy pomarańczowy look i daty
-            { id: "crime101", title: "Crime 101", rating: "6.8/10", isComing: false },
-            { id: "diuna3", title: "Dune 3", date: "26.12", isComing: true },
-            { id: "hailmarry", title: "Project Hail Mary", rating: "8.3/10", isComing: false },
-            { id: "f4", title: "The Fantastic Four", rating: "6.8/10", isComing: false },
-            { id: "doomsday", title: "Avengers: Doomsday", date: "19.12", isComing: true },
-            { id: "mandalorian", title: "The Mandalorian & Grogu", date: "22.05", isComing: true },
-            { id: "weapons", title: "Weapons", rating: "7.4/10", isComing: false },
-            { id: "scarymovie", title: "Scary Movie Reboot", date: "12.06", isComing: true }
-        ];
+        
+
+        const BANGERS_KEY = 'movieHubBangers';
+        const DEFAULT_BANGER_IDS = ['avatar2','backrooms','batman','creed3','interstellar','acrosstheverse','martian','odyseja','trap','rebirth','crime101','diuna3','hailmarry','f4','doomsday'].slice(0, 15);
+
+        let bangerIdsCache = null;
+
+        function getLocalBangerIds() {
+            try {
+                return JSON.parse(localStorage.getItem(BANGERS_KEY)) || null;
+            } catch {
+                return null;
+            }
+        }
+
+        function saveLocalBangerIds(ids) {
+            localStorage.setItem(BANGERS_KEY, JSON.stringify(ids));
+        }
+
+        async function fetchSharedBangerIds() {
+            if (typeof window.loadCloudBangerIds === 'function') {
+                const cloudIds = await window.loadCloudBangerIds();
+                if (cloudIds && cloudIds.length) {
+                    bangerIdsCache = cloudIds;
+                    saveLocalBangerIds(cloudIds);
+                    return cloudIds;
+                }
+            }
+
+            const localIds = getLocalBangerIds();
+            bangerIdsCache = (localIds && localIds.length) ? localIds : [...DEFAULT_BANGER_IDS];
+            return bangerIdsCache;
+        }
+
+        function getBangerIds() {
+            return bangerIdsCache || getLocalBangerIds() || [...DEFAULT_BANGER_IDS];
+        }
+
+        async function saveBangerIds(ids) {
+            bangerIdsCache = ids;
+            saveLocalBangerIds(ids);
+            if (typeof window.saveCloudBangerIds === 'function') {
+                await window.saveCloudBangerIds(ids);
+            }
+        }
+
+        async function loadBangersIntoSlider() {
+            await fetchSharedBangerIds();
+            renderBangerSlider();
+        }
+        window.loadBangersIntoSlider = loadBangersIntoSlider;
 
         function renderBangerSlider() {
             const sliderTrack = document.getElementById('main-slider');
             if (!sliderTrack) return;
-            
+
             sliderTrack.innerHTML = '';
-            
-            // Dublujemy listę dla płynnego zapętlenia
-            const infiniteBangers = [...myBangers, ...myBangers];
-            
+
+            const ids = getBangerIds();
+            const bangerMovies = ids.map(id => movies.find(m => m.id === id)).filter(Boolean);
+            if (!bangerMovies.length) return;
+
+            const infiniteBangers = [...bangerMovies, ...bangerMovies];
+
             infiniteBangers.forEach(movie => {
+                const isComing = String(movie.rating).toUpperCase().includes('COMING');
+                const releaseInfo = upcomingReleases.find(r => r.title.toLowerCase() === movie.title.toLowerCase());
+                const dateLabel = releaseInfo ? `${releaseInfo.date.slice(8, 10)}.${releaseInfo.date.slice(5, 7)}` : '';
+
                 const card = document.createElement('div');
-                card.className = `movie-card ${movie.isComing ? 'coming-soon' : ''}`;
-                
-                // 🔥 TUTAJ: Automatycznie aktywujemy klikanie i przekazujemy ID filmu do Twojej funkcji
+                card.className = `movie-card ${isComing ? 'coming-soon' : ''}`;
                 card.setAttribute('onclick', `openModalById('${movie.id}')`);
-                
+
                 card.innerHTML = `
-                    <img src="./static/${movie.id}.jpg" alt="${movie.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing-card')">
+                    <img src="${movie.img}" alt="${movie.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing-card')">
                     <div class="p-4">
                         <h3 class="font-black text-white uppercase italic tracking-tight text-sm truncate">${movie.title}</h3>
                         <div class="mt-3 flex flex-col items-start gap-1">
-                            ${movie.isComing ? 
+                            ${isComing ?
                                 `<div class="banger-coming-row">
                                     <span class="coming-badge">COMING SOON</span>
-                                    <span class="banger-date">${movie.date}</span>
-                                </div>` : 
+                                    <span class="banger-date">${dateLabel}</span>
+                                </div>` :
                                 `<span class="text-green-500 font-bold text-xs">★ ${movie.rating}</span>`
                             }
                         </div>
@@ -5972,8 +6147,12 @@
             });
         }
 
-        // Odpalamy ładowanie bangerów
+        bangerIdsCache = getLocalBangerIds() || [...DEFAULT_BANGER_IDS];
         renderBangerSlider();
+        loadBangersIntoSlider();
+
+        // Odpalamy ładowanie bangerów
+        
 
         // ===================================================
         // 🔥 SYSTEM DYNAMICZNEGO DODAWANIA I RENDEROWANIA OCEN
@@ -6306,6 +6485,26 @@
             return items.sort((a, b) => (b.updatedAtMs || 0) - (a.updatedAtMs || 0));
         };
 
+        window.loadCloudBangerIds = async function() {
+            const snap = await getDoc(doc(db, "siteConfig", "bangers"));
+            if (!snap.exists()) return null;
+            const data = snap.data();
+            return Array.isArray(data.ids) ? data.ids : null;
+        };
+
+        window.saveCloudBangerIds = async function(ids) {
+            await setDoc(doc(db, "siteConfig", "bangers"), {
+                ids,
+                updatedAt: serverTimestamp()
+            }, { merge: true });
+        };
+
+        if (typeof window.loadBangersIntoSlider === "function") {
+            window.loadBangersIntoSlider().catch(error => {
+                console.warn("Nie udało się wczytać sliderów bangers z Firestore:", error);
+            });
+        }
+
         window.saveCloudAdminMovie = async function(movie) {
             const cleanMovie = normalizeCloudAdminMovie({
                 ...movie,
@@ -6327,6 +6526,107 @@
                 console.warn("Nie udalo sie wczytac katalogu admina z Firestore:", error);
             });
         }
+
+        function renderAdminBangerSearchResults(query) {
+            const box = document.getElementById('admin-bangers-search-results');
+            if (!box) return;
+
+            const q = query.toLowerCase().trim();
+            if (!q) { box.innerHTML = ''; return; }
+
+            const selected = getBangerIds();
+            const matches = movies.filter(m => m.title.toLowerCase().includes(q) && !selected.includes(m.id)).slice(0, 8);
+
+            if (!matches.length) {
+                box.innerHTML = '<div class="text-zinc-600 text-xs font-bold p-3">Brak wyników.</div>';
+                return;
+            }
+
+            box.innerHTML = matches.map(m => `
+                <button type="button" onclick="addBangerMovie('${m.id}')" class="admin-movie-row text-left">
+                    <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${m.title}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${m.category} / ${m.date}</p>
+                    </div>
+                    <span class="text-green-500 text-[10px] font-black uppercase">+ Dodaj</span>
+                </button>
+            `).join('');
+        }
+
+        async function addBangerMovie(id) {
+            const ids = getBangerIds();
+            if (ids.includes(id)) return;
+
+            if (ids.length >= 15) {
+                showAdminToast('Masz już 15 filmów na sliderze. Usuń jeden, żeby dodać nowy.', 'error');
+                return;
+            }
+
+            await saveBangerIds([...ids, id]);
+            renderAdminBangerList();
+            document.getElementById('admin-bangers-search').value = '';
+            document.getElementById('admin-bangers-search-results').innerHTML = '';
+            renderBangerSlider();
+            showAdminToast('Dodano do głównego slidera.');
+        }
+
+        async function removeBangerMovie(id) {
+            await saveBangerIds(getBangerIds().filter(x => x !== id));
+            renderAdminBangerList();
+            renderBangerSlider();
+        }
+
+        async function moveBangerMovie(index, direction) {
+            const ids = [...getBangerIds()];
+            const target = index + direction;
+            if (target < 0 || target >= ids.length) return;
+
+            [ids[index], ids[target]] = [ids[target], ids[index]];
+            await saveBangerIds(ids);
+            renderAdminBangerList();
+            renderBangerSlider();
+        }
+
+        function renderAdminBangerList() {
+            const list = document.getElementById('admin-bangers-selected-list');
+            const count = document.getElementById('admin-bangers-count');
+            if (!list) return;
+
+            const ids = getBangerIds();
+            if (count) count.textContent = `${ids.length} / 15`;
+
+            if (!ids.length) {
+                list.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Brak filmów na sliderze. Dodaj coś wyżej.</div>';
+                return;
+            }
+
+            list.innerHTML = ids.map((id, index) => {
+                const movie = movies.find(m => m.id === id);
+                if (!movie) return '';
+
+                return `
+                    <div class="admin-movie-row">
+                        <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                        <div class="min-w-0">
+                            <p class="text-white font-black uppercase italic leading-tight truncate">${movie.title}</p>
+                            <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date} / ${movie.rating}</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="moveBangerMovie(${index}, -1)" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-3 py-3 text-[10px] font-black" type="button">↑</button>
+                            <button onclick="moveBangerMovie(${index}, 1)" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-3 py-3 text-[10px] font-black" type="button">↓</button>
+                            <button onclick="removeBangerMovie('${movie.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.renderAdminBangerSearchResults = renderAdminBangerSearchResults;
+        window.addBangerMovie = addBangerMovie;
+        window.removeBangerMovie = removeBangerMovie;
+        window.moveBangerMovie = moveBangerMovie;
+        window.renderAdminBangerList = renderAdminBangerList;
 
         let currentFirebaseUser = null;
         let currentUserProfile = null;
