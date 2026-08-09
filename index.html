@@ -274,6 +274,15 @@
             padding: 18px;
             background: linear-gradient(to top, rgba(0,0,0,.96), rgba(0,0,0,.55), transparent);
         }
+        .poster-rating-chip {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 0, 0, .72);
+            backdrop-filter: blur(4px);
+            padding: 4px 8px;
+            border-radius: 999px;
+            width: fit-content;
+        }
         .poster-actions {
             opacity: 0;
             transform: translateY(8px);
@@ -3229,6 +3238,7 @@
                     <button id="admin-add-tab" onclick="setAdminTab('add')" class="bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Dodaj film</button>
                     <button id="admin-manage-tab" onclick="setAdminTab('manage')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Zarządzaj katalogiem</button>
                     <button id="admin-bangers-tab" onclick="setAdminTab('bangers')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Główny slider</button>
+                    <button id="admin-calendar-tab" onclick="setAdminTab('calendar')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Kalendarz premier</button>
                 </div>
 
                 <form id="admin-movie-form" class="grid lg:grid-cols-[1fr_260px] gap-6" onsubmit="saveAdminMovie(event)">
@@ -3317,6 +3327,19 @@
                     <div id="admin-bangers-search-results" class="grid gap-2 mb-6"></div>
 
                     <div id="admin-bangers-selected-list" class="grid gap-3"></div>
+                </div>
+                <div id="admin-calendar-section" class="mt-8 hidden">
+                    <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Kalendarz premier</h3>
+                    <p class="text-zinc-500 text-xs font-bold mb-4">Dodawaj/edytuj premiery — widzą to wszyscy, także z telefonu.</p>
+
+                    <form onsubmit="saveAdminCalendarRelease(event)" class="grid sm:grid-cols-[160px_1fr_1fr_auto] gap-3 mb-6">
+                        <input id="admin-cal-date" type="date" class="admin-field" required>
+                        <input id="admin-cal-title" class="admin-field" placeholder="Tytuł filmu" required>
+                        <input id="admin-cal-genre" class="admin-field" placeholder="Gatunek">
+                        <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Zapisz</button>
+                    </form>
+
+                    <div id="admin-calendar-list" class="grid gap-3"></div>
                 </div>
             </div>
         </div>
@@ -3680,7 +3703,7 @@
 
     <div id="lists-page" class="hidden-section max-w-7xl mx-auto p-5 py-12">
         <div class="flex justify-between items-center mb-10">
-            <h2 class="text-4xl font-black italic uppercase text-green-500 tracking-tighter">Twoje Listy</h2>
+            <h2 class="text-4xl font-black italic uppercase text-green-500 tracking-tighter">Moje Listy</h2>
             <button onclick="createNewList()" class="bg-green-600 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-xs tracking-widest">Nowa lista +</button>
         </div>
         <div id="custom-lists-container" class="space-y-12"></div>
@@ -4328,7 +4351,7 @@
         }
 
         function setAdminTab(tab) {
-            activeAdminTab = ['add', 'manage', 'bangers'].includes(tab) ? tab : 'add';
+            activeAdminTab = ['add', 'manage', 'bangers', 'calendar'].includes(tab) ? tab : 'add';
 
             const addTab = document.getElementById('admin-add-tab');
             const manageTab = document.getElementById('admin-manage-tab');
@@ -4336,6 +4359,7 @@
             const form = document.getElementById('admin-movie-form');
             const manageSection = document.getElementById('admin-manage-section');
             const bangersSection = document.getElementById('admin-bangers-section');
+            const calendarTab = document.getElementById('admin-calendar-tab');
 
             const activeClass = 'bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
             const inactiveClass = 'bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
@@ -4343,13 +4367,16 @@
             if (addTab) addTab.className = activeAdminTab === 'add' ? activeClass : inactiveClass;
             if (manageTab) manageTab.className = activeAdminTab === 'manage' ? activeClass : inactiveClass;
             if (bangersTab) bangersTab.className = activeAdminTab === 'bangers' ? activeClass : inactiveClass;
+            if (calendarTab) calendarTab.className = activeAdminTab === 'calendar' ? activeClass : inactiveClass;
 
             form?.classList.toggle('hidden', activeAdminTab !== 'add');
             manageSection?.classList.toggle('hidden', activeAdminTab !== 'manage');
             bangersSection?.classList.toggle('hidden', activeAdminTab !== 'bangers');
+            document.getElementById('admin-calendar-section')?.classList.toggle('hidden', activeAdminTab !== 'calendar');
 
             if (activeAdminTab === 'manage') renderAdminMovieList();
             if (activeAdminTab === 'bangers') fetchSharedBangerIds().then(renderAdminBangerList);
+            if (activeAdminTab === 'calendar') fetchSharedCalendarOverrides().then(ov => { rebuildLiveCalendarReleases(ov); renderAdminCalendarList(); });
         }
 
         function loginAdmin() {
@@ -5275,6 +5302,7 @@
         }
 
         async function saveStudioRating() {
+            await waitForAuthReady();
             if (!selectedStudioMovieId) {
                 alert('Najpierw wybierz film.');
                 return;
@@ -5406,10 +5434,10 @@
 
                             <div class="poster-overlay">
                                 <div class="flex items-center justify-between gap-2 mb-2">
-                                    <span class="text-[9px] font-black uppercase tracking-widest ${coming ? 'text-orange-400' : 'text-green-400'}">
+                                    <span class="poster-rating-chip text-[9px] font-black uppercase tracking-widest ${coming ? 'text-orange-400' : 'text-green-400'}">
                                         ${coming ? 'Coming Soon' : '★ ' + m.rating}
                                     </span>
-                                    <span class="text-[9px] font-black uppercase tracking-widest text-zinc-400">${m.date}</span>
+                                    <span class="poster-rating-chip text-[9px] font-black uppercase tracking-widest text-zinc-400">${m.date}</span>
                                 </div>
 
                                 <h3 class="text-white font-black italic uppercase text-sm md:text-base leading-tight line-clamp-2">
@@ -5849,6 +5877,12 @@
 
         
 
+        function slugCalendarId(title, date) {
+            const slug = String(title || '').toLowerCase().normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '').slice(0, 40) || 'premiera';
+            return `orig-${slug}-${(date || '').replace(/-/g, '')}`;
+        }
         
         const upcomingReleases = [
            // STYCZEŃ
@@ -5929,6 +5963,184 @@
             { date: "2026-12-18", title: "Ice Age 6", genre: "Animacja / Komedia" }
         ];
 
+        upcomingReleases.forEach(r => { if (!r.id) r.id = slugCalendarId(r.title, r.date); });
+
+
+        const ADMIN_CALENDAR_KEY = 'movieHubAdminCalendar';
+        let adminCalendarCache = null; // null = jeszcze nie wczytane, [] = wczytane i puste
+        let editingCalendarId = null;
+        let liveCalendarReleases = [...upcomingReleases]; // to, co faktycznie renderujemy
+
+        function makeCalendarId(title) {
+            const slug = safeAdminText(title).toLowerCase().normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '').slice(0, 32) || 'premiera';
+            return `cal-${slug}-${Date.now().toString(36)}`;
+        }
+
+        function getAdminCalendarOverrides() {
+            if (adminCalendarCache !== null) return adminCalendarCache;
+            try { return JSON.parse(localStorage.getItem(ADMIN_CALENDAR_KEY)) || []; } catch { return []; }
+        }
+
+        function saveAdminCalendarOverridesLocal(items) {
+            adminCalendarCache = items;
+            localStorage.setItem(ADMIN_CALENDAR_KEY, JSON.stringify(items));
+        }
+
+        async function fetchSharedCalendarOverrides() {
+            if (typeof window.loadCloudCalendarReleases === 'function') {
+                try {
+                    const cloud = await window.loadCloudCalendarReleases();
+                    saveAdminCalendarOverridesLocal(cloud || []);
+                    return getAdminCalendarOverrides();
+                } catch (err) {
+                    console.warn('Nie udało się pobrać kalendarza z chmury:', err);
+                }
+            }
+            return getAdminCalendarOverrides();
+        }
+
+        // Łączy bazową (twardo wpisaną) listę z nadpisaniami/dodatkami z panelu admina.
+        // Nadpisanie z tym samym id co oryginał -> zmienia datę/tytuł/gatunek albo ukrywa (hidden:true).
+        // Wpis bez odpowiadającego oryginału -> nowa, własna premiera admina.
+        function rebuildLiveCalendarReleases(overrides = getAdminCalendarOverrides()) {
+            const overrideMap = new Map(overrides.map(o => [o.id, o]));
+            const result = [];
+
+            upcomingReleases.forEach(orig => {
+                const ov = overrideMap.get(orig.id);
+                if (ov) {
+                    if (!ov.hidden) result.push({ id: orig.id, date: ov.date || orig.date, title: ov.title || orig.title, genre: ov.genre ?? orig.genre });
+                    overrideMap.delete(orig.id);
+                } else {
+                    result.push({ ...orig });
+                }
+            });
+
+            // to, co zostało w overrideMap, to zupełnie nowe premiery dodane w adminie
+            overrideMap.forEach(ov => { if (!ov.hidden) result.push({ id: ov.id, date: ov.date, title: ov.title, genre: ov.genre || '' }); });
+
+            result.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+            liveCalendarReleases = result;
+            return result;
+        }
+
+        async function loadAdminCalendarIntoApp() {
+            const overrides = await fetchSharedCalendarOverrides();
+            rebuildLiveCalendarReleases(overrides);
+            if (window.activeView === 'calendar' && typeof renderCalendar === 'function') renderCalendar();
+        }
+        window.loadAdminCalendarIntoApp = loadAdminCalendarIntoApp;
+        loadAdminCalendarIntoApp();
+
+        async function saveAdminCalendarRelease(event) {
+            event.preventDefault();
+            const date = document.getElementById('admin-cal-date')?.value;
+            const title = safeAdminText(document.getElementById('admin-cal-title')?.value);
+            const genre = safeAdminText(document.getElementById('admin-cal-genre')?.value);
+            if (!date || !title) return;
+
+            const override = { id: editingCalendarId || makeCalendarId(title), date, title, genre, hidden: false };
+            const items = getAdminCalendarOverrides().filter(r => r.id !== override.id);
+            items.push(override);
+            saveAdminCalendarOverridesLocal(items);
+            rebuildLiveCalendarReleases(items);
+
+            editingCalendarId = null;
+            document.getElementById('admin-cal-date').value = '';
+            document.getElementById('admin-cal-title').value = '';
+            document.getElementById('admin-cal-genre').value = '';
+            renderAdminCalendarList();
+            if (window.activeView === 'calendar') renderCalendar();
+
+            // Zapis do chmury osobno - błąd tutaj NIE cofa już wykonanej zmiany lokalnej ani nie blokuje UI
+            if (typeof window.saveCloudCalendarRelease === 'function') {
+                try {
+                    await window.saveCloudCalendarRelease(override);
+                    showAdminToast(`Zapisano premierę: "${override.title}"`);
+                } catch (err) {
+                    console.error('Firestore save error (calendarReleases):', err);
+                    showAdminToast(`Zapisano lokalnie, ale synchronizacja do chmury nie powiodła się (sprawdź reguły Firestore dla "calendarReleases")`, 'error');
+                }
+            } else {
+                showAdminToast(`Zapisano premierę: "${override.title}"`);
+            }
+        }
+
+        async function deleteAdminCalendarRelease(id) {
+            if (!confirm('Usunąć/ukryć tę premierę z kalendarza?')) return;
+
+            const isOriginal = upcomingReleases.some(r => r.id === id);
+            const items = getAdminCalendarOverrides().filter(r => r.id !== id);
+
+            if (isOriginal) {
+                // oryginału nie da się fizycznie usunąć z kodu - zapisujemy nadpisanie "hidden"
+                items.push({ id, hidden: true });
+            }
+
+            saveAdminCalendarOverridesLocal(items);
+            rebuildLiveCalendarReleases(items);
+            renderAdminCalendarList();
+            if (window.activeView === 'calendar') renderCalendar();
+
+            if (typeof window.saveCloudCalendarRelease === 'function' || typeof window.deleteCloudCalendarRelease === 'function') {
+                try {
+                    if (isOriginal && typeof window.saveCloudCalendarRelease === 'function') {
+                        await window.saveCloudCalendarRelease({ id, hidden: true });
+                    } else if (typeof window.deleteCloudCalendarRelease === 'function') {
+                        await window.deleteCloudCalendarRelease(id);
+                    }
+                    showAdminToast('Usunięto premierę.');
+                } catch (err) {
+                    console.error('Firestore delete error (calendarReleases):', err);
+                    showAdminToast('Usunięto lokalnie, ale synchronizacja do chmury nie powiodła się', 'error');
+                }
+            } else {
+                showAdminToast('Usunięto premierę.');
+            }
+        }
+
+        function editAdminCalendarRelease(id) {
+            const item = liveCalendarReleases.find(r => r.id === id);
+            if (!item) return;
+            editingCalendarId = item.id;
+            document.getElementById('admin-cal-date').value = item.date || '';
+            document.getElementById('admin-cal-title').value = item.title || '';
+            document.getElementById('admin-cal-genre').value = item.genre || '';
+            document.getElementById('admin-cal-date')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function renderAdminCalendarList() {
+            const box = document.getElementById('admin-calendar-list');
+            if (!box) return;
+
+            const items = [...liveCalendarReleases].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+            if (!items.length) {
+                box.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Kalendarz jest pusty.</div>';
+                return;
+            }
+
+            box.innerHTML = items.map(item => `
+                <div class="admin-movie-row" style="grid-template-columns: 1fr auto;">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.date)} • ${escapeAdminHtml(item.genre || 'Brak gatunku')}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editAdminCalendarRelease('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Edytuj</button>
+                        <button onclick="deleteAdminCalendarRelease('${item.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.saveAdminCalendarRelease = saveAdminCalendarRelease;
+        window.deleteAdminCalendarRelease = deleteAdminCalendarRelease;
+        window.editAdminCalendarRelease = editAdminCalendarRelease;
+        window.renderAdminCalendarList = renderAdminCalendarList;
+
         function translateCalendarGenre(genre) {
             if (window.getLang?.() !== "en") return genre;
 
@@ -5996,7 +6208,7 @@
             `;
 
             // Mapowanie Twojej tablicy danych upcomingReleases
-            html += upcomingReleases.map(m => {
+            html += liveCalendarReleases.map(m => {
                 const d = new Date(m.date);
                 const day = d.getDate();
                 const month = months[d.getMonth()];
@@ -6121,7 +6333,7 @@
 
             infiniteBangers.forEach(movie => {
                 const isComing = String(movie.rating).toUpperCase().includes('COMING');
-                const releaseInfo = upcomingReleases.find(r => r.title.toLowerCase() === movie.title.toLowerCase());
+                const releaseInfo = liveCalendarReleases.find(r => r.title.toLowerCase() === movie.title.toLowerCase());
                 const dateLabel = releaseInfo ? `${releaseInfo.date.slice(8, 10)}.${releaseInfo.date.slice(5, 7)}` : '';
 
                 const card = document.createElement('div');
@@ -6485,6 +6697,36 @@
             return items.sort((a, b) => (b.updatedAtMs || 0) - (a.updatedAtMs || 0));
         };
 
+        function normalizeCloudCalendarRelease(r) {
+            return {
+                id: String(r.id || ''),
+                date: String(r.date || ''),
+                title: String(r.title || 'Premiera'),
+                genre: String(r.genre || ''),
+                updatedAtMs: Number(r.updatedAtMs || Date.now())
+            };
+        }
+
+        window.loadCloudCalendarReleases = async function() {
+            const snap = await getDocs(collection(db, "calendarReleases"));
+            const items = [];
+            snap.forEach(d => items.push(normalizeCloudCalendarRelease({ id: d.id, ...d.data() })));
+            return items.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+        };
+
+        window.saveCloudCalendarRelease = async function(release) {
+            const clean = normalizeCloudCalendarRelease({ ...release, updatedAtMs: Date.now() });
+            await setDoc(doc(db, "calendarReleases", clean.id), { ...clean, updatedAt: serverTimestamp() }, { merge: true });
+        };
+
+        window.deleteCloudCalendarRelease = async function(id) {
+            await deleteDoc(doc(db, "calendarReleases", id));
+        };
+
+        if (typeof window.loadAdminCalendarIntoApp === "function") {
+            window.loadAdminCalendarIntoApp().catch(console.warn);
+        }
+
         window.loadCloudBangerIds = async function() {
             const snap = await getDoc(doc(db, "siteConfig", "bangers"));
             if (!snap.exists()) return null;
@@ -6651,6 +6893,14 @@
 
         let movieHubData = emptyMovieHubData();
         window.movieHubData = movieHubData;
+
+        let authReady = false;
+        let authReadyResolvers = [];
+        function waitForAuthReady() {
+            if (authReady) return Promise.resolve();
+            return new Promise(resolve => authReadyResolvers.push(resolve));
+        }
+        window.waitForAuthReady = waitForAuthReady;
 
         function getGuestId() {
             let guestId = localStorage.getItem("movieHubGuestId");
@@ -7253,6 +7503,7 @@
         };
 
         window.saveReviewPage = async function() {
+            await waitForAuthReady();
             if (!currentFirebaseUser || !currentMovieId) return;
 
             const movie = movies.find(m => m.id === currentMovieId);
@@ -7478,6 +7729,12 @@
             if (window.activeView === "calendar" && typeof renderCalendar === "function") renderCalendar();
             if (window.activeView === "ratings" && typeof renderRatingHistory === "function") renderRatingHistory();
             if (window.activeView === "library" && typeof renderTable === "function") renderTable();
+
+            if (!authReady) {
+                authReady = true;
+                authReadyResolvers.forEach(fn => fn());
+                authReadyResolvers = [];
+            }
         });
 
         const movieTranslations = {
@@ -7692,7 +7949,7 @@
                 "Średnia": "Average",
                 "Twoja ocena": "Your rating",
                 "Usuń ocenę": "Delete rating",
-                "Twoje Listy": "Your Lists",
+                "Moje Listy": "My Lists",
                 "Nowa lista +": "New list +",
                 "Watchlista": "Watchlist",
                 "Lista prywatna": "Private list",
