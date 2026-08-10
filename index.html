@@ -274,6 +274,29 @@
             padding: 18px;
             background: linear-gradient(to top, rgba(0,0,0,.96), rgba(0,0,0,.55), transparent);
         }
+
+        #lists-page .poster-card .poster-overlay {
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity .25s ease, transform .25s ease;
+            pointer-events: none;
+        }
+
+        #lists-page .poster-card:hover .poster-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* telefon/tablet bez hover — pokazuj zawsze, bo nie da się "najechać" */
+        @media (hover: none) {
+            #lists-page .poster-card .poster-overlay {
+                opacity: 1;
+                transform: none;
+                pointer-events: auto;
+            }
+        }
+
         .poster-rating-chip {
             display: inline-flex;
             align-items: center;
@@ -379,14 +402,182 @@
         .list-movie-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
+            gap: 14px;
         }
 
-        @media (min-width: 768px) {
-            .list-movie-grid {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
+        @media (min-width: 480px) {
+            .list-movie-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+        }
+
+        @media (min-width: 640px) {
+            .list-movie-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+        }
+
+        @media (min-width: 900px) {
+            .list-movie-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
+        }
+
+        @media (min-width: 1280px) {
+            .list-movie-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 22px; }
+        }
+
+        /* odstęp między pierwszym rzędem a "resztą" po kliknięciu "Pokaż więcej" */
+        .list-movie-grid + .list-movie-grid {
+            margin-top: 22px;
+        }
+
+        .list-section-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .list-add-btn {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            background: #22c55e;
+            color: #050505;
+            font-size: 24px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            box-shadow: 0 0 20px rgba(34,197,94,.3);
+            transition: .2s ease;
+        }
+        .list-add-btn:hover { background: #4ade80; transform: translateY(-2px) scale(1.05); }
+        .list-section-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(63,63,70,.6);
+            flex-wrap: wrap;
+        }
+        .list-section-foot .list-foot-actions { display: flex; gap: 8px; margin-left: auto; }
+        @media (max-width: 640px) {
+            .list-add-btn { width: 40px; height: 40px; font-size: 20px; }
+            .list-section-foot { flex-direction: column; align-items: stretch; }
+            .list-section-foot .list-foot-actions { margin-left: 0; width: 100%; }
+            .list-section-foot .list-foot-actions button { flex: 1; }
+        }
+        
+        .add-to-list-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+        @media (min-width: 640px) { .add-to-list-grid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; } }
+        @media (min-width: 900px) { .add-to-list-grid { grid-template-columns: repeat(6, minmax(0,1fr)); gap: 16px; } }
+        @media (min-width: 1280px) { .add-to-list-grid { grid-template-columns: repeat(8, minmax(0,1fr)); gap: 16px; } }
+
+        .add-to-list-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #27272a;
+            background: #18181b;
+            border-radius: 16px;
+            overflow: hidden;
+            text-align: left;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+        .add-to-list-card:hover { border-color: #22c55e; transform: translateY(-3px); }
+        .add-to-list-card.in-list { border-color: rgba(34,197,94,.55); cursor: default; }
+        .add-to-list-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #09090b;
+        }
+        .add-to-list-card .p-2 {
+            padding: 8px 10px 10px;
+            min-height: 46px;
+            display: flex;
+            align-items: center;
+        }
+        .add-to-list-card .p-2 h4 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.2;
+            font-size: 12px;
+        }
+        .add-to-list-added-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            background: rgba(34,197,94,.92);
+            color: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+            z-index: 5;
+        }
+        .list-remove-x {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: rgba(0,0,0,.75);
+            border: 1px solid rgba(255,255,255,.15);
+            color: #f87171;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 900;
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: opacity .2s ease, transform .2s ease, background .2s ease, border-color .2s ease;
+        }
+
+        .list-remove-x:hover {
+            background: rgba(239,68,68,.9);
+            border-color: rgba(239,68,68,.9);
+            color: white;
+        }
+
+        .poster-card:hover .list-remove-x {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .list-remove-x {
+                opacity: 1;
+                transform: none;
             }
         }
+        .list-show-more-btn {
+            display: block;
+            margin: 16px auto 0;
+            padding: 12px 22px;
+            border-radius: 999px;
+            border: 1px solid #27272a;
+            background: #18181b;
+            color: #a1a1aa;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            transition: .2s ease;
+        }
+        .list-show-more-btn:hover { border-color: #22c55e; color: white; background: rgba(34,197,94,.1); }
 
         .list-tile {
             border: 1px solid #27272a;
@@ -516,6 +707,29 @@
             .poster-overlay p,
             .poster-overlay span {
                 font-size: 8px;
+            }
+
+            /* Listy: same plakaty, podpis tylko po najechaniu */
+            #lists-page .poster-card .poster-overlay {
+                opacity: 0;
+                transform: translateY(6px);
+                transition: opacity .25s ease, transform .25s ease;
+                pointer-events: none;
+            }
+
+            #lists-page .poster-card:hover .poster-overlay {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            /* Telefon/tablet bez hover — podpis pokazuje się zawsze, bo nie ma jak "najechać" */
+            @media (hover: none) {
+                #lists-page .poster-card .poster-overlay {
+                    opacity: 1;
+                    transform: none;
+                    pointer-events: auto;
+                }
             }
 
             .poster-actions {
@@ -2193,13 +2407,15 @@
 
         .backrooms-hype-row {
             display: flex;
+            align-items: center;
             flex-wrap: wrap;
             justify-content: center;
             gap: 8px;
             margin-bottom: 22px;
         }
 
-        .backrooms-hype-row span {
+        .backrooms-hype-row > span {
+            white-space: nowrap;
             border: 1px solid rgba(234,179,8,.28);
             background: rgba(234,179,8,.08);
             color: #facc15;
@@ -2209,6 +2425,65 @@
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: .08em;
+        }
+
+        .mutiny-fire-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(96,165,250,.35);
+            background: rgba(59,130,246,.08);
+            color: #93c5fd;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: transform .15s ease, background .2s ease, border-color .2s ease;
+        }
+
+        .mutiny-fire-btn:hover {
+            border-color: rgba(96,165,250,.7);
+            background: rgba(59,130,246,.16);
+        }
+
+        .mutiny-fire-btn:active { transform: scale(.94); }
+
+        .mutiny-fire-icon { font-size: 14px; display: inline-block; }
+
+        .mutiny-fire-btn.ignite .mutiny-fire-icon {
+            animation: mutinyFirePulse .5s ease;
+        }
+
+        @keyframes mutinyFirePulse {
+            0% { transform: scale(1) rotate(0deg); }
+            35% { transform: scale(1.8) rotate(-8deg); filter: drop-shadow(0 0 10px rgba(96,165,250,.9)); }
+            70% { transform: scale(1.15) rotate(6deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .mutiny-fire-particle {
+            position: absolute;
+            top: -14px;
+            right: -8px;
+            left: auto;
+            transform: none;
+            font-size: 22px;
+            font-weight: 900;
+            color: #60a5fa;
+            pointer-events: none;
+            animation: mutinyFireFloat .9s ease forwards;
+            white-space: nowrap;
+            filter: drop-shadow(0 0 8px rgba(96,165,250,.7));
+        }
+
+        @keyframes mutinyFireFloat {
+            0% { opacity: 0; transform: translate(0, 0) scale(.7); }
+            20% { opacity: 1; transform: translate(4px, -12px) scale(1.2); }
+            100% { opacity: 0; transform: translate(10px, -48px) scale(1.1); }
         }
 
         @media (min-width: 1024px) {
@@ -3512,31 +3787,32 @@
         
 
         <section class="max-w-7xl mx-auto px-4 mb-16 mt-12">
-            <div class="relative bg-zinc-950 border border-yellow-600/20 rounded-[40px] overflow-hidden p-8 md:p-12 shadow-[0_0_50px_rgba(234,179,8,0.05)] group">
-                
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(234,179,8,0.08),transparent_70%)] pointer-events-none"></div>
-                
+            <div class="relative bg-zinc-950 border border-blue-500/20 rounded-[40px] overflow-hidden p-8 md:p-12 shadow-[0_0_50px_rgba(59,130,246,0.08)] group">
+
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none"></div>
 
                 <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-                    
-                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 group-hover:border-yellow-500/40 transition-all duration-500">
-                        <img src="./static/spidermanbrandnewday.jpg" alt="Spider-Man: Brand New Day" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
+
+                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 pointer-events-none select-none">
+                        <img src="./static/mutiny.jpg" alt="Mutiny" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
-                        
                     </div>
 
                     <div class="flex-grow text-center lg:text-left">
-                        <h4 class="text-xs font-black tracking-widest text-yellow-500 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
+                        <h4 class="text-xs font-black tracking-widest text-blue-400 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
-                            Spider-Man <span class="text-zinc-500 font-light font-sans">/</span> <span class="inline-block pr-2 text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500">Brand New Day</span>
+                            Mutiny <span class="text-zinc-500 font-light font-sans">/</span> <span class="inline-block pr-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-100">Akcja / Thriller</span>
                         </h2>
                         <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
-                            Nowa era Spider-Mana i najbardziej wyczekiwana premiera Marvela w kalendarzu.
+                            Spisek w prywatnej armii zagraża tym, którzy próbują go powstrzymać.
                         </p>
 
                         <div class="backrooms-hype-row">
-                            <span>52K waiting</span>
-                            <span>31.07</span>
+                            <button id="mutiny-hype-btn" onclick="igniteMutinyHype(event)" class="mutiny-fire-btn" type="button">
+                                <span class="mutiny-fire-icon">🔥</span>
+                                <span id="mutiny-hype-count">— hype</span>
+                            </button>
+                            <span>21.08</span>
                             <span>Premiera 2026</span>
                         </div>
 
@@ -3546,7 +3822,7 @@
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Dni</div>
                             </div>
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
-                                <div id="countdown-hours" class="text-2xl md:text-3xl font-black text-yellow-500 italic leading-none">00</div>
+                                <div id="countdown-hours" class="text-2xl md:text-3xl font-black text-blue-400 italic leading-none">00</div>
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Godz</div>
                             </div>
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
@@ -3554,7 +3830,7 @@
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Min</div>
                             </div>
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
-                                <div id="countdown-seconds" class="text-2xl md:text-3xl font-black text-amber-500 italic leading-none">00</div>
+                                <div id="countdown-seconds" class="text-2xl md:text-3xl font-black text-blue-300 italic leading-none">00</div>
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Sek</div>
                             </div>
                         </div>
@@ -4882,7 +5158,7 @@
 
         refreshUserScopedData();
 
-        function renderListMovieTile(id, removeButton = '') {
+        function renderListMovieTile(id, onRemove) {
             const m = movies.find(x => x.id === id);
             if (!m) return '';
 
@@ -4903,7 +5179,9 @@
                         </div>
                     </button>
 
-                    ${removeButton}
+                    ${onRemove ? `
+                        <button type="button" onclick="event.stopPropagation(); ${onRemove}" class="list-remove-x" title="Usuń z listy">✕</button>
+                    ` : ''}
                 </article>
             `;
         }
@@ -5662,6 +5940,169 @@
             }
         }
 
+        let addToListTarget = null;
+
+        function openAddToListPicker(type, index) {
+            addToListTarget = type === 'custom' ? { type, index } : { type: 'watchlist' };
+
+            const title = document.getElementById('add-to-list-title');
+            if (title) {
+                title.textContent = type === 'custom'
+                    ? `Dodaj film do listy: ${userLists[index]?.name || ''}`
+                    : 'Dodaj film do watchlisty';
+            }
+
+            const search = document.getElementById('add-to-list-search');
+            if (search) search.value = '';
+
+            renderAddToListGrid('');
+            toggleModal('add-to-list-modal', true);
+        }
+
+        function closeAddToListPicker() {
+            addToListTarget = null;
+            toggleModal('add-to-list-modal', false);
+        }
+
+        function getTargetListIds() {
+            if (!addToListTarget) return [];
+            if (addToListTarget.type === 'watchlist') return loadWatchlist();
+            return loadUserLists()[addToListTarget.index]?.movies || [];
+        }
+
+        function renderAddToListGrid(query) {
+            const grid = document.getElementById('add-to-list-grid');
+            if (!grid || !addToListTarget) return;
+
+            const q = query.toLowerCase().trim();
+            const data = movies.filter(m => m.title.toLowerCase().includes(q)).slice(0, 16);
+            const currentIds = getTargetListIds();
+
+            if (!data.length) {
+                grid.innerHTML = `<div class="col-span-full text-zinc-600 font-black uppercase text-xs text-center py-10">Brak wyników</div>`;
+                return;
+            }
+
+            grid.innerHTML = data.map(m => {
+                const inList = currentIds.includes(m.id);
+
+                return `
+                    <div class="add-to-list-card ${inList ? 'in-list' : ''}"
+                        onclick="${inList ? `showListToast('${escapeAdminHtml(m.title)} jest już na liście')` : `addMovieToTargetList('${m.id}')`}">
+                        ${inList ? `<span class="add-to-list-added-badge" title="Już na liście">✓</span>` : ''}
+                        <img src="${m.img}" alt="${m.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                        <div class="p-2">
+                            <h4 class="text-white font-black italic uppercase text-[11px] leading-tight">${m.title}</h4>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showListToast(message) {
+            let container = document.getElementById('list-toast-container');
+
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'list-toast-container';
+                container.className = 'admin-toast-container';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'admin-toast';
+            toast.innerHTML = `<span class="toast-icon">✓</span><span>${message}</span>`;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2200);
+        }
+        window.showListToast = showListToast;
+
+        async function addMovieToTargetList(movieId) {
+            if (!addToListTarget) return;
+
+            if (addToListTarget.type === 'watchlist') {
+                let wl = loadWatchlist();
+                if (!wl.includes(movieId)) { wl.push(movieId); await saveWatchlist(wl); }
+            } else {
+                const lists = loadUserLists();
+                const list = lists[addToListTarget.index];
+                if (list && !list.movies.includes(movieId)) {
+                    list.movies.push(movieId);
+                    await saveUserLists(lists);
+                }
+            }
+
+            refreshUserScopedData();
+            renderAddToListGrid(document.getElementById('add-to-list-search')?.value || '');
+            renderCustomLists();
+        }
+
+        async function removeMovieFromTargetList(movieId) {
+            if (!addToListTarget) return;
+
+            if (addToListTarget.type === 'watchlist') {
+                let wl = loadWatchlist().filter(id => id !== movieId);
+                await saveWatchlist(wl);
+            } else {
+                const lists = loadUserLists();
+                const list = lists[addToListTarget.index];
+                if (list) {
+                    list.movies = list.movies.filter(id => id !== movieId);
+                    await saveUserLists(lists);
+                }
+            }
+
+            refreshUserScopedData();
+            renderAddToListGrid(document.getElementById('add-to-list-search')?.value || '');
+            renderCustomLists();
+        }
+
+        window.openAddToListPicker = openAddToListPicker;
+        window.closeAddToListPicker = closeAddToListPicker;
+        window.renderAddToListGrid = renderAddToListGrid;
+        window.addMovieToTargetList = addMovieToTargetList;
+        window.removeMovieFromTargetList = removeMovieFromTargetList;
+
+        function buildExpandableListGrid(ids, uniqueId, onRemoveFn) {
+            if (!ids.length) {
+                return `<div class="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-center"><p class="text-zinc-600 font-black uppercase italic tracking-widest text-xs">Pusto</p></div>`;
+            }
+
+            const limit = 8; // <- było 5
+            const visibleIds = ids.slice(0, limit);
+            const extraIds = ids.slice(limit);
+
+            let html = `<div class="list-movie-grid">` +
+                visibleIds.map(id => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '')).join('') +
+                `</div>`;
+
+            if (extraIds.length) {
+                html += `<div class="list-movie-grid hidden" id="extra-${uniqueId}">` +
+                    extraIds.map(id => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '')).join('') +
+                `</div>`;
+                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}">Pokaż więcej (+${extraIds.length})</button>`;
+            }
+
+            return html;
+        }
+
+        function toggleListExpand(uniqueId, btn) {
+            const extra = document.getElementById(`extra-${uniqueId}`);
+            if (!extra) return;
+
+            const isHidden = extra.classList.contains('hidden');
+            extra.classList.toggle('hidden');
+            btn.textContent = isHidden ? 'Pokaż mniej' : `Pokaż więcej (+${btn.dataset.count})`;
+        }
+
+        window.toggleListExpand = toggleListExpand;
+
         function renderCustomLists() {
             refreshUserScopedData();
 
@@ -5676,29 +6117,38 @@
 
             let html = `
                 <section class="rounded-[32px] border border-green-500/20 bg-green-500/[0.06] p-5 sm:p-8 mb-10 shadow-[0_0_35px_rgba(34,197,94,0.05)]">
-                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
-                        <div>
+                    <div class="list-section-head">
+                        <div class="min-w-0">
                             <p class="text-[9px] font-black text-green-500 uppercase tracking-[0.35em] mb-2">Movie Hub</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter">Watchlista</h3>
                         </div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${window.listMovieCountText ? window.listMovieCountText(wl.length) : `${wl.length} filmów`}</span>
+                        <button onclick="openAddToListPicker('watchlist')" class="list-add-btn" title="Dodaj film do watchlisty">+</button>
                     </div>
 
-                    <div class="list-movie-grid">
-                        ${wl.length ? wl.map(id => renderListMovieTile(id)).join('') : emptyState}
+                    ${buildExpandableListGrid(wl, 'watchlist', (id) => `toggleWatchlist('${id}'); renderCustomLists();`)}
+                   
+
+                    <div class="list-section-foot">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">${window.listMovieCountText ? window.listMovieCountText(wl.length) : `${wl.length} filmów`}</span>
                     </div>
                 </section>
             `;
 
             html += userLists.map((list, i) => `
                 <section class="rounded-[32px] border border-zinc-800 bg-zinc-950/70 p-5 sm:p-8 mb-10">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                        <div>
+                    <div class="list-section-head">
+                        <div class="min-w-0">
                             <p class="text-[9px] font-black text-zinc-500 uppercase tracking-[0.35em] mb-2">Lista prywatna</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${window.displayListName ? window.displayListName(list.name) : list.name}</h3>
                         </div>
+                        <button onclick="openAddToListPicker('custom', ${i})" class="list-add-btn" title="Dodaj film do listy">+</button>
+                    </div>
 
-                        <div class="flex gap-2">
+                    ${buildExpandableListGrid(list.movies, `custom-${i}`, (id) => `userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveUserLists(userLists);renderCustomLists();`)}
+                    
+
+                    <div class="list-section-foot">
+                        <div class="list-foot-actions">
                             <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveUserLists(userLists);renderCustomLists();}" class="px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition">
                                 Nazwa
                             </button>
@@ -5706,15 +6156,6 @@
                                 Usuń
                             </button>
                         </div>
-                    </div>
-
-                    <div class="list-movie-grid">
-                        ${list.movies.length ? list.movies.map(id => renderListMovieTile(id, `
-                            <button onclick="event.stopPropagation(); userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveUserLists(userLists);renderCustomLists();"
-                                class="m-4 mt-0 w-[calc(100%-2rem)] rounded-xl border border-red-900/40 bg-red-950/20 py-2 text-[9px] font-black uppercase tracking-widest text-red-400">
-                                Usuń z listy
-                            </button>
-                        `)).join('') : emptyState}
                     </div>
                 </section>
             `).join('');
@@ -5825,7 +6266,7 @@
         // Funkcja odliczania do premiery The Backrooms Movie
         function initMovieCountdown() {
             // 19 Czerwca 2026, godzina 20:00
-            const targetDate = new Date(2026, 6, 31, 0, 0, 0).getTime();
+            const targetDate = new Date(2026, 7, 21, 0, 0, 0).getTime();
 
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
@@ -6583,6 +7024,17 @@
         </div>
     </div>
 
+    <div id="add-to-list-modal" class="modal-overlay" onclick="if(event.target === this) closeAddToListPicker()">
+        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-4xl rounded-[32px] p-5 md:p-8 relative shadow-2xl shadow-black/80 max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAddToListPicker()" class="absolute top-5 right-5 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition">✕</button>
+            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub</p>
+            <h2 id="add-to-list-title" class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter text-white mb-5">Dodaj film do listy</h2>
+            <input id="add-to-list-search" oninput="renderAddToListGrid(this.value)" type="text" placeholder="Szukaj tytułu..."
+                class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white font-bold outline-none focus:border-green-500 mb-6">
+            <div id="add-to-list-grid" class="add-to-list-grid"></div>
+        </div>
+    </div>
+
     <div id="profile-data-modal" class="hidden fixed inset-0 z-[9999] items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="if(event.target === this) closeProfileDataModal()">
         <div class="bg-zinc-950 border border-zinc-800 rounded-[32px] max-w-lg w-full p-6 md:p-8 shadow-2xl shadow-black/80 relative">
             <button onclick="closeProfileDataModal()" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
@@ -6651,6 +7103,8 @@
             deleteDoc,
             collection,
             getDocs,
+            onSnapshot,
+            increment,
             serverTimestamp
         } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -6668,6 +7122,44 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
+
+        function formatHypeCount(n) {
+            const num = Number(n) || 0;
+            if (num >= 10000) return `${Math.round(num / 1000)}K hype`;
+            if (num >= 1000) return `${(num / 1000).toFixed(1)}K hype`;
+            return `${num} hype`;
+        }
+
+        function initMutinyHype() {
+            onSnapshot(doc(db, "siteConfig", "mutinyHype"), snap => {
+                const count = snap.exists() ? snap.data().count : 0;
+                const label = document.getElementById("mutiny-hype-count");
+                if (label) label.textContent = formatHypeCount(count);
+            }, err => console.warn("Hype listener error:", err));
+        }
+
+        window.igniteMutinyHype = async function(event) {
+            const btn = event.currentTarget;
+            if (!btn) return;
+
+            btn.classList.remove("ignite");
+            void btn.offsetWidth; // reset animacji przy szybkich kliknięciach
+            btn.classList.add("ignite");
+
+            const particle = document.createElement("span");
+            particle.className = "mutiny-fire-particle";
+            particle.textContent = "+1 🔥";
+            btn.appendChild(particle);
+            setTimeout(() => particle.remove(), 850);
+
+            try {
+                await setDoc(doc(db, "siteConfig", "mutinyHype"), { count: increment(1) }, { merge: true });
+            } catch (error) {
+                console.error("Nie udało się zaktualizować hype:", error);
+            }
+        };
+
+        initMutinyHype();
 
         function normalizeCloudAdminMovie(movie) {
             return {
