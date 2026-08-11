@@ -3389,14 +3389,25 @@
             position: fixed;
             inset: 0;
             z-index: 10000;
-            background: rgba(0, 0, 0, .92);
-            backdrop-filter: blur(18px);
-            padding: 18px;
+            background: #050505;
+            padding: 0;
             overflow-y: auto;
         }
 
         .admin-panel-shell.open {
             display: block;
+        }
+
+        body.admin-open {
+            overflow: hidden;
+        }
+
+        .admin-page-surface {
+            min-height: 100vh;
+            width: 100%;
+            background:
+                radial-gradient(circle at 12% 0%, rgba(34, 197, 94, .13), transparent 34%),
+                linear-gradient(180deg, #0a0a0d, #050505 62%);
         }
 
         .admin-field {
@@ -3557,20 +3568,180 @@
                 max-width: 100%;
             }
         }
+
+        /* === NOWOCZESNY KALENDARZ PREMIER === */
+        .cal-month-nav {
+            position: sticky;
+            top: 70px;
+            z-index: 20;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 10px 2px 18px;
+            margin-bottom: 22px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            background: linear-gradient(180deg, rgba(9,9,11,.98) 65%, rgba(9,9,11,0));
+        }
+        .cal-month-nav::-webkit-scrollbar { display: none; }
+        .cal-month-btn {
+            flex-shrink: 0;
+            border: 1px solid #27272a;
+            background: #18181b;
+            color: #a1a1aa;
+            border-radius: 14px;
+            padding: 10px 16px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            transition: .2s ease;
+            white-space: nowrap;
+        }
+        .cal-month-btn:hover { border-color: #4ade80; color: white; }
+        .cal-month-btn.active {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: #050505;
+            box-shadow: 0 0 20px rgba(34,197,94,.35);
+        }
+        .cal-month-btn .cal-month-count { margin-left: 6px; opacity: .65; font-weight: 700; }
+
+        .cal-month-section { margin-bottom: 40px; scroll-margin-top: 150px; }
+        .cal-month-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(63,63,70,.6);
+        }
+        .cal-month-heading h3 {
+            font-size: 26px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+        .cal-month-heading span {
+            color: #22c55e;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .cal-release-card {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            gap: 14px;
+            align-items: center;
+            width: 100%;
+            text-align: left;
+            border-radius: 20px;
+            border: 1px solid #27272a;
+            background: #0f0f11;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: .2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .cal-release-card:hover {
+            border-color: #22c55e;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(0,0,0,.4), 0 0 20px rgba(34,197,94,.12);
+        }
+        .cal-release-card.is-hit {
+            border-color: rgba(239,68,68,.45);
+            background: linear-gradient(135deg, rgba(239,68,68,.08), #0f0f11 65%);
+        }
+        .cal-release-card.is-hit::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 4px;
+            background: #ef4444;
+        }
+        .cal-release-card.is-hit:hover {
+            border-color: #ef4444;
+            box-shadow: 0 14px 32px rgba(0,0,0,.4), 0 0 20px rgba(239,68,68,.18);
+        }
+        .cal-release-poster {
+            position: relative;
+            width: 70px;
+            height: 100px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #52525b;
+            font-size: 22px;
+        }
+        .cal-release-poster-img-wrap {
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: linear-gradient(160deg, #27272a, #09090b);
+            border: 1px solid #3f3f46;
+        }
+        .cal-release-poster-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .cal-release-day-badge {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+            background: #22c55e;
+            color: #050505;
+            border-radius: 10px;
+            padding: 4px 6px;
+            font-size: 12px;
+            font-weight: 900;
+            box-shadow: 0 4px 10px rgba(0,0,0,.4);
+        }
+        .cal-release-day-badge small { font-size: 7px; letter-spacing: .06em; margin-top: 1px; }
+        .cal-release-info { min-width: 0; }
+        .cal-release-info h4 { font-size: 15px; font-weight: 900; font-style: italic; text-transform: uppercase; color: white; line-height: 1.15; margin-bottom: 8px; }
+        .cal-release-card.is-hit h4 { color: #f87171; }
+        .cal-release-genre {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: #e4e4e7;
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(255,255,255,.05);
+            border-radius: 999px;
+            padding: 5px 10px;
+        }
+
+        @media (max-width: 640px) {
+            .cal-month-nav { top: 0; }
+            .cal-release-card { padding: 8px; border-radius: 16px; grid-template-columns: 58px 1fr; gap: 12px; }
+            .cal-release-poster { width: 58px; height: 84px; }
+            .cal-release-poster-img-wrap { border-radius: 12px; }
+            .cal-release-info h4 { font-size: 13px; margin-bottom: 6px; }
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
 
-    <div id="admin-panel" class="admin-panel-shell" onclick="if(event.target === this) closeAdminPanel()">
+    <div id="admin-panel" class="admin-panel-shell">
         <div id="admin-toast-container" class="admin-toast-container"></div>
-        <div class="max-w-5xl mx-auto bg-zinc-950 border border-zinc-800 rounded-[30px] shadow-2xl shadow-black overflow-hidden">
+        <div class="admin-page-surface">
             <div class="flex items-start justify-between gap-4 border-b border-zinc-800 p-5 md:p-7">
                 <div>
                     <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Admin</p>
                     <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white">Panel szefa</h2>
                     <p class="text-zinc-500 text-xs md:text-sm font-bold mt-2 max-w-2xl">Dodawaj filmy do biblioteki bez grzebania w kodzie. Panel otworzysz przez dopisanie <span class="text-zinc-300">#admin</span> do adresu strony albo skrótem Ctrl + Shift + A.</p>
                 </div>
-                <button onclick="closeAdminPanel()" class="shrink-0 bg-white text-black hover:bg-green-500 w-10 h-10 rounded-full font-black transition" type="button">X</button>
+                <button onclick="closeAdminPanel()" class="shrink-0 bg-white text-black hover:bg-green-500 rounded-2xl px-5 py-4 text-[10px] font-black uppercase tracking-widest transition" type="button">Wyjdz</button>
             </div>
 
             <div id="admin-login" class="p-5 md:p-7">
@@ -3639,6 +3810,15 @@
                             <textarea id="admin-desc" class="admin-field min-h-[120px] resize-y" placeholder="Krótki opis filmu"></textarea>
                         </div>
 
+                        <div class="sm:col-span-2">
+                            <div class="flex items-center justify-between gap-3 mb-2">
+                                <label class="admin-label !mb-0" for="admin-desc-en">Opis po angielsku</label>
+                                <button onclick="translateAdminDescriptionField()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-xl px-4 py-2 text-[9px] font-black uppercase tracking-widest" type="button">Auto EN</button>
+                            </div>
+                            <textarea id="admin-desc-en" class="admin-field min-h-[120px] resize-y" placeholder="English description - zostaw puste, panel przetlumaczy przy zapisie"></textarea>
+                            <p id="admin-translate-msg" class="mt-2 text-[10px] font-bold text-zinc-500"></p>
+                        </div>
+
                         <div>
                             <label class="admin-label" for="admin-img-url">Adres plakatu</label>
                             <input id="admin-img-url" class="admin-field" placeholder="./static/plakat.jpg albo https://...">
@@ -3698,6 +3878,10 @@
                         <input id="admin-cal-title" class="admin-field" placeholder="Tytuł filmu" required>
                         <input id="admin-cal-genre" class="admin-field" placeholder="Gatunek">
                         <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Zapisz</button>
+                        <label class="sm:col-span-4 flex items-center gap-2 text-zinc-400 text-xs font-bold cursor-pointer">
+                            <input id="admin-cal-featured" type="checkbox" class="w-4 h-4 accent-red-500">
+                            Wyróżnij na czerwono (ważna premiera)
+                        </label>
                     </form>
 
                     <div id="admin-calendar-list" class="grid gap-3"></div>
@@ -4673,6 +4857,104 @@
                 .replace(/'/g, '&#39;');
         }
 
+        function setAdminTranslateMessage(text, type = 'info') {
+            const msg = document.getElementById('admin-translate-msg');
+            if (!msg) return;
+            msg.textContent = text || '';
+            msg.className = type === 'error'
+                ? 'mt-2 text-[10px] font-bold text-red-400'
+                : 'mt-2 text-[10px] font-bold text-zinc-500';
+        }
+
+        function splitAdminTranslationText(text, maxLength = 420) {
+            const source = safeAdminText(text);
+            if (!source) return [];
+
+            const sentences = source.match(/[^.!?]+[.!?]*/g) || [source];
+            const chunks = [];
+            let current = '';
+
+            sentences.forEach(sentence => {
+                const cleanSentence = sentence.trim();
+                if (!cleanSentence) return;
+
+                if (cleanSentence.length > maxLength) {
+                    if (current) {
+                        chunks.push(current.trim());
+                        current = '';
+                    }
+
+                    for (let i = 0; i < cleanSentence.length; i += maxLength) {
+                        chunks.push(cleanSentence.slice(i, i + maxLength).trim());
+                    }
+                    return;
+                }
+
+                const next = current ? `${current} ${cleanSentence}` : cleanSentence;
+                if (next.length > maxLength) {
+                    chunks.push(current.trim());
+                    current = cleanSentence;
+                } else {
+                    current = next;
+                }
+            });
+
+            if (current) chunks.push(current.trim());
+            return chunks;
+        }
+
+        async function translateTextChunkToEnglish(text) {
+            const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pl|en`);
+            if (!response.ok) throw new Error('Translation service error');
+
+            const data = await response.json();
+            return safeAdminText(data?.responseData?.translatedText);
+        }
+
+        async function translateTextToEnglish(text, onProgress) {
+            const chunks = splitAdminTranslationText(text);
+            if (!chunks.length) return '';
+
+            const translatedChunks = [];
+
+            for (let i = 0; i < chunks.length; i++) {
+                if (typeof onProgress === 'function') onProgress(i + 1, chunks.length);
+                translatedChunks.push(await translateTextChunkToEnglish(chunks[i]));
+                await new Promise(resolve => setTimeout(resolve, 250));
+            }
+
+            return translatedChunks.filter(Boolean).join(' ');
+        }
+
+        async function translateAdminDescriptionField() {
+            const descInput = document.getElementById('admin-desc');
+            const descEnInput = document.getElementById('admin-desc-en');
+            if (!descInput || !descEnInput) return '';
+
+            const source = safeAdminText(descInput.value);
+            if (!source) {
+                setAdminTranslateMessage('Najpierw wpisz polski opis.', 'error');
+                return '';
+            }
+
+            try {
+                const translated = await translateTextToEnglish(source, (done, total) => {
+                    setAdminTranslateMessage(`Tlumacze opis (${done}/${total})...`);
+                });
+
+                if (translated) {
+                    descEnInput.value = translated;
+                    setAdminTranslateMessage('Gotowe. Mozesz poprawic tekst przed zapisem.');
+                    return translated;
+                }
+            } catch (error) {
+                console.warn('Admin translation failed:', error);
+            }
+
+            setAdminTranslateMessage('Nie udalo sie przetlumaczyc automatycznie. Wpisz opis EN recznie albo zapisz bez niego.', 'error');
+            return '';
+        }
+
         function makeAdminMovieId(title) {
             const slug = safeAdminText(title)
                 .toLowerCase()
@@ -4774,6 +5056,7 @@
             if (!panel) return;
 
             panel.classList.add('open');
+            document.body.classList.add('admin-open');
 
             if (isAdminUnlocked()) {
                 showAdminContent();
@@ -4786,6 +5069,7 @@
 
         function closeAdminPanel() {
             document.getElementById('admin-panel')?.classList.remove('open');
+            document.body.classList.remove('admin-open');
             if (location.hash === '#admin') {
                 history.replaceState(null, '', location.pathname + location.search);
             }
@@ -4900,6 +5184,7 @@
             editingAdminMovieId = null;
             editingAdminImageSource = '';
             document.getElementById('admin-movie-form')?.reset();
+            setAdminTranslateMessage('');
             const preview = document.getElementById('admin-img-preview');
             if (preview) preview.src = 'https://via.placeholder.com/300x450?text=Plakat';
             const submitBtn = document.getElementById('admin-submit-btn');
@@ -4911,6 +5196,20 @@
 
             const title = safeAdminText(document.getElementById('admin-title')?.value);
             if (!title) return;
+            const desc = safeAdminText(document.getElementById('admin-desc')?.value) || 'Brak opisu.';
+            let descEn = safeAdminText(document.getElementById('admin-desc-en')?.value);
+
+            if (!descEn && desc && desc !== 'Brak opisu.') {
+                try {
+                    descEn = await translateTextToEnglish(desc, (done, total) => {
+                        setAdminTranslateMessage(`Tlumacze opis przed zapisem (${done}/${total})...`);
+                    });
+                    if (descEn) setAdminTranslateMessage('Opis EN zostal zapisany automatycznie.');
+                } catch (error) {
+                    console.warn('Admin auto translation failed:', error);
+                    setAdminTranslateMessage('Film zapisze sie bez opisu EN. Mozesz dopisac go pozniej.', 'error');
+                }
+            }
 
             const movie = {
                 id: editingAdminMovieId || makeAdminMovieId(title),
@@ -4920,7 +5219,8 @@
                 rating: safeAdminText(document.getElementById('admin-rating')?.value) || 'COMING',
                 date: safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
                 trailer: safeAdminText(document.getElementById('admin-trailer')?.value),
-                desc: safeAdminText(document.getElementById('admin-desc')?.value) || 'Brak opisu.'
+                desc,
+                descEn
             };
 
             const adminMovies = getAdminMovies().filter(item => item.id !== movie.id);
@@ -4983,6 +5283,8 @@
             document.getElementById('admin-rating').value = movie.rating || '';
             document.getElementById('admin-trailer').value = movie.trailer || '';
             document.getElementById('admin-desc').value = movie.desc || '';
+            document.getElementById('admin-desc-en').value = movie.descEn || '';
+            setAdminTranslateMessage('');
             document.getElementById('admin-img-url').value = movie.img?.startsWith('data:') ? '' : movie.img || '';
             document.getElementById('admin-img-preview').src = movie.img || 'https://via.placeholder.com/300x450?text=Plakat';
 
@@ -5116,6 +5418,7 @@
         window.logoutAdmin = logoutAdmin;
         window.setAdminTab = setAdminTab;
         window.previewAdminImage = previewAdminImage;
+        window.translateAdminDescriptionField = translateAdminDescriptionField;
         window.resetAdminForm = resetAdminForm;
         window.saveAdminMovie = saveAdminMovie;
         window.deleteAdminMovie = deleteAdminMovie;
@@ -6673,12 +6976,14 @@
             upcomingReleases.forEach(orig => {
                 const ov = overrideMap.get(orig.id);
                 if (ov) {
-                    if (!ov.hidden) result.push({ id: orig.id, date: ov.date || orig.date, title: ov.title || orig.title, genre: ov.genre ?? orig.genre });
+                    if (!ov.hidden) result.push({ id: orig.id, date: ov.date || orig.date, title: ov.title || orig.title, genre: ov.genre ?? orig.genre, featured: ov.featured });
                     overrideMap.delete(orig.id);
                 } else {
                     result.push({ ...orig });
                 }
             });
+
+            overrideMap.forEach(ov => { if (!ov.hidden) result.push({ id: ov.id, date: ov.date, title: ov.title, genre: ov.genre || '', featured: ov.featured }); });
 
             // to, co zostało w overrideMap, to zupełnie nowe premiery dodane w adminie
             overrideMap.forEach(ov => { if (!ov.hidden) result.push({ id: ov.id, date: ov.date, title: ov.title, genre: ov.genre || '' }); });
@@ -6701,9 +7006,10 @@
             const date = document.getElementById('admin-cal-date')?.value;
             const title = safeAdminText(document.getElementById('admin-cal-title')?.value);
             const genre = safeAdminText(document.getElementById('admin-cal-genre')?.value);
+            const featured = !!document.getElementById('admin-cal-featured')?.checked;
             if (!date || !title) return;
 
-            const override = { id: editingCalendarId || makeCalendarId(title), date, title, genre, hidden: false };
+            const override = { id: editingCalendarId || makeCalendarId(title), date, title, genre, featured, hidden: false };
             const items = getAdminCalendarOverrides().filter(r => r.id !== override.id);
             items.push(override);
             saveAdminCalendarOverridesLocal(items);
@@ -6713,6 +7019,7 @@
             document.getElementById('admin-cal-date').value = '';
             document.getElementById('admin-cal-title').value = '';
             document.getElementById('admin-cal-genre').value = '';
+            document.getElementById('admin-cal-featured').checked = false;
             renderAdminCalendarList();
             if (window.activeView === 'calendar') renderCalendar();
 
@@ -6770,8 +7077,33 @@
             document.getElementById('admin-cal-date').value = item.date || '';
             document.getElementById('admin-cal-title').value = item.title || '';
             document.getElementById('admin-cal-genre').value = item.genre || '';
+            document.getElementById('admin-cal-featured').checked = !!item.featured;
             document.getElementById('admin-cal-date')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+
+        async function toggleAdminCalendarFeatured(id) {
+            const item = liveCalendarReleases.find(r => r.id === id);
+            if (!item) return;
+
+            const override = { id: item.id, date: item.date, title: item.title, genre: item.genre, featured: !item.featured, hidden: false };
+            const items = getAdminCalendarOverrides().filter(r => r.id !== override.id);
+            items.push(override);
+            saveAdminCalendarOverridesLocal(items);
+            rebuildLiveCalendarReleases(items);
+            renderAdminCalendarList();
+            if (window.activeView === 'calendar') renderCalendar();
+
+            if (typeof window.saveCloudCalendarRelease === 'function') {
+                try {
+                    await window.saveCloudCalendarRelease(override);
+                    showAdminToast(override.featured ? 'Premiera wyróżniona.' : 'Zdjęto wyróżnienie.');
+                } catch (err) {
+                    console.error('Firestore save error (calendarReleases):', err);
+                    showAdminToast('Zapisano lokalnie, ale synchronizacja do chmury nie powiodła się', 'error');
+                }
+            }
+        }
+        window.toggleAdminCalendarFeatured = toggleAdminCalendarFeatured;
 
         function renderAdminCalendarList() {
             const box = document.getElementById('admin-calendar-list');
@@ -6787,10 +7119,11 @@
             box.innerHTML = items.map(item => `
                 <div class="admin-movie-row" style="grid-template-columns: 1fr auto;">
                     <div class="min-w-0">
-                        <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)}</p>
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)} ${item.featured ? '<span class="text-red-400 text-[9px] font-black uppercase tracking-widest ml-2">★ Wyróżniona</span>' : ''}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.date)} • ${escapeAdminHtml(item.genre || 'Brak gatunku')}</p>
                     </div>
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-wrap">
+                        <button onclick="toggleAdminCalendarFeatured('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 ${item.featured ? 'text-red-400' : 'text-zinc-400'} rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">${item.featured ? 'Zdejmij' : 'Wyróżnij'}</button>
                         <button onclick="editAdminCalendarRelease('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Edytuj</button>
                         <button onclick="deleteAdminCalendarRelease('${item.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
                     </div>
@@ -6833,6 +7166,20 @@
                 .join(" / ");
         }
 
+        function findMovieForRelease(title) {
+            const t = String(title || '').toLowerCase().trim();
+            if (!t) return null;
+            return movies.find(mv => mv.title.toLowerCase().trim() === t)
+                || movies.find(mv => mv.title.toLowerCase().includes(t) || t.includes(mv.title.toLowerCase()));
+        }
+
+        function scrollToCalMonth(key) {
+            document.querySelectorAll('.cal-month-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.month === key));
+            const el = document.getElementById(`cal-month-${key}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        window.scrollToCalMonth = scrollToCalMonth;
+
         function renderCalendar() {
             window.activeView = 'calendar';
             hideAll();
@@ -6843,88 +7190,107 @@
             if (calendarPage) calendarPage.classList.remove('hidden-section');
             if (!container) return;
 
-            const months = window.getLang?.() === "en"
-                ? ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
-                : ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
+            const isEn = window.getLang?.() === "en";
+            const monthsShort = isEn
+                ? ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
+                : ["STY","LUT","MAR","KWI","MAJ","CZE","LIP","SIE","WRZ","PAŹ","LIS","GRU"];
+            const monthsFull = isEn
+                ? ["January","February","March","April","May","June","July","August","September","October","November","December"]
+                : ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"];
 
+            // grupowanie premier po miesiącu
+            const groups = {};
+            liveCalendarReleases.forEach(r => {
+                const d = new Date(r.date);
+                if (isNaN(d)) return;
+                const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                (groups[key] = groups[key] || []).push(r);
+            });
 
-            // Główna struktura karty kalendarza z nagłówkiem
-            let html = `
-                <div class="animate-in fade-in slide-in-from-bottom-4 duration-700 px-4 sm:px-0">
-                    
-                    <!-- NAGŁÓWEK KALENDARZA -->
-                    <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                        <h2 class="text-3xl sm:text-4xl font-black italic uppercase text-white tracking-tighter text-center sm:text-left">
-                            ${window.getLang?.() === "en"
-                                ? '📅 RELEASE <span class="text-green-500">CALENDAR</span>'
-                                : '📅 KALENDARZ <span class="text-green-500">PREMIER</span>'
-                            }
-                        </h2>
-                        <div class="bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-zinc-400">
-                            Nadchodzące premiery
-                        </div>
-                    </div>
+            const sortedKeys = Object.keys(groups).sort();
 
-                    <!-- LISTA FILMÓW -->
-                    <div class="flex flex-col gap-4">
-            `;
+            const navHtml = sortedKeys.map(key => {
+                const m = parseInt(key.split('-')[1], 10);
+                return `<button type="button" class="cal-month-btn" data-month="${key}" onclick="scrollToCalMonth('${key}')">${monthsShort[m - 1]}<span class="cal-month-count">${groups[key].length}</span></button>`;
+            }).join('');
 
-            // Mapowanie Twojej tablicy danych upcomingReleases
-            html += liveCalendarReleases.map(m => {
-                const d = new Date(m.date);
-                const day = d.getDate();
-                const month = months[d.getMonth()];
-                
-                // Twoja oryginalna automatyczna selekcja hitów komercyjnych
-                const isBigHit = m.genre.includes("Marvel") || 
-                                m.genre.includes("Star Wars") || 
-                                m.genre.includes("DC") || 
-                                m.title.includes("Dune") || 
-                                m.title.includes("Avengers") || 
-                                m.title.includes("Odyssey") || 
-                                m.title.includes("Project Hail Mary") || 
-                                m.title.includes("Scream") || 
-                                m.title.includes("Backrooms") ;
+            const sectionsHtml = sortedKeys.map(key => {
+                const [y, mRaw] = key.split('-');
+                const m = parseInt(mRaw, 10);
+                const items = [...groups[key]].sort((a, b) => a.date.localeCompare(b.date));
+
+                const cardsHtml = items.map(rel => {
+                    const d = new Date(rel.date);
+                    const day = d.getDate();
+                    const monthAbbr = monthsShort[d.getMonth()];
+
+                    const isBigHit = typeof rel.featured === 'boolean'
+                        ? rel.featured
+                        : (rel.genre.includes("Marvel") ||
+                            rel.genre.includes("Star Wars") ||
+                            rel.genre.includes("DC") ||
+                            rel.title.includes("Dune") ||
+                            rel.title.includes("Avengers") ||
+                            rel.title.includes("Odyssey") ||
+                            rel.title.includes("Project Hail Mary") ||
+                            rel.title.includes("Scream") ||
+                            rel.title.includes("Backrooms"));
+
+                    const matchedMovie = findMovieForRelease(rel.title);
+                    const posterHtml = matchedMovie
+                        ? `<img src="${matchedMovie.img}" alt="${rel.title}" onerror="this.remove()">`
+                        : `<span>🎬</span>`;
+
+                    return `
+                        <button type="button" class="cal-release-card ${isBigHit ? 'is-hit' : ''}" ${matchedMovie ? `onclick="openModalById('${matchedMovie.id}')"` : ''}>
+                            <div class="cal-release-poster">
+                                <div class="cal-release-poster-img-wrap">${posterHtml}</div>
+                                <span class="cal-release-day-badge">${day}<small>${monthAbbr}</small></span>
+                            </div>
+                            <div class="cal-release-info">
+                                <h4>${rel.title}</h4>
+                                <span class="cal-release-genre">${translateCalendarGenre(rel.genre)}</span>
+                            </div>
+                        </button>
+                    `;
+                }).join('');
 
                 return `
-                    <button class="group w-full text-left relative overflow-hidden rounded-3xl border transition-all duration-300
-                        ${isBigHit ? 'bg-green-500/[0.08] border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.08)]' : 'bg-zinc-950/70 border-zinc-800 hover:border-zinc-700'}">
-                        
-                        <div class="absolute inset-y-0 left-0 w-1 ${isBigHit ? 'bg-green-500' : 'bg-zinc-800 group-hover:bg-green-500'}"></div>
-
-                        <div class="flex items-center gap-4 p-4 sm:p-5">
-                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center shadow-xl">
-                                <span class="text-2xl sm:text-3xl font-black italic text-white leading-none">${day}</span>
-                                <span class="text-[9px] sm:text-[10px] font-black text-green-500 uppercase tracking-widest mt-1">${month}</span>
-                            </div>
-
-                            <div class="min-w-0 flex-1">
-                                <h4 class="text-base sm:text-xl font-black uppercase italic text-white tracking-tight truncate group-hover:text-green-400 transition">
-                                    ${m.title}
-                                </h4>
-
-                                <div class="flex items-center gap-2 flex-wrap mt-2">
-                                    <span class="text-[9px] font-black text-zinc-400 uppercase tracking-widest px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800">
-                                        ${translateCalendarGenre(m.genre)}
-                                    </span>
-                                    ${isBigHit ? '<span class="text-[9px] font-black text-green-500 uppercase tracking-widest">Wielka premiera</span>' : ''}
-                                </div>
-                            </div>
-
-                            <div class="hidden sm:flex w-10 h-10 rounded-full border border-zinc-800 bg-zinc-900 items-center justify-center text-zinc-500 group-hover:text-green-500 group-hover:border-green-500 transition">
-                                →
-                            </div>
+                    <section class="cal-month-section" id="cal-month-${key}">
+                        <div class="cal-month-heading">
+                            <h3>${monthsFull[m - 1]}</h3>
+                            <span>${y}</span>
                         </div>
-                    </button>
+                        ${cardsHtml}
+                    </section>
                 `;
             }).join('');
 
-            html += `</div></div>`;
+            container.innerHTML = `
+                <div class="animate-in fade-in slide-in-from-bottom-4 duration-700 px-1 sm:px-0">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+                        <h2 class="text-3xl sm:text-4xl font-black italic uppercase text-white tracking-tighter text-center sm:text-left">
+                            📅 ${isEn ? 'RELEASE <span class="text-green-500">CALENDAR</span>' : 'KALENDARZ <span class="text-green-500">PREMIER</span>'}
+                        </h2>
+                    </div>
+                    <div class="cal-month-nav">${navHtml}</div>
+                    ${sectionsHtml || '<p class="text-zinc-600 font-black uppercase italic p-6">Brak premier w bazie.</p>'}
+                </div>
+            `;
 
-            // Wstrzyknięcie gotowego szablonu i płynny skok na górę strony
-            container.innerHTML = html;
             window.applyLanguage?.();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // automatyczne wejście na bieżący miesiąc
+            const now = new Date();
+            const currentKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            const targetKey = groups[currentKey] ? currentKey : (sortedKeys.find(k => k >= currentKey) || sortedKeys[0]);
+
+            if (targetKey) {
+                document.querySelectorAll('.cal-month-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.month === targetKey));
+                requestAnimationFrame(() => {
+                    document.getElementById(`cal-month-${targetKey}`)?.scrollIntoView({ behavior: 'auto', block: 'start' });
+                });
+            }
         }
     
 
@@ -7400,6 +7766,7 @@
                 date: String(movie.date || ''),
                 trailer: String(movie.trailer || ''),
                 desc: String(movie.desc || 'Brak opisu.'),
+                descEn: String(movie.descEn || ''),
                 updatedAtMs: Number(movie.updatedAtMs || Date.now())
             };
         }
@@ -7457,6 +7824,7 @@
                 date: String(r.date || ''),
                 title: String(r.title || 'Premiera'),
                 genre: String(r.genre || ''),
+                featured: !!r.featured,
                 updatedAtMs: Number(r.updatedAtMs || Date.now())
             };
         }
@@ -8630,7 +8998,11 @@
         };
 
         window.getMovieDescription = function(movie) {
-            return movieTranslations[currentLanguage]?.[movie.id]?.desc || movie.desc;
+            if (currentLanguage === "en") {
+                return movie.descEn || movieTranslations[currentLanguage]?.[movie.id]?.desc || movie.desc;
+            }
+
+            return movie.desc;
         };
 
     
@@ -8976,13 +9348,25 @@
             return weeklyNewsCache;
         }
 
+        const WEEKLY_NEWS_MIGRATED_KEY = 'movieHubWeeklyNewsMigrated';
+
         async function fetchSharedWeeklyNews() {
             if (typeof window.loadCloudWeeklyNews === 'function') {
                 try {
                     const cloud = await window.loadCloudWeeklyNews();
+
                     if (cloud && cloud.length) {
                         saveLocalWeeklyNews(cloud);
                         return weeklyNewsCache;
+                    }
+
+                    // Cloud is empty - push whatever we have locally (including the
+                    // hardcoded defaults) up once, so nothing gets silently dropped
+                    // the next time something else is saved to the cloud.
+                    if (localStorage.getItem(WEEKLY_NEWS_MIGRATED_KEY) !== '1' && typeof window.saveCloudWeeklyNewsItem === 'function') {
+                        const localItems = getWeeklyNews();
+                        await Promise.all(localItems.map(item => window.saveCloudWeeklyNewsItem(item)));
+                        localStorage.setItem(WEEKLY_NEWS_MIGRATED_KEY, '1');
                     }
                 } catch (err) {
                     console.warn('Nie udało się pobrać newsów z chmury:', err);
@@ -8990,6 +9374,7 @@
             }
             return getWeeklyNews();
         }
+        window.fetchSharedWeeklyNews = fetchSharedWeeklyNews;
 
         function makeNewsId() {
             return `news-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
