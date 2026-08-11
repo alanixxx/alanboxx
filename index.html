@@ -3540,6 +3540,23 @@
         .weekly-news-dots { display:flex; justify-content:center; gap:8px; margin-top:20px; }
         .weekly-news-dot { width:8px; height:8px; border-radius:999px; background:#3f3f46; transition:.2s ease; }
         .weekly-news-dot.active { width:24px; background:#e879f9; }
+
+        @media (max-width: 767px) {
+            .weekly-news-slide {
+                text-align: center;
+            }
+            .weekly-news-body {
+                align-items: center;
+                padding: 12px 4px 4px;
+            }
+            .weekly-news-tag {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .weekly-news-excerpt {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -3571,6 +3588,7 @@
                     <button id="admin-manage-tab" onclick="setAdminTab('manage')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Zarządzaj katalogiem</button>
                     <button id="admin-bangers-tab" onclick="setAdminTab('bangers')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Główny slider</button>
                     <button id="admin-calendar-tab" onclick="setAdminTab('calendar')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Kalendarz premier</button>
+                    <button id="admin-news-tab" onclick="setAdminTab('news')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Newsy tygodnia</button>
                 </div>
 
                 <form id="admin-movie-form" class="grid lg:grid-cols-[1fr_260px] gap-6" onsubmit="saveAdminMovie(event)">
@@ -3683,6 +3701,58 @@
                     </form>
 
                     <div id="admin-calendar-list" class="grid gap-3"></div>
+                </div>
+                <div id="admin-news-section" class="mt-8 hidden">
+                    <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Newsy tygodnia</h3>
+                    <p class="text-zinc-500 text-xs font-bold mb-4">Możesz ustawić osobną grafikę na komputer i osobną na telefon (bo mają inne proporcje). Jeśli zostawisz pole telefonu puste, użyje się grafika desktopowa.</p>
+
+                    <form id="admin-news-form" class="grid gap-4 mb-8" onsubmit="saveAdminNews(event)">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="admin-label" for="admin-news-tag">Tag (np. Box Office)</label>
+                                <input id="admin-news-tag" class="admin-field" required placeholder="np. Zapowiedzi">
+                            </div>
+                            <div>
+                                <label class="admin-label" for="admin-news-date">Data</label>
+                                <input id="admin-news-date" class="admin-field" placeholder="np. 11.08.2026">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-news-title">Tytuł</label>
+                            <input id="admin-news-title" class="admin-field" required placeholder="Tytuł newsa">
+                        </div>
+
+                        <div>
+                            <label class="admin-label" for="admin-news-excerpt">Treść</label>
+                            <textarea id="admin-news-excerpt" class="admin-field min-h-[100px] resize-y" placeholder="Krótki opis newsa"></textarea>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="admin-label" for="admin-news-img-desktop">Grafika — komputer</label>
+                                <input id="admin-news-img-desktop" class="admin-field" placeholder="./static/plakat.jpg albo https://...">
+                                <div class="aspect-[3/4] mt-2 rounded-2xl border border-zinc-800 bg-black overflow-hidden max-w-[220px]">
+                                    <img id="admin-news-preview-desktop" src="https://via.placeholder.com/300x400?text=Desktop" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="admin-label" for="admin-news-img-mobile">Grafika — telefon (opcjonalnie)</label>
+                                <input id="admin-news-img-mobile" class="admin-field" placeholder="./static/plakat-mobile.jpg albo https://...">
+                                <div class="aspect-[16/9] mt-2 rounded-2xl border border-zinc-800 bg-black overflow-hidden max-w-[220px]">
+                                    <img id="admin-news-preview-mobile" src="https://via.placeholder.com/400x225?text=Mobile" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button id="admin-news-submit-btn" class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest" type="submit">Dodaj news</button>
+                            <button onclick="resetAdminNewsForm()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest" type="button">Wyczyść</button>
+                        </div>
+                    </form>
+
+                    <h4 class="text-white font-black uppercase italic tracking-tight mb-3">Aktualne newsy</h4>
+                    <div id="admin-news-list" class="grid gap-3"></div>
                 </div>
             </div>
         </div>
@@ -3867,7 +3937,7 @@
                     </div>
 
                     <div class="flex-grow text-center lg:text-left">
-                        <h4 class="text-xs font-black tracking-widest text-blue-400 uppercase italic mb-2">🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
+                        <h4 class="text-xs font-black tracking-widest text-blue-400 uppercase italic mb-2"> NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
                             Mutiny <span class="text-zinc-500 font-light font-sans"></span> <span class="inline-block pr-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-100"></span>
                         </h2>
@@ -4729,7 +4799,7 @@
         }
 
         function setAdminTab(tab) {
-            activeAdminTab = ['add', 'manage', 'bangers', 'calendar'].includes(tab) ? tab : 'add';
+            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news'].includes(tab) ? tab : 'add';
 
             const addTab = document.getElementById('admin-add-tab');
             const manageTab = document.getElementById('admin-manage-tab');
@@ -4738,6 +4808,7 @@
             const manageSection = document.getElementById('admin-manage-section');
             const bangersSection = document.getElementById('admin-bangers-section');
             const calendarTab = document.getElementById('admin-calendar-tab');
+            const newsTab = document.getElementById('admin-news-tab');
 
             const activeClass = 'bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
             const inactiveClass = 'bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
@@ -4746,15 +4817,18 @@
             if (manageTab) manageTab.className = activeAdminTab === 'manage' ? activeClass : inactiveClass;
             if (bangersTab) bangersTab.className = activeAdminTab === 'bangers' ? activeClass : inactiveClass;
             if (calendarTab) calendarTab.className = activeAdminTab === 'calendar' ? activeClass : inactiveClass;
+            if (newsTab) newsTab.className = activeAdminTab === 'news' ? activeClass : inactiveClass;
 
             form?.classList.toggle('hidden', activeAdminTab !== 'add');
             manageSection?.classList.toggle('hidden', activeAdminTab !== 'manage');
             bangersSection?.classList.toggle('hidden', activeAdminTab !== 'bangers');
             document.getElementById('admin-calendar-section')?.classList.toggle('hidden', activeAdminTab !== 'calendar');
+            document.getElementById('admin-news-section')?.classList.toggle('hidden', activeAdminTab !== 'news');
 
             if (activeAdminTab === 'manage') renderAdminMovieList();
             if (activeAdminTab === 'bangers') fetchSharedBangerIds().then(renderAdminBangerList);
             if (activeAdminTab === 'calendar') fetchSharedCalendarOverrides().then(ov => { rebuildLiveCalendarReleases(ov); renderAdminCalendarList(); });
+            if (activeAdminTab === 'news') fetchSharedWeeklyNews().then(renderAdminNewsList);
         }
 
         function loginAdmin() {
@@ -7344,6 +7418,39 @@
             return items.sort((a, b) => (b.updatedAtMs || 0) - (a.updatedAtMs || 0));
         };
 
+        function normalizeCloudNewsItem(item) {
+            return {
+                id: String(item.id || ''),
+                tag: String(item.tag || 'News'),
+                title: String(item.title || ''),
+                excerpt: String(item.excerpt || ''),
+                date: String(item.date || ''),
+                imgDesktop: String(item.imgDesktop || ''),
+                imgMobile: String(item.imgMobile || ''),
+                updatedAtMs: Number(item.updatedAtMs || Date.now())
+            };
+        }
+
+        window.loadCloudWeeklyNews = async function() {
+            const snap = await getDocs(collection(db, "weeklyNews"));
+            const items = [];
+            snap.forEach(d => items.push(normalizeCloudNewsItem({ id: d.id, ...d.data() })));
+            return items.sort((a, b) => (b.updatedAtMs || 0) - (a.updatedAtMs || 0));
+        };
+
+        window.saveCloudWeeklyNewsItem = async function(item) {
+            const clean = normalizeCloudNewsItem({ ...item, updatedAtMs: Date.now() });
+            await setDoc(doc(db, "weeklyNews", clean.id), { ...clean, updatedAt: serverTimestamp() }, { merge: true });
+        };
+
+        window.deleteCloudWeeklyNewsItem = async function(id) {
+            await deleteDoc(doc(db, "weeklyNews", id));
+        };
+
+        if (typeof window.loadWeeklyNewsIntoSite === "function") {
+            window.loadWeeklyNewsIntoSite().catch(err => console.warn("Nie udało się wczytać newsów z Firestore:", err));
+        }
+
         function normalizeCloudCalendarRelease(r) {
             return {
                 id: String(r.id || ''),
@@ -8646,7 +8753,7 @@
                 "film": "movie",
                 "Moje Ulubione": "My Favorites",
                 "Plakaty filmów, które już oceniłeś. Ocena jest mocno wyciągnięta na wierzch, żeby na telefonie od razu było widać co dałeś.": "Posters of the movies you have already rated. Your score is shown clearly, so it is easy to read on mobile.",
-                "🔥 NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "🔥 MOST ANTICIPATED MOVIE OF THE MONTH",
+                " NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": " MOST ANTICIPATED MOVIE OF THE MONTH",
 
                 "NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA": "MOST ANTICIPATED MOVIE OF THE MONTH",
                 "Horror w nieskończonych żółtych korytarzach poziomu 0. Internetowy fenomen nadchodzi do kina.": "Horror inside the endless yellow corridors of Level 0. The internet phenomenon is coming to cinemas.",
@@ -8841,37 +8948,201 @@
         });
 
 
-        const weeklyNewsItems = [
-            { tag: 'Box Office', title: 'Mutiny podbija kina przed premierą', excerpt: 'Wczesne pokazy przedpremierowe Mutiny zbierają entuzjastyczne recenzje - widzowie chwalą tempo akcji i charyzmę obsady.', img: './static/mutiny.jpg', date: '11.08.2026' },
-            { tag: 'Zapowiedzi', title: 'Nowy zwiastun Dune: Messiah trafia do sieci', excerpt: 'Denis Villeneuve zamyka trylogię Diuny - najnowszy materiał zapowiada mroczniejszy i bardziej polityczny rozdział sagi.', img: './static/diuna3.jpg', date: '10.08.2026' },
-            { tag: 'Plotki', title: 'Avengers: Doomsday - kto naprawdę gra Dooma?', excerpt: 'Fani analizują każdy kadr najnowszego teasera w poszukiwaniu wskazówek co do tożsamości głównego złoczyńcy MCU.', img: './static/doomsday.jpg', date: '09.08.2026' },
-            { tag: 'Kasa', title: 'Weapons zaskakuje wynikami w box office', excerpt: 'Niskobudżetowy horror bije rekordy popularności, wyprzedzając dużo droższe produkcje w pierwszym weekendzie.', img: './static/weapons.jpg', date: '08.08.2026' },
-            { tag: 'Wywiad', title: 'Twórcy Project Hail Mary o wyzwaniach adaptacji', excerpt: 'Ekipa filmu zdradza kulisy przenoszenia bestsellerowej powieści sci-fi na duży ekran.', img: './static/hailmarry.jpg', date: '07.08.2026' }
+        const DEFAULT_WEEKLY_NEWS = [
+            { id: 'default-1', tag: 'Box Office', title: 'Mutiny podbija kina przed premierą', excerpt: 'Wczesne pokazy przedpremierowe Mutiny zbierają entuzjastyczne recenzje - widzowie chwalą tempo akcji i charyzmę obsady.', imgDesktop: './static/mutiny.jpg', imgMobile: '', date: '11.08.2026' },
+            { id: 'default-2', tag: 'Zapowiedzi', title: 'Nowy zwiastun Dune: Messiah trafia do sieci', excerpt: 'Denis Villeneuve zamyka trylogię Diuny - najnowszy materiał zapowiada mroczniejszy i bardziej polityczny rozdział sagi.', imgDesktop: './static/diuna3.jpg', imgMobile: '', date: '10.08.2026' },
+            { id: 'default-3', tag: 'Plotki', title: 'Avengers: Doomsday - kto naprawdę gra Dooma?', excerpt: 'Fani analizują każdy kadr najnowszego teasera w poszukiwaniu wskazówek co do tożsamości głównego złoczyńcy MCU.', imgDesktop: './static/doomsday.jpg', imgMobile: '', date: '09.08.2026' },
+            { id: 'default-4', tag: 'Kasa', title: 'Weapons zaskakuje wynikami w box office', excerpt: 'Niskobudżetowy horror bije rekordy popularności, wyprzedzając dużo droższe produkcje w pierwszym weekendzie.', imgDesktop: './static/weapons.jpg', imgMobile: '', date: '08.08.2026' },
+            { id: 'default-5', tag: 'Wywiad', title: 'Twórcy Project Hail Mary o wyzwaniach adaptacji', excerpt: 'Ekipa filmu zdradza kulisy przenoszenia bestsellerowej powieści sci-fi na duży ekran.', imgDesktop: './static/hailmarry.jpg', imgMobile: '', date: '07.08.2026' }
         ];
+
+        const WEEKLY_NEWS_KEY = 'movieHubWeeklyNews';
+        let weeklyNewsCache = null;
+        let editingNewsId = null;
+
+        function getLocalWeeklyNews() {
+            try { return JSON.parse(localStorage.getItem(WEEKLY_NEWS_KEY)) || null; } catch { return null; }
+        }
+
+        function saveLocalWeeklyNews(items) {
+            weeklyNewsCache = items;
+            localStorage.setItem(WEEKLY_NEWS_KEY, JSON.stringify(items));
+        }
+
+        function getWeeklyNews() {
+            if (weeklyNewsCache) return weeklyNewsCache;
+            const local = getLocalWeeklyNews();
+            weeklyNewsCache = (local && local.length) ? local : [...DEFAULT_WEEKLY_NEWS];
+            return weeklyNewsCache;
+        }
+
+        async function fetchSharedWeeklyNews() {
+            if (typeof window.loadCloudWeeklyNews === 'function') {
+                try {
+                    const cloud = await window.loadCloudWeeklyNews();
+                    if (cloud && cloud.length) {
+                        saveLocalWeeklyNews(cloud);
+                        return weeklyNewsCache;
+                    }
+                } catch (err) {
+                    console.warn('Nie udało się pobrać newsów z chmury:', err);
+                }
+            }
+            return getWeeklyNews();
+        }
+
+        function makeNewsId() {
+            return `news-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+        }
+
+        function resetAdminNewsForm() {
+            editingNewsId = null;
+            document.getElementById('admin-news-form')?.reset();
+            document.getElementById('admin-news-preview-desktop').src = 'https://via.placeholder.com/300x400?text=Desktop';
+            document.getElementById('admin-news-preview-mobile').src = 'https://via.placeholder.com/400x225?text=Mobile';
+            const btn = document.getElementById('admin-news-submit-btn');
+            if (btn) btn.textContent = 'Dodaj news';
+        }
+        window.resetAdminNewsForm = resetAdminNewsForm;
+
+        async function saveAdminNews(event) {
+            event.preventDefault();
+
+            const tag = safeAdminText(document.getElementById('admin-news-tag')?.value);
+            const title = safeAdminText(document.getElementById('admin-news-title')?.value);
+            const excerpt = safeAdminText(document.getElementById('admin-news-excerpt')?.value);
+            const date = safeAdminText(document.getElementById('admin-news-date')?.value) || new Date().toLocaleDateString('pl-PL');
+            const imgDesktop = safeAdminText(document.getElementById('admin-news-img-desktop')?.value);
+            const imgMobile = safeAdminText(document.getElementById('admin-news-img-mobile')?.value);
+
+            if (!title || !imgDesktop) {
+                showAdminToast('Podaj przynajmniej tytuł i grafikę na komputer.', 'error');
+                return;
+            }
+
+            const item = { id: editingNewsId || makeNewsId(), tag: tag || 'News', title, excerpt, date, imgDesktop, imgMobile, updatedAtMs: Date.now() };
+
+            const items = getWeeklyNews().filter(n => n.id !== item.id);
+            items.unshift(item);
+            saveLocalWeeklyNews(items);
+
+            if (typeof window.saveCloudWeeklyNewsItem === 'function') {
+                try { await window.saveCloudWeeklyNewsItem(item); }
+                catch (err) { console.error('Firestore save error (weeklyNews):', err); showAdminToast('Zapisano lokalnie, ale synchronizacja do chmury nie powiodła się', 'error'); }
+            }
+
+            resetAdminNewsForm();
+            renderAdminNewsList();
+            renderWeeklyNews();
+            showAdminToast(`Zapisano news: "${item.title}"`);
+        }
+        window.saveAdminNews = saveAdminNews;
+
+        function editAdminNews(id) {
+            const item = getWeeklyNews().find(n => n.id === id);
+            if (!item) return;
+
+            editingNewsId = item.id;
+            document.getElementById('admin-news-tag').value = item.tag || '';
+            document.getElementById('admin-news-title').value = item.title || '';
+            document.getElementById('admin-news-excerpt').value = item.excerpt || '';
+            document.getElementById('admin-news-date').value = item.date || '';
+            document.getElementById('admin-news-img-desktop').value = item.imgDesktop || '';
+            document.getElementById('admin-news-img-mobile').value = item.imgMobile || '';
+            document.getElementById('admin-news-preview-desktop').src = item.imgDesktop || 'https://via.placeholder.com/300x400?text=Desktop';
+            document.getElementById('admin-news-preview-mobile').src = item.imgMobile || item.imgDesktop || 'https://via.placeholder.com/400x225?text=Mobile';
+
+            const btn = document.getElementById('admin-news-submit-btn');
+            if (btn) btn.textContent = 'Zapisz zmiany';
+            document.getElementById('admin-news-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        window.editAdminNews = editAdminNews;
+
+        async function deleteAdminNews(id) {
+            if (!confirm('Usunąć ten news?')) return;
+
+            const items = getWeeklyNews().filter(n => n.id !== id);
+            saveLocalWeeklyNews(items);
+
+            if (typeof window.deleteCloudWeeklyNewsItem === 'function') {
+                try { await window.deleteCloudWeeklyNewsItem(id); }
+                catch (err) { console.error('Firestore delete error (weeklyNews):', err); }
+            }
+
+            renderAdminNewsList();
+            renderWeeklyNews();
+            showAdminToast('Usunięto news.');
+        }
+        window.deleteAdminNews = deleteAdminNews;
+
+        function renderAdminNewsList() {
+            const list = document.getElementById('admin-news-list');
+            if (!list) return;
+
+            const items = getWeeklyNews();
+
+            if (!items.length) {
+                list.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Brak newsów. Dodaj pierwszy powyżej.</div>';
+                return;
+            }
+
+            list.innerHTML = items.map(item => `
+                <div class="admin-movie-row">
+                    <img src="${escapeAdminHtml(item.imgDesktop)}" alt="${escapeAdminHtml(item.title)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.tag)} / ${escapeAdminHtml(item.date)}${item.imgMobile ? ' / ma osobną grafikę mobile' : ''}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editAdminNews('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Edytuj</button>
+                        <button onclick="deleteAdminNews('${item.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        window.renderAdminNewsList = renderAdminNewsList;
+
+        document.getElementById('admin-news-img-desktop')?.addEventListener('input', function() {
+            document.getElementById('admin-news-preview-desktop').src = this.value || 'https://via.placeholder.com/300x400?text=Desktop';
+        });
+        document.getElementById('admin-news-img-mobile')?.addEventListener('input', function() {
+            document.getElementById('admin-news-preview-mobile').src = this.value || document.getElementById('admin-news-img-desktop')?.value || 'https://via.placeholder.com/400x225?text=Mobile';
+        });
 
         let weeklyNewsIndex = 0;
         let weeklyNewsTimer = null;
+
+        function isMobileNewsView() {
+            return window.matchMedia('(max-width: 767px)').matches;
+        }
 
         function renderWeeklyNews() {
             const track = document.getElementById('weekly-news-track');
             const dots = document.getElementById('weekly-news-dots');
             if (!track || !dots) return;
 
-            track.innerHTML = weeklyNewsItems.map(item => `
-                <article class="weekly-news-slide">
-                    <div class="weekly-news-img-wrap">
-                        <img src="${item.img}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/600x800?text=Movie+Hub+News'">
-                    </div>
-                    <div class="weekly-news-body">
-                        <span class="weekly-news-tag">${item.tag}</span>
-                        <h3 class="weekly-news-title">${item.title}</h3>
-                        <p class="weekly-news-excerpt">${item.excerpt}</p>
-                        <span class="weekly-news-date">${item.date}</span>
-                    </div>
-                </article>
-            `).join('');
+            const items = getWeeklyNews();
+            const useMobile = isMobileNewsView();
 
-            dots.innerHTML = weeklyNewsItems.map((_, i) => `<span class="weekly-news-dot ${i === weeklyNewsIndex ? 'active' : ''}"></span>`).join('');
+            track.innerHTML = items.map(item => {
+                const img = (useMobile && item.imgMobile) ? item.imgMobile : item.imgDesktop;
+                return `
+                    <article class="weekly-news-slide">
+                        <div class="weekly-news-img-wrap">
+                            <img src="${img}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/600x800?text=Movie+Hub+News'">
+                        </div>
+                        <div class="weekly-news-body">
+                            <span class="weekly-news-tag">${item.tag}</span>
+                            <h3 class="weekly-news-title">${item.title}</h3>
+                            <p class="weekly-news-excerpt">${item.excerpt}</p>
+                            <span class="weekly-news-date">${item.date}</span>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            if (weeklyNewsIndex >= items.length) weeklyNewsIndex = 0;
+            dots.innerHTML = items.map((_, i) => `<span class="weekly-news-dot ${i === weeklyNewsIndex ? 'active' : ''}"></span>`).join('');
             updateWeeklyNewsPosition();
         }
 
@@ -8883,7 +9154,9 @@
         }
 
         function goToWeeklyNews(step) {
-            weeklyNewsIndex = (weeklyNewsIndex + step + weeklyNewsItems.length) % weeklyNewsItems.length;
+            const items = getWeeklyNews();
+            if (!items.length) return;
+            weeklyNewsIndex = (weeklyNewsIndex + step + items.length) % items.length;
             updateWeeklyNewsPosition();
             restartWeeklyNewsAutoplay();
         }
@@ -8893,9 +9166,23 @@
             weeklyNewsTimer = setInterval(() => goToWeeklyNews(1), 7000);
         }
 
+        async function loadWeeklyNewsIntoSite() {
+            await fetchSharedWeeklyNews();
+            renderWeeklyNews();
+        }
+        window.loadWeeklyNewsIntoSite = loadWeeklyNewsIntoSite;
+
+        let weeklyNewsResizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(weeklyNewsResizeTimer);
+            weeklyNewsResizeTimer = setTimeout(renderWeeklyNews, 200);
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
+            weeklyNewsCache = getLocalWeeklyNews() || [...DEFAULT_WEEKLY_NEWS];
             renderWeeklyNews();
             restartWeeklyNewsAutoplay();
+            loadWeeklyNewsIntoSite();
             document.getElementById('weekly-news-prev')?.addEventListener('click', () => goToWeeklyNews(-1));
             document.getElementById('weekly-news-prev-mobile')?.addEventListener('click', () => goToWeeklyNews(-1));
             document.getElementById('weekly-news-next')?.addEventListener('click', () => goToWeeklyNews(1));
