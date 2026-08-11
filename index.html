@@ -3552,6 +3552,26 @@
         .weekly-news-dot { width:8px; height:8px; border-radius:999px; background:#3f3f46; transition:.2s ease; }
         .weekly-news-dot.active { width:24px; background:#e879f9; }
 
+        .news-reaction-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+        .news-reaction-btn {
+            position: relative;
+            display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05);
+            color: #d4d4d8; border-radius: 999px; padding: 8px 12px;
+            font-size: 11px; font-weight: 900; cursor: pointer;
+            transition: .15s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        }
+        .news-reaction-btn:hover { border-color: #e879f9; background: rgba(217,70,239,.12); }
+        .news-reaction-btn:active { transform: scale(.94); }
+        .news-reaction-emoji { font-size: 15px; }
+        .news-reaction-count { color: #a1a1aa; font-size: 10px; }
+        .news-reaction-btn.pulse .news-reaction-emoji { animation: mutinyFirePulse .5s ease; }
+        .reaction-particle {
+            position: absolute; left: 50%; top: 0; transform: translate(-50%, -100%);
+            font-size: 18px; pointer-events: none;
+            animation: mutinyFireFloat .9s ease forwards;
+        }
+
         @media (max-width: 767px) {
             .weekly-news-slide {
                 text-align: center;
@@ -7756,6 +7776,15 @@
 
         initMutinyHype();
 
+        window.loadWeeklyNewsReactions = async function(newsId) {
+            const snap = await getDoc(doc(db, "weeklyNewsReactions", newsId));
+            return snap.exists() ? snap.data() : { fire: 0, heart: 0, shock: 0, skull: 0}
+        };
+
+        window.reactToWeeklyNews = async function(newsId, key) {
+            await setDoc(doc(db, "weeklyNewsReactions", newsId), { [key]: increment(1) }, { merge: true });
+        };
+
         function normalizeCloudAdminMovie(movie) {
             return {
                 id: String(movie.id || ''),
@@ -7794,9 +7823,17 @@
                 date: String(item.date || ''),
                 imgDesktop: String(item.imgDesktop || ''),
                 imgMobile: String(item.imgMobile || ''),
+                order: typeof item.order === 'number' ? item.order : null,
                 updatedAtMs: Number(item.updatedAtMs || Date.now())
             };
         }
+
+        window.loadCloudWeeklyNews = async function() {
+            const snap = await getDocs(collection(db, "weeklyNews"));
+            const items = [];
+            snap.forEach(d => items.push(normalizeCloudNewsItem({ id: d.id, ...d.data() })));
+            return items;
+        };
 
         window.loadCloudWeeklyNews = async function() {
             const snap = await getDocs(collection(db, "weeklyNews"));
@@ -9329,6 +9366,7 @@
         ];
 
         const WEEKLY_NEWS_KEY = 'movieHubWeeklyNews';
+        const WEEKLY_NEWS_MIGRATED_KEY = 'movieHubWeeklyNewsMigrated';
         let weeklyNewsCache = null;
         let editingNewsId = null;
 
@@ -9348,24 +9386,30 @@
             return weeklyNewsCache;
         }
 
-        const WEEKLY_NEWS_MIGRATED_KEY = 'movieHubWeeklyNewsMigrated';
-
         async function fetchSharedWeeklyNews() {
             if (typeof window.loadCloudWeeklyNews === 'function') {
                 try {
                     const cloud = await window.loadCloudWeeklyNews();
 
                     if (cloud && cloud.length) {
+                        const needsOrder = cloud.some(item => item.order === null || item.order === undefined);
+                        cloud.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999) || (b.updatedAtMs || 0) - (a.updatedAtMs || 0));
+
+                        if (needsOrder) {
+                            cloud.forEach((item, i) => { item.order = i; });
+                            if (typeof window.saveCloudWeeklyNewsItem === 'function') {
+                                await Promise.all(cloud.map(item => window.saveCloudWeeklyNewsItem(item)));
+                            }
+                        }
+
                         saveLocalWeeklyNews(cloud);
                         return weeklyNewsCache;
                     }
 
-                    // Cloud is empty - push whatever we have locally (including the
-                    // hardcoded defaults) up once, so nothing gets silently dropped
-                    // the next time something else is saved to the cloud.
                     if (localStorage.getItem(WEEKLY_NEWS_MIGRATED_KEY) !== '1' && typeof window.saveCloudWeeklyNewsItem === 'function') {
-                        const localItems = getWeeklyNews();
+                        const localItems = getWeeklyNews().map((item, i) => ({ ...item, order: i }));
                         await Promise.all(localItems.map(item => window.saveCloudWeeklyNewsItem(item)));
+                        saveLocalWeeklyNews(localItems);
                         localStorage.setItem(WEEKLY_NEWS_MIGRATED_KEY, '1');
                     }
                 } catch (err) {
@@ -9375,6 +9419,8 @@
             return getWeeklyNews();
         }
         window.fetchSharedWeeklyNews = fetchSharedWeeklyNews;
+
+        
 
         function makeNewsId() {
             return `news-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
@@ -9405,10 +9451,15 @@
                 return;
             }
 
-            const item = { id: editingNewsId || makeNewsId(), tag: tag || 'News', title, excerpt, date, imgDesktop, imgMobile, updatedAtMs: Date.now() };
+            const existingItems = getWeeklyNews();
+            const existingItem = existingItems.find(n => n.id === editingNewsId);
+            const order = existingItem ? existingItem.order : existingItems.length;
 
-            const items = getWeeklyNews().filter(n => n.id !== item.id);
-            items.unshift(item);
+            const item = { id: editingNewsId || makeNewsId(), tag: tag || 'News', title, excerpt, date, imgDesktop, imgMobile, order, updatedAtMs: Date.now() };
+
+            const items = existingItems.filter(n => n.id !== item.id);
+            items.push(item);
+            items.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
             saveLocalWeeklyNews(items);
 
             if (typeof window.saveCloudWeeklyNewsItem === 'function') {
@@ -9442,6 +9493,34 @@
             document.getElementById('admin-news-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         window.editAdminNews = editAdminNews;
+
+        async function moveAdminNews(id, direction) {
+            const items = getWeeklyNews();
+            const index = items.findIndex(n => n.id === id);
+            const targetIndex = index + direction;
+            if (index === -1 || targetIndex < 0 || targetIndex >= items.length) return;
+
+            const a = items[index];
+            const b = items[targetIndex];
+            const aOrder = a.order ?? index;
+            a.order = b.order ?? targetIndex;
+            b.order = aOrder;
+
+            const reordered = [...items].sort((x, y) => (x.order ?? 0) - (y.order ?? 0));
+            saveLocalWeeklyNews(reordered);
+            renderAdminNewsList();
+            renderWeeklyNews();
+
+            if (typeof window.saveCloudWeeklyNewsItem === 'function') {
+                try {
+                    await Promise.all([window.saveCloudWeeklyNewsItem(a), window.saveCloudWeeklyNewsItem(b)]);
+                } catch (err) {
+                    console.error('Firestore save error (weeklyNews order):', err);
+                    showAdminToast('Nie udało się zapisać kolejności w chmurze', 'error');
+                }
+            }
+        }
+        window.moveAdminNews = moveAdminNews;
 
         async function deleteAdminNews(id) {
             if (!confirm('Usunąć ten news?')) return;
@@ -9478,7 +9557,9 @@
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.tag)} / ${escapeAdminHtml(item.date)}${item.imgMobile ? ' / ma osobną grafikę mobile' : ''}</p>
                     </div>
-                    <div class="flex gap-2">
+                   <div class="flex gap-2 flex-wrap">
+                        <button onclick="moveAdminNews('${item.id}', -1)" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-3 py-3 text-[10px] font-black" type="button">↑</button>
+                        <button onclick="moveAdminNews('${item.id}', 1)" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-3 py-3 text-[10px] font-black" type="button">↓</button>
                         <button onclick="editAdminNews('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Edytuj</button>
                         <button onclick="deleteAdminNews('${item.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
                     </div>
@@ -9521,15 +9602,76 @@
                             <h3 class="weekly-news-title">${item.title}</h3>
                             <p class="weekly-news-excerpt">${item.excerpt}</p>
                             <span class="weekly-news-date">${item.date}</span>
+                            <div class="news-reaction-row" data-news-id="${item.id}">
+                                <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','fire')"><span class="news-reaction-emoji">🔥</span><span class="news-reaction-count" data-key="fire">–</span></button>
+                                <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','heart')"><span class="news-reaction-emoji">❤️</span><span class="news-reaction-count" data-key="heart">–</span></button>
+                                <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','shock')"><span class="news-reaction-emoji">😱</span><span class="news-reaction-count" data-key="shock">–</span></button>
+                                <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','skull')"><span class="news-reaction-emoji">💀</span><span class="news-reaction-count" data-key="skull">–</span></button>
+                            </div>
                         </div>
                     </article>
                 `;
             }).join('');
 
+            loadAllNewsReactionCounts(items);
+
             if (weeklyNewsIndex >= items.length) weeklyNewsIndex = 0;
             dots.innerHTML = items.map((_, i) => `<span class="weekly-news-dot ${i === weeklyNewsIndex ? 'active' : ''}"></span>`).join('');
             updateWeeklyNewsPosition();
         }
+
+        function formatReactionCount(n) {
+            const num = Number(n) || 0;
+            if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+            return String(num);
+        }
+
+        async function loadAllNewsReactionCounts(items) {
+            if (typeof window.loadWeeklyNewsReactions !== 'function') return;
+
+            await Promise.all(items.map(async item => {
+                try {
+                    const counts = await window.loadWeeklyNewsReactions(item.id);
+                    const row = document.querySelector(`.news-reaction-row[data-news-id="${item.id}"]`);
+                    if (!row) return;
+
+                    ['fire', 'heart', 'shock', 'skull'].forEach(key => {
+                        const el = row.querySelector(`.news-reaction-count[data-key="${key}"]`);
+                        if (el) el.textContent = formatReactionCount(counts?.[key] || 0);
+                    });
+                } catch (err) {
+                    console.warn('Nie udało się pobrać reakcji dla newsa', item.id, err);
+                }
+            }));
+        }
+
+        async function reactToNews(event, newsId, key) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const btn = event.currentTarget;
+            btn.classList.remove('pulse');
+            void btn.offsetWidth;
+            btn.classList.add('pulse');
+
+            const particle = document.createElement('span');
+            particle.className = 'reaction-particle';
+            particle.textContent = { fire: '🔥', heart: '❤️', shock: '😱', skull: '💀' }[key] || '+1';
+            btn.appendChild(particle);
+            setTimeout(() => particle.remove(), 850);
+
+            if (typeof window.reactToWeeklyNews === 'function') {
+                try {
+                    await window.reactToWeeklyNews(newsId, key);
+                    const counts = await window.loadWeeklyNewsReactions(newsId);
+                    const countEl = btn.querySelector(`.news-reaction-count[data-key="${key}"]`);
+                    if (countEl) countEl.textContent = formatReactionCount(counts?.[key] || 0);
+                } catch (err) {
+                    console.warn('Nie udało się zapisać reakcji:', err);
+                }
+            }
+        }
+        window.reactToNews = reactToNews;
 
         function updateWeeklyNewsPosition() {
             const track = document.getElementById('weekly-news-track');
