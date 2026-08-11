@@ -2443,6 +2443,9 @@
             letter-spacing: .08em;
             cursor: pointer;
             transition: transform .15s ease, background .2s ease, border-color .2s ease;
+            touch-action: manipulation;      /* <- blokuje zoom przy szybkich tapach */
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         .mutiny-fire-btn:hover {
@@ -2467,10 +2470,9 @@
 
         .mutiny-fire-particle {
             position: absolute;
-            top: -14px;
-            right: -8px;
-            left: auto;
-            transform: none;
+            left: 0;
+            top: 0;
+            transform: translate(-50%, -100%);
             font-size: 22px;
             font-weight: 900;
             color: #60a5fa;
@@ -2481,9 +2483,9 @@
         }
 
         @keyframes mutinyFireFloat {
-            0% { opacity: 0; transform: translate(0, 0) scale(.7); }
-            20% { opacity: 1; transform: translate(4px, -12px) scale(1.2); }
-            100% { opacity: 0; transform: translate(10px, -48px) scale(1.1); }
+            0% { opacity: 0; transform: translate(-50%, -100%) scale(.7); }
+            20% { opacity: 1; transform: translate(calc(-50% + 4px), calc(-100% - 12px)) scale(1.2); }
+            100% { opacity: 0; transform: translate(calc(-50% + 10px), calc(-100% - 48px)) scale(1.1); }
         }
 
         @media (min-width: 1024px) {
@@ -2538,9 +2540,14 @@
                 gap: 6px;
             }
 
-            .backrooms-hype-row span {
+            .backrooms-hype-row span,
+            .backrooms-hype-row button.mutiny-fire-btn {
                 padding: 7px 9px;
                 font-size: 8px;
+            }
+
+            .backrooms-hype-row .mutiny-fire-icon {
+                font-size: 12px;
             }
 
             section:has(#countdown-days) .flex.flex-wrap.justify-center {
@@ -7146,9 +7153,17 @@
             void btn.offsetWidth; // reset animacji przy szybkich kliknięciach
             btn.classList.add("ignite");
 
+            // Pozycja kliknięcia/dotknięcia względem przycisku
+            const rect = btn.getBoundingClientRect();
+            const point = event.touches?.[0] || event.changedTouches?.[0] || event;
+            const x = (point.clientX ?? rect.left + rect.width / 2) - rect.left;
+            const y = (point.clientY ?? rect.top) - rect.top;
+
             const particle = document.createElement("span");
             particle.className = "mutiny-fire-particle";
             particle.textContent = "+1 🔥";
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
             btn.appendChild(particle);
             setTimeout(() => particle.remove(), 850);
 
