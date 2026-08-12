@@ -6,7 +6,7 @@
     <title>Movie Hub | Pro Authority</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #09090b; scroll-behavior: smooth; color: white; overflow-x: hidden; }
         
         #hero-bg { position: absolute; inset: 0; z-index: -1; transition: background-image 1.5s ease-in-out; background-size: cover; background-position: center; filter: brightness(0.2) blur(8px); }
@@ -383,6 +383,467 @@
         .hidden-section { display: none !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 15px; }
 
+
+        /* =========================================================
+        NOWY FULLSCREEN MOVIE MODAL
+        ========================================================= */
+
+        #movie-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            width: 100vw;
+            height: 100dvh;
+            padding: 0;
+            background: #07070a;
+            backdrop-filter: none;
+            align-items: stretch;
+            justify-content: stretch;
+        }
+
+        #movie-modal[style*="display: flex"],
+        #movie-modal.is-open {
+            display: flex;
+        }
+
+        #movie-modal > .movie-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #07070a;
+        }
+
+        /* TŁO FILMU */
+        #movie-modal .movie-backdrop {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            transform: scale(1.03);
+        }
+
+        #movie-modal .movie-backdrop::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(7,7,10,.99) 0%,
+                    rgba(7,7,10,.93) 22%,
+                    rgba(7,7,10,.70) 42%,
+                    rgba(7,7,10,.28) 68%,
+                    rgba(7,7,10,.58) 100%
+                );
+        }
+
+        /* DELIKATNA CIEMNA WARSTWA */
+        #movie-modal .movie-backdrop::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,.12);
+        }
+
+        /* GÓRNA BELKA */
+        #movie-modal .movie-topbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 20px clamp(20px, 5vw, 48px);
+        }
+
+        /* SEANS 21:45 */
+        #movie-modal .movie-timecode {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #a9a8b3;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        #movie-modal .movie-time-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+            background: #3d5cff;
+
+            box-shadow: 0 0 10px #3d5cff;
+        }
+
+        /* X */
+        #movie-modal .movie-exit {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            color: #f4f3f0;
+            background: transparent;
+
+            border: 1px solid rgba(244,243,240,.14);
+            border-radius: 999px;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 12px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        #movie-modal .movie-exit:hover {
+            color: #eef0ff;
+            border-color: #3d5cff;
+            background: rgba(61,92,255,.15);
+        }
+
+        /* TREŚĆ */
+        #movie-modal .movie-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: 15;
+
+            max-height: 88dvh;
+            overflow-y: auto;
+
+            padding:
+                0
+                clamp(20px, 5vw, 64px)
+                clamp(28px, 5vh, 56px);
+        }
+
+        /* MAŁA ETYKIETA */
+        #movie-modal .movie-kicker {
+            display: inline-flex;
+            width: fit-content;
+
+            margin-bottom: 16px;
+            padding: 5px 12px;
+
+            color: #eef0ff;
+            background: rgba(61,92,255,.22);
+
+            border: 1px solid rgba(61,92,255,.5);
+            border-radius: 999px;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        /* TYTUŁ */
+        #movie-modal #modal-title {
+            margin: 0 0 16px;
+
+            max-width: 16ch;
+
+            color: #f4f3f0 !important;
+
+            font-family: "Anton", sans-serif;
+            font-size: clamp(42px, 7vw, 84px) !important;
+            font-weight: 400 !important;
+            font-style: normal !important;
+
+            line-height: .94;
+            letter-spacing: .005em;
+
+            text-transform: uppercase;
+        }
+
+        /* OPIS */
+        #movie-modal #modal-desc {
+            max-width: 60ch;
+
+            margin: 0 0 26px;
+
+            color: #a9a8b3 !important;
+
+            font-size: clamp(14px,1.6vw,16px) !important;
+            line-height: 1.6;
+        }
+
+        /* INFORMACJE */
+        #movie-modal .movie-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+
+            margin-bottom: 26px;
+        }
+
+        #movie-modal .movie-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        #movie-modal .movie-meta-label {
+            color: #a9a8b3;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        #movie-modal .movie-meta-value {
+            color: #f4f3f0;
+
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* PASEK OCENY */
+        #movie-modal .movie-score-bar {
+            width: 110px;
+            height: 5px;
+
+            overflow: hidden;
+
+            background: rgba(244,243,240,.15);
+            border-radius: 3px;
+        }
+
+        #movie-modal .movie-score-bar i {
+            display: block;
+
+            width: 0;
+            height: 100%;
+
+            background: #3d5cff;
+            border-radius: 3px;
+        }
+
+        /* GWIAZDKI */
+        #movie-modal .movie-stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        #movie-modal .movie-stars {
+
+            display: flex;
+
+            gap: 2px;
+
+            white-space: nowrap;
+        }
+
+
+        #movie-modal .movie-stars span {
+
+            display: inline-block;
+
+            color: rgba(244,243,240,.22);
+
+            font-size: 16px;
+
+            line-height: 1;
+
+            cursor: default;
+
+            user-select: none;
+
+            transition:
+                color .2s ease,
+                text-shadow .2s ease;
+        }
+
+
+        #movie-modal .movie-stars span.active {
+
+            color: #f4f3f0;
+
+            text-shadow:
+                0 0 8px rgba(244,243,240,.25);
+        }
+
+        /* PRZYCISKI */
+        #movie-modal .movie-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            margin-bottom: 24px;
+        }
+
+        #movie-modal .movie-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 14px 22px;
+
+            border-radius: 999px;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 12px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        #movie-modal .movie-btn-primary {
+            color: #eef0ff;
+            background: #3d5cff;
+            border: 1px solid #3d5cff;
+            font-weight: 600;
+        }
+
+        #movie-modal .movie-btn-primary:hover {
+            background: #5470ff;
+        }
+
+        #movie-modal .movie-btn-ghost {
+            color: #f4f3f0;
+            background: rgba(244,243,240,.06);
+            border: 1px solid rgba(244,243,240,.14);
+        }
+
+        #movie-modal .movie-btn-ghost:hover {
+            color: #eef0ff;
+            border-color: #3d5cff;
+        }
+
+        /* DOLNA LINIA */
+        #movie-modal .movie-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(244,243,240,.14);
+        }
+
+        #movie-modal .movie-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        #movie-modal .movie-genre {
+            padding: 6px 13px;
+
+            color: #a9a8b3;
+
+            border: 1px solid rgba(244,243,240,.14);
+            border-radius: 999px;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 11px;
+        }
+
+        /* OCEŃ TEN FILM */
+        #movie-modal .movie-rate-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 18px 10px 14px;
+
+            color: #eef0ff;
+            background: transparent;
+
+            border: 1px solid #3d5cff;
+            border-radius: 999px;
+
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 12px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+        }
+
+        #movie-modal .movie-rate-btn span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 20px;
+            height: 20px;
+
+            color: #eef0ff;
+            background: #3d5cff;
+
+            border-radius: 50%;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* MOBILE */
+        @media (max-width: 640px) {
+
+            #movie-modal .movie-topbar {
+                padding: 16px 18px;
+            }
+
+            #movie-modal .movie-timecode {
+                font-size: 9px;
+            }
+
+            #movie-modal .movie-content {
+                max-height: 82dvh;
+                padding: 0 18px 24px;
+            }
+
+            #movie-modal #modal-title {
+                font-size: clamp(42px, 13vw, 62px) !important;
+            }
+
+            #movie-modal .movie-meta-row {
+                gap: 16px;
+            }
+
+            #movie-modal .movie-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #movie-modal .movie-rate-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #movie-modal .movie-actions {
+                gap: 8px;
+            }
+
+            #movie-modal .movie-btn {
+                padding: 13px 16px;
+                font-size: 10px;
+            }
+        }
         .star-rating { direction: rtl; display: inline-flex; }
         .star-rating input { display: none; }
         .star-rating label { color: #333; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
@@ -3748,6 +4209,144 @@
             .cal-release-poster-img-wrap { border-radius: 12px; }
             .cal-release-info h4 { font-size: 13px; margin-bottom: 6px; }
         }
+
+        /* =========================================================
+        MOVIE MODAL — CZARNE TŁO + NORMALNY PLAKAT
+        ========================================================= */
+
+        #movie-modal .movie-backdrop {
+            position: absolute;
+            inset: 0;
+
+            background: #050507 !important;
+
+            overflow: hidden;
+        }
+
+        /* wyłączamy stare gradienty */
+        #movie-modal .movie-backdrop::before,
+        #movie-modal .movie-backdrop::after {
+            display: none !important;
+        }
+
+
+        /* PLAKAT */
+        #movie-modal .movie-modal-poster {
+            position: absolute;
+
+            right: clamp(40px, 8vw, 140px);
+            top: 50%;
+
+            width: clamp(210px, 18vw, 300px);
+            height: clamp(315px, 27vw, 450px);
+
+            transform: translateY(-50%);
+
+            object-fit: cover;
+            object-position: center;
+
+            border-radius: 18px;
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.75),
+                0 0 0 1px rgba(255,255,255,.03);
+
+            z-index: 2;
+        }
+
+
+        /* treść nie wchodzi na plakat */
+        #movie-modal .movie-content {
+            right: min(400px, 30vw);
+            max-width: 900px;
+        }
+
+
+        /* na mniejszych ekranach zmniejszamy plakat */
+        @media (max-width: 900px) {
+
+            #movie-modal .movie-modal-poster {
+                right: 30px;
+                width: 190px;
+                height: 285px;
+            }
+
+            #movie-modal .movie-content {
+                right: 250px;
+            }
+        }
+
+
+        /* TELEFON */
+        @media (max-width: 700px) {
+
+            #movie-modal .movie-modal-poster {
+                right: 18px;
+                top: 115px;
+
+                width: 105px;
+                height: 158px;
+
+                transform: none;
+
+                border-radius: 14px;
+            }
+
+            #movie-modal .movie-content {
+                right: 0;
+                max-width: none;
+            }
+
+            #movie-modal #modal-title,
+            #movie-modal #modal-desc,
+            #movie-modal .movie-meta-row,
+            #movie-modal .movie-actions {
+                padding-right: 125px;
+            }
+        }
+
+        #movie-modal .movie-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            white-space: nowrap;
+        }
+
+        #movie-modal .movie-stars span {
+            display: inline-block;
+
+            color: rgba(244,243,240,.22);
+
+            font-size: 17px;
+            line-height: 1;
+
+            transition:
+                color .2s ease,
+                text-shadow .2s ease;
+        }
+
+        #movie-modal .movie-stars span.active {
+            color: #f4f3f0;
+
+            text-shadow:
+                0 0 8px rgba(244,243,240,.25);
+        }
+
+        #movie-modal .movie-stars span {
+            font-size: 15px;
+        }
+
+        @media (max-width: 900px) {
+            #movie-modal .movie-stars {
+                gap: 1px;
+            }
+
+            #movie-modal .movie-stars span {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -4369,6 +4968,13 @@
                 <button onclick="showHome()" class="w-fit bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition">
                     Wróć
                 </button>
+                <button
+                    id="rating-return-to-movie"
+                    onclick="returnToMovieModal()"
+                    class="hidden w-fit bg-zinc-900 hover:bg-cyan-400 hover:text-black border border-zinc-800 hover:border-cyan-400 text-zinc-300 px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition"
+                >
+                    ← Wróć do filmu
+                </button>
             </div>
 
             <div class="grid gap-4 mb-7">
@@ -4429,64 +5035,206 @@
         </section>
     </div>
 
-    <div id="movie-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('movie-modal', false)">
-        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-5xl rounded-[40px] overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="toggleModal('movie-modal', false)" class="absolute top-6 right-6 z-50 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition-colors">✕</button>
-            <div class="modal-poster-side w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
-                <img id="modal-img" src="" class="w-full h-full object-cover">
+    <div id="movie-modal"
+        class="modal-overlay"
+        onclick="if(event.target === this) toggleModal('movie-modal', false)">
+
+        <div class="movie-screen">
+
+            <!-- TŁO FILMU -->
+            <div id="movie-modal-backdrop" class="movie-backdrop">
+                <img
+                    id="movie-modal-poster"
+                    class="movie-modal-poster"
+                    src=""
+                    alt=""
+                >
             </div>
-            <div class="movie-modal-info flex-1 p-8 md:p-12 overflow-y-auto flex flex-col">
-                <div class="movie-main-content">
-                    <h2 id="modal-title" class="text-4xl md:text-6xl font-black italic uppercase mb-4 text-green-500 tracking-tighter"></h2>
 
-                    <p id="modal-desc" class="modal-description text-zinc-400 text-lg mb-8 leading-relaxed"></p>
 
-                    <div class="mobile-modal-core">
-                        <img id="modal-mobile-img" src="" alt="" class="modal-mobile-poster">
-                    </div>
+            <!-- GÓRNA BELKA -->
+            <div class="movie-topbar">
 
-                    <div class="movie-stats-row">
-                        <div class="movie-stat-box">
-                            <span>Score</span>
-                            <strong id="modal-rating"></strong>
-                        </div>
-
-                        <div class="movie-stat-box user-score-box">
-                            <span>My Score</span>
-                            <strong id="modal-user-rating">-</strong>
-                        </div>
-
-                        <div class="movie-stat-box">
-                            <span>Rok</span>
-                            <strong id="modal-date"></strong>
-                        </div>
-                    </div>
-
-                    <button id="modal-trailer-link" onclick="openTrailerModal()" type="button" class="movie-trailer-btn">
-                        Obejrzyj Trailer
-                    </button>
-
-                    <button id="movie-review-action-btn" onclick="openReviewDraft()" type="button" class="movie-review-btn">
-                        Dodaj Recenzję
-                    </button>
+                <div class="movie-timecode">
+                    <span class="movie-time-dot"></span>
+                    <span>SEANS 21:45 · SALA 3</span>
                 </div>
 
-                
-                
-                <div class="movie-genres-footer modal-bottom-actions">
-                    <div class="modal-genre-block">
-                        <p>Gatunek</p>
-                        <div id="modal-genre-list" class="movie-genre-list"></div>
+                <button
+                    type="button"
+                    class="movie-exit"
+                    onclick="toggleModal('movie-modal', false)"
+                >
+                    WYJDŹ
+                    <span>×</span>
+                </button>
+
+            </div>
+
+
+            <!-- TREŚĆ -->
+            <div class="movie-content">
+
+                <div class="movie-kicker">
+                    <span id="modal-kicker">FILM</span>
+                </div>
+
+
+                <h2 id="modal-title"></h2>
+
+
+                <p id="modal-desc"></p>
+
+
+                <div class="movie-meta-row">
+
+                    <!-- OCENA -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Ocena
+                        </span>
+
+                        <div class="movie-score-bar">
+                            <i id="modal-score-fill"></i>
+                        </div>
+
+                        <strong 
+                            id="modal-rating-value"
+                            class="movie-meta-value"
+                            style="font-size:14px;">
+                        </strong>
+
                     </div>
 
-                    <button id="modal-rate-shortcut" type="button" class="modal-rate-shortcut genre-rate-shortcut">
+
+                    <!-- MOJA OCENA -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Moja ocena
+                        </span>
+
+                        <div class="movie-stars"
+                            id="modal-star-row">
+
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ROK -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Rok
+                        </span>
+
+                        <strong
+                            id="modal-date"
+                            class="movie-meta-value">
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CZAS -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Czas trwania
+                        </span>
+
+                        <strong class="movie-meta-value">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRZYCISKI -->
+                <div class="movie-actions">
+
+                    <button
+                        id="modal-trailer-link"
+                        type="button"
+                        class="movie-btn movie-btn-primary"
+                        onclick="openTrailerModal()"
+                    >
+                        ▶ Obejrzyj Trailer
+                    </button>
+
+
+                    <button
+                        id="movie-review-action-btn"
+                        type="button"
+                        class="movie-btn movie-btn-ghost"
+                        onclick="openReviewDraft()"
+                    >
+                        ✎ Dodaj Recenzję
+                    </button>
+
+
+                    <button
+                        id="modal-rate-shortcut"
+                        type="button"
+                        class="movie-btn movie-btn-ghost movie-rate-action"
+                    >
                         <span>+</span>
-                        <strong>Oceń ten film</strong>
+                        Oceń film
                     </button>
+
+
+                    <button
+                        type="button"
+                        class="movie-btn movie-btn-ghost"
+                        onclick="toggleWatchlist(currentMovieId)"
+                    >
+                        + Do obejrzenia
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="movie-btn movie-btn-ghost"
+                        onclick="navigator.clipboard?.writeText(location.href)"
+                    >
+                        ↗
+                    </button>
+
+                </div>
+
+
+                <!-- DÓŁ -->
+                <div class="movie-footer">
+
+                    <div
+                        id="modal-genre-list"
+                        class="movie-genres">
+                    </div>
+
+
+                
+
                 </div>
 
             </div>
+
         </div>
+
     </div>
 
     <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
@@ -5963,9 +6711,21 @@
         const ratingStudioItemsPerPage = 10;
 
         function openRatingStudio() {
-            window.activeView = 'ratingStudio';
-            hideAll();
 
+            window.activeView = 'ratingStudio';
+
+
+            const returnButton =
+                document.getElementById(
+                    'rating-return-to-movie'
+                );
+
+            if (returnButton) {
+                returnButton.classList.add('hidden');
+            }
+
+
+            hideAll();
             const page = document.getElementById('rating-studio-page');
             if (page) page.classList.remove('hidden-section');
 
@@ -5982,15 +6742,42 @@
 
 
         function openRatingStudioForCurrentMovie() {
+
             if (!currentMovieId) return;
 
-            toggleModal('movie-modal', false);
+            // Zapamiętujemy film, z którego weszliśmy
+            movieModalReturnId = currentMovieId;
+
+            // Zamykamy panel filmu
+            toggleModal(
+                'movie-modal',
+                false
+            );
+
+            // Otwieramy Rating Studio
             openRatingStudio();
 
+            // Pokazujemy przycisk powrotu do filmu
+            const returnButton =
+                document.getElementById(
+                    'rating-return-to-movie'
+                );
+
+            if (returnButton) {
+                returnButton.classList.remove('hidden');
+            }
+
+            // Automatycznie wybieramy aktualny film
             setTimeout(() => {
-                if (typeof selectStudioMovie === 'function') {
-                    selectStudioMovie(currentMovieId);
+
+                if (
+                    typeof selectStudioMovie === 'function'
+                ) {
+                    selectStudioMovie(
+                        currentMovieId
+                    );
                 }
+
             }, 80);
         }
 
@@ -6169,6 +6956,10 @@
             if (selectedBox) selectedBox.classList.add('hidden');
 
             renderRatingHistory();
+
+            if (movieModalReturnId) {
+                returnToMovieModal();
+            }
         }
 
         window.openRatingStudio = openRatingStudio;
@@ -6292,6 +7083,29 @@
         }
 
         let currentTrailerUrl = '';
+        let movieModalReturnId = null;
+
+        function returnToMovieModal() {
+
+            const movieId =
+                movieModalReturnId || currentMovieId;
+
+            if (!movieId) {
+                showHome();
+                return;
+            }
+
+            hideAll();
+
+            openModalById(movieId);
+
+            movieModalReturnId = null;
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         function getYoutubeEmbedUrl(url) {
             if (!url) return '';
@@ -6315,28 +7129,51 @@
         }
 
         function openTrailerModal() {
-            const embedUrl = getYoutubeEmbedUrl(currentTrailerUrl);
+
+            const embedUrl =
+                getYoutubeEmbedUrl(currentTrailerUrl);
 
             if (!embedUrl) {
                 alert('Brak trailera dla tego filmu.');
                 return;
             }
 
-            const modal = document.getElementById('trailer-modal');
-            const frame = document.getElementById('trailer-frame');
+            movieModalReturnId = currentMovieId;
+
+            toggleModal('movie-modal', false);
+
+            const modal =
+                document.getElementById('trailer-modal');
+
+            const frame =
+                document.getElementById('trailer-frame');
 
             document.body.classList.add('trailer-open');
+
             frame.src = embedUrl;
+
             modal.style.display = 'flex';
         }
 
         function closeTrailerModal() {
-            const modal = document.getElementById('trailer-modal');
-            const frame = document.getElementById('trailer-frame');
+
+            const modal =
+                document.getElementById('trailer-modal');
+
+            const frame =
+                document.getElementById('trailer-frame');
 
             frame.src = '';
+
             modal.style.display = 'none';
+
             document.body.classList.remove('trailer-open');
+
+
+            /* WRACAMY DO FILMU */
+            if (movieModalReturnId) {
+                returnToMovieModal();
+            }
         }
 
         function openReviewDraft() {
@@ -6349,51 +7186,209 @@
         }
 
         function openModalById(id) {
+
             const m = movies.find(x => x.id === id);
+
             if (!m) return;
 
             currentMovieId = m.id;
 
-            document.getElementById('modal-title').innerText = m.title;
-            document.getElementById('modal-img').src = m.img;
-            const mobileImg = document.getElementById('modal-mobile-img');
-            if (mobileImg) mobileImg.src = m.img;
-            document.getElementById('modal-desc').innerText =
-            typeof window.getMovieDescription === "function"
-                ? window.getMovieDescription(m)
-                : m.desc;
-            document.getElementById('modal-rating').innerText = m.rating;
-            document.getElementById('modal-date').innerText = m.date;
 
-            const savedUserRating = window.movieHubData?.ratings?.[m.id];
-            document.getElementById('modal-user-rating').innerText = savedUserRating ? `${savedUserRating}/10` : '-';
+            /* =========================
+            TŁO
+            ========================= */
 
-            const genreBox = document.getElementById('modal-genre-list');
-            if (genreBox) {
-                const genres = String(m.category || 'Film')
-                    .split('/')
-                    .map(g => g.trim())
-                    .filter(Boolean);
+            const backdrop =
+                document.getElementById('movie-modal-backdrop');
 
-                genreBox.innerHTML = genres.map(g => `<span>${g}</span>`).join('');
-
-                const mobileGenreBox = document.getElementById('modal-mobile-genre-list');
-                if (mobileGenreBox) mobileGenreBox.innerHTML = genres.map(g => `<span>${g}</span>`).join('');
+            if (backdrop) {
+                backdrop.style.backgroundImage =
+                    `url("${m.img}")`;
             }
 
-            currentTrailerUrl = m.trailer || '';
 
-            const saved = localStorage.getItem(`rating-${m.id}`);
-            document.getElementsByName('u-rating').forEach(star => {
-                star.checked = star.value === saved;
-            });
+            /* =========================
+            TYTUŁ
+            ========================= */
 
-            if (typeof updateReviewButtonForMovie === "function") {
+            document.getElementById('modal-title').innerText =
+                m.title;
+
+
+            /* =========================
+            KATEGORIA
+            ========================= */
+
+            const kicker =
+                document.getElementById('modal-kicker');
+
+            if (kicker) {
+                kicker.innerText =
+                    String(m.category || 'FILM')
+                        .replace(/\//g, ' · ')
+                        .toUpperCase();
+            }
+
+
+            const moviePoster =
+                document.getElementById('movie-modal-poster');
+
+            if (moviePoster) {
+                moviePoster.src = m.img;
+                moviePoster.alt = m.title;
+            }
+
+
+            /* =========================
+            OPIS
+            ========================= */
+
+            document.getElementById('modal-desc').innerText =
+                typeof window.getMovieDescription === "function"
+                    ? window.getMovieDescription(m)
+                    : m.desc;
+
+
+            /* =========================
+            OCENA FILMU
+            ========================= */
+
+            const ratingValue =
+                parseFloat(m.rating);
+
+            const ratingText =
+                document.getElementById(
+                    'modal-rating-value'
+                );
+
+            const scoreFill =
+                document.getElementById(
+                    'modal-score-fill'
+                );
+
+            const numericRating =
+                parseFloat(m.rating);
+
+            if (ratingText) {
+                ratingText.innerText =
+                    m.rating || '-';
+            }
+
+            if (scoreFill) {
+
+                if (Number.isFinite(numericRating)) {
+
+                    scoreFill.style.width =
+                        `${numericRating * 10}%`;
+
+                } else {
+
+                    scoreFill.style.width =
+                        '0%';
+
+                }
+            }
+
+
+            /* =========================
+            ROK
+            ========================= */
+
+            document.getElementById('modal-date').innerText =
+                m.date || '-';
+
+
+            /* =========================
+            CZAS TRWANIA
+            ========================= */
+
+            const duration =
+                document.getElementById('modal-duration');
+
+            if (duration) {
+                duration.innerText =
+                    m.duration || '—';
+            }
+
+
+            /* =========================
+            MOJA OCENA
+            ========================= */
+
+            /* =========================
+            MOJA OCENA — 10 GWIAZDEK
+            TYLKO PODGLĄD
+            ========================= */
+
+            const savedUserRating =
+                window.movieHubData?.ratings?.[m.id]
+                || localStorage.getItem(`rating-${m.id}`);
+
+            const userRating =
+                parseFloat(savedUserRating) || 0;
+
+
+            document
+                .querySelectorAll('#modal-star-row span')
+                .forEach((star, index) => {
+
+                    star.classList.toggle(
+                        'active',
+                        index < userRating
+                    );
+
+                });
+            /* =========================
+            GATUNKI
+            ========================= */
+
+            const genreBox =
+                document.getElementById('modal-genre-list');
+
+            if (genreBox) {
+
+                const genres =
+                    String(m.category || 'Film')
+                        .split('/')
+                        .map(g => g.trim())
+                        .filter(Boolean);
+
+                genreBox.innerHTML =
+                    genres
+                        .map(g => `<span class="movie-genre">${g}</span>`)
+                        .join('');
+            }
+
+
+            /* =========================
+            TRAILER
+            ========================= */
+
+            currentTrailerUrl =
+                m.trailer || '';
+
+
+            /* =========================
+            RECENZJA
+            ========================= */
+
+            if (
+                typeof updateReviewButtonForMovie === "function"
+            ) {
                 updateReviewButtonForMovie(m.id);
             }
 
-            toggleModal('movie-modal', true);
+
+            /* =========================
+            OTWÓRZ
+            ========================= */
+
+            toggleModal(
+                'movie-modal',
+                true
+            );
         }
+        
 
         function handleSearch() {
             searchQuery = document.getElementById('movie-search').value.toLowerCase().trim();
@@ -8603,6 +9598,7 @@
         }
 
         window.openReviewDraft = async function() {
+
             if (!currentFirebaseUser) {
                 showGuestGate("recenzji");
                 return;
@@ -8613,28 +9609,56 @@
                 return;
             }
 
-            const movie = movies.find(m => m.id === currentMovieId);
+            const movie =
+                movies.find(m => m.id === currentMovieId);
+
             if (!movie) return;
+
+
+            /* ZAPAMIĘTUJEMY FILM */
+            movieModalReturnId = currentMovieId;
+
 
             hideAll();
             toggleModal("movie-modal", false);
 
-            document.getElementById("review-page-img").src = movie.img;
-            document.getElementById("review-page-title").textContent = movie.title;
-            const textarea = document.getElementById("review-page-text");
-            const existingReview = userReviews[currentMovieId];
 
-            editingReviewMovieId = existingReview ? currentMovieId : null;
-            textarea.value = existingReview ? existingReview.text || "" : "";
+            document.getElementById("review-page-img").src =
+                movie.img;
+
+            document.getElementById("review-page-title").textContent =
+                movie.title;
+
+            const textarea =
+                document.getElementById("review-page-text");
+
+            const existingReview =
+                userReviews[currentMovieId];
+
+            editingReviewMovieId =
+                existingReview
+                    ? currentMovieId
+                    : null;
+
+            textarea.value =
+                existingReview
+                    ? existingReview.text || ""
+                    : "";
 
             updateReviewWordCount();
 
-            document.getElementById("review-page").classList.remove("hidden-section");
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            document
+                .getElementById("review-page")
+                .classList.remove("hidden-section");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         };
 
         window.closeReviewPage = function() {
-            showHome();
+            returnToMovieModal();
         };
 
 
