@@ -4347,6 +4347,276 @@
                 font-size: 13px;
             }
         }
+
+        /* =========================================================
+        MOVIE MODAL — PLAKAT NAD TYTUŁEM
+        OSTATECZNE NADPISANIE DESKTOP + MOBILE
+        ========================================================= */
+
+        /* Ekran modala */
+        #movie-modal .movie-screen {
+            overflow: hidden;
+        }
+
+        /* Czarne tło */
+        #movie-modal .movie-backdrop {
+            background: #050507 !important;
+            overflow: hidden;
+        }
+
+        #movie-modal .movie-backdrop::before,
+        #movie-modal .movie-backdrop::after {
+            display: none !important;
+        }
+
+        /* =========================
+        PLAKAT — LEWA STRONA
+        ========================= */
+
+        #movie-modal .movie-modal-poster {
+            position: absolute !important;
+
+            left: clamp(75px, 6vw, 140px) !important;
+            right: auto !important;
+
+            top: 115px !important;
+
+            width: clamp(190px, 17vw, 260px) !important;
+            height: clamp(285px, 25.5vw, 390px) !important;
+
+            transform: none !important;
+
+            object-fit: cover !important;
+            object-position: center !important;
+
+            border-radius: 18px !important;
+            border: 1px solid rgba(255,255,255,.12) !important;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.75),
+                0 0 0 1px rgba(255,255,255,.03) !important;
+
+            z-index: 5 !important;
+        }
+
+        /* =========================
+        TREŚĆ — POD PLAKATEM
+        ========================= */
+
+        #movie-modal .movie-content {
+            position: absolute !important;
+
+            left: clamp(50px, 6vw, 100px) !important;
+            right: clamp(50px, 6vw, 100px) !important;
+
+            top: clamp(430px, 56vh, 520px) !important;
+            bottom: 25px !important;
+
+            max-width: none !important;
+
+            padding: 0 !important;
+
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        /* Tytuł */
+        #movie-modal #modal-title {
+            margin-top: 8px !important;
+            margin-bottom: 12px !important;
+
+            font-size: clamp(42px, 5vw, 76px) !important;
+            line-height: .9 !important;
+
+            max-width: 100% !important;
+        }
+
+        /* Opis */
+        #movie-modal #modal-desc {
+            max-width: 650px !important;
+            margin-bottom: 22px !important;
+        }
+
+        /* Wszystkie elementy treści mają pełną szerokość */
+        #movie-modal #modal-title,
+        #movie-modal #modal-desc,
+        #movie-modal .movie-meta-row,
+        #movie-modal .movie-actions {
+            padding-right: 0 !important;
+        }
+
+        /* =========================
+        TELEFON
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            /* Plakat na środku / po lewej w układzie */
+            #movie-modal .movie-modal-poster {
+                left: 18px !important;
+                right: auto !important;
+
+                top: 105px !important;
+
+                width: 125px !important;
+                height: 188px !important;
+
+                border-radius: 14px !important;
+            }
+
+            /* Treść zaczyna się dopiero POD plakatem */
+            #movie-modal .movie-content {
+                left: 18px !important;
+                right: 18px !important;
+
+                top: 315px !important;
+                bottom: 18px !important;
+
+                max-width: none !important;
+
+                padding: 0 !important;
+
+                overflow-y: auto !important;
+            }
+
+            /* Tytuł telefonu */
+            #movie-modal #modal-title {
+                font-size: clamp(34px, 11vw, 48px) !important;
+                line-height: .92 !important;
+
+                margin-top: 5px !important;
+                margin-bottom: 10px !important;
+            }
+
+            /* Opis */
+            #movie-modal #modal-desc {
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+
+                margin-bottom: 18px !important;
+                max-width: 100% !important;
+            }
+
+            /* Dane filmu */
+            #movie-modal .movie-meta-row {
+                gap: 14px !important;
+                flex-wrap: wrap !important;
+            }
+
+            #movie-modal .movie-meta {
+                min-width: 0 !important;
+            }
+
+            #movie-modal .movie-meta-label {
+                font-size: 9px !important;
+            }
+
+            #movie-modal .movie-meta-value {
+                font-size: 18px !important;
+            }
+
+            /* Gwiazdki */
+            #movie-modal .movie-stars {
+                font-size: 14px !important;
+                gap: 1px !important;
+            }
+
+            /* Przyciski */
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+
+            #movie-modal .movie-btn {
+                font-size: 10px !important;
+                padding: 11px 13px !important;
+            }
+
+            /* Topbar */
+            #movie-modal .movie-topbar {
+                padding: 16px 18px !important;
+            }
+
+            #movie-modal .movie-timecode {
+                font-size: 9px !important;
+            }
+
+            #movie-modal .movie-exit {
+                font-size: 10px !important;
+            }
+        }
+
+
+        /* =========================
+        BARDZO MAŁY TELEFON
+        ========================= */
+
+        @media (max-width: 400px) {
+
+            #movie-modal .movie-modal-poster {
+                left: 16px !important;
+                top: 98px !important;
+
+                width: 105px !important;
+                height: 158px !important;
+            }
+
+            #movie-modal .movie-content {
+                left: 16px !important;
+                right: 16px !important;
+
+                top: 275px !important;
+                bottom: 14px !important;
+            }
+
+            #movie-modal #modal-title {
+                font-size: 32px !important;
+            }
+
+            #movie-modal #modal-desc {
+                font-size: 12px !important;
+            }
+
+            #movie-modal .movie-btn {
+                font-size: 9px !important;
+                padding: 10px 11px !important;
+            }
+        }
+
+        /* =========================================================
+        KOLOR PASKA OCENY ZALEŻNY OD OCENY
+        ========================================================= */
+
+        #movie-modal .movie-score-bar i {
+            transition: width .35s ease, background-color .25s ease !important;
+            background: #3d5cff !important;
+        }
+
+        /* CZERWONY — 0–3.9 */
+        #movie-modal .movie-score-bar i.rating-red {
+            background: #ef4444 !important;
+        }
+
+        /* POMARAŃCZOWY — 4–5.9 */
+        #movie-modal .movie-score-bar i.rating-orange {
+            background: #f97316 !important;
+        }
+
+        /* ŻÓŁTY — 6–7.4 */
+        #movie-modal .movie-score-bar i.rating-yellow {
+            background: #facc15 !important;
+        }
+
+        /* ZIELONY — 7.5–8.9 */
+        #movie-modal .movie-score-bar i.rating-green {
+            background: #22c55e !important;
+        }
+
+        /* MOCNY ZIELONY — 9–10 */
+        #movie-modal .movie-score-bar i.rating-great {
+            background: #16a34a !important;
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -5207,13 +5477,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        class="movie-btn movie-btn-ghost"
-                        onclick="navigator.clipboard?.writeText(location.href)"
-                    >
-                        ↗
-                    </button>
+                
 
                 </div>
 
@@ -7276,18 +7540,48 @@
 
             if (scoreFill) {
 
+                /* usuwamy poprzedni kolor */
+                scoreFill.classList.remove(
+                    'rating-red',
+                    'rating-orange',
+                    'rating-yellow',
+                    'rating-green',
+                    'rating-great'
+                );
+
                 if (Number.isFinite(numericRating)) {
 
+                    /* długość paska */
                     scoreFill.style.width =
-                        `${numericRating * 10}%`;
+                        `${Math.max(0, Math.min(10, numericRating)) * 10}%`;
+
+                    /* kolor zależny od oceny */
+                    if (numericRating < 4) {
+
+                        scoreFill.classList.add('rating-red');
+
+                    } else if (numericRating < 6) {
+
+                        scoreFill.classList.add('rating-orange');
+
+                    } else if (numericRating < 7.5) {
+
+                        scoreFill.classList.add('rating-yellow');
+
+                    } else if (numericRating < 9) {
+
+                        scoreFill.classList.add('rating-green');
+
+                    } else {
+
+                        scoreFill.classList.add('rating-great');
+                    }
 
                 } else {
 
-                    scoreFill.style.width =
-                        '0%';
-
-                }
-            }
+                    scoreFill.style.width = '0%';
+            }   
+        }
 
 
             /* =========================
