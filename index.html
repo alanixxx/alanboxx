@@ -4617,6 +4617,103 @@
         #movie-modal .movie-score-bar i.rating-great {
             background: #16a34a !important;
         }
+
+        /* ====== MOBILE REDESIGN MODALA FILMU ====== */
+        @media (max-width: 700px) {
+
+            /* PLAKAT — sztywno w prawym górnym rogu */
+            #movie-modal .movie-modal-poster {
+                left: auto !important;
+                right: 18px !important;
+                top: 88px !important;
+                width: 108px !important;
+                height: 162px !important;
+                transform: none !important;
+                border-radius: 16px !important;
+                z-index: 6 !important;
+            }
+
+            /* TREŚĆ — zaczyna się na samej górze, obok plakatu */
+            #movie-modal .movie-content {
+                left: 18px !important;
+                right: 18px !important;
+                top: 84px !important;
+                bottom: 18px !important;
+                max-width: none !important;
+                padding: 0 !important;
+                overflow-y: auto !important;
+            }
+
+            /* TYTUŁ i OPIS — zapas z prawej, żeby NIGDY nie wjechały na plakat */
+            #movie-modal #modal-title {
+                padding-right: 128px !important;
+                margin-top: 0 !important;
+                margin-bottom: 10px !important;
+                font-size: clamp(28px, 9vw, 40px) !important;
+                line-height: .92 !important;
+                max-width: 100% !important;
+            }
+
+            #movie-modal #modal-desc {
+                padding-right: 128px !important;
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+                margin-bottom: 20px !important;
+                max-width: 100% !important;
+            }
+
+            /* USUWAMY PASEK OCENY i GWIAZDKI "MOJA OCENA" */
+            #movie-modal .movie-score-bar {
+                display: none !important;
+            }
+
+            #movie-modal .movie-meta-row > .movie-meta:nth-child(2) {
+                display: none !important; /* "Moja ocena" / gwiazdki */
+            }
+
+            #movie-modal .movie-meta-row {
+                display: flex !important;
+                gap: 20px !important;
+                flex-wrap: wrap !important;
+                margin-bottom: 22px !important;
+            }
+
+            /* OCENA KRYTYKÓW — sam tekst, ładna czcionka, bez paska */
+            #modal-rating-value {
+                font-family: 'Anton', sans-serif !important;
+                font-size: 32px !important;
+                letter-spacing: .02em !important;
+                color: #f4f3f0 !important;
+            }
+
+            /* PRZYCISKI — wszystkie jednakowe, w siatce 2x2 obok siebie */
+            #movie-modal .movie-actions {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+                margin-bottom: 20px !important;
+            }
+
+            #movie-modal .movie-actions .movie-btn {
+                width: 100% !important;
+                justify-content: center !important;
+                align-items: center !important;
+                padding: 12px 8px !important;
+                font-size: 10px !important;
+                border-radius: 14px !important;
+                gap: 6px !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+
+            #movie-modal .movie-actions .movie-btn span {
+                width: 18px !important;
+                height: 18px !important;
+                font-size: 12px !important;
+                flex-shrink: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
