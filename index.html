@@ -4828,6 +4828,47 @@
             }
         }
 
+        /* === OSTATECZNE POPRAWKI MOBILE: usunięcie "Dodaj recenzję", 
+            "Oceń film" + "Do obejrzenia" w jednej linii jako małe chipy,
+            stopka z gatunkami zepchnięta niżej === */
+        @media (max-width: 768px) {
+
+            #movie-modal #movie-review-action-btn {
+                display: none !important;
+            }
+
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+                margin: 0 !important;
+            }
+
+            #movie-modal #modal-trailer-link {
+                flex: 1 1 100% !important;
+                width: 100% !important;
+            }
+
+            #movie-modal #modal-rate-shortcut,
+            #movie-modal #modal-watchlist-btn {
+                position: static !important;
+                flex: 0 1 auto !important;
+                width: auto !important;
+                white-space: nowrap !important;
+                padding: 10px 16px !important;
+                font-size: 10px !important;
+                border-radius: 999px !important;
+                margin: 0 !important;
+            }
+
+            #movie-modal .movie-footer {
+                margin-top: 40px !important;
+                padding-top: 22px !important;
+                padding-bottom: 4px !important;
+            }
+        }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -7953,12 +7994,26 @@
 
         function toggleWatchlist(id) {
             let wl = loadWatchlist();
-
-            wl = wl.includes(id) ? wl.filter(x => x !== id) : [...wl, id];
+            const isAdding = !wl.includes(id);
+            wl = isAdding ? [...wl, id] : wl.filter(x => x !== id);
 
             saveWatchlist(wl);
             refreshUserScopedData();
             renderTable();
+
+            const movie = movies.find(m => m.id === id);
+            if (typeof showListToast === 'function') {
+                showListToast(isAdding
+                    ? `Dodano "${movie ? movie.title : 'film'}" do watchlisty`
+                    : `Usunięto "${movie ? movie.title : 'film'}" z watchlisty`);
+            }
+
+            if (id === currentMovieId) {
+                const btn = document.getElementById('modal-watchlist-btn');
+                if (btn) {
+                    btn.innerHTML = isAdding ? '✓ Na liście' : '+ Do obejrzenia';
+                }
+            }
         }
 
         function createNewList() {
