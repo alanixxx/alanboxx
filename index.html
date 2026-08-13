@@ -4738,6 +4738,88 @@
                 margin: 0 !important;
             }
         }
+        /* ============================================================
+        FIX: jeden scroll na telefonie + mniejsze przyciski
+        + usunięcie górnego chipa z gatunkiem (zostaje tylko na dole)
+        ============================================================ */
+
+        /* Usuwamy niebieski "kicker" z gatunkiem nad tytułem - gatunek zostaje tylko w stopce na dole */
+        #movie-modal .movie-kicker {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+
+            /* Cały panel filmu scrolluje się jako JEDNA całość - koniec z dwoma osobnymi scrollami */
+            #movie-modal .movie-screen {
+                height: 100dvh !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            /* Górna belka (X / WYJDŹ) zostaje przyklejona na górze podczas scrolla */
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 30 !important;
+                background: linear-gradient(to bottom, rgba(7,7,10,.95), rgba(7,7,10,.55) 80%, transparent) !important;
+            }
+
+            /* Treść nie ma już WŁASNEGO scrolla - płynie razem z resztą panelu */
+            #movie-modal .movie-content {
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+                max-height: none !important;
+                max-width: none !important;
+                overflow: visible !important;
+                margin-top: 8px !important;
+                padding: 0 18px 60px !important;
+                z-index: 5 !important;
+            }
+
+            /* Mniejsze przyciski dopasowane do tekstu, bez zachodzenia na siebie i bez rozciągania na 100% */
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+                margin: 0 132px 18px 0 !important;
+            }
+
+            #movie-modal .movie-actions .movie-btn,
+            #movie-modal #modal-trailer-link,
+            #movie-modal #movie-review-action-btn,
+            #movie-modal #modal-rate-shortcut {
+                position: static !important;
+                width: auto !important;
+                max-width: none !important;
+                flex: 0 1 auto !important;
+                min-width: 0 !important;
+                padding: 10px 16px !important;
+                font-size: 11px !important;
+                line-height: 1.1 !important;
+                border-radius: 999px !important;
+                white-space: nowrap !important;
+            }
+        }
+
+        @media (max-width: 420px) {
+            #movie-modal .movie-actions {
+                margin-right: 112px !important;
+            }
+
+            #movie-modal .movie-actions .movie-btn,
+            #movie-modal #modal-trailer-link,
+            #movie-modal #movie-review-action-btn,
+            #movie-modal #modal-rate-shortcut {
+                padding: 9px 12px !important;
+                font-size: 10px !important;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-green-600">
