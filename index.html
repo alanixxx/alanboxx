@@ -753,13 +753,16 @@
         #movie-modal .movie-genre {
             padding: 6px 13px;
 
-            color: #a9a8b3;
+            color: #eef0ff;
 
-            border: 1px solid rgba(244,243,240,.14);
+            background: rgba(61,92,255,.22);
+            border: 1px solid rgba(61,92,255,.5);
             border-radius: 999px;
 
             font-family: "IBM Plex Mono", monospace;
             font-size: 11px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
         }
 
         /* OCEŃ TEN FILM */
@@ -4712,6 +4715,27 @@
                 height: 18px !important;
                 font-size: 12px !important;
                 flex-shrink: 0 !important;
+            }
+        }
+
+        /* === OSTATECZNA NAPRAWA PRZYCISKÓW W MODALU FILMU (MOBILE) === */
+        @media (max-width: 700px) {
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px !important;
+                grid-template-columns: none !important;
+            }
+
+            #movie-modal #modal-trailer-link,
+            #movie-modal #movie-review-action-btn,
+            #movie-modal #modal-rate-shortcut,
+            #movie-modal .movie-actions .movie-btn {
+                position: static !important;
+                grid-area: auto !important;
+                width: 100% !important;
+                justify-content: center !important;
+                margin: 0 !important;
             }
         }
     </style>
