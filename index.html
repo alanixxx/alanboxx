@@ -7511,6 +7511,10 @@
                 font-size: 19px !important;
             }
         }
+        #calendar-back-top.hide-back-top {
+            display: none !important;
+        }
+
 
         /* ================================
         NEWSY — STRZAŁKI
@@ -14958,14 +14962,16 @@
     </div>
 
     <button
-        id="calendar-back-top"
-        type="button"
-        onclick="scrollCalendarToTop()"
-        aria-label="Wróć na górę"
-        title="Wróć na górę"
-    >
-        ↑
-    </button>
+    id="calendar-back-top"
+    type="button"
+    class="hide-back-top"
+    onclick="scrollCalendarToTop()"
+    aria-label="Wróć na górę"
+    title="Wróć na górę"
+>
+    ↑
+</button>
+
 
 </body>
 </html>
