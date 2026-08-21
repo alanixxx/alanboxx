@@ -9932,7 +9932,13 @@
             document
                 .querySelectorAll('main, #library-page, #lists-page, #calendar-page, #rating-studio-page, #review-page')
                 .forEach(el => el.classList.add('hidden-section')); 
+
+            const backTopBtn = document.getElementById('calendar-back-top');
+            if (backTopBtn) {
+                backTopBtn.classList.toggle('hide-back-top', window.activeView !== 'calendar');
+            }
         }
+
 
         function showHome() { 
             window.activeView = 'home';
