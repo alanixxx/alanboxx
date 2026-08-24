@@ -46,6 +46,12 @@
             transition: transform .2s ease, text-shadow .2s ease;
         }
 
+        .rativio-hero-heading {
+            font-family: 'Anton', sans-serif;
+            color: #ffffff;
+            text-shadow: 0 0 40px rgba(255,255,255,.08);
+        }
+
         .rativio-brand::after {
             content: '';
             position: absolute;
@@ -7915,6 +7921,285 @@
             }
         }
 
+        /* ===== BANGER SLIDER — POSTER-ONLY REDESIGN ===== */
+        .banger-card {
+            position: relative;
+            flex-shrink: 0;
+            width: 210px;
+            aspect-ratio: 2 / 3;
+            border-radius: 22px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #0c0c0f;
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 14px 34px rgba(0,0,0,.45);
+            transition: transform .3s cubic-bezier(.22,.61,.36,1), border-color .3s ease, box-shadow .3s ease;
+        }
+        @media (min-width: 768px) { .banger-card { width: 240px; } }
+
+        .banger-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease, filter .5s ease;
+        }
+
+        .banger-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255,255,255,.35);
+            box-shadow: 0 22px 50px rgba(0,0,0,.55), 0 0 26px rgba(255,255,255,.1);
+        }
+        .banger-card:hover img { transform: scale(1.06); filter: brightness(.72); }
+
+        .banger-card.is-coming:hover {
+            border-color: rgba(249,115,22,.55);
+            box-shadow: 0 22px 50px rgba(0,0,0,.55), 0 0 30px rgba(249,115,22,.18);
+        }
+
+        .banger-pill {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,.28);
+            color: #f4f4f5;
+            text-shadow: 0 0 10px rgba(255,255,255,.25);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .04em;
+        }
+        .banger-pill.is-coming {
+            border-color: rgba(249,115,22,.55);
+            color: #fb923c;
+            text-shadow: none;
+        }
+        .banger-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background: #fb923c;
+            box-shadow: 0 0 6px rgba(251,146,60,.9);
+            display: inline-block;
+            margin-right: 2px;
+        }
+
+        .banger-scrim {
+            position: absolute;
+            inset: auto 0 0 0;
+            z-index: 2;
+            padding: 16px 14px 14px;
+            background: linear-gradient(to top, rgba(0,0,0,.95) 10%, rgba(0,0,0,.55) 55%, transparent 100%);
+        }
+        .banger-title {
+            color: #fff;
+            font-family: 'Anton', sans-serif;
+            font-style: italic;
+            text-transform: uppercase;
+            font-size: 15px;
+            line-height: 1.05;
+            letter-spacing: .01em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        .banger-year {
+            color: #a1a1aa;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .banger-card { width: 168px; border-radius: 18px; }
+            .banger-title { font-size: 13px; }
+            .banger-pill { font-size: 9px; padding: 5px 8px; top: 9px; left: 9px; }
+        }
+
+
+        /* ============ MOJE RECENZJE — PROSTY, NOWY DESIGN ============ */
+        .rvw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .rvw-card {
+            display: flex;
+            gap: 14px;
+            background: #131316;
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            padding: 14px;
+            transition: .2s ease;
+        }
+
+        .rvw-card:hover {
+            border-color: rgba(34, 211, 238, .5);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(0,0,0,.4);
+        }
+
+        .rvw-poster {
+            position: relative;
+            flex-shrink: 0;
+            width: 90px;
+            height: 130px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #09090b;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .rvw-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .rvw-poster-badge {
+            position: absolute;
+            left: 5px;
+            bottom: 5px;
+            background: rgba(0,0,0,.85);
+            color: #22d3ee;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 3px 7px;
+            border-radius: 8px;
+            line-height: 1.2;
+        }
+
+        .rvw-body {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rvw-genre {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            margin-bottom: 4px;
+        }
+
+        .rvw-title {
+            color: white;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            font-size: 16px;
+            line-height: 1.1;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .rvw-excerpt {
+            color: #a1a1aa;
+            font-size: 12px;
+            line-height: 1.5;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .rvw-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .rvw-open-btn {
+            flex: 1;
+            background: rgba(34, 211, 238, .1);
+            border: 1px solid rgba(34, 211, 238, .35);
+            color: #22d3ee;
+            border-radius: 10px;
+            padding: 9px 10px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .rvw-open-btn:hover {
+            background: #22d3ee;
+            color: #050505;
+        }
+
+        .rvw-del-btn {
+            width: 36px;
+            flex-shrink: 0;
+            background: rgba(239, 68, 68, .08);
+            border: 1px solid rgba(239, 68, 68, .25);
+            color: #f87171;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: .2s ease;
+        }
+
+        .rvw-del-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .rvw-empty {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 480px) {
+            .rvw-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rvw-card {
+                padding: 12px;
+            }
+
+            .rvw-poster {
+                width: 76px;
+                height: 110px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .rativio-intro-brand {
+                font-size: 3rem; /* mniejszy dolny limit niż clamp(4rem...) */
+                letter-spacing: .02em;
+            }
+            .rativio-intro-subtitle {
+                font-size: 8px;
+                letter-spacing: .22em;
+                text-indent: .22em;
+            }
+        }
         
     </style>
 </head>
@@ -7965,6 +8250,7 @@
                     <button id="admin-bangers-tab" onclick="setAdminTab('bangers')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Główny slider</button>
                     <button id="admin-calendar-tab" onclick="setAdminTab('calendar')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Kalendarz premier</button>
                     <button id="admin-news-tab" onclick="setAdminTab('news')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Newsy tygodnia</button>
+                    <button id="admin-motm-tab" onclick="setAdminTab('motm')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Premiera miesiąca</button>
                 </div>
 
                 <form id="admin-movie-form" class="grid lg:grid-cols-[1fr_260px] gap-6" onsubmit="saveAdminMovie(event)">
@@ -8269,6 +8555,38 @@
                     <h4 class="text-white font-black uppercase italic tracking-tight mb-3">Aktualne newsy</h4>
                     <div id="admin-news-list" class="grid gap-3"></div>
                 </div>
+
+                <div id="admin-motm-section" class="mt-8 hidden">
+                    <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Premiera miesiąca</h3>
+                    <p class="text-zinc-500 text-xs font-bold mb-4">Wybierz film z bazy, ustaw opis (opcjonalnie) i datę odliczania. Widoczne na stronie głównej dla wszystkich.</p>
+
+                    <input id="admin-motm-search" class="admin-field mb-3" type="text" placeholder="Szukaj filmu..." oninput="renderAdminMotmSearchResults(this.value)">
+                    <div id="admin-motm-search-results" class="grid gap-2 mb-6"></div>
+
+                    <div id="admin-motm-current" class="rounded-2xl border border-zinc-800 bg-black p-4 mb-6">
+                        <p class="text-zinc-500 text-xs font-bold">Nie wybrano jeszcze filmu — wyszukaj powyżej.</p>
+                    </div>
+
+                    <form onsubmit="saveAdminMotm(event)" class="grid gap-4">
+                        <div>
+                            <label class="admin-label" for="admin-motm-desc">Opis (opcjonalnie, nadpisuje opis filmu z bazy)</label>
+                            <textarea id="admin-motm-desc" class="admin-field min-h-[90px] resize-y" placeholder="Zostaw puste, żeby użyć opisu z bazy filmów"></textarea>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="admin-label" for="admin-motm-date-label">Etykieta daty (np. 21.08)</label>
+                                <input id="admin-motm-date-label" class="admin-field" placeholder="21.08">
+                            </div>
+                            <div>
+                                <label class="admin-label" for="admin-motm-countdown">Data i godzina premiery (odliczanie)</label>
+                                <input id="admin-motm-countdown" type="datetime-local" class="admin-field">
+                            </div>
+                        </div>
+
+                        <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest w-fit" type="submit">Zapisz premierę miesiąca</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -8417,8 +8735,8 @@
             <div id="particles-js-header" class="absolute inset-0 z-0 pointer-events-none"></div>
 
             <div class="relative z-10">
-                <h2 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-green-900 leading-none">
-                    HISTORIE, <span class="text-green-500">KTÓRE</span> ZOSTAJĄ.
+                <h2 class="rativio-hero-heading text-5xl md:text-9xl uppercase tracking-tighter leading-none">
+                    HISTORIE, KTÓRE ZOSTAJĄ.
                 </h2>
                 <!-- 🔥 NOWY, WIĘKSZY I IDEALNIE WYŚRODKOWANY PRZYCISK: -->
                 <!-- 🔥 NOWY, WIĘKSZY I IDEALNIE WYŚRODKOWANY PRZYCISK: -->
@@ -8446,17 +8764,17 @@
 
                 <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
 
-                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 pointer-events-none select-none">
-                        <img src="./static/mutiny.jpg" alt="Mutiny" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
+                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 select-none" id="motm-poster-wrap">
+                        <img id="motm-poster" src="./static/mutiny.jpg" alt="Mutiny" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
                     </div>
 
                     <div class="flex-grow text-center lg:text-left">
                         <h4 class="text-xs font-black tracking-widest text-blue-400 uppercase italic mb-2"> NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
                         <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white tracking-tighter mb-4">
-                            Mutiny <span class="text-zinc-500 font-light font-sans"></span> <span class="inline-block pr-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-100"></span>
+                            <span id="motm-title">Mutiny</span>
                         </h2>
-                        <p class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
+                        <p id="motm-desc" class="backrooms-desc text-zinc-400 text-sm md:text-base max-w-2xl font-medium leading-relaxed mb-6">
                             Spisek w prywatnej armii zagraża tym, którzy próbują go powstrzymać.
                         </p>
 
@@ -8465,11 +8783,12 @@
                                 <span class="mutiny-fire-icon">🔥</span>
                                 <span id="mutiny-hype-count">— hype</span>
                             </button>
-                            <span>21.08</span>
+                            <span id="motm-date">21.08</span>
                             <span>Premiera 2026</span>
                         </div>
 
                         <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                            <!-- countdown-days / hours / minutes / seconds zostają bez zmian -->
                             <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl px-5 py-3 min-w-[70px] text-center shadow-inner">
                                 <div id="countdown-days" class="text-2xl md:text-3xl font-black text-white italic leading-none">00</div>
                                 <div class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mt-1">Dni</div>
@@ -9680,16 +9999,18 @@
         }
 
         function setAdminTab(tab) {
-            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news'].includes(tab) ? tab : 'add';
+            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news', 'motm'].includes(tab) ? tab : 'add';
 
             const addTab = document.getElementById('admin-add-tab');
             const manageTab = document.getElementById('admin-manage-tab');
             const bangersTab = document.getElementById('admin-bangers-tab');
+            const calendarTab = document.getElementById('admin-calendar-tab');
+            const newsTab = document.getElementById('admin-news-tab');
+            const motmTab = document.getElementById('admin-motm-tab'); // NOWE
+
             const form = document.getElementById('admin-movie-form');
             const manageSection = document.getElementById('admin-manage-section');
             const bangersSection = document.getElementById('admin-bangers-section');
-            const calendarTab = document.getElementById('admin-calendar-tab');
-            const newsTab = document.getElementById('admin-news-tab');
 
             const activeClass = 'bg-green-600 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
             const inactiveClass = 'bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest';
@@ -9699,17 +10020,20 @@
             if (bangersTab) bangersTab.className = activeAdminTab === 'bangers' ? activeClass : inactiveClass;
             if (calendarTab) calendarTab.className = activeAdminTab === 'calendar' ? activeClass : inactiveClass;
             if (newsTab) newsTab.className = activeAdminTab === 'news' ? activeClass : inactiveClass;
+            if (motmTab) motmTab.className = activeAdminTab === 'motm' ? activeClass : inactiveClass; // NOWE
 
             form?.classList.toggle('hidden', activeAdminTab !== 'add');
             manageSection?.classList.toggle('hidden', activeAdminTab !== 'manage');
             bangersSection?.classList.toggle('hidden', activeAdminTab !== 'bangers');
             document.getElementById('admin-calendar-section')?.classList.toggle('hidden', activeAdminTab !== 'calendar');
             document.getElementById('admin-news-section')?.classList.toggle('hidden', activeAdminTab !== 'news');
+            document.getElementById('admin-motm-section')?.classList.toggle('hidden', activeAdminTab !== 'motm'); // NOWE
 
             if (activeAdminTab === 'manage') renderAdminMovieList();
             if (activeAdminTab === 'bangers') fetchSharedBangerIds().then(renderAdminBangerList);
             if (activeAdminTab === 'calendar') fetchSharedCalendarOverrides().then(ov => { rebuildLiveCalendarReleases(ov); renderAdminCalendarList(); });
             if (activeAdminTab === 'news') fetchSharedWeeklyNews().then(renderAdminNewsList);
+            if (activeAdminTab === 'motm') renderAdminMotmCurrent(); // NOWE
         }
 
         function loginAdmin() {
@@ -10753,44 +11077,20 @@
                 return;
             }
 
-            const movie = movies.find(
-                m => m.id === selectedStudioMovieId
-            );
-
+            const movie = movies.find(m => m.id === selectedStudioMovieId);
             if (!movie) return;
 
-            /*
-            * ==========================
-            * RECENZJA
-            * ==========================
-            */
-
-            const reviewTextarea =
-                document.getElementById('studio-review-text');
-
-            const reviewText =
-                reviewTextarea
-                    ? reviewTextarea.value.trim()
-                    : '';
-
-            const reviewWordCount =
-                reviewText
-                    ? reviewText.split(/\s+/).filter(Boolean).length
-                    : 0;
+            // Czytamy recenzję na samym początku, zanim cokolwiek innego się wydarzy
+            const reviewTextarea = document.getElementById('studio-review-text');
+            const reviewText = reviewTextarea ? reviewTextarea.value.trim() : '';
+            const reviewWordCount = reviewText ? reviewText.split(/\s+/).filter(Boolean).length : 0;
 
             if (reviewWordCount > 500) {
-                alert(
-                    `Recenzja ma ${reviewWordCount} słów. Limit to 500 słów.`
-                );
+                alert(`Recenzja ma ${reviewWordCount} słów. Limit to 500 słów.`);
                 return;
             }
 
-            /*
-            * ==========================
-            * OCENA
-            * ==========================
-            */
-
+            // --- OCENA ---
             const newEntry = {
                 id: movie.id,
                 img: movie.img,
@@ -10800,137 +11100,72 @@
                 timestamp: Date.now()
             };
 
-            const data =
-                window.movieHubData || {};
-
-            data.ratingHistory =
-                Array.isArray(data.ratingHistory)
-                    ? data.ratingHistory
-                    : [];
-
-            data.ratings =
-                data.ratings || {};
-
-            /*
-            * Jeden film = jedna aktualna ocena.
-            * Stara ocena jest zastępowana.
-            */
+            const data = window.movieHubData || {};
+            data.ratingHistory = Array.isArray(data.ratingHistory) ? data.ratingHistory : [];
+            data.ratings = data.ratings || {};
 
             data.ratingHistory = [
                 newEntry,
-                ...data.ratingHistory.filter(
-                    entry => entry.id !== movie.id
-                )
+                ...data.ratingHistory.filter(entry => entry.id !== movie.id)
             ].slice(0, 50);
 
-            data.ratings[movie.id] =
-                String(selectedStudioRating);
-
+            data.ratings[movie.id] = String(selectedStudioRating);
             window.movieHubData = data;
+            localStorage.setItem(`rating-${movie.id}`, String(selectedStudioRating));
 
-            localStorage.setItem(
-                `rating-${movie.id}`,
-                String(selectedStudioRating)
-            );
-
-            /*
-            * ==========================
-            * RECENZJA
-            * ==========================
-            */
-
-            if (reviewText) {
-
-                /*
-                * Jeżeli użytkownik nie jest zalogowany,
-                * nie próbujemy odwoływać się bezpośrednio
-                * do currentFirebaseUser.
-                */
-
-                if (!window.isLoggedIn()) {
-                    showGuestGate("recenzji");
-                    return;
-                }
-
-                const uid = window.currentFirebaseUser?.uid;
-
-                if (!uid) {
-                    showGuestGate("recenzji");
-                    return;
-                }
-
-                const review = {
-                    movieId: movie.id,
-                    title: movie.title,
-                    img: movie.img,
-                    category: movie.category,
-                    movieRating: movie.rating,
-                    userRating: String(selectedStudioRating),
-                    text: reviewText,
-                    updatedAt: Date.now()
-                };
-
-                try {
-
-                    await window.firebaseSetDoc(
-                        window.firebaseDoc(
-                            window.db,
-                            "users",
-                            uid,
-                            "reviews",
-                            movie.id
-                        ),
-                        review,
-                        { merge: true }
-                    );
-
-                    userReviews[movie.id] = review;
-                    window.userReviews = userReviews;
-
-                } catch (error) {
-
-                    console.error(
-                        "Nie udało się zapisać recenzji:",
-                        error
-                    );
-
-                    alert(
-                        `Ocena została zapisana, ale recenzja nie mogła zostać zapisana. Firebase: ${error?.code || "unknown-error"}`
-                    );
-
-                    return;
-                }
-            }
-
-            /*
-            * ==========================
-            * ZAPIS OCENY
-            * ==========================
-            */
-
+            // Zapisujemy ocenę OD RAZU, niezależnie od tego czy recenzja się uda
             await window.saveMovieHubData?.();
 
-            /*
-            * ==========================
-            * ODŚWIEŻ
-            * ==========================
-            */
+            // --- RECENZJA ---
+            let reviewSaved = false;
 
-            renderRatingHistory();
+            if (reviewText) {
+                // Sprawdzamy sesję bezpośrednio z SDK Firebase, nie tylko przez flagę pomocniczą —
+                // to jest bardziej niezawodne na telefonach, gdzie auth potrafi wczytywać się wolniej
+                const liveUser = window.currentFirebaseUser || auth?.currentUser;
 
-            if (typeof renderMyReviews === 'function') {
-                renderMyReviews();
+                if (!liveUser) {
+                    showListToast?.('Zaloguj się, żeby zapisać recenzję — ocena już zapisana.') 
+                        ?? alert('Zaloguj się, żeby zapisać recenzję. Ocena została zapisana.');
+                    showGuestGate("recenzji");
+                } else {
+                    const review = {
+                        movieId: movie.id,
+                        title: movie.title,
+                        img: movie.img,
+                        category: movie.category,
+                        movieRating: movie.rating,
+                        userRating: String(selectedStudioRating),
+                        text: reviewText,
+                        updatedAt: Date.now()
+                    };
+
+                    try {
+                        await window.firebaseSetDoc(
+                            window.firebaseDoc(window.db, "users", liveUser.uid, "reviews", movie.id),
+                            review,
+                            { merge: true }
+                        );
+
+                        userReviews[movie.id] = review;
+                        window.userReviews = userReviews;
+                        reviewSaved = true;
+                    } catch (error) {
+                        console.error("Nie udało się zapisać recenzji:", error);
+                        showListToast?.(`Recenzja nie zapisała się (${error?.code || 'błąd'}) — ocena jest zapisana.`)
+                            ?? alert(`Ocena zapisana, ale recenzja nie zapisała się. Firebase: ${error?.code || "unknown-error"}`);
+                    }
+                }
             }
 
-            /*
-            * ==========================
-            * NIE UKRYWAJ OD RAZU
-            * ==========================
-            *
-            * Zostawiamy wybrany film,
-            * żeby po zapisie było widać
-            * aktualną ocenę i recenzję.
-            */
+            renderRatingHistory();
+            if (typeof renderMyReviews === 'function') renderMyReviews();
+
+            if (reviewText && reviewSaved) {
+                showListToast?.('Ocena i recenzja zapisane.');
+            } else if (!reviewText) {
+                showListToast?.('Ocena zapisana.');
+            }
 
             if (movieModalReturnId) {
                 returnToMovieModal();
@@ -11878,13 +12113,13 @@
 
 
         // Funkcja odliczania do premiery The Backrooms Movie
-        function initMovieCountdown() {
-            // 19 Czerwca 2026, godzina 20:00
-            const targetDate = new Date(2026, 7, 21, 0, 0, 0).getTime();
+        let motmCountdownTarget = new Date(2026, 7, 21, 0, 0, 0).getTime(); // domyślna data, admin może nadpisać
 
+        function initMovieCountdown() {
             const timerInterval = setInterval(function() {
                 const now = new Date().getTime();
-                const difference = targetDate - now;
+                const difference = motmCountdownTarget - now;
+                // reszta funkcji BEZ ZMIAN
 
                 // Obliczenia dni, godzin, minut i sekund
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -12491,6 +12726,7 @@
             const sliderTrack = document.getElementById('main-slider');
             if (!sliderTrack) return;
 
+            sliderTrack.innerHTML = ''; // clears old/duplicated cards on every re-render
 
             const ids = getBangerIds();
             const bangerMovies = ids.map(id => movies.find(m => m.id === id)).filter(Boolean);
@@ -12501,25 +12737,20 @@
             infiniteBangers.forEach(movie => {
                 const isComing = String(movie.rating).toUpperCase().includes('COMING');
                 const releaseInfo = liveCalendarReleases.find(r => r.title.toLowerCase() === movie.title.toLowerCase());
-                const dateLabel = releaseInfo ? `${releaseInfo.date.slice(8, 10)}.${releaseInfo.date.slice(5, 7)}` : '';
+                const dateLabel = releaseInfo ? `${releaseInfo.date.slice(8, 10)}.${releaseInfo.date.slice(5, 7)}` : movie.date;
 
                 const card = document.createElement('div');
-                card.className = `movie-card ${isComing ? 'coming-soon' : ''}`;
+                card.className = `banger-card ${isComing ? 'is-coming' : ''}`;
                 card.setAttribute('onclick', `openModalById('${movie.id}')`);
 
                 card.innerHTML = `
-                    <img src="${movie.img}" alt="${movie.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing-card')">
-                    <div class="p-4">
-                        <h3 class="font-black text-white uppercase italic tracking-tight text-sm truncate">${movie.title}</h3>
-                        <div class="mt-3 flex flex-col items-start gap-1">
-                            ${isComing ?
-                                `<div class="banger-coming-row">
-                                    <span class="coming-badge">COMING SOON</span>
-                                    <span class="banger-date">${dateLabel}</span>
-                                </div>` :
-                                `<span class="text-green-500 font-bold text-xs">★ ${movie.rating}</span>`
-                            }
-                        </div>
+                    <img src="${movie.img}" alt="${movie.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                    <span class="banger-pill ${isComing ? 'is-coming' : ''}">
+                        ${isComing ? '<i class="banger-dot"></i>COMING SOON' : `★ ${movie.rating}`}
+                    </span>
+                    <div class="banger-scrim">
+                        <h3 class="banger-title">${movie.title}</h3>
+                        <span class="banger-year">${isComing ? dateLabel : movie.date}</span>
                     </div>
                 `;
                 sliderTrack.appendChild(card);
@@ -12853,6 +13084,8 @@
         window.db = db; // <-- DODAJ TĘ LINIĘ
         const googleProvider = new GoogleAuthProvider();
 
+        
+
         function formatHypeCount(n) {
             const num = Number(n) || 0;
             if (num >= 10000) return `${Math.round(num / 1000)}K hype`;
@@ -12860,8 +13093,12 @@
             return `${num} hype`;
         }
 
-        function initMutinyHype() {
-            onSnapshot(doc(db, "siteConfig", "mutinyHype"), snap => {
+        let motmHypeUnsub = null;
+
+        function initMotmHype(movieId) {
+            if (motmHypeUnsub) { motmHypeUnsub(); motmHypeUnsub = null; }
+
+            motmHypeUnsub = onSnapshot(doc(db, "hypeCounters", movieId), snap => {
                 const count = snap.exists() ? snap.data().count : 0;
                 const label = document.getElementById("mutiny-hype-count");
                 if (label) label.textContent = formatHypeCount(count);
@@ -12872,11 +13109,12 @@
             const btn = event.currentTarget;
             if (!btn) return;
 
+            const movieId = btn.dataset.movieId || 'mutiny';
+
             btn.classList.remove("ignite");
-            void btn.offsetWidth; // reset animacji przy szybkich kliknięciach
+            void btn.offsetWidth;
             btn.classList.add("ignite");
 
-            // Pozycja kliknięcia/dotknięcia względem przycisku
             const rect = btn.getBoundingClientRect();
             const point = event.touches?.[0] || event.changedTouches?.[0] || event;
             const x = (point.clientX ?? rect.left + rect.width / 2) - rect.left;
@@ -12891,13 +13129,13 @@
             setTimeout(() => particle.remove(), 850);
 
             try {
-                await setDoc(doc(db, "siteConfig", "mutinyHype"), { count: increment(1) }, { merge: true });
+                await setDoc(doc(db, "hypeCounters", movieId), { count: increment(1) }, { merge: true });
             } catch (error) {
                 console.error("Nie udało się zaktualizować hype:", error);
             }
         };
 
-        initMutinyHype();
+    
 
         window.loadWeeklyNewsReactions = async function(newsId) {
             const snap = await getDoc(doc(db, "weeklyNewsReactions", newsId));
@@ -12958,6 +13196,18 @@
             return items;
         };
 
+        window.loadCloudMonthlyPremiere = async function() {
+            const snap = await getDoc(doc(db, "siteConfig", "monthlyPremiere"));
+            return snap.exists() ? snap.data() : null;
+        };
+
+        window.saveCloudMonthlyPremiere = async function(data) {
+            await setDoc(doc(db, "siteConfig", "monthlyPremiere"), {
+                ...data,
+                updatedAt: serverTimestamp()
+            }, { merge: true });
+        };
+
         window.loadCloudWeeklyNews = async function() {
             const snap = await getDocs(collection(db, "weeklyNews"));
             const items = [];
@@ -12977,6 +13227,8 @@
         if (typeof window.loadWeeklyNewsIntoSite === "function") {
             window.loadWeeklyNewsIntoSite().catch(err => console.warn("Nie udało się wczytać newsów z Firestore:", err));
         }
+
+
 
         function normalizeCloudCalendarRelease(r) {
             return {
@@ -13029,6 +13281,59 @@
                 console.warn("Nie udało się wczytać sliderów bangers z Firestore:", error);
             });
         }
+
+        let currentMotm = null;
+
+        async function loadMonthlyPremiereIntoSite() {
+            if (typeof window.loadCloudMonthlyPremiere !== 'function') return;
+
+            try {
+                currentMotm = await window.loadCloudMonthlyPremiere();
+            } catch (err) {
+                console.warn('Nie udało się wczytać premiery miesiąca:', err);
+                currentMotm = null;
+            }
+
+            renderMonthlyPremiere();
+        }
+        window.loadMonthlyPremiereIntoSite = loadMonthlyPremiereIntoSite;
+
+        function renderMonthlyPremiere() {
+            const movie = currentMotm?.movieId ? movies.find(m => m.id === currentMotm.movieId) : null;
+            const hypeBtn = document.getElementById('mutiny-hype-btn');
+
+            if (!movie) {
+                // nic nie zapisane w adminie — zostaje domyślny Mutiny wpisany w HTML
+                if (hypeBtn) hypeBtn.dataset.movieId = 'mutiny';
+                initMotmHype('mutiny');
+                return;
+            }
+
+            const posterEl = document.getElementById('motm-poster');
+            const titleEl = document.getElementById('motm-title');
+            const descEl = document.getElementById('motm-desc');
+            const dateEl = document.getElementById('motm-date');
+            const posterWrap = document.getElementById('motm-poster-wrap');
+
+            if (posterEl) { posterEl.src = movie.img; posterEl.alt = movie.title; }
+            if (titleEl) titleEl.textContent = movie.title;
+            if (descEl) descEl.textContent = currentMotm.descOverride || movie.desc;
+            if (dateEl) dateEl.textContent = currentMotm.dateLabel || movie.date;
+
+            if (posterWrap) {
+                posterWrap.style.cursor = 'pointer';
+                posterWrap.onclick = () => openModalById(movie.id);
+            }
+
+            if (hypeBtn) hypeBtn.dataset.movieId = movie.id;
+            initMotmHype(movie.id);
+
+            if (currentMotm.countdownISO) {
+                const parsed = new Date(currentMotm.countdownISO).getTime();
+                if (!isNaN(parsed)) motmCountdownTarget = parsed;
+            }
+        }
+        window.renderMonthlyPremiere = renderMonthlyPremiere;
 
         window.saveCloudAdminMovie = async function(movie) {
             const cleanMovie = normalizeCloudAdminMovie({
@@ -14388,115 +14693,44 @@
 
             container.innerHTML = `
                 <section class="rounded-[32px] border border-cyan-500/20 bg-cyan-500/[0.05] p-5 md:p-8">
-                    
 
                     <div class="my-reviews-header">
-
                         <div>
-                            <p class="my-reviews-eyebrow">
-                                TWOJE KINO
-                            </p>
-
-                            <h2 class="my-reviews-heading">
-                                MOJE <span>RECENZJE</span>
-                            </h2>
-
-                            <p class="my-reviews-description">
-                                Filmy, które nie skończyły się wraz z napisami.
-                            </p>
+                            <p class="my-reviews-eyebrow">TWOJE KINO</p>
+                            <h2 class="my-reviews-heading">MOJE <span>RECENZJE</span></h2>
+                            <p class="my-reviews-description">Filmy, które nie skończyły się wraz z napisami.</p>
                         </div>
 
                         <div class="my-reviews-count">
                             <strong>${reviews.length}</strong>
                             <span>RECENZJI</span>
                         </div>
-
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="rvw-grid">
                         ${reviews.map(r => `
-                            <article class="my-review-card">
+                            <article class="rvw-card">
+                                <button type="button" class="rvw-poster" onclick="openMovieReview('${r.movieId}')" title="Otwórz recenzję">
+                                    <img src="${r.img}" alt="${r.title}" onerror="this.src='https://via.placeholder.com/200x300?text=Brak'">
+                                    <span class="rvw-poster-badge">★ ${r.userRating || '—'}</span>
+                                </button>
 
-                                <div class="my-review-poster">
-                                    <button
-                                        type="button"
-                                        onclick="openMovieReview('${r.movieId}')"
-                                        class="my-review-poster-btn"
-                                    >
-                                        <img
-                                            src="${r.img}"
-                                            alt="${r.title}"
-                                        >
+                                <div class="rvw-body">
+                                    <p class="rvw-genre">${r.category || 'FILM'}</p>
+                                    <h3 class="rvw-title">${r.title}</h3>
+                                    <p class="rvw-excerpt">${r.text}</p>
 
-                                        <div class="my-review-rating">
-                                            <span>★</span>
-                                            ${r.userRating || "—"}<small>/10</small>
-                                        </div>
-
-                                        <div class="my-review-poster-overlay">
-                                            <span>OTWÓRZ RECENZJĘ</span>
-                                        </div>
-                                    </button>
-                                </div>
-
-                                <div class="my-review-content">
-
-                                    <div class="my-review-top">
-                                        <div>
-                                            <p class="my-review-label">
-                                                ${r.category || "FILM"}
-                                            </p>
-
-                                            <h3 class="my-review-title">
-                                                ${r.title}
-                                            </h3>
-                                        </div>
-
-                                        <div class="my-review-score">
-                                            <span>TWÓJ WYNIK</span>
-                                            <strong>${r.userRating || "—"}</strong>
-                                        </div>
+                                    <div class="rvw-actions">
+                                        <button type="button" class="rvw-open-btn" onclick="openMovieReview('${r.movieId}')">
+                                            Czytaj recenzję →
+                                        </button>
+                                        <button type="button" class="rvw-del-btn" onclick="event.stopPropagation(); deleteMovieReview('${r.movieId}')" title="Usuń recenzję">
+                                            🗑
+                                        </button>
                                     </div>
-
-                                    <div class="my-review-divider"></div>
-
-                                    <p class="my-review-text">
-                                        ${r.text}
-                                    </p>
-
-                                    <div class="my-review-bottom">
-
-                                        <span class="my-review-readtime">
-                                            TWOJA OPINIA
-                                        </span>
-
-                                        <div class="flex gap-2">
-                                            <button
-                                                type="button"
-                                                onclick="openMovieReview('${r.movieId}')"
-                                                class="my-review-button"
-                                            >
-                                                CZYTAJ RECENZJĘ
-                                                <span>→</span>
-                                            </button>
-                                            
-
-                                            <button
-                                                type="button"
-                                                onclick="event.stopPropagation(); deleteMovieReview('${r.movieId}')"
-                                                class="my-review-delete-button"
-                                                title="Usuń recenzję"
-                                            >
-                                                🗑
-                                            </button>
-                                        </div>
-
-                                    </div>
-
                                 </div>
-
                             </article>
-                        `).join("")}
+                        `).join('')}
                     </div>
                 </section>
             `;
@@ -14839,6 +15073,7 @@
                 "ocen": "history",
                 "Moje": "My",
                 "recenzje": "reviews",
+                "HISTORIE, KTÓRE ZOSTAJĄ.": "STORIES THAT STAY.",
                 "OCEŃ": "Rate",
                 "Wybierz plakat, kliknij ocenę i zapisz. Prosto, szybko, bez brzydkiego formularza.": "Choose a poster, click a rating, and save. Simple, fast, no ugly form.",
 
@@ -15429,6 +15664,10 @@
             document.getElementById('weekly-news-next-mobile')?.addEventListener('click', () => goToWeeklyNews(1));
         });
 
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMonthlyPremiereIntoSite();
+        });
+
         /* =========================================================
         RATIVIO — INTRO CONTROL
         ========================================================= */
@@ -15473,6 +15712,109 @@
             // Awaryjnie — intro nigdy nie może zablokować strony
             setTimeout(finishIntro, 4500);
         })();
+
+
+        let editingMotmMovieId = null;
+
+        function renderAdminMotmSearchResults(query) {
+            const box = document.getElementById('admin-motm-search-results');
+            if (!box) return;
+
+            const q = query.toLowerCase().trim();
+            if (!q) { box.innerHTML = ''; return; }
+
+            const matches = movies.filter(m => m.title.toLowerCase().includes(q)).slice(0, 8);
+
+            if (!matches.length) {
+                box.innerHTML = '<div class="text-zinc-600 text-xs font-bold p-3">Brak wyników.</div>';
+                return;
+            }
+
+            box.innerHTML = matches.map(m => `
+                <button type="button" onclick="selectAdminMotmMovie('${m.id}')" class="admin-movie-row text-left">
+                    <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${m.title}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${m.category} / ${m.date}</p>
+                    </div>
+                    <span class="text-green-500 text-[10px] font-black uppercase">Wybierz</span>
+                </button>
+            `).join('');
+        }
+        window.renderAdminMotmSearchResults = renderAdminMotmSearchResults;
+
+        function selectAdminMotmMovie(id) {
+            editingMotmMovieId = id;
+            document.getElementById('admin-motm-search').value = '';
+            document.getElementById('admin-motm-search-results').innerHTML = '';
+            renderAdminMotmCurrent();
+        }
+        window.selectAdminMotmMovie = selectAdminMotmMovie;
+
+        function renderAdminMotmCurrent() {
+            const box = document.getElementById('admin-motm-current');
+            if (!box) return;
+
+            const id = editingMotmMovieId || currentMotm?.movieId;
+            const movie = movies.find(m => m.id === id);
+
+            if (!movie) {
+                box.innerHTML = '<p class="text-zinc-500 text-xs font-bold">Nie wybrano jeszcze filmu — wyszukaj powyżej.</p>';
+                return;
+            }
+
+            box.innerHTML = `
+                <div class="admin-movie-row">
+                    <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">Wybrany: ${movie.title}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date}</p>
+                    </div>
+                    <span></span>
+                </div>
+            `;
+
+            if (currentMotm && currentMotm.movieId === movie.id) {
+                document.getElementById('admin-motm-desc').value = currentMotm.descOverride || '';
+                document.getElementById('admin-motm-date-label').value = currentMotm.dateLabel || '';
+                document.getElementById('admin-motm-countdown').value = currentMotm.countdownISO ? currentMotm.countdownISO.slice(0, 16) : '';
+            }
+        }
+        window.renderAdminMotmCurrent = renderAdminMotmCurrent;
+
+        async function saveAdminMotm(event) {
+            event.preventDefault();
+
+            const movieId = editingMotmMovieId || currentMotm?.movieId;
+            if (!movieId) {
+                showAdminToast('Najpierw wybierz film z wyszukiwarki.', 'error');
+                return;
+            }
+
+            const descOverride = safeAdminText(document.getElementById('admin-motm-desc')?.value);
+            const dateLabel = safeAdminText(document.getElementById('admin-motm-date-label')?.value);
+            const countdownRaw = document.getElementById('admin-motm-countdown')?.value;
+            const countdownISO = countdownRaw ? new Date(countdownRaw).toISOString() : '';
+
+            const payload = { movieId, descOverride, dateLabel, countdownISO };
+
+            if (typeof window.saveCloudMonthlyPremiere === 'function') {
+                try {
+                    await window.saveCloudMonthlyPremiere(payload);
+                } catch (err) {
+                    console.error('Firestore save error (monthlyPremiere):', err);
+                    showAdminToast('Nie udało się zapisać w chmurze.', 'error');
+                    return;
+                }
+            }
+
+            currentMotm = payload;
+            editingMotmMovieId = null;
+            renderMonthlyPremiere();
+            renderAdminMotmCurrent();
+            showAdminToast(`Zapisano premierę miesiąca: "${movies.find(m => m.id === movieId)?.title}"`);
+        }
+        window.saveAdminMotm = saveAdminMotm;
 
     </script>
 
@@ -15638,9 +15980,7 @@
 
                     <div class="review-quote">
 
-                        <span class="review-quote-mark">
-                            “
-                        </span>
+                        
 
                         <p
                             id="review-view-text"
