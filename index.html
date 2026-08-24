@@ -3,11 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Hub | Pro Authority</title>
+    <title>RATIVIO | Pro Authority</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init({ publicKey: "kDlKgSmNBD5M7RERy" });</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #09090b; scroll-behavior: smooth; color: white; overflow-x: hidden; }
+
+        /* RATIVIO visual identity */
+        :root {
+            --rativio-green: #22c55e;
+            --rativio-cyan: #22d3ee;
+            --rativio-violet: #a855f7;
+            --rativio-bg: #07070a;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 8% 8%, rgba(34,197,94,.055), transparent 24%),
+                radial-gradient(circle at 92% 18%, rgba(34,211,238,.045), transparent 25%),
+                radial-gradient(circle at 50% 100%, rgba(168,85,247,.035), transparent 30%),
+                #09090b;
+        }
+
+        ::selection {
+            background: rgba(34,197,94,.35);
+            color: #fff;
+        }
+
+        .rativio-brand {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            font-family: 'Anton', sans-serif;
+            font-size: 1.65rem;
+            line-height: .9;
+            letter-spacing: .035em;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 24px rgba(255,255,255,.08);
+            transition: transform .2s ease, text-shadow .2s ease;
+        }
+
+        .rativio-brand::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 4%;
+            bottom: -8px;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--rativio-green), var(--rativio-cyan), transparent 90%);
+            opacity: .9;
+            box-shadow: 0 0 12px rgba(34,197,94,.22);
+        }
+
+        .rativio-brand:hover {
+            transform: translateY(-1px);
+            text-shadow: 0 0 28px rgba(255,255,255,.16), 0 0 42px rgba(34,197,94,.12);
+        }
+
+        .rativio-brand-accent {
+            color: #fff;
+            text-shadow: 0 0 18px rgba(34,197,94,.18);
+        }
+
+        .rativio-eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            color: #86efac;
+            letter-spacing: .28em;
+        }
+
+        nav.sticky {
+            background: linear-gradient(180deg, rgba(9,9,11,.96), rgba(9,9,11,.84)) !important;
+            border-bottom-color: rgba(255,255,255,.07) !important;
+            box-shadow: 0 10px 35px rgba(0,0,0,.18);
+        }
+
+        nav.sticky::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(34,197,94,.45), rgba(34,211,238,.35), transparent);
+            pointer-events: none;
+        }
+
+        .rativio-accent-line {
+            height: 3px;
+            width: 72px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--rativio-green), var(--rativio-cyan));
+            box-shadow: 0 0 18px rgba(34,197,94,.18);
+        }
+
+        .rativio-color-glow {
+            box-shadow: 0 0 0 1px rgba(34,197,94,.04), 0 0 35px rgba(34,197,94,.055), 0 0 70px rgba(34,211,238,.025);
+        }
         
         #hero-bg { position: absolute; inset: 0; z-index: -1; transition: background-image 1.5s ease-in-out; background-size: cover; background-position: center; filter: brightness(0.2) blur(8px); }
         .hero-gradient { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent, #09090b); }
@@ -381,10 +476,35 @@
        
 
         .hidden-section { display: none !important; }
-        .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 15px; }
+         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 15px; }
+
+        /* EKRAN LOGOWANIA: całkowicie czarne tło i brak zamykania kliknięciem obok */
+        #login-modal {
+            z-index: 3000 !important;
+            background: #000 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        #login-modal > div {
+            position: relative;
+            z-index: 3001;
+        }
 
         #review-view-modal {
             z-index: 2000 !important;
+        }
+
+        @media (max-width: 640px) {
+            #login-modal {
+                padding: 10px;
+            }
+
+            #login-modal > div {
+                max-height: 94dvh;
+                border-radius: 26px;
+                padding: 22px;
+            }
         }
 
 
@@ -7461,6 +7581,7 @@
         }
 
        #calendar-back-top {
+            display: none !important;
             position: fixed !important;
             right: 22px !important;
             bottom: 22px !important;
@@ -7468,11 +7589,11 @@
             width: 46px !important;
             height: 46px !important;
 
-            display: flex !important;
+            
             align-items: center !important;
             justify-content: center !important;
 
-            z-index: 2147483647 !important;
+            z-index: 60 !important;
 
             border: 1px solid rgba(34, 197, 94, .55) !important;
             border-radius: 50% !important;
@@ -7494,6 +7615,10 @@
             transition: .2s ease !important;
         }
 
+        #calendar-back-top.is-visible {
+            display: flex !important;
+        }
+
         #calendar-back-top:hover {
             transform: translateY(-3px) !important;
             background: rgba(34, 197, 94, .12) !important;
@@ -7511,10 +7636,6 @@
                 font-size: 19px !important;
             }
         }
-        #calendar-back-top.hide-back-top {
-            display: none !important;
-        }
-
 
         /* ================================
         NEWSY — STRZAŁKI
@@ -7545,16 +7666,283 @@
                 right: 10px !important;
             }
         }
+
+        /* =========================================================
+        RATIVIO — INTRO / LOADING SCREEN
+        ========================================================= */
+
+        #rativio-intro {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(34,197,94,.08),
+                    transparent 32%
+                ),
+                #07070a;
+
+            overflow: hidden;
+
+            opacity: 1;
+            visibility: visible;
+
+            transition:
+                opacity .75s cubic-bezier(.77,0,.18,1),
+                visibility .75s;
+        }
+
+        #rativio-intro::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent 0%,
+                    rgba(34,197,94,.025) 45%,
+                    rgba(34,211,238,.035) 55%,
+                    transparent 100%
+                );
+
+            animation: rativioIntroSweep 2.2s ease-in-out infinite;
+        }
+
+        .rativio-intro-content {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            transform: translateY(8px);
+        }
+
+        .rativio-intro-brand {
+            position: relative;
+
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            line-height: .82;
+            letter-spacing: .045em;
+
+            color: #fff;
+
+            opacity: 0;
+            transform: scale(.92) translateY(14px);
+
+            text-shadow:
+                0 0 25px rgba(255,255,255,.06),
+                0 0 60px rgba(34,197,94,.08);
+
+            animation:
+                rativioIntroLogo 1s cubic-bezier(.16,1,.3,1) .15s forwards;
+        }
+
+        .rativio-intro-line {
+            position: relative;
+
+            width: min(330px, 55vw);
+            height: 3px;
+
+            margin-top: 18px;
+
+            overflow: hidden;
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.06);
+
+            opacity: 0;
+
+            animation:
+                rativioIntroFade .5s ease .65s forwards;
+        }
+
+        .rativio-intro-line span {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            width: 0;
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #22c55e,
+                    #22d3ee,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 12px rgba(34,197,94,.5),
+                0 0 28px rgba(34,211,238,.18);
+
+            animation:
+                rativioIntroLine 1s cubic-bezier(.16,1,.3,1) .7s forwards;
+        }
+
+        .rativio-intro-subtitle {
+            margin-top: 17px;
+
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            font-weight: 500;
+
+            letter-spacing: .38em;
+            text-indent: .38em;
+
+            color: #71717a;
+
+            opacity: 0;
+            transform: translateY(5px);
+
+            animation:
+                rativioIntroSubtitle .6s ease 1s forwards;
+        }
+
+        #rativio-intro.is-done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        body.rativio-loading {
+            overflow: hidden;
+        }
+
+        body.rativio-ready #home-page,
+        body.rativio-ready #library-page,
+        body.rativio-ready #lists-page,
+        body.rativio-ready #calendar-page,
+        body.rativio-ready #rating-studio-page,
+        body.rativio-ready #review-page {
+            animation: rativioPageReveal .75s cubic-bezier(.16,1,.3,1) both;
+        }
+
+        @keyframes rativioIntroLogo {
+            0% {
+                opacity: 0;
+                transform: scale(.92) translateY(14px);
+                filter: blur(8px);
+            }
+
+            60% {
+                opacity: 1;
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes rativioIntroLine {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes rativioIntroSubtitle {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rativioIntroFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes rativioIntroSweep {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            50% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes rativioPageReveal {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #rativio-intro *,
+            #rativio-intro {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        
     </style>
 </head>
 <body class="selection:bg-green-600">
+
+    <!-- RATIVIO INTRO -->
+    <div id="rativio-intro">
+        <div class="rativio-intro-content">
+            <div class="rativio-intro-brand">
+                RATIVIO
+            </div>
+
+            <div class="rativio-intro-line">
+                <span></span>
+            </div>
+
+            <div class="rativio-intro-subtitle">
+                WORLDWIDE CINEMA AUTHORITY
+            </div>
+        </div>
+    </div>
 
     <div id="admin-panel" class="admin-panel-shell">
         <div id="admin-toast-container" class="admin-toast-container"></div>
         <div class="admin-page-surface">
             <div class="flex items-start justify-between gap-4 border-b border-zinc-800 p-5 md:p-7">
                 <div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Admin</p>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">RATIVIO Admin</p>
                     <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white">Panel szefa</h2>
                     <p class="text-zinc-500 text-xs md:text-sm font-bold mt-2 max-w-2xl">Dodawaj filmy do biblioteki bez grzebania w kodzie. Panel otworzysz przez dopisanie <span class="text-zinc-300">#admin</span> do adresu strony albo skrótem Ctrl + Shift + A.</p>
                 </div>
@@ -7887,8 +8275,8 @@
 
     <nav class="sticky top-0 z-50 bg-zinc-950/90 border-b border-zinc-800 p-4 md:p-5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center gap-4">
-            <h1 onclick="showHome()" class="text-2xl md:text-3xl font-black text-green-500 tracking-tighter uppercase italic cursor-pointer">
-                Movie Hub
+            <h1 onclick="showHome()" class="cursor-pointer" aria-label="RATIVIO — strona główna">
+                <span class="rativio-brand">RATIVIO</span>
             </h1>
 
             <div class="flex items-center gap-3 md:gap-5">
@@ -7907,7 +8295,7 @@
         <aside class="app-menu-panel">
             <div class="app-menu-top">
                 <div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub</p>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">RATIVIO</p>
                     <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none">
                         Menu
                     </h2>
@@ -8109,7 +8497,7 @@
             <div class="weekly-news-shell relative overflow-hidden rounded-[40px] border border-zinc-800 p-6 md:p-10">
                 <div class="flex items-center justify-between gap-4 mb-8">
                     <div>
-                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-fuchsia-400 mb-2">Movie Hub Wire</p>
+                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-fuchsia-400 mb-2">RATIVIO Wire</p>
                         <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
                             Newsy <span class="text-fuchsia-400">Tygodnia</span>
                         </h2>
@@ -8163,7 +8551,7 @@
         <section class="library-hero border border-zinc-800 rounded-[32px] p-5 md:p-8 mb-8 shadow-2xl shadow-black/40">
             <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
                 <div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Library</p>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">RATIVIO Library</p>
                     <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white">
                         Wybierz <span class="text-green-500">film</span>
                     </h2>
@@ -8280,7 +8668,7 @@
         <section class="rating-studio-shell border border-zinc-800 rounded-[32px] p-5 md:p-8 shadow-2xl shadow-black/50">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-7">
                 <div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub Rating</p>
+                    <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">RATIVIO Rating</p>
                     <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
                         Oceń <span class="text-cyan-400">film</span>
                     </h2>
@@ -8598,53 +8986,133 @@
 
     </div>
 
-    <div id="login-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal('login-modal', false)">
-        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-md rounded-[32px] p-6 md:p-8 relative shadow-2xl shadow-black/80">
-            <button onclick="toggleModal('login-modal', false)" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
+    <div id="login-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-md max-h-[92vh] overflow-y-auto rounded-[32px] p-6 md:p-8 relative shadow-2xl shadow-black/80">
+            <button type="button" onclick="toggleModal('login-modal', false)" aria-label="Zamknij" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
 
-            <div class="mb-7">
-                <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub Account</p>
+            <div id="auth-error" role="alert" aria-live="polite" class="hidden mb-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-bold px-4 py-3"></div>
+
+            <div class="mb-7 pr-8">
+                <p class="rativio-eyebrow text-[10px] font-bold uppercase mb-2">RATIVIO ACCOUNT</p>
+                <div class="rativio-accent-line mb-4"></div>
                 <h2 id="login-modal-title" class="text-3xl font-black italic uppercase tracking-tighter text-white">
-                    Wejdź do <span class="text-green-500">kina</span>
+                    Wejdź do <span class="text-white">RATIVIO</span>
                 </h2>
-                <p class="text-zinc-500 text-sm mt-2 font-medium">Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.</p>
+                <p id="login-modal-subtitle" class="text-zinc-500 text-sm mt-2 font-medium">Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 bg-zinc-900/70 border border-zinc-800 rounded-2xl p-1 mb-5">
-                <button id="login-tab" onclick="switchAuthTab('login')" class="auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Logowanie</button>
-                <button id="register-tab" onclick="switchAuthTab('register')" class="auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Rejestracja</button>
+            <div id="auth-tabs" class="grid grid-cols-2 gap-2 bg-zinc-900/70 border border-zinc-800 rounded-2xl p-1 mb-5">
+                <button type="button" id="login-tab" onclick="switchAuthTab('login')" class="auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Logowanie</button>
+                <button type="button" id="register-tab" onclick="switchAuthTab('register')" class="auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Rejestracja</button>
             </div>
 
-            <button onclick="loginWithGoogle()" class="w-full mb-5 bg-white hover:bg-zinc-200 text-black rounded-2xl py-3.5 font-black uppercase text-xs tracking-wider transition flex items-center justify-center gap-3">
+            <button type="button" id="google-login-button" onclick="loginWithGoogle()" class="w-full mb-5 bg-white hover:bg-zinc-200 text-black rounded-2xl py-3.5 font-black uppercase text-xs tracking-wider transition flex items-center justify-center gap-3">
                 <span class="text-lg">G</span>
                 Kontynuuj z Google
             </button>
 
-            <div class="flex items-center gap-3 mb-5">
+            <div id="auth-divider" class="flex items-center gap-3 mb-5">
                 <div class="h-px flex-1 bg-zinc-800"></div>
                 <span class="text-[9px] font-black uppercase text-zinc-600 tracking-widest">albo</span>
                 <div class="h-px flex-1 bg-zinc-800"></div>
             </div>
 
             <form id="login-form" onsubmit="loginWithEmail(event)" class="space-y-3">
-                <input id="login-email" type="email" placeholder="E-mail" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-                <input id="login-password" type="password" placeholder="Hasło" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                <input id="login-email" type="email" placeholder="E-mail" required autocomplete="username" autocapitalize="none" spellcheck="false"
+                    class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+
+                <div class="relative">
+                    <input id="login-password" type="password" placeholder="Hasło" required autocomplete="current-password"
+                        class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 pr-16 text-white outline-none focus:border-green-500 transition">
+                    <button type="button" onclick="togglePasswordVisibility('login-password', this)"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-[10px] font-black uppercase">Pokaż</button>
+                </div>
+
+                <button type="button" onclick="showResetPassword()" class="w-full text-right text-zinc-500 hover:text-green-400 text-[10px] font-black uppercase tracking-widest pt-1 transition">
+                    Nie pamiętasz hasła? Zresetuj hasło
+                </button>
+
                 <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">Zaloguj</button>
             </form>
 
             <form id="register-form" onsubmit="registerWithEmail(event)" class="space-y-3 hidden">
-                <input id="register-nick" type="text" placeholder="Nick" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-                <input id="register-email" type="email" placeholder="E-mail" required class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-                <input id="register-password" type="password" placeholder="Hasło min. 6 znaków" required minlength="6" class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">Utwórz konto</button>
+
+                <div id="register-step-1" class="space-y-3">
+                    <div>
+                        <input id="register-nick" type="text" placeholder="Nick" required
+                            oninput="clearNickStatus()"
+                            onblur="checkNickAvailability()"
+                            class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+                        <p id="register-nick-status" class="mt-2 text-[10px] font-black uppercase tracking-widest"></p>
+                    </div>
+
+                    <input id="register-email" type="email" placeholder="E-mail" required autocomplete="email" autocapitalize="none" spellcheck="false"
+                        class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+
+                    <div class="relative">
+                        <input id="register-password" type="password" placeholder="Hasło min. 6 znaków" required minlength="6" autocomplete="new-password"
+                            class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 pr-16 text-white outline-none focus:border-green-500 transition">
+                        <button type="button" onclick="togglePasswordVisibility('register-password', this)"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-[10px] font-black uppercase">Pokaż</button>
+                    </div>
+
+                    <div class="relative">
+                        <input id="register-password-confirm" type="password" placeholder="Powtórz hasło" required minlength="6" autocomplete="new-password"
+                            class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 pr-16 text-white outline-none focus:border-green-500 transition">
+                        <button type="button" onclick="togglePasswordVisibility('register-password-confirm', this)"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-[10px] font-black uppercase">Pokaż</button>
+                    </div>
+
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">
+                        Wyślij kod na maila
+                    </button>
+                </div>
+
+                <div id="register-step-2" class="hidden space-y-3">
+                    <p class="text-zinc-400 text-xs font-bold text-center">
+                        Wysłaliśmy kod na adres <span id="register-email-preview" class="text-white"></span>.
+                    </p>
+
+                    <input id="register-email-code" type="text" inputmode="numeric" placeholder="Kod z maila" maxlength="6"
+                        class="w-full text-center tracking-[0.4em] bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+
+                    <button type="button" onclick="confirmEmailCodeAndRegister()"
+                        class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">
+                        Zweryfikuj kod i utwórz konto
+                    </button>
+
+                    <button type="button" onclick="resendRegisterEmailCode()"
+                        class="w-full text-zinc-500 hover:text-white text-[10px] font-black uppercase tracking-widest py-2">
+                        Wyślij kod ponownie
+                    </button>
+                </div>
+
             </form>
 
-            <p id="auth-error" class="hidden mt-4 text-red-400 text-xs font-bold text-center"></p>
+            <form id="reset-password-form" onsubmit="resetPasswordByEmail(event)" class="hidden space-y-3">
+                <div class="rounded-2xl border border-green-500/20 bg-green-500/5 px-4 py-4">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-green-400 mb-1">RESET HASŁA</p>
+                    <p class="text-xs text-zinc-400 leading-relaxed">Wpisz e-mail użyty przy rejestracji. Firebase wyśle bezpieczny link do ustawienia nowego hasła. Ten mechanizm nie korzysta z EmailJS.</p>
+                </div>
+
+                <input id="reset-email" type="email" placeholder="E-mail" required autocomplete="email" autocapitalize="none" spellcheck="false"
+                    class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
+
+                <div id="reset-password-success" class="hidden rounded-2xl border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-bold px-4 py-3 leading-relaxed"></div>
+
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">
+                    Wyślij link resetujący
+                </button>
+
+                <button type="button" onclick="backToLoginFromReset()" class="w-full text-zinc-500 hover:text-white text-[10px] font-black uppercase tracking-widest py-2 transition">
+                    ← Wróć do logowania
+                </button>
+            </form>
+
         </div>
     </div>
-
     <footer class="py-12 text-center text-zinc-600 text-[10px] font-bold uppercase tracking-widest italic border-t border-zinc-900 mt-10">
-        &copy; 2026 Movie Hub. Worldwide Cinema Authority.
+        &copy; 2026 RATIVIO. Worldwide Cinema Authority.
     </footer>
 
     <script>
@@ -9627,174 +10095,6 @@
             });
         });
 
-        function installLocalAuthFallback() {
-            if (typeof window.loginWithEmail === 'function' && typeof window.registerWithEmail === 'function') return;
-
-            const LOCAL_USERS_KEY = 'movieHubLocalUsers';
-            const LOCAL_SESSION_KEY = 'movieHubLocalSession';
-
-            function getLocalUsers() {
-                try {
-                    return JSON.parse(localStorage.getItem(LOCAL_USERS_KEY)) || {};
-                } catch {
-                    return {};
-                }
-            }
-
-            function saveLocalUsers(users) {
-                localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
-            }
-
-            function getLocalUser() {
-                const email = localStorage.getItem(LOCAL_SESSION_KEY);
-                if (!email) return null;
-                return getLocalUsers()[email] || null;
-            }
-
-            function setLocalUser(user) {
-                if (user) {
-                    localStorage.setItem(LOCAL_SESSION_KEY, user.email);
-                } else {
-                    localStorage.removeItem(LOCAL_SESSION_KEY);
-                }
-
-                window.movieHubData = window.movieHubData || {
-                    watchlist: [],
-                    userLists: [],
-                    ratingHistory: []
-                };
-
-                if (typeof refreshUserScopedData === 'function') refreshUserScopedData();
-                if (typeof window.updateAuthUI === 'function') window.updateAuthUI();
-            }
-
-            if (typeof window.showAuthError !== 'function') {
-                window.showAuthError = function(message) {
-                    const errorBox = document.getElementById('auth-error');
-                    if (!errorBox) {
-                        alert(message);
-                        return;
-                    }
-
-                    errorBox.textContent = message;
-                    errorBox.classList.remove('hidden');
-                };
-            }
-
-            if (typeof window.clearAuthError !== 'function') {
-                window.clearAuthError = function() {
-                    const errorBox = document.getElementById('auth-error');
-                    if (!errorBox) return;
-
-                    errorBox.textContent = '';
-                    errorBox.classList.add('hidden');
-                };
-            }
-
-            window.getFirebaseUserId = () => getLocalUser()?.email || 'guest';
-            window.isLoggedIn = () => !!getLocalUser();
-
-            window.updateAuthUI = function() {
-                const authSection = document.getElementById('auth-section');
-                const menuLogin = document.getElementById('app-menu-login-btn');
-                const menuLogout = document.getElementById('app-menu-logout-btn');
-                const menuUserCard = document.getElementById('app-menu-user-card');
-                const mainMenuButton = document.getElementById('main-menu-button');
-                const user = getLocalUser();
-
-                if (authSection) {
-                    authSection.classList.remove('opacity-0', 'pointer-events-none');
-                    authSection.innerHTML = user
-                        ? `<button onclick="openAppMenu()" class="profile-pill-btn"><div class="profile-avatar-box"><div class="bg-green-600 text-black flex items-center justify-center font-black uppercase">${user.nick.charAt(0)}</div><span class="profile-avatar-status"></span></div><span>${user.nick}</span></button>`
-                        : `<button onclick="toggleModal('login-modal', true)" class="guest-login-btn"><svg class="guest-human-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="7.5" r="4.2" stroke="currentColor" stroke-width="1.7"></circle><path d="M4.5 21c1.6-4.2 4.2-6.2 7.5-6.2s5.9 2 7.5 6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg><span>Zaloguj się</span></button>`;
-                }
-
-                if (mainMenuButton) mainMenuButton.style.display = user ? 'none' : 'flex';
-                if (menuLogin) menuLogin.style.display = user ? 'none' : 'block';
-                if (menuLogout) menuLogout.style.display = user ? 'block' : 'none';
-                if (menuUserCard) {
-                    menuUserCard.innerHTML = user
-                        ? `
-                            <div class="app-menu-avatar-wrap">
-                                <div class="w-14 h-14 rounded-2xl bg-green-600 text-black flex items-center justify-center font-black text-xl">
-                                    ${user.nick.charAt(0)}
-                                </div>
-                                <span class="profile-avatar-status app-menu-online-dot"></span>
-                            </div>
-
-                            <div class="min-w-0">
-                                <p class="text-[9px] font-black uppercase tracking-widest text-green-500 mb-1">
-                                    Online lokalnie
-                                </p>
-                                <h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">
-                                    ${user.nick}
-                                </h3>
-                                <p class="text-zinc-500 text-xs mt-2 truncate">
-                                    ${user.email}
-                                </p>
-                            </div>
-                        `
-                        : `<div class="w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center"><svg class="guest-human-icon text-yellow-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="7.5" r="4.2" stroke="currentColor" stroke-width="1.7"></circle><path d="M4.5 21c1.6-4.2 4.2-6.2 7.5-6.2s5.9 2 7.5 6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></div><div><p class="text-[9px] font-black uppercase tracking-widest text-yellow-400 mb-1">Tryb gościa</p><h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3><p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać dane.</p></div>`;
-                }
-            };
-
-            window.registerWithEmail = function(event) {
-                event.preventDefault();
-                window.clearAuthError();
-
-                const nick = document.getElementById('register-nick')?.value.trim();
-                const email = document.getElementById('register-email')?.value.trim().toLowerCase();
-                const password = document.getElementById('register-password')?.value;
-                const users = getLocalUsers();
-
-                if (!nick || !email || !password || password.length < 6) {
-                    showAuthError('Uzupełnij dane. Hasło musi mieć minimum 6 znaków.');
-                    return;
-                }
-
-                users[email] = { nick, email, password };
-                saveLocalUsers(users);
-                setLocalUser(users[email]);
-                toggleModal('login-modal', false);
-            };
-
-            window.loginWithEmail = function(event) {
-                event.preventDefault();
-                window.clearAuthError();
-
-                const email = document.getElementById('login-email')?.value.trim().toLowerCase();
-                const password = document.getElementById('login-password')?.value;
-                const user = getLocalUsers()[email];
-
-                if (!user || user.password !== password) {
-                    showAuthError('Nieprawidłowy e-mail albo hasło.');
-                    return;
-                }
-
-                setLocalUser(user);
-                toggleModal('login-modal', false);
-            };
-
-            window.loginWithGoogle = function() {
-                showAuthError('Google działa tylko w wersji z Firebase/serwerem. W tym pliku użyj e-maila.');
-            };
-
-            window.logout = function() {
-                setLocalUser(null);
-            };
-
-            window.showUserData = function() {
-                const user = getLocalUser();
-                if (!user) return;
-                alert(`Nick: ${user.nick}\nE-mail: ${user.email}\nTryb: lokalny`);
-            };
-
-            setLocalUser(getLocalUser());
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(installLocalAuthFallback, 1500);
-        });
 
         let currentMovieId = null;
         let currentPage = 1;
@@ -9928,17 +10228,13 @@
         rotateHeroBg();
 
         // 3. NAWIGACJA & AUTH
-        function hideAll() { 
+        function hideAll() {
             document
                 .querySelectorAll('main, #library-page, #lists-page, #calendar-page, #rating-studio-page, #review-page')
-                .forEach(el => el.classList.add('hidden-section')); 
+                .forEach(el => el.classList.add('hidden-section'));
 
-            const backTopBtn = document.getElementById('calendar-back-top');
-            if (backTopBtn) {
-                backTopBtn.classList.toggle('hide-back-top', window.activeView !== 'calendar');
-            }
+            document.getElementById('calendar-back-top')?.classList.remove('is-visible');
         }
-
 
         function showHome() { 
             window.activeView = 'home';
@@ -10006,7 +10302,7 @@
             if (history.length === 0) {
                 container.innerHTML = `
                     <section class="rating-history-shell rounded-[32px] border border-zinc-800 p-8 md:p-12 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
+                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">RATIVIO</p>
                         <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white mb-4">
                             ${window.getLang?.() === "en" ? 'Rating <span class="text-cyan-400">history</span>' : 'Historia <span class="text-cyan-400">ocen</span>'}
                         </h2>
@@ -10556,7 +10852,7 @@
                     return;
                 }
 
-                const uid = currentFirebaseUser?.uid;
+                const uid = window.currentFirebaseUser?.uid;
 
                 if (!uid) {
                     showGuestGate("recenzji");
@@ -10584,7 +10880,8 @@
                             "reviews",
                             movie.id
                         ),
-                        review
+                        review,
+                        { merge: true }
                     );
 
                     userReviews[movie.id] = review;
@@ -10598,7 +10895,7 @@
                     );
 
                     alert(
-                        "Ocena została zapisana, ale recenzja nie mogła zostać zapisana."
+                        `Ocena została zapisana, ale recenzja nie mogła zostać zapisana. Firebase: ${error?.code || "unknown-error"}`
                     );
 
                     return;
@@ -11392,7 +11689,7 @@
                 <section class="rounded-[32px] border border-green-500/20 bg-green-500/[0.06] p-5 sm:p-8 mb-10 shadow-[0_0_35px_rgba(34,197,94,0.05)]">
                     <div class="list-section-head">
                         <div class="min-w-0">
-                            <p class="text-[9px] font-black text-green-500 uppercase tracking-[0.35em] mb-2">Movie Hub</p>
+                            <p class="text-[9px] font-black text-green-500 uppercase tracking-[0.35em] mb-2">RATIVIO</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter">Watchlista</h3>
                         </div>
                         <button onclick="openAddToListPicker('watchlist')" class="list-add-btn" title="Dodaj film do watchlisty">+</button>
@@ -11441,7 +11738,35 @@
 
 
         function toggleModal(id, show) {
-            document.getElementById(id).style.display = show ? 'flex' : 'none';
+            const modal = document.getElementById(id);
+            if (!modal) return;
+
+            if (id !== 'calendar-back-top') {
+                const backTop = document.getElementById('calendar-back-top');
+                if (backTop) {
+                    if (show) {
+                        backTop.classList.remove('is-visible');
+                    } else if (window.activeView === 'calendar') {
+                        backTop.classList.add('is-visible');
+                    }
+                }
+            }
+
+            modal.style.display = show ? 'flex' : 'none';
+
+            if (id === 'login-modal') {
+                if (show) {
+                    clearAuthError();
+                    switchAuthTab('login');
+                    document.body.style.overflow = 'hidden';
+                    setTimeout(() => document.getElementById('login-email')?.focus(), 40);
+                } else {
+                    document.getElementById('login-password')?.setAttribute('type', 'password');
+                    document.getElementById('register-password')?.setAttribute('type', 'password');
+                    document.getElementById('register-password-confirm')?.setAttribute('type', 'password');
+                    document.body.style.overflow = '';
+                }
+            }
 
             if (id === 'movie-modal' && !show) {
                 const anySectionVisible = document.querySelector(
@@ -11550,6 +11875,7 @@
               </div>
         `).join('');
         }
+
 
         // Funkcja odliczania do premiery The Backrooms Movie
         function initMovieCountdown() {
@@ -11993,6 +12319,8 @@
             window.activeView = 'calendar';
             hideAll();
 
+            document.getElementById('calendar-back-top')?.classList.add('is-visible');
+
             const calendarPage = document.getElementById('calendar-page');
             const container = document.getElementById('calendar-page-container');
 
@@ -12163,7 +12491,6 @@
             const sliderTrack = document.getElementById('main-slider');
             if (!sliderTrack) return;
 
-            sliderTrack.innerHTML = '';
 
             const ids = getBangerIds();
             const bangerMovies = ids.map(id => movies.find(m => m.id === id)).filter(Boolean);
@@ -12426,7 +12753,7 @@
     <div id="add-to-list-modal" class="modal-overlay" onclick="if(event.target === this) closeAddToListPicker()">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-4xl rounded-[32px] p-5 md:p-8 relative shadow-2xl shadow-black/80 max-h-[85vh] overflow-y-auto">
             <button onclick="closeAddToListPicker()" class="absolute top-5 right-5 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition">✕</button>
-            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">Movie Hub</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">RATIVIO</p>
             <h2 id="add-to-list-title" class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter text-white mb-5">Dodaj film do listy</h2>
             <input id="add-to-list-search" oninput="renderAddToListGrid(this.value)" type="text" placeholder="Szukaj tytułu..."
                 class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white font-bold outline-none focus:border-green-500 mb-6">
@@ -12441,7 +12768,7 @@
             <div class="flex items-center gap-4 mb-8">
                 <div id="profile-data-avatar" class="w-16 h-16 rounded-full bg-green-600 text-black flex items-center justify-center font-black text-2xl border-2 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.25)]"></div>
                 <div class="min-w-0">
-                    <p class="text-[9px] font-black uppercase tracking-[0.35em] text-green-500 mb-1">Movie Hub Profile</p>
+                    <p class="text-[9px] font-black uppercase tracking-[0.35em] text-green-500 mb-1">RATIVIO Profile</p>
                     <h2 id="profile-data-nick" class="text-3xl font-black italic uppercase tracking-tighter text-white truncate">Użytkownik</h2>
                 </div>
             </div>
@@ -12489,6 +12816,7 @@
             signInWithPopup,
             createUserWithEmailAndPassword,
             signInWithEmailAndPassword,
+            sendPasswordResetEmail,
             onAuthStateChanged,
             signOut,
             updateProfile
@@ -12963,6 +13291,36 @@
             box.classList.add("hidden");
         }
 
+        function getAuthErrorMessage(error, action = "login") {
+            const code = error?.code || "";
+
+            const messages = {
+                "auth/invalid-email": "Podaj poprawny adres e-mail.",
+                "auth/user-disabled": "To konto zostało wyłączone.",
+                "auth/user-not-found": "Nieprawidłowy e-mail lub hasło.",
+                "auth/wrong-password": "Nieprawidłowy e-mail lub hasło.",
+                "auth/invalid-credential": "Nieprawidłowy e-mail lub hasło.",
+                "auth/too-many-requests": "Za dużo prób. Odczekaj chwilę i spróbuj ponownie.",
+                "auth/network-request-failed": "Brak połączenia z internetem. Sprawdź sieć i spróbuj ponownie.",
+                "auth/email-already-in-use": "Ten e-mail jest już zarejestrowany. Zaloguj się zamiast rejestrować.",
+                "auth/weak-password": "Hasło jest za słabe. Użyj co najmniej 6 znaków.",
+                "auth/popup-closed-by-user": "Okno Google zostało zamknięte.",
+                "auth/popup-blocked": "Przeglądarka zablokowała okno Google. Zezwól na wyskakujące okna dla RATIVIO.",
+                "auth/missing-email": "Podaj adres e-mail.",
+                "auth/invalid-action-code": "Link resetujący jest nieprawidłowy lub wygasł.",
+                "auth/operation-not-allowed": "Logowanie e-mailem i hasłem jest wyłączone w Firebase Authentication.",
+                "auth/unauthorized-continue-uri": "Firebase odrzucił adres strony. Sprawdź Authorized domains w Firebase Authentication.",
+                "auth/quota-exceeded": "Firebase przekroczył limit wysyłki e-maili. Spróbuj ponownie później."
+            };
+
+            if (messages[code]) return messages[code];
+
+            if (action === "register") return "Nie udało się utworzyć konta. Spróbuj ponownie.";
+            if (action === "google") return "Logowanie Google nie zadziałało. Spróbuj ponownie.";
+            if (action === "reset") return "Nie udało się wysłać wiadomości resetującej. Sprawdź adres e-mail i spróbuj ponownie.";
+            return "Nie udało się zalogować. Spróbuj ponownie.";
+        }
+
         async function createProfileIfMissing(user, extraData = {}) {
             const userRef = doc(db, "users", user.uid);
             const snap = await getDoc(userRef);
@@ -13023,6 +13381,20 @@
             const registerForm = document.getElementById("register-form");
             const loginTab = document.getElementById("login-tab");
             const registerTab = document.getElementById("register-tab");
+            const resetForm = document.getElementById("reset-password-form");
+            const authTabs = document.getElementById("auth-tabs");
+            const googleButton = document.getElementById("google-login-button");
+            const authDivider = document.getElementById("auth-divider");
+            const title = document.getElementById("login-modal-title");
+            const subtitle = document.getElementById("login-modal-subtitle");
+
+            resetForm?.classList.add("hidden");
+            authTabs?.classList.remove("hidden");
+            googleButton?.classList.remove("hidden");
+            authDivider?.classList.remove("hidden");
+            loginForm?.classList.remove("hidden");
+            title && (title.innerHTML = 'Wejdź do <span class="text-white">RATIVIO</span>');
+            subtitle && (subtitle.textContent = 'Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.');
 
             if (mode === "login") {
                 loginForm.classList.remove("hidden");
@@ -13034,52 +13406,216 @@
                 registerForm.classList.remove("hidden");
                 registerTab.className = "auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
                 loginTab.className = "auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+
+                const step1 = document.getElementById("register-step-1");
+                const step2 = document.getElementById("register-step-2");
+                if (step1 && step2 && !pendingRegistration) {
+                    step1.classList.remove("hidden");
+                    step2.classList.add("hidden");
+                }
             }
         };
+
+        let pendingRegistration = null;
+
+        function normalizeNick(nick) {
+            return String(nick || '').trim().toLowerCase();
+        }
+
+        function generateEmailCode() {
+            return String(Math.floor(100000 + Math.random() * 900000));
+        }
+
+        window.togglePasswordVisibility = function(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const showing = input.type === 'text';
+            input.type = showing ? 'password' : 'text';
+            btn.textContent = showing ? 'Pokaż' : 'Ukryj';
+        };
+
+        window.clearNickStatus = function() {
+            const status = document.getElementById('register-nick-status');
+            if (status) { status.textContent = ''; status.className = 'mt-2 text-[10px] font-black uppercase tracking-widest'; }
+        };
+
+        window.checkNickAvailability = async function() {
+            const nickInput = document.getElementById('register-nick');
+            const status = document.getElementById('register-nick-status');
+            if (!nickInput || !status) return true;
+
+            const nick = nickInput.value.trim();
+            const nickKey = normalizeNick(nick);
+            if (!nick) { status.textContent = ''; return false; }
+
+            if (nick.length < 3) {
+                status.textContent = 'Nick musi mieć min. 3 znaki.';
+                status.className = 'mt-2 text-[10px] font-black uppercase tracking-widest text-red-400';
+                return false;
+            }
+
+            status.textContent = 'Sprawdzam dostępność...';
+            status.className = 'mt-2 text-[10px] font-black uppercase tracking-widest text-zinc-500';
+
+            try {
+                const snap = await getDoc(doc(db, 'nicknames', nickKey));
+                if (snap.exists()) {
+                    status.textContent = 'Ten nick jest już zajęty.';
+                    status.className = 'mt-2 text-[10px] font-black uppercase tracking-widest text-red-400';
+                    return false;
+                }
+                status.textContent = 'Nick dostępny.';
+                status.className = 'mt-2 text-[10px] font-black uppercase tracking-widest text-green-500';
+                return true;
+            } catch (error) {
+                console.error('Nick check error:', error);
+                status.textContent = 'Nie udało się sprawdzić nicku.';
+                status.className = 'mt-2 text-[10px] font-black uppercase tracking-widest text-red-400';
+                return false;
+            }
+        };
+
+        async function sendRegistrationEmailCode(email, code) {
+            await emailjs.send('service_yb2nszn', 'template_jrobiul', {
+                to_email: email,
+                code: code
+            });
+        }
 
         window.registerWithEmail = async function(event) {
             event.preventDefault();
             clearAuthError();
 
-            const nick = document.getElementById("register-nick").value.trim();
-            const email = document.getElementById("register-email").value.trim();
-            const password = document.getElementById("register-password").value;
+            const nick = document.getElementById('register-nick').value.trim();
+            const email = document.getElementById('register-email').value.trim().toLowerCase();
+            const password = document.getElementById('register-password').value;
+            const passwordConfirm = document.getElementById('register-password-confirm').value;
 
-            if (!nick || !email || password.length < 6) {
-                showAuthError("Uzupełnij dane. Hasło musi mieć minimum 6 znaków.");
+            if (!nick || nick.length < 3) { showAuthError('Podaj nick (min. 3 znaki).'); return; }
+            if (!email) { showAuthError('Podaj adres e-mail.'); return; }
+            if (password.length < 6) { showAuthError('Hasło musi mieć minimum 6 znaków.'); return; }
+            if (password !== passwordConfirm) { showAuthError('Hasła nie są identyczne.'); return; }
+
+            const nickAvailable = await checkNickAvailability();
+            if (!nickAvailable) { showAuthError('Wybierz inny nick.'); return; }
+
+            const code = generateEmailCode();
+
+            try {
+                await sendRegistrationEmailCode(email, code);
+            } catch (error) {
+                console.error('Email send error:', error);
+                showAuthError('Nie udało się wysłać maila z kodem. Spróbuj ponownie.');
+                return;
+            }
+
+            pendingRegistration = {
+                nick,
+                nickKey: normalizeNick(nick),
+                email,
+                password,
+                code,
+                expiresAt: Date.now() + 10 * 60 * 1000
+            };
+
+            document.getElementById('register-email-preview').textContent = email;
+            document.getElementById('register-step-1').classList.add('hidden');
+            document.getElementById('register-step-2').classList.remove('hidden');
+        };
+
+        window.resendRegisterEmailCode = async function() {
+            if (!pendingRegistration) return;
+            clearAuthError();
+
+            const code = generateEmailCode();
+
+            try {
+                await sendRegistrationEmailCode(pendingRegistration.email, code);
+                pendingRegistration.code = code;
+                pendingRegistration.expiresAt = Date.now() + 10 * 60 * 1000;
+                showAuthError('Wysłano nowy kod na maila.');
+            } catch (error) {
+                console.error('Resend email error:', error);
+                showAuthError('Nie udało się wysłać kodu ponownie.');
+            }
+        };
+
+        window.confirmEmailCodeAndRegister = async function() {
+            clearAuthError();
+
+            const enteredCode = document.getElementById('register-email-code').value.trim();
+
+            if (!pendingRegistration) {
+                showAuthError('Sesja rejestracji wygasła. Zacznij od nowa.');
+                return;
+            }
+
+            if (Date.now() > pendingRegistration.expiresAt) {
+                showAuthError('Kod wygasł. Wyślij nowy.');
+                return;
+            }
+
+            if (enteredCode !== pendingRegistration.code) {
+                showAuthError('Nieprawidłowy kod.');
                 return;
             }
 
             try {
-                const result = await createUserWithEmailAndPassword(auth, email, password);
-                const accountNumber = generateAccountNumber();
+                const nickCheckAgain = await getDoc(doc(db, 'nicknames', pendingRegistration.nickKey));
+                if (nickCheckAgain.exists()) {
+                    showAuthError('Ktoś zajął ten nick w międzyczasie. Wróć i wybierz inny.');
+                    return;
+                }
 
-                await updateProfile(result.user, { displayName: nick });
+                const result = await createUserWithEmailAndPassword(auth, pendingRegistration.email, pendingRegistration.password);
+                await updateProfile(result.user, { displayName: pendingRegistration.nick });
+
+                const accountNumber = generateAccountNumber();
 
                 await setDoc(doc(db, "users", result.user.uid), {
                     uid: result.user.uid,
                     accountNumber,
-                    nick,
-                    email: result.user.email || email,
-                    avatarUrl: result.user.photoURL || "",
+                    nick: pendingRegistration.nick,
+                    email: result.user.email || pendingRegistration.email,
+                    emailVerifiedByCode: true,
+                    avatarUrl: "",
                     provider: "email",
                     createdAt: serverTimestamp()
                 }, { merge: true });
 
+                await setDoc(doc(db, "nicknames", pendingRegistration.nickKey), {
+                    uid: result.user.uid,
+                    nick: pendingRegistration.nick,
+                    createdAt: serverTimestamp()
+                });
+
                 currentUserProfile = {
                     uid: result.user.uid,
                     accountNumber,
-                    nick,
-                    email: result.user.email || email,
-                    avatarUrl: result.user.photoURL || "",
+                    nick: pendingRegistration.nick,
+                    email: result.user.email || pendingRegistration.email,
+                    avatarUrl: "",
                     provider: "email"
                 };
+
+                pendingRegistration = null;
+
+                document.getElementById('register-form').reset();
+                document.getElementById('register-step-1').classList.remove('hidden');
+                document.getElementById('register-step-2').classList.add('hidden');
 
                 updateAuthUI();
                 toggleModal("login-modal", false);
             } catch (error) {
-                showAuthError("Nie udało się utworzyć konta. Sprawdź e-mail i hasło.");
-                console.error(error);
+                console.error('Registration error:', error);
+
+                if (error.code === 'auth/email-already-in-use') {
+                    showAuthError(getAuthErrorMessage(error, "register"));
+                    switchAuthTab('login');
+                    document.getElementById('login-email').value = pendingRegistration.email;
+                } else {
+                    showAuthError(getAuthErrorMessage(error, "register"));
+                }
             }
         };
 
@@ -13087,20 +13623,151 @@
             event.preventDefault();
             clearAuthError();
 
-            const email = document.getElementById("login-email").value.trim();
-            const password = document.getElementById("login-password").value;
+            const form = document.getElementById("login-form");
+            const emailInput = document.getElementById("login-email");
+            const passwordInput = document.getElementById("login-password");
+            const submitButton = form?.querySelector('button[type="submit"]');
+
+            const email = emailInput?.value.trim().toLowerCase() || "";
+            const password = passwordInput?.value || "";
+
+            if (!email || !password) {
+                showAuthError("Wpisz e-mail i hasło.");
+                return;
+            }
+
+            if (!emailInput.checkValidity()) {
+                showAuthError("Podaj poprawny adres e-mail.");
+                emailInput.focus();
+                return;
+            }
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.dataset.originalText = submitButton.textContent;
+                submitButton.textContent = "LOGOWANIE...";
+                submitButton.classList.add("opacity-60", "cursor-not-allowed");
+            }
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 toggleModal("login-modal", false);
             } catch (error) {
-                showAuthError("Nieprawidłowy e-mail albo hasło.");
-                console.error(error);
+                showAuthError(getAuthErrorMessage(error, "login"));
+                console.error("RATIVIO login error:", error);
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = submitButton.dataset.originalText || "Zaloguj";
+                    submitButton.classList.remove("opacity-60", "cursor-not-allowed");
+                }
             }
+        };
+
+        window.showResetPassword = function() {
+            clearAuthError();
+
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+            const resetForm = document.getElementById("reset-password-form");
+            const authTabs = document.getElementById("auth-tabs");
+            const googleButton = document.getElementById("google-login-button");
+            const authDivider = document.getElementById("auth-divider");
+            const title = document.getElementById("login-modal-title");
+            const subtitle = document.getElementById("login-modal-subtitle");
+            const resetEmail = document.getElementById("reset-email");
+
+            loginForm?.classList.add("hidden");
+            registerForm?.classList.add("hidden");
+            authTabs?.classList.add("hidden");
+            googleButton?.classList.add("hidden");
+            authDivider?.classList.add("hidden");
+            resetForm?.classList.remove("hidden");
+
+            if (title) title.innerHTML = 'RESET <span class="text-green-500">HASŁA</span>';
+            if (subtitle) subtitle.textContent = 'Podaj adres e-mail przypisany do konta. Wyślemy Ci wiadomość z instrukcją ustawienia nowego hasła.';
+
+            if (resetEmail && !resetEmail.value) {
+                resetEmail.value = document.getElementById("login-email")?.value?.trim() || "";
+            }
+            setTimeout(() => resetEmail?.focus(), 40);
+        };
+
+        window.resetPasswordByEmail = async function(event) {
+            event.preventDefault();
+            clearAuthError();
+
+            const emailInput = document.getElementById("reset-email");
+            const submitButton = document.querySelector('#reset-password-form button[type="submit"]');
+            const email = emailInput?.value.trim().toLowerCase() || "";
+
+            if (!email) {
+                showAuthError("Wpisz adres e-mail.");
+                return;
+            }
+
+            if (!emailInput.checkValidity()) {
+                showAuthError("Podaj poprawny adres e-mail.");
+                emailInput.focus();
+                return;
+            }
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.dataset.originalText = submitButton.textContent;
+                submitButton.textContent = "WYSYŁANIE...";
+                submitButton.classList.add("opacity-60", "cursor-not-allowed");
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                const resetSuccess = document.getElementById("reset-password-success");
+                if (resetSuccess) {
+                    resetSuccess.textContent = `Jeśli konto ${email} istnieje, wysłaliśmy na nie wiadomość z instrukcją resetowania hasła. Sprawdź też folder SPAM.`;
+                    resetSuccess.classList.remove("hidden");
+                }
+                if (emailInput) emailInput.disabled = true;
+                if (submitButton) submitButton.classList.add("hidden");
+            } catch (error) {
+                console.error("RATIVIO password reset error:", error?.code, error?.message, error);
+                const friendly = getAuthErrorMessage(error, "reset");
+                showAuthError(`${friendly} [${error?.code || "unknown-error"}]`);
+            } finally {
+                if (submitButton && !submitButton.classList.contains("hidden")) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = submitButton.dataset.originalText || "Wyślij link resetujący";
+                    submitButton.classList.remove("opacity-60", "cursor-not-allowed");
+                }
+            }
+        };
+
+        window.backToLoginFromReset = function() {
+            const resetForm = document.getElementById("reset-password-form");
+            const resetEmail = document.getElementById("reset-email");
+            const resetSuccess = document.getElementById("reset-password-success");
+            const resetSubmit = document.querySelector('#reset-password-form button[type="submit"]');
+
+            resetForm?.reset();
+            if (resetEmail) resetEmail.disabled = false;
+            if (resetSuccess) resetSuccess.classList.add("hidden");
+            if (resetSubmit) {
+                resetSubmit.classList.remove("hidden");
+                resetSubmit.disabled = false;
+                resetSubmit.textContent = "Wyślij link resetujący";
+                resetSubmit.classList.remove("opacity-60", "cursor-not-allowed");
+            }
+            switchAuthTab("login");
+            setTimeout(() => document.getElementById("login-email")?.focus(), 40);
         };
 
         window.loginWithGoogle = async function() {
             clearAuthError();
+
+            const button = document.querySelector('#login-modal button[onclick="loginWithGoogle()"]');
+            if (button) {
+                button.disabled = true;
+                button.classList.add("opacity-60", "cursor-not-allowed");
+            }
 
             try {
                 const result = await signInWithPopup(auth, googleProvider);
@@ -13110,8 +13777,13 @@
 
                 toggleModal("login-modal", false);
             } catch (error) {
-                showAuthError("Logowanie Google nie zadziałało. Spróbuj ponownie.");
-                console.error(error);
+                showAuthError(getAuthErrorMessage(error, "google"));
+                console.error("RATIVIO Google login error:", error);
+            } finally {
+                if (button) {
+                    button.disabled = false;
+                    button.classList.remove("opacity-60", "cursor-not-allowed");
+                }
             }
         };
 
@@ -13502,7 +14174,16 @@
 
         window.saveReviewPage = async function() {
             await waitForAuthReady();
-            if (!currentFirebaseUser || !currentMovieId) return;
+
+            if (!currentFirebaseUser) {
+                showGuestGate("recenzji");
+                return;
+            }
+
+            if (!currentMovieId) {
+                alert("Nie wybrano filmu. Wróć do panelu filmu i spróbuj ponownie.");
+                return;
+            }
 
             const movie = movies.find(m => m.id === currentMovieId);
             if (!movie) return;
@@ -13540,7 +14221,8 @@
                         "reviews",
                         movie.id
                     ),
-                    review
+                    review,
+                    { merge: true }
                 );
 
                 userReviews[movie.id] = review;
@@ -13552,8 +14234,16 @@
                 renderMyReviews();
 
             } catch (error) {
-                console.error("Nie udało się zapisać recenzji:", error);
-                alert("Nie udało się zapisać recenzji. Sprawdź Firestore Rules.");
+                console.error(
+                    "Nie udało się zapisać recenzji:",
+                    error?.code,
+                    error?.message,
+                    error
+                );
+
+                alert(
+                    `Nie udało się zapisać recenzji. Firebase: ${error?.code || "unknown-error"}`
+                );
             }
         };
 
@@ -13685,7 +14375,7 @@
             if (!reviews.length) {
                 container.innerHTML = `
                     <section class="rounded-[32px] border border-zinc-800 bg-zinc-950/70 p-8 md:p-12 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">Movie Hub</p>
+                        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-cyan-400 mb-3">RATIVIO</p>
                         <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white mb-4">
                             ${window.getLang?.() === "en" ? 'My <span class="text-cyan-400">reviews</span>' : 'Moje <span class="text-cyan-400">recenzje</span>'}
                         </h2>
@@ -13830,6 +14520,7 @@
 
         onAuthStateChanged(auth, async (user) => {
             currentFirebaseUser = user;
+            window.currentFirebaseUser = user;
 
             try {
                 if (user) {
@@ -14738,6 +15429,51 @@
             document.getElementById('weekly-news-next-mobile')?.addEventListener('click', () => goToWeeklyNews(1));
         });
 
+        /* =========================================================
+        RATIVIO — INTRO CONTROL
+        ========================================================= */
+
+        (function initRativioIntro() {
+            const intro = document.getElementById('rativio-intro');
+
+            if (!intro) return;
+
+            document.body.classList.add('rativio-loading');
+
+            const minimumIntroTime = 1700;
+            const introStartedAt = performance.now();
+
+            let introFinished = false;
+
+            function finishIntro() {
+                if (introFinished) return;
+                introFinished = true;
+
+                const elapsed = performance.now() - introStartedAt;
+                const remaining = Math.max(0, minimumIntroTime - elapsed);
+
+                setTimeout(() => {
+                    document.body.classList.remove('rativio-loading');
+                    document.body.classList.add('rativio-ready');
+
+                    intro.classList.add('is-done');
+
+                    setTimeout(() => {
+                        intro.remove();
+                    }, 800);
+                }, remaining);
+            }
+
+            if (document.readyState === 'complete') {
+                finishIntro();
+            } else {
+                window.addEventListener('load', finishIntro, { once: true });
+            }
+
+            // Awaryjnie — intro nigdy nie może zablokować strony
+            setTimeout(finishIntro, 4500);
+        })();
+
     </script>
 
     <div
@@ -14945,7 +15681,7 @@
         <div class="trailer-box">
             <div class="trailer-topbar">
                 <div>
-                    <p class="text-[9px] font-black uppercase tracking-[0.3em] text-green-500">Movie Hub</p>
+                    <p class="text-[9px] font-black uppercase tracking-[0.3em] text-green-500">RATIVIO</p>
                     <h3 class="text-white font-black italic uppercase text-sm tracking-widest">Trailer</h3>
                 </div>
 
@@ -14968,16 +15704,14 @@
     </div>
 
     <button
-    id="calendar-back-top"
-    type="button"
-    class="hide-back-top"
-    onclick="scrollCalendarToTop()"
-    aria-label="Wróć na górę"
-    title="Wróć na górę"
->
-    ↑
-</button>
-
+        id="calendar-back-top"
+        type="button"
+        onclick="scrollCalendarToTop()"
+        aria-label="Wróć na górę"
+        title="Wróć na górę"
+    >
+        ↑
+    </button>
 
 </body>
 </html>
