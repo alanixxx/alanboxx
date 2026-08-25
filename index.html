@@ -10904,7 +10904,7 @@
             --------------------------------------------------------- */
 
             #movie-modal .movie-modal-poster {
-                top: 250px !important;
+                top: 500px !important;
                 right: 18px !important;
 
                 width: 108px !important;
@@ -11078,6 +11078,210 @@
                 height: 153px !important;
             }
 
+
+            #movie-modal .movie-cast-avatar {
+                width: 72px !important;
+                height: 72px !important;
+
+                min-width: 72px !important;
+                min-height: 72px !important;
+
+                max-width: 72px !important;
+                max-height: 72px !important;
+            }
+        }
+
+        /* =========================================================
+        MOBILE MOVIE MODAL — FINAL POSITION FIX
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            /* =====================================================
+            CAŁA ZAWARTOŚĆ FILMU — MOCNO DO GÓRY
+            ===================================================== */
+
+            #movie-modal .movie-content {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+
+                position: relative !important;
+                top: -90px !important;
+            }
+
+
+            /* =====================================================
+            PLAKAT — NIEZALEŻNIE OD CONTENTU
+            ===================================================== */
+
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+
+                top: 150px !important;
+                right: 18px !important;
+
+                width: 108px !important;
+                height: 162px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                border-radius: 16px !important;
+                overflow: hidden !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* =====================================================
+            PRZYCISKI
+            ===================================================== */
+
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-wrap: wrap !important;
+
+                width: 100% !important;
+                gap: 10px !important;
+
+                margin: 20px 0 0 !important;
+            }
+
+
+            /* TRAILER */
+
+            #movie-modal #modal-trailer-link {
+                display: flex !important;
+
+                width: 100% !important;
+                flex: 0 0 100% !important;
+
+                min-height: 58px !important;
+
+                margin: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* OCEN FILM */
+
+            #movie-modal #modal-rate-shortcut {
+                display: flex !important;
+
+                width: calc(50% - 5px) !important;
+                flex: 0 0 calc(50% - 5px) !important;
+
+                min-height: 54px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* DO OBEJRZENIA */
+
+            #movie-modal #modal-watchlist-btn {
+                display: flex !important;
+
+                width: calc(50% - 5px) !important;
+                flex: 0 0 calc(50% - 5px) !important;
+
+                min-height: 54px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* =====================================================
+            OBSADA — KOŁA
+            ===================================================== */
+
+            #movie-modal .movie-cast-avatar {
+                width: 76px !important;
+                height: 76px !important;
+
+                min-width: 76px !important;
+                min-height: 76px !important;
+
+                max-width: 76px !important;
+                max-height: 76px !important;
+
+                aspect-ratio: 1 / 1 !important;
+
+                display: block !important;
+
+                margin: 0 auto !important;
+                padding: 0 !important;
+
+                border-radius: 50% !important;
+
+                overflow: hidden !important;
+                clip-path: circle(50%) !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            #movie-modal .movie-cast-avatar img {
+                display: block !important;
+
+                width: 100% !important;
+                height: 100% !important;
+
+                min-width: 100% !important;
+                min-height: 100% !important;
+
+                max-width: none !important;
+                max-height: none !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                border: 0 !important;
+
+                border-radius: 50% !important;
+
+                object-fit: cover !important;
+            }
+        }
+
+
+        /* =========================================================
+        MAŁE TELEFONY
+        ========================================================= */
+
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-content {
+                top: -80px !important;
+            }
+
+            #movie-modal .movie-modal-poster {
+                top: 140px !important;
+                right: 15px !important;
+
+                width: 102px !important;
+                height: 153px !important;
+            }
 
             #movie-modal .movie-cast-avatar {
                 width: 72px !important;
