@@ -10463,6 +10463,227 @@
             }
         }
 
+        /* =========================================================
+        MOBILE — PLAKAT + TYTUŁ OBOK SIEBIE
+        ========================================================= */
+        @media (max-width: 768px) {
+
+            /* Cały ekran filmu */
+            #movie-modal .movie-screen {
+                position: relative !important;
+                height: auto !important;
+                min-height: 100dvh !important;
+                overflow: visible !important;
+            }
+
+            /* PLAKAT — dokładnie na wysokości tytułu */
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+
+                top: 115px !important;
+                right: 18px !important;
+                left: auto !important;
+
+                width: 108px !important;
+                height: 162px !important;
+
+                margin: 0 !important;
+                object-fit: cover !important;
+                border-radius: 16px !important;
+
+                z-index: 20 !important;
+            }
+
+            /* TREŚĆ — zaczyna się dokładnie tam, gdzie plakat */
+            #movie-modal .movie-content {
+                position: relative !important;
+
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+
+                width: 100% !important;
+                max-width: none !important;
+
+                margin: 0 !important;
+
+                /* 115px = wysokość od góry do plakatu */
+                padding: 115px 18px 60px !important;
+
+                overflow: visible !important;
+            }
+
+            /* TYTUŁ — po lewej stronie plakatu */
+            #movie-modal #modal-title {
+                width: calc(100% - 125px) !important;
+                max-width: calc(100% - 125px) !important;
+
+                margin: 0 0 14px !important;
+                padding: 0 !important;
+
+                font-size: clamp(30px, 9vw, 44px) !important;
+                line-height: .92 !important;
+            }
+
+            /* OPIS — również po lewej od plakatu */
+            #movie-modal #modal-desc {
+                width: calc(100% - 125px) !important;
+                max-width: calc(100% - 125px) !important;
+
+                margin: 0 0 45px !important;
+                padding: 0 !important;
+
+                font-size: 15px !important;
+                line-height: 1.4 !important;
+            }
+
+
+            /* =========================================================
+            PRZYCISKI
+            ========================================================= */
+
+            /* Usuń tylko "Dodaj recenzję" */
+            #movie-modal #movie-review-action-btn {
+                display: none !important;
+            }
+
+            /* Trailer zostaje */
+            #movie-modal #modal-trailer-link {
+                display: flex !important;
+                width: 100% !important;
+                flex: 0 0 100% !important;
+
+                min-height: 58px !important;
+                margin: 0 0 10px !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+            }
+
+            /* Do obejrzenia zostaje */
+            #movie-modal #modal-watchlist-btn {
+                display: flex !important;
+
+                width: 100% !important;
+                flex: 0 0 100% !important;
+
+                min-height: 54px !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+            }
+
+
+            /* =========================================================
+            AKTORZY — DUŻE, IDEALNIE OKRĄGŁE ZDJĘCIA
+            ========================================================= */
+
+            #movie-modal .movie-cast-row {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+
+                gap: 18px !important;
+
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+
+                padding: 4px 2px 14px !important;
+
+                scrollbar-width: none !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            #movie-modal .movie-cast-row::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            /* Każdy aktor */
+            #movie-modal .movie-cast-item {
+                flex: 0 0 82px !important;
+                width: 82px !important;
+                min-width: 82px !important;
+
+                text-align: center !important;
+            }
+
+            /* KOŁO AKTORA */
+            #movie-modal .movie-cast-avatar {
+                width: 76px !important;
+                height: 76px !important;
+
+                min-width: 76px !important;
+                min-height: 76px !important;
+
+                margin: 0 auto !important;
+
+                border-radius: 50% !important;
+                overflow: hidden !important;
+
+                border: 2px solid rgba(255,255,255,.12) !important;
+
+                aspect-ratio: 1 / 1 !important;
+            }
+
+            #movie-modal .movie-cast-avatar img {
+                width: 100% !important;
+                height: 100% !important;
+
+                object-fit: cover !important;
+
+                border-radius: 50% !important;
+                display: block !important;
+            }
+
+            /* Nazwa aktora */
+            #movie-modal .movie-cast-name {
+                width: 82px !important;
+                max-width: 82px !important;
+
+                margin-top: 9px !important;
+
+                font-size: 10px !important;
+                line-height: 1.2 !important;
+
+                text-align: center !important;
+            }
+        }
+
+
+        /* =========================================================
+        BARDZO MAŁE TELEFONY
+        ========================================================= */
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-modal-poster {
+                top: 110px !important;
+                right: 15px !important;
+
+                width: 102px !important;
+                height: 153px !important;
+            }
+
+            #movie-modal .movie-content {
+                padding: 110px 15px 50px !important;
+            }
+
+            #movie-modal #modal-title,
+            #movie-modal #modal-desc {
+                width: calc(100% - 115px) !important;
+                max-width: calc(100% - 115px) !important;
+            }
+
+            #movie-modal .movie-cast-avatar {
+                width: 72px !important;
+                height: 72px !important;
+                min-width: 72px !important;
+            }
+        }
+
         
         
     </style>
