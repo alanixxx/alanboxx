@@ -4818,30 +4818,7 @@
 
 
         /* PLAKAT */
-        #movie-modal .movie-modal-poster {
-            position: absolute;
-
-            right: clamp(40px, 8vw, 140px);
-            top: 50%;
-
-            width: clamp(210px, 18vw, 300px);
-            height: clamp(315px, 27vw, 450px);
-
-            transform: translateY(-50%);
-
-            object-fit: cover;
-            object-position: center;
-
-            border-radius: 18px;
-
-            border: 1px solid rgba(255,255,255,.12);
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.75),
-                0 0 0 1px rgba(255,255,255,.03);
-
-            z-index: 2;
-        }
+       
 
 
         /* treść nie wchodzi na plakat */
@@ -4851,36 +4828,12 @@
         }
 
 
-        /* na mniejszych ekranach zmniejszamy plakat */
-        @media (max-width: 900px) {
-
-            #movie-modal .movie-modal-poster {
-                right: 30px;
-                width: 190px;
-                height: 285px;
-            }
-
-            #movie-modal .movie-content {
-                right: 250px;
-            }
-        }
-
+   
 
         /* TELEFON */
         @media (max-width: 700px) {
 
-            #movie-modal .movie-modal-poster {
-                right: 18px;
-                top: 115px;
-
-                width: 105px;
-                height: 158px;
-
-                transform: none;
-
-                border-radius: 14px;
-            }
-
+           
             #movie-modal .movie-content {
                 right: 0;
                 max-width: none;
@@ -4957,34 +4910,7 @@
         }
 
         /* =========================
-        PLAKAT — LEWA STRONA
-        ========================= */
-
-        #movie-modal .movie-modal-poster {
-            position: absolute !important;
-
-            left: clamp(75px, 6vw, 140px) !important;
-            right: auto !important;
-
-            top: 115px !important;
-
-            width: clamp(190px, 17vw, 260px) !important;
-            height: clamp(285px, 25.5vw, 390px) !important;
-
-            transform: none !important;
-
-            object-fit: cover !important;
-            object-position: center !important;
-
-            border-radius: 18px !important;
-            border: 1px solid rgba(255,255,255,.12) !important;
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.75),
-                0 0 0 1px rgba(255,255,255,.03) !important;
-
-            z-index: 5 !important;
-        }
+        
 
         /* =========================
         TREŚĆ — POD PLAKATEM
@@ -11295,6 +11221,174 @@
             }
         }
 
+
+        /* =========================================================
+        FINAL MOBILE MOVIE HEADER
+        Tytuł i plakat w jednym wierszu
+        ========================================================= */
+
+        .movie-mobile-poster {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            #movie-modal {
+                padding: 0 !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                align-items: flex-start !important;
+                background: #050507 !important;
+            }
+
+            #movie-modal > .movie-screen {
+                position: relative !important;
+                width: 100% !important;
+                min-height: 100dvh !important;
+                height: auto !important;
+                overflow: visible !important;
+                background: #050507 !important;
+            }
+
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 100 !important;
+                padding: 16px 18px !important;
+                background: rgba(5, 5, 7, .96) !important;
+                backdrop-filter: blur(14px) !important;
+                -webkit-backdrop-filter: blur(14px) !important;
+            }
+
+            /* Ukrycie starego, absolutnie pozycjonowanego plakatu */
+            #movie-modal #movie-modal-poster {
+                display: none !important;
+            }
+
+            #movie-modal .movie-backdrop {
+                position: absolute !important;
+                inset: 0 !important;
+                background: #050507 !important;
+                transform: none !important;
+                pointer-events: none !important;
+            }
+
+            #movie-modal .movie-content {
+                position: relative !important;
+                inset: auto !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+
+                width: 100% !important;
+                max-width: none !important;
+                max-height: none !important;
+
+                margin: 0 !important;
+                padding: 22px 18px 60px !important;
+
+                overflow: visible !important;
+                transform: none !important;
+                z-index: 20 !important;
+            }
+
+            .movie-mobile-header {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) 112px !important;
+                align-items: start !important;
+                gap: 16px !important;
+                width: 100% !important;
+                margin: 0 0 24px !important;
+            }
+
+            .movie-mobile-heading {
+                min-width: 0 !important;
+            }
+
+            .movie-mobile-poster {
+                display: block !important;
+                width: 112px !important;
+                height: 168px !important;
+                aspect-ratio: 2 / 3 !important;
+                object-fit: cover !important;
+                object-position: center !important;
+                border-radius: 16px !important;
+                border: 1px solid rgba(255, 255, 255, .13) !important;
+                background: #111114 !important;
+                box-shadow: 0 18px 45px rgba(0, 0, 0, .65) !important;
+            }
+
+            #movie-modal #modal-title {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                margin: 0 0 12px !important;
+                padding: 0 !important;
+
+                font-size: clamp(31px, 9vw, 43px) !important;
+                line-height: .92 !important;
+                overflow-wrap: anywhere !important;
+            }
+
+            #movie-modal #modal-desc {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+
+                color: #a1a1aa !important;
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+
+                display: -webkit-box !important;
+                -webkit-box-orient: vertical !important;
+                -webkit-line-clamp: 5 !important;
+                overflow: hidden !important;
+            }
+
+            #movie-modal .movie-meta-row {
+                width: 100% !important;
+                margin: 0 0 24px !important;
+                padding: 0 !important;
+            }
+
+            #movie-modal .movie-actions {
+                width: 100% !important;
+                margin: 0 0 28px !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .movie-content {
+                padding: 18px 15px 50px !important;
+            }
+
+            .movie-mobile-header {
+                grid-template-columns: minmax(0, 1fr) 100px !important;
+                gap: 12px !important;
+            }
+
+            .movie-mobile-poster {
+                width: 100px !important;
+                height: 150px !important;
+                border-radius: 14px !important;
+            }
+
+            #movie-modal #modal-title {
+                font-size: clamp(28px, 8.7vw, 36px) !important;
+            }
+
+            #movie-modal #modal-desc {
+                font-size: 12px !important;
+                -webkit-line-clamp: 5 !important;
+            }
+        }
+
+
+       
+
+
         
         
     </style>
@@ -12427,10 +12521,20 @@
                 </div>
 
 
-                <h2 id="modal-title"></h2>
+                <div class="movie-mobile-header">
+                    <div class="movie-mobile-heading">
+                        <h2 id="modal-title"></h2>
+                        <p id="modal-desc"></p>
+                    </div>
 
+                    <img
+                        id="movie-mobile-poster"
+                        class="movie-mobile-poster"
+                        src=""
+                        alt=""
+                    >
+                </div>
 
-                <p id="modal-desc"></p>
 
 
                 <div class="movie-meta-row">
@@ -14995,6 +15099,15 @@
                 moviePoster.src = m.img;
                 moviePoster.alt = m.title;
             }
+
+            const mobileMoviePoster =
+                document.getElementById('movie-mobile-poster');
+
+            if (mobileMoviePoster) {
+                mobileMoviePoster.src = m.img;
+                mobileMoviePoster.alt = m.title;
+            }
+
 
 
             /* =========================
