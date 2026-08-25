@@ -10904,7 +10904,7 @@
             --------------------------------------------------------- */
 
             #movie-modal .movie-modal-poster {
-                top: 20px !important;
+                top: 500px !important;
                 right: 18px !important;
 
                 width: 108px !important;
@@ -11089,6 +11089,356 @@
                 max-width: 72px !important;
                 max-height: 72px !important;
             }
+        }
+
+        /* =========================================================
+        MOBILE MOVIE MODAL — FINAL POSITION FIX
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            /* =====================================================
+            CAŁA ZAWARTOŚĆ FILMU — MOCNO DO GÓRY
+            ===================================================== */
+
+            #movie-modal .movie-content {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+
+                position: relative !important;
+                top: -90px !important;
+            }
+
+
+            /* =====================================================
+            PLAKAT — NIEZALEŻNIE OD CONTENTU
+            ===================================================== */
+
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+
+                top: 150px !important;
+                right: 18px !important;
+
+                width: 108px !important;
+                height: 162px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                border-radius: 16px !important;
+                overflow: hidden !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* =====================================================
+            PRZYCISKI
+            ===================================================== */
+
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-wrap: wrap !important;
+
+                width: 100% !important;
+                gap: 10px !important;
+
+                margin: 20px 0 0 !important;
+            }
+
+
+            /* TRAILER */
+
+            #movie-modal #modal-trailer-link {
+                display: flex !important;
+
+                width: 100% !important;
+                flex: 0 0 100% !important;
+
+                min-height: 58px !important;
+
+                margin: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* OCEN FILM */
+
+            #movie-modal #modal-rate-shortcut {
+                display: flex !important;
+
+                width: calc(50% - 5px) !important;
+                flex: 0 0 calc(50% - 5px) !important;
+
+                min-height: 54px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* DO OBEJRZENIA */
+
+            #movie-modal #modal-watchlist-btn {
+                display: flex !important;
+
+                width: calc(50% - 5px) !important;
+                flex: 0 0 calc(50% - 5px) !important;
+
+                min-height: 54px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* =====================================================
+            OBSADA — KOŁA
+            ===================================================== */
+
+            #movie-modal .movie-cast-avatar {
+                width: 76px !important;
+                height: 76px !important;
+
+                min-width: 76px !important;
+                min-height: 76px !important;
+
+                max-width: 76px !important;
+                max-height: 76px !important;
+
+                aspect-ratio: 1 / 1 !important;
+
+                display: block !important;
+
+                margin: 0 auto !important;
+                padding: 0 !important;
+
+                border-radius: 50% !important;
+
+                overflow: hidden !important;
+                clip-path: circle(50%) !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            #movie-modal .movie-cast-avatar img {
+                display: block !important;
+
+                width: 100% !important;
+                height: 100% !important;
+
+                min-width: 100% !important;
+                min-height: 100% !important;
+
+                max-width: none !important;
+                max-height: none !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                border: 0 !important;
+
+                border-radius: 50% !important;
+
+                object-fit: cover !important;
+            }
+        }
+
+
+        /* =========================================================
+        MAŁE TELEFONY
+        ========================================================= */
+
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-content {
+                top: -80px !important;
+            }
+
+            #movie-modal .movie-modal-poster {
+                top: 140px !important;
+                right: 15px !important;
+
+                width: 102px !important;
+                height: 153px !important;
+            }
+
+            #movie-modal .movie-cast-avatar {
+                width: 72px !important;
+                height: 72px !important;
+
+                min-width: 72px !important;
+                min-height: 72px !important;
+
+                max-width: 72px !important;
+                max-height: 72px !important;
+            }
+        }
+
+        /* =========================================================
+        FINAL OVERRIDE — poster + title aligned in one row (mobile)
+        Must stay at the very end of the stylesheet.
+        ========================================================= */
+        @media (max-width: 768px) {
+            #movie-modal .movie-screen {
+                height: auto !important;
+                min-height: 100dvh !important;
+                overflow-y: auto !important;
+            }
+
+            #movie-modal .movie-backdrop {
+                position: relative !important;
+                inset: auto !important;
+                height: auto !important;
+                min-height: 0 !important;
+            }
+
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 30 !important;
+            }
+
+            /* Poster: fixed small box, top-right, right next to the title */
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+                top: 20px !important;
+                right: 18px !important;
+                left: auto !important;
+                bottom: auto !important;
+                width: 108px !important;
+                height: 162px !important;
+                margin: 0 !important;
+                transform: none !important;
+                border-radius: 16px !important;
+                object-fit: cover !important;
+                z-index: 15 !important;
+            }
+
+            /* Content sits in normal flow, starting right under the topbar,
+            NOT pushed down by any leftover margin-top/padding-top */
+            #movie-modal .movie-content {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                max-width: none !important;
+                max-height: none !important;
+                margin: 0 !important;
+                padding: 20px 130px 60px 18px !important;
+                overflow: visible !important;
+            }
+
+            /* Title + description reserve space for the poster on the right */
+            #movie-modal #modal-title {
+                margin: 0 0 12px !important;
+                padding: 0 !important;
+                font-size: clamp(30px, 9vw, 44px) !important;
+                line-height: .92 !important;
+                max-width: 100% !important;
+            }
+
+            #movie-modal #modal-desc {
+                margin: 0 0 24px !important;
+                padding: 0 !important;
+                font-size: 14px !important;
+                line-height: 1.4 !important;
+                max-width: 100% !important;
+            }
+
+            /* Everything below (meta row, buttons, cast, genres) goes full width,
+            under the poster, no extra top offset */
+            #movie-modal .movie-meta-row,
+            #movie-modal .movie-actions,
+            #movie-modal .movie-cast-footer,
+            #movie-modal .movie-footer {
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-top: 24px !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .movie-modal-poster {
+                top: 16px !important;
+                right: 15px !important;
+                width: 96px !important;
+                height: 144px !important;
+            }
+
+            #movie-modal .movie-content {
+                padding-right: 116px !important;
+            }
+        }
+
+        /* =========================================================
+        RATIVIO — poster/title sync fix (mobile). Keep this LAST.
+        ========================================================= */
+        @media (max-width: 768px) {
+            #movie-modal { --rt-offset: 78px; } /* topbar's real height */
+
+            #movie-modal { overflow-y: auto !important; overflow-x: hidden !important; align-items: flex-start !important; }
+            #movie-modal .movie-screen { height: auto !important; min-height: 100dvh !important; overflow: visible !important; }
+            #movie-modal .movie-topbar { position: sticky !important; top: 0 !important; z-index: 30 !important; }
+
+            #movie-modal .movie-backdrop {
+                position: absolute !important;
+                top: var(--rt-offset) !important;
+                left: 0 !important; right: 0 !important; bottom: auto !important;
+                inset: auto !important;
+                height: auto !important; min-height: 0 !important;
+            }
+
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+                top: 0 !important;                 /* = --rt-offset, inherited from backdrop */
+                right: 18px !important; left: auto !important; bottom: auto !important;
+                width: 108px !important; height: 162px !important;
+                margin: 0 !important; transform: none !important;
+                border-radius: 16px !important; object-fit: cover !important;
+                z-index: 15 !important;
+            }
+
+            #movie-modal .movie-content {
+                position: relative !important;
+                top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+                max-width: none !important; max-height: none !important;
+                margin: 0 !important;
+                padding: var(--rt-offset) 130px 60px 18px !important;  /* same number as backdrop's top */
+                overflow: visible !important;
+            }
+
+            #movie-modal #modal-title { margin: 0 0 12px !important; padding: 0 !important; }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal { --rt-offset: 68px; }
+            #movie-modal .movie-content { padding-right: 116px !important; }
+            #movie-modal .movie-modal-poster { right: 15px !important; width: 96px !important; height: 144px !important; }
         }
 
         
