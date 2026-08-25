@@ -10684,6 +10684,177 @@
             }
         }
 
+
+        /* =========================================================
+        FINAL FIX — MOBILE MOVIE PANEL
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            /* =====================================================
+            PLAKAT — GÓRA RÓWNO Z GÓRĄ TYTUŁU
+            ===================================================== */
+
+            #movie-modal .movie-modal-poster {
+                top: 285px !important;
+                right: 18px !important;
+
+                width: 108px !important;
+                height: 162px !important;
+
+                border-radius: 16px !important;
+                overflow: hidden !important;
+            }
+
+
+            /* =====================================================
+            PRZYCISKI
+            TRAILER — CAŁA SZEROKOŚĆ
+            OCENA + DO OBEJRZENIA — JEDNA LINIA
+            ===================================================== */
+
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+
+            /* TRAILER */
+            #movie-modal #modal-trailer-link {
+                display: flex !important;
+
+                width: 100% !important;
+                flex: 0 0 100% !important;
+
+                min-height: 58px !important;
+
+                margin: 0 0 0 !important;
+            }
+
+            /* OCEN FILM */
+            #movie-modal #modal-rate-shortcut {
+
+                display: flex !important;
+
+                width: calc(50% - 5px) !important;
+                flex: 0 0 calc(50% - 5px) !important;
+
+                min-height: 54px !important;
+
+                margin: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+            }
+
+            /* DO OBEJRZENIA */
+            #movie-modal #modal-watchlist-btn {
+
+                display: flex !important;
+
+                width: calc(50% - 5px) !important;
+                flex: 0 0 calc(50% - 5px) !important;
+
+                min-height: 54px !important;
+
+                margin: 0 !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+            }
+
+
+            /* =====================================================
+            OBSADA — PRAWDZIWE, IDEALNE KOŁA
+            ===================================================== */
+
+            #movie-modal .movie-cast-avatar {
+
+                width: 76px !important;
+                height: 76px !important;
+
+                min-width: 76px !important;
+                min-height: 76px !important;
+
+                max-width: 76px !important;
+                max-height: 76px !important;
+
+                aspect-ratio: 1 / 1 !important;
+
+                display: block !important;
+
+                margin: 0 auto !important;
+
+                padding: 0 !important;
+
+                border-radius: 50% !important;
+
+                overflow: hidden !important;
+
+                clip-path: circle(50%) !important;
+
+                box-sizing: border-box !important;
+            }
+
+            #movie-modal .movie-cast-avatar img {
+
+                display: block !important;
+
+                width: 100% !important;
+                height: 100% !important;
+
+                min-width: 100% !important;
+                min-height: 100% !important;
+
+                max-width: none !important;
+                max-height: none !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                border: 0 !important;
+
+                border-radius: 50% !important;
+
+                object-fit: cover !important;
+
+                aspect-ratio: 1 / 1 !important;
+            }
+        }
+
+
+        /* =========================================================
+        MAŁE TELEFONY
+        ========================================================= */
+
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-modal-poster {
+                top: 280px !important;
+                right: 15px !important;
+
+                width: 102px !important;
+                height: 153px !important;
+            }
+
+            #movie-modal .movie-cast-avatar {
+
+                width: 72px !important;
+                height: 72px !important;
+
+                min-width: 72px !important;
+                min-height: 72px !important;
+
+                max-width: 72px !important;
+                max-height: 72px !important;
+            }
+        }
+
         
         
     </style>
@@ -11470,7 +11641,7 @@
             </p>
             <form class="flex flex-col sm:flex-row gap-3 mt-8 max-w-2xl mx-auto">
                 <input type="email" placeholder="Twój adres e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-green-600 outline-none transition-all">
-                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic hover:bg-green-400 transition-all">Aktywuj Subskrypcję</button>
+                <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic hover:bg-green-400 transition-all">ZAPISZ SIĘ</button>
             </form>
             <!-- SOCIAL MEDIA -->
             <div class="rativio-socials">
@@ -18187,7 +18358,7 @@
                 "największych premierach": "the biggest premieres",
                 ", recenzje prosto z Hollywood oraz dostęp do unikalnych rankingów.": ", reviews straight from Hollywood and access to exclusive rankings.",
                 "Twój adres e-mail...": "Your email address...",
-                "Aktywuj Subskrypcję": "Activate Subscription",
+                "ZAPISZ SIĘ": "SIGN IN",
                 "Spisek w prywatnej armii zagraża tym, którzy próbują go powstrzymać.": "A conspiracy in the private army threatens those who try to stop it.",
 
                 "KALENDARZ": "CALENDAR",
