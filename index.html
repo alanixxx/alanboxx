@@ -11503,6 +11503,138 @@
     }
 
 
+         /* =========================================================
+        FINAL — PLAKAT DOKŁADNIE NA WYSOKOŚCI TYTUŁU
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            #movie-modal .movie-screen {
+                position: relative !important;
+                height: auto !important;
+                min-height: 100dvh !important;
+                overflow: visible !important;
+            }
+
+            /*
+            Topbar ma swoją wysokość.
+            Content zaczyna się pod nim.
+            */
+            #movie-modal .movie-content {
+                position: relative !important;
+
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+
+                margin: 0 !important;
+
+                /*
+                78px = wysokość górnej belki
+                44px = kicker + jego odstęp
+
+                Dzięki temu TITLE zaczyna się dokładnie
+                na wysokości początku plakatu.
+                */
+                padding:
+                    122px
+                    18px
+                    60px
+                    18px !important;
+
+                overflow: visible !important;
+            }
+
+            /*
+            PLAKAT
+            -----------------------------------------------
+            Jego górna krawędź = górna krawędź TYTUŁU
+            */
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+
+                top: 166px !important;
+                right: 18px !important;
+                left: auto !important;
+                bottom: auto !important;
+
+                width: 108px !important;
+                height: 162px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                object-fit: cover !important;
+
+                border-radius: 16px !important;
+
+                z-index: 20 !important;
+            }
+
+            /*
+            TYTUŁ
+            -----------------------------------------------
+            Rezerwujemy miejsce po prawej stronie
+            dokładnie pod szerokość plakatu.
+            */
+            #movie-modal #modal-title {
+                width: calc(100% - 125px) !important;
+                max-width: calc(100% - 125px) !important;
+
+                margin: 0 0 14px !important;
+                padding: 0 !important;
+
+                font-size: clamp(30px, 9vw, 44px) !important;
+                line-height: .92 !important;
+            }
+
+            /*
+            OPIS
+            */
+            #movie-modal #modal-desc {
+                width: calc(100% - 125px) !important;
+                max-width: calc(100% - 125px) !important;
+
+                margin: 0 0 45px !important;
+                padding: 0 !important;
+
+                font-size: 15px !important;
+                line-height: 1.4 !important;
+            }
+        }
+
+
+        /* =========================================================
+        MAŁE TELEFONY
+        ========================================================= */
+
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-content {
+                padding-top: 122px !important;
+            }
+
+            #movie-modal .movie-modal-poster {
+                top: 166px !important;
+                right: 15px !important;
+
+                width: 96px !important;
+                height: 144px !important;
+            }
+
+            #movie-modal #modal-title,
+            #movie-modal #modal-desc {
+                width: calc(100% - 112px) !important;
+                max-width: calc(100% - 112px) !important;
+            }
+
+            #movie-modal #modal-title {
+                font-size: 32px !important;
+            }
+        }
+
+
         
         
     </style>
