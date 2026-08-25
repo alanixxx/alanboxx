@@ -11441,6 +11441,68 @@
             #movie-modal .movie-modal-poster { right: 15px !important; width: 96px !important; height: 144px !important; }
         }
 
+         #movie-modal .movie-modal-poster {
+        position: absolute !important;
+
+        top: 115px !important;
+        right: 18px !important;
+        left: auto !important;
+
+        width: 108px !important;
+        height: 162px !important;
+
+        margin: 0 !important;
+        object-fit: cover !important;
+        border-radius: 16px !important;
+
+        z-index: 20 !important;
+    }
+
+    /* TREŚĆ — zaczyna się dokładnie tam, gdzie plakat */
+    #movie-modal .movie-content {
+        position: relative !important;
+
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        /* 115px = wysokość od góry do plakatu */
+        padding: 115px 18px 60px !important;
+
+        overflow: visible !important;
+    }
+
+    /* TYTUŁ — po lewej stronie plakatu */
+    #movie-modal #modal-title {
+        width: calc(100% - 125px) !important;
+        max-width: calc(100% - 125px) !important;
+
+        margin: 0 0 14px !important;
+        padding: 0 !important;
+
+        font-size: clamp(30px, 9vw, 44px) !important;
+        line-height: .92 !important;
+    }
+
+    /* OPIS — również po lewej od plakatu */
+    #movie-modal #modal-desc {
+        width: calc(100% - 125px) !important;
+        max-width: calc(100% - 125px) !important;
+
+        margin: 0 0 45px !important;
+        padding: 0 !important;
+
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+    }
+
+
         
         
     </style>
