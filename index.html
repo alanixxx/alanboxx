@@ -9861,6 +9861,608 @@
             }
         }
 
+        /* =====================================================
+        RATIVIO — SOCIAL MEDIA POD NEWSLETTEREM
+        ===================================================== */
+
+        .rativio-socials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .rativio-social-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #27272a;
+            border-radius: 50%;
+
+            background: rgba(24,24,27,.65);
+
+            color: #a1a1aa;
+
+            transition:
+                transform .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                background .2s ease;
+        }
+
+        .rativio-social-icon svg {
+            width: 20px;
+            height: 20px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* TikTok */
+        .rativio-social-icon:last-child svg {
+            fill: currentColor;
+            stroke: none;
+        }
+
+        /* Hover */
+        .rativio-social-icon:hover {
+            color: #ffffff;
+            border-color: #3f3f46;
+            background: #18181b;
+            transform: translateY(-2px);
+        }
+
+        /* Mail */
+        .rativio-social-icon:first-child:hover {
+            color: #22c55e;
+        }
+
+        /* Telefon */
+        @media (max-width: 640px) {
+            .rativio-socials {
+                margin-top: 26px;
+                gap: 12px;
+            }
+
+            .rativio-social-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .rativio-social-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        /* =========================================================
+        RATIVIO — MOBILE MOVIE PANEL
+        UKŁAD: PLAKAT PRAWO + TYTUŁ LEWO
+        ========================================================= */
+
+        @media (max-width: 700px) {
+
+            /* CAŁE OKNO */
+            #movie-modal {
+                position: fixed !important;
+                inset: 0 !important;
+
+                width: 100vw !important;
+                height: 100dvh !important;
+
+                padding: 0 !important;
+                margin: 0 !important;
+
+                display: none;
+                align-items: flex-start !important;
+
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+
+                background: #050507 !important;
+            }
+
+            #movie-modal.is-open,
+            #movie-modal[style*="display: flex"] {
+                display: flex !important;
+            }
+
+
+            /* EKRAN */
+            #movie-modal > .movie-screen {
+                position: relative !important;
+
+                width: 100% !important;
+                min-width: 100% !important;
+
+                height: auto !important;
+                min-height: 100dvh !important;
+
+                overflow: visible !important;
+
+                background: #050507 !important;
+            }
+
+
+            /* =====================================================
+            GÓRNA BELKA
+            ===================================================== */
+
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+
+                z-index: 50 !important;
+
+                padding: 22px 18px !important;
+
+                background:
+                    linear-gradient(
+                        to bottom,
+                        #050507 65%,
+                        rgba(5,5,7,.92),
+                        transparent
+                    ) !important;
+            }
+
+
+            /* =====================================================
+            TŁO
+            ===================================================== */
+
+            #movie-modal .movie-backdrop {
+                position: absolute !important;
+
+                inset: 0 !important;
+
+                width: 100% !important;
+                height: 100% !important;
+
+                overflow: visible !important;
+
+                background: #050507 !important;
+
+                transform: none !important;
+            }
+
+            #movie-modal .movie-backdrop::before,
+            #movie-modal .movie-backdrop::after {
+                display: none !important;
+            }
+
+
+            /* =====================================================
+            PLAKAT — PRAWA STRONA
+            ===================================================== */
+
+            #movie-modal .movie-modal-poster {
+
+                position: absolute !important;
+
+                top: 155px !important;
+                right: 18px !important;
+                left: auto !important;
+
+                width: 112px !important;
+                height: 168px !important;
+
+                display: block !important;
+
+                object-fit: cover !important;
+
+                margin: 0 !important;
+
+                transform: none !important;
+
+                border-radius: 17px !important;
+
+                border: 1px solid rgba(255,255,255,.13) !important;
+
+                box-shadow:
+                    0 18px 45px rgba(0,0,0,.75) !important;
+
+                z-index: 10 !important;
+            }
+
+
+            /* =====================================================
+            GŁÓWNA TREŚĆ
+            ===================================================== */
+
+            #movie-modal .movie-content {
+
+                position: relative !important;
+
+                top: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                left: auto !important;
+
+                width: 100% !important;
+                max-width: none !important;
+                max-height: none !important;
+
+                margin-top: 155px !important;
+
+                padding:
+                    245px 18px 60px !important;
+
+                overflow: visible !important;
+
+                z-index: 20 !important;
+            }
+
+
+            /* =====================================================
+            TYTUŁ — LEWA STRONA
+            ===================================================== */
+
+            #movie-modal #modal-title {
+
+                width: calc(100% - 125px) !important;
+                max-width: calc(100% - 125px) !important;
+
+                padding: 0 !important;
+
+                margin:
+                    0 0 12px !important;
+
+                font-size:
+                    clamp(34px, 10vw, 48px) !important;
+
+                line-height: .92 !important;
+
+                letter-spacing: -.01em !important;
+            }
+
+
+            /* OPIS */
+            #movie-modal #modal-desc {
+
+                width: calc(100% - 125px) !important;
+                max-width: calc(100% - 125px) !important;
+
+                padding: 0 !important;
+
+                margin:
+                    0 0 55px !important;
+
+                font-size: 15px !important;
+
+                line-height: 1.35 !important;
+
+                color: #a1a1aa !important;
+            }
+
+
+            /* =====================================================
+            INFORMACJE: OCENA / ROK / CZAS
+            ===================================================== */
+
+            #movie-modal .movie-meta-row {
+
+                display: grid !important;
+
+                grid-template-columns:
+                    1fr 1fr 1.35fr !important;
+
+                gap: 12px !important;
+
+                width: 100% !important;
+
+                margin:
+                    0 0 30px !important;
+
+                padding: 0 !important;
+            }
+
+            #movie-modal .movie-meta {
+
+                min-width: 0 !important;
+            }
+
+            #movie-modal .movie-meta-label {
+
+                display: block !important;
+
+                margin-bottom: 8px !important;
+
+                font-size: 9px !important;
+
+                letter-spacing: .18em !important;
+            }
+
+            #movie-modal .movie-meta-value {
+
+                font-size: 21px !important;
+
+                line-height: 1 !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            /* =====================================================
+            PRZYCISKI
+            ===================================================== */
+
+            #movie-modal .movie-actions {
+
+                display: flex !important;
+
+                flex-wrap: wrap !important;
+
+                width: 100% !important;
+
+                gap: 10px !important;
+
+                margin: 0 !important;
+
+                padding: 0 !important;
+            }
+
+
+            /* TRAILER — 100% */
+            #movie-modal #modal-trailer-link {
+
+                width: 100% !important;
+
+                flex: 0 0 100% !important;
+
+                min-height: 58px !important;
+
+                margin: 0 0 8px !important;
+
+                padding: 15px 12px !important;
+
+                display: flex !important;
+
+                align-items: center !important;
+
+                justify-content: center !important;
+
+                border-radius: 999px !important;
+
+                font-size: 11px !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            /* RECENZJA + OCENA */
+            #movie-modal #movie-review-action-btn,
+            #movie-modal #modal-rate-shortcut {
+
+                display: flex !important;
+
+                align-items: center !important;
+
+                justify-content: center !important;
+
+                flex: 1 1 calc(50% - 5px) !important;
+
+                width: calc(50% - 5px) !important;
+
+                min-height: 56px !important;
+
+                margin: 0 !important;
+
+                padding:
+                    12px 8px !important;
+
+                border-radius: 999px !important;
+
+                font-size: 10px !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            /* =====================================================
+            USUWAMY "DO OBEJRZENIA"
+            ===================================================== */
+
+            #movie-modal #modal-watchlist-btn {
+                display: none !important;
+            }
+
+
+            /* =====================================================
+            OBSADA
+            ===================================================== */
+
+            #movie-modal .movie-cast-footer {
+
+                display: block !important;
+
+                width: 100% !important;
+
+                margin-top: 48px !important;
+
+                padding-top: 26px !important;
+
+                border-top:
+                    1px solid rgba(255,255,255,.12) !important;
+
+                border-bottom: none !important;
+            }
+
+            #movie-modal .movie-cast-footer.hidden {
+                display: none !important;
+            }
+
+            #movie-modal .movie-cast-footer > p {
+
+                margin:
+                    0 0 20px !important;
+
+                font-size: 9px !important;
+
+                font-weight: 900 !important;
+
+                letter-spacing: .18em !important;
+
+                text-transform: uppercase !important;
+
+                color: #71717a !important;
+            }
+
+            #movie-modal .movie-cast-row {
+
+                display: flex !important;
+
+                flex-wrap: nowrap !important;
+
+                gap: 18px !important;
+
+                width: 100% !important;
+
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+
+                padding:
+                    2px 2px 12px !important;
+
+                -webkit-overflow-scrolling: touch !important;
+
+                scrollbar-width: none !important;
+            }
+
+            #movie-modal .movie-cast-row::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            #movie-modal .movie-cast-item {
+
+                flex:
+                    0 0 90px !important;
+
+                width: 90px !important;
+
+                min-width: 90px !important;
+
+                text-align: center !important;
+            }
+
+            #movie-modal .movie-cast-avatar {
+
+                width: 72px !important;
+                height: 72px !important;
+
+                min-width: 72px !important;
+
+                margin: 0 auto !important;
+
+                border-radius: 50% !important;
+
+                overflow: hidden !important;
+            }
+
+            #movie-modal .movie-cast-avatar img {
+
+                width: 100% !important;
+                height: 100% !important;
+
+                object-fit: cover !important;
+
+                border-radius: 50% !important;
+            }
+
+            #movie-modal .movie-cast-name {
+
+                display: block !important;
+
+                width: 90px !important;
+                max-width: 90px !important;
+
+                margin-top: 9px !important;
+
+                font-size: 10px !important;
+
+                line-height: 1.2 !important;
+
+                text-align: center !important;
+
+                white-space: normal !important;
+            }
+
+
+            /* =====================================================
+            GATUNKI
+            ===================================================== */
+
+            #movie-modal .movie-footer {
+
+                width: 100% !important;
+
+                margin-top: 28px !important;
+
+                padding-top: 22px !important;
+
+                border-top:
+                    1px solid rgba(255,255,255,.12) !important;
+            }
+
+            #movie-modal .movie-genres {
+
+                display: flex !important;
+
+                flex-wrap: wrap !important;
+
+                gap: 8px !important;
+            }
+        }
+
+
+        /* =========================================================
+        MAŁE TELEFONY
+        ========================================================= */
+
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-modal-poster {
+
+                top: 150px !important;
+                right: 15px !important;
+
+                width: 102px !important;
+                height: 153px !important;
+            }
+
+            #movie-modal .movie-content {
+
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+
+            #movie-modal #modal-title,
+            #movie-modal #modal-desc {
+
+                width: calc(100% - 112px) !important;
+                max-width: calc(100% - 112px) !important;
+            }
+
+            #movie-modal #modal-title {
+                font-size: 32px !important;
+            }
+
+            #movie-modal #movie-review-action-btn,
+            #movie-modal #modal-rate-shortcut {
+                font-size: 9px !important;
+            }
+        }
+
         
         
     </style>
@@ -10649,6 +11251,52 @@
                 <input type="email" placeholder="Twój adres e-mail..." class="flex-1 bg-zinc-800/50 border border-zinc-700 rounded-xl px-6 py-4 focus:ring-2 focus:ring-green-600 outline-none transition-all">
                 <button type="button" class="bg-green-600 text-black font-black px-10 py-4 rounded-xl uppercase italic hover:bg-green-400 transition-all">Aktywuj Subskrypcję</button>
             </form>
+            <!-- SOCIAL MEDIA -->
+            <div class="rativio-socials">
+
+                <!-- MAIL -->
+                <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=rativio2026@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="rativio-social-icon"
+                    aria-label="E-mail Rativio"
+                    title="Napisz do nas"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 5h18v14H3V5zm0 1 9 7 9-7"/>
+                    </svg>
+                </a>
+
+                <!-- INSTAGRAM — LINK DO UZUPEŁNIENIA -->
+                <a
+                    href="#"
+                    class="rativio-social-icon"
+                    aria-label="Instagram Rativio"
+                    title="Instagram"
+                    onclick="return false;"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="5"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <circle cx="17.5" cy="6.5" r="1"/>
+                    </svg>
+                </a>
+
+                <!-- TIKTOK — LINK DO UZUPEŁNIENIA -->
+                <a
+                    href="#"
+                    class="rativio-social-icon"
+                    aria-label="TikTok Rativio"
+                    title="TikTok"
+                    onclick="return false;"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 4c.4 2.3 1.7 3.7 4 4v3c-1.5 0-2.8-.4-4-1.1V16a5 5 0 1 1-5-5c.4 0 .7 0 1 .1v3.1a2 2 0 1 0 1 1.8V4h3z"/>
+                    </svg>
+                </a>
+
+            </div>
         </section>
     </main>
 
