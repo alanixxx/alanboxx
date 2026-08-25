@@ -8572,6 +8572,1295 @@
             top: 105px !important;
         }
 
+        /* =========================================================
+        RATIVIO GLOBAL SEARCH
+        ========================================================= */
+
+        .rativio-search {
+            position: relative;
+            z-index: 100;
+        }
+
+        .rativio-search-trigger {
+            height: 44px;
+            min-width: 280px;
+
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            padding: 0 13px;
+
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.018)
+                );
+
+            color: #71717a;
+
+            transition:
+                border-color .2s ease,
+                background .2s ease,
+                box-shadow .2s ease,
+                color .2s ease;
+        }
+
+        .rativio-search-trigger:hover {
+            color: white;
+            border-color: rgba(34,197,94,.35);
+            background: rgba(255,255,255,.055);
+            box-shadow: 0 0 30px rgba(34,197,94,.07);
+        }
+
+        .rativio-search-trigger svg {
+            width: 17px;
+            height: 17px;
+            flex: 0 0 17px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+        }
+
+        .rativio-search-trigger span {
+            flex: 1;
+            text-align: left;
+
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+        .rativio-search-trigger kbd {
+            padding: 4px 6px;
+
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 7px;
+
+            color: #52525b;
+            background: rgba(0,0,0,.35);
+
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .08em;
+        }
+
+
+        /* =========================================================
+        PANEL
+        ========================================================= */
+
+        .rativio-search-panel {
+            position: absolute;
+
+            top: calc(100% + 12px);
+            right: 0;
+
+            width: min(570px, calc(100vw - 32px));
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 22px;
+
+            background:
+                radial-gradient(
+                    circle at 90% 0%,
+                    rgba(34,197,94,.08),
+                    transparent 35%
+                ),
+                rgba(7,7,9,.97);
+
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,.65),
+                0 0 60px rgba(34,197,94,.04);
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(.985);
+
+            transform-origin: top right;
+
+            transition:
+                opacity .18s ease,
+                transform .18s ease,
+                visibility .18s ease;
+        }
+
+        .rativio-search.open .rativio-search-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+
+        /* =========================================================
+        INPUT
+        ========================================================= */
+
+        .rativio-search-input-wrap {
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            padding: 0 18px;
+
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .rativio-search-input-wrap > svg {
+            width: 20px;
+            height: 20px;
+            flex: 0 0 20px;
+
+            fill: none;
+            stroke: #22c55e;
+            stroke-width: 1.8;
+        }
+
+        .rativio-search-input-wrap input {
+            min-width: 0;
+            flex: 1;
+
+            border: 0;
+            outline: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .rativio-search-input-wrap input::placeholder {
+            color: #52525b;
+        }
+
+        .rativio-search-esc {
+            padding: 6px 8px;
+
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 8px;
+
+            background: rgba(255,255,255,.035);
+
+            color: #71717a;
+
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .1em;
+
+            transition: .2s ease;
+        }
+
+        .rativio-search-esc:hover {
+            color: white;
+            border-color: rgba(255,255,255,.18);
+        }
+
+
+        /* =========================================================
+        RESULTS
+        ========================================================= */
+
+        .rativio-search-results {
+            max-height: min(570px, 70vh);
+            overflow-y: auto;
+
+            padding: 10px;
+        }
+
+        .rativio-search-results::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .rativio-search-results::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 99px;
+        }
+
+
+        /* section */
+
+        .rativio-search-section {
+            padding: 10px 7px 6px;
+        }
+
+        .rativio-search-section-title {
+            margin-bottom: 7px;
+
+            color: #52525b;
+
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+        }
+
+
+        /* result */
+
+        .rativio-search-result {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 9px;
+
+            border: 1px solid transparent;
+            border-radius: 15px;
+
+            background: transparent;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                background .18s ease,
+                border-color .18s ease,
+                transform .18s ease;
+        }
+
+        .rativio-search-result:hover {
+            background: rgba(255,255,255,.045);
+            border-color: rgba(255,255,255,.07);
+            transform: translateX(2px);
+        }
+
+
+        /* movie poster */
+
+        .rativio-search-poster {
+            width: 43px;
+            height: 62px;
+
+            flex: 0 0 43px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            background: #18181b;
+
+            box-shadow: 0 8px 20px rgba(0,0,0,.4);
+        }
+
+
+        /* user avatar */
+
+        .rativio-search-avatar {
+            width: 46px;
+            height: 46px;
+
+            flex: 0 0 46px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            background: #18181b;
+        }
+
+        .rativio-search-avatar-fallback {
+            width: 46px;
+            height: 46px;
+
+            flex: 0 0 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+            color: #000;
+
+            font-size: 17px;
+            font-weight: 1000;
+        }
+
+
+        /* text */
+
+        .rativio-search-result-main {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .rativio-search-result-title {
+            color: white;
+
+            font-size: 12px;
+            font-weight: 950;
+            line-height: 1.2;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rativio-search-result-meta {
+            margin-top: 5px;
+
+            color: #71717a;
+
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .rativio-search-result-arrow {
+            color: #3f3f46;
+            font-size: 17px;
+
+            transition: .18s ease;
+        }
+
+        .rativio-search-result:hover .rativio-search-result-arrow {
+            color: #22c55e;
+            transform: translateX(3px);
+        }
+
+
+        /* empty */
+
+        .rativio-search-empty {
+            padding: 55px 25px;
+
+            text-align: center;
+        }
+
+        .rativio-search-empty-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 16px;
+
+            border: 1px solid rgba(34,197,94,.18);
+            border-radius: 50%;
+
+            color: #22c55e;
+
+            font-size: 28px;
+
+            background: rgba(34,197,94,.05);
+        }
+
+        .rativio-search-empty p {
+            margin: 0;
+
+            color: #d4d4d8;
+
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .rativio-search-empty span {
+            display: block;
+
+            margin-top: 7px;
+
+            color: #52525b;
+
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+
+        /* loading */
+
+        .rativio-search-loading {
+            padding: 35px;
+
+            text-align: center;
+
+            color: #52525b;
+
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+
+        /* mobile */
+
+        @media (max-width: 800px) {
+
+            .rativio-search-trigger {
+                min-width: 44px;
+                width: 44px;
+                padding: 0;
+
+                justify-content: center;
+            }
+
+            .rativio-search-trigger span,
+            .rativio-search-trigger kbd {
+                display: none;
+            }
+
+            .rativio-search-panel {
+                position: fixed;
+
+                top: 70px;
+                left: 12px;
+                right: 12px;
+
+                width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .rativio-search-panel {
+                top: 64px;
+                left: 8px;
+                right: 8px;
+
+                border-radius: 18px;
+            }
+        }
+
+        /* =========================================================
+        PUBLIC USER PROFILE
+        ========================================================= */
+
+        .public-profile-overlay {
+            position: fixed;
+            inset: 0;
+
+            z-index: 9999;
+
+            display: none;
+
+            align-items: flex-start;
+            justify-content: center;
+
+            padding: 80px 20px 40px;
+
+            background: rgba(0,0,0,.78);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            overflow-y: auto;
+        }
+
+        .public-profile-overlay.open {
+            display: flex;
+        }
+
+        .public-profile {
+            position: relative;
+
+            width: min(1050px, 100%);
+
+            min-height: 600px;
+
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 32px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 0%,
+                    rgba(34,197,94,.08),
+                    transparent 32%
+                ),
+                #080809;
+
+            box-shadow:
+                0 40px 120px rgba(0,0,0,.75);
+
+            overflow: hidden;
+        }
+
+        .public-profile-close {
+            position: absolute;
+
+            top: 20px;
+            right: 20px;
+
+            z-index: 10;
+
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 50%;
+
+            background: rgba(0,0,0,.45);
+
+            color: #a1a1aa;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+        .public-profile-close:hover {
+            color: white;
+            border-color: rgba(34,197,94,.4);
+            background: rgba(34,197,94,.1);
+        }
+
+        .public-profile-head {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            padding: 45px;
+
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .public-profile-avatar {
+            width: 105px;
+            height: 105px;
+
+            flex: 0 0 105px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 2px solid rgba(34,197,94,.55);
+
+            box-shadow:
+                0 0 35px rgba(34,197,94,.12);
+        }
+
+        .public-profile-avatar-fallback {
+            width: 105px;
+            height: 105px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+            color: #000;
+
+            font-size: 38px;
+            font-weight: 1000;
+        }
+
+        .public-profile-name {
+            color: white;
+
+            font-size: clamp(28px, 5vw, 58px);
+            font-weight: 1000;
+            font-style: italic;
+
+            text-transform: uppercase;
+            letter-spacing: -.06em;
+            line-height: .95;
+        }
+
+        .public-profile-stats {
+            display: flex;
+            gap: 25px;
+
+            margin-top: 14px;
+        }
+
+        .public-profile-stat strong {
+            display: block;
+
+            color: white;
+
+            font-size: 18px;
+            font-weight: 1000;
+        }
+
+        .public-profile-stat span {
+            color: #52525b;
+
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+        .public-profile-follow {
+            margin-top: 18px;
+
+            padding: 11px 20px;
+
+            border: 1px solid rgba(34,197,94,.45);
+            border-radius: 13px;
+
+            background: rgba(34,197,94,.1);
+
+            color: #22c55e;
+
+            font-size: 9px;
+            font-weight: 1000;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+        .public-profile-follow:hover {
+            background: #22c55e;
+            color: #000;
+        }
+
+        .public-profile-body {
+            padding: 35px 45px 55px;
+        }
+
+        .public-profile-section {
+            margin-bottom: 42px;
+        }
+
+        .public-profile-section-title {
+            margin-bottom: 17px;
+
+            color: white;
+
+            font-size: 20px;
+            font-weight: 1000;
+            font-style: italic;
+
+            text-transform: uppercase;
+            letter-spacing: -.03em;
+        }
+
+        .public-profile-movies {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(130px, 1fr));
+
+            gap: 15px;
+        }
+
+        .public-profile-movie {
+            cursor: pointer;
+        }
+
+        .public-profile-movie img {
+            display: block;
+
+            width: 100%;
+            aspect-ratio: 2 / 3;
+
+            object-fit: cover;
+
+            border-radius: 13px;
+
+            border: 1px solid rgba(255,255,255,.07);
+
+            transition: .2s ease;
+        }
+
+        .public-profile-movie:hover img {
+            transform: translateY(-4px);
+
+            border-color: rgba(34,197,94,.4);
+
+            box-shadow:
+                0 15px 30px rgba(0,0,0,.45);
+        }
+
+        .public-profile-movie-title {
+            margin-top: 8px;
+
+            color: #d4d4d8;
+
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+
+            line-height: 1.2;
+        }
+
+        .public-profile-private {
+            padding: 80px 30px;
+
+            text-align: center;
+        }
+
+        .public-profile-private-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .public-profile-private h2 {
+            color: white;
+
+            font-size: 28px;
+            font-weight: 1000;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        .public-profile-private p {
+            margin-top: 10px;
+
+            color: #52525b;
+
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 650px) {
+
+            .public-profile-overlay {
+                padding: 55px 8px 15px;
+            }
+
+            .public-profile {
+                border-radius: 22px;
+            }
+
+            .public-profile-head {
+                align-items: flex-start;
+
+                padding: 30px 22px;
+
+                flex-direction: column;
+            }
+
+            .public-profile-body {
+                padding: 25px 22px 40px;
+            }
+
+            .public-profile-avatar,
+            .public-profile-avatar-fallback {
+                width: 85px;
+                height: 85px;
+                flex-basis: 85px;
+            }
+
+            .public-profile-movies {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
+                gap: 9px;
+            }
+        }
+
+        /* =========================================================
+        RATIVIO — FINALNY MOBILE MOVIE MODAL
+        NIE DODAWAJ JUŻ PÓŹNIEJ INNYCH REGUŁ POD TEN BLOK
+        ========================================================= */
+
+        @media (max-width: 700px) {
+
+            /* =========================================
+            CAŁY PANEL
+            ========================================= */
+
+            #movie-modal {
+                position: fixed !important;
+                inset: 0 !important;
+
+                width: 100vw !important;
+                height: 100dvh !important;
+
+                padding: 0 !important;
+                margin: 0 !important;
+
+                display: none;
+                align-items: flex-start !important;
+
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+
+                background: #050507 !important;
+            }
+
+            #movie-modal.is-open,
+            #movie-modal[style*="display: flex"] {
+                display: flex !important;
+            }
+
+
+            /* =========================================
+            EKRAN
+            ========================================= */
+
+            #movie-modal > .movie-screen {
+                position: relative !important;
+
+                width: 100% !important;
+                min-width: 100% !important;
+
+                height: auto !important;
+                min-height: 100dvh !important;
+
+                overflow: visible !important;
+
+                background: #050507 !important;
+            }
+
+
+            /* =========================================
+            TŁO / KONTENER PLAKATU
+            ========================================= */
+
+            #movie-modal .movie-backdrop {
+                position: absolute !important;
+
+                inset: 0 !important;
+
+                width: 100% !important;
+                height: 100% !important;
+                min-height: 100% !important;
+
+                overflow: visible !important;
+
+                background: #050507 !important;
+
+                transform: none !important;
+            }
+
+            #movie-modal .movie-backdrop::before,
+            #movie-modal .movie-backdrop::after {
+                display: none !important;
+            }
+
+
+            /* =========================================
+            PLAKAT
+            ========================================= */
+
+            #movie-modal .movie-modal-poster {
+                position: absolute !important;
+
+                top: 92px !important;
+                left: 18px !important;
+                right: auto !important;
+
+                width: 112px !important;
+                height: 168px !important;
+
+                display: block !important;
+
+                object-fit: cover !important;
+                object-position: center !important;
+
+                margin: 0 !important;
+
+                transform: none !important;
+
+                border-radius: 14px !important;
+
+                border: 1px solid rgba(255,255,255,.12) !important;
+
+                box-shadow:
+                    0 20px 50px rgba(0,0,0,.75) !important;
+
+                z-index: 10 !important;
+            }
+
+
+            /* =========================================
+            GÓRNA BELKA
+            ========================================= */
+
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+
+                z-index: 50 !important;
+
+                padding: 18px !important;
+
+                background:
+                    linear-gradient(
+                        to bottom,
+                        rgba(5,5,7,.98),
+                        rgba(5,5,7,.82),
+                        transparent
+                    ) !important;
+            }
+
+
+            /* =========================================
+            TREŚĆ
+            ========================================= */
+
+            #movie-modal .movie-content {
+                position: relative !important;
+
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+
+                width: 100% !important;
+                max-width: none !important;
+                max-height: none !important;
+
+                margin-top: 285px !important;
+
+                padding:
+                    0 18px 60px !important;
+
+                overflow: visible !important;
+
+                z-index: 20 !important;
+            }
+
+
+            /* =========================================
+            TYTUŁ
+            ========================================= */
+
+            #movie-modal #modal-title {
+                width: 100% !important;
+                max-width: 100% !important;
+
+                padding: 0 !important;
+
+                margin:
+                    0 0 10px !important;
+
+                font-size:
+                    clamp(36px, 11vw, 50px) !important;
+
+                line-height: .92 !important;
+
+                letter-spacing: .005em !important;
+            }
+
+
+            /* =========================================
+            OPIS
+            ========================================= */
+
+            #movie-modal #modal-desc {
+                width: 100% !important;
+                max-width: 100% !important;
+
+                padding: 0 !important;
+
+                margin:
+                    0 0 22px !important;
+
+                font-size: 14px !important;
+
+                line-height: 1.45 !important;
+            }
+
+
+            /* =========================================
+            INFORMACJE
+            ========================================= */
+
+            #movie-modal .movie-meta-row {
+                display: flex !important;
+
+                flex-wrap: wrap !important;
+
+                gap: 24px !important;
+
+                margin-bottom: 24px !important;
+
+                padding: 0 !important;
+            }
+
+            #movie-modal .movie-meta {
+                min-width: 0 !important;
+            }
+
+            #movie-modal .movie-meta-label {
+                font-size: 9px !important;
+            }
+
+            #movie-modal .movie-meta-value {
+                font-size: 20px !important;
+            }
+
+
+            /* =========================================
+            PRZYCISKI
+            ========================================= */
+
+            #movie-modal .movie-actions {
+                display: flex !important;
+
+                flex-wrap: wrap !important;
+
+                flex-direction: row !important;
+
+                gap: 10px !important;
+
+                width: 100% !important;
+
+                margin: 0 0 28px !important;
+            }
+
+
+            /* TRAILER — CAŁA SZEROKOŚĆ */
+
+            #movie-modal #modal-trailer-link {
+                width: 100% !important;
+
+                flex: 1 1 100% !important;
+
+                min-height: 58px !important;
+
+                justify-content: center !important;
+
+                margin: 0 !important;
+
+                padding: 14px 16px !important;
+
+                font-size: 11px !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            /* OCENA + DO OBEJRZENIA */
+
+            #movie-modal #modal-rate-shortcut,
+            #movie-modal #modal-watchlist-btn {
+
+                width: auto !important;
+
+                flex: 1 1 calc(50% - 5px) !important;
+
+                min-height: 50px !important;
+
+                justify-content: center !important;
+
+                margin: 0 !important;
+
+                padding: 12px 10px !important;
+
+                font-size: 10px !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            /* RECENZJA — na telefonie ukryta,
+            tak jak miało być w poprzednim układzie */
+
+            #movie-modal #movie-review-action-btn {
+                display: none !important;
+            }
+
+
+            /* =========================================
+            OBSADA
+            ========================================= */
+
+            #movie-modal .movie-cast-footer {
+                display: block !important;
+
+                width: 100% !important;
+
+                margin-top: 30px !important;
+
+                padding-top: 24px !important;
+                padding-bottom: 30px !important;
+
+                border-top:
+                    1px solid rgba(255,255,255,.12) !important;
+
+                border-bottom: none !important;
+            }
+
+            #movie-modal .movie-cast-footer.hidden {
+                display: none !important;
+            }
+
+            #movie-modal .movie-cast-footer > p {
+                margin:
+                    0 0 20px !important;
+
+                color: #71717a !important;
+
+                font-size: 10px !important;
+
+                font-weight: 900 !important;
+
+                text-transform: uppercase !important;
+
+                letter-spacing: .18em !important;
+            }
+
+            #movie-modal .movie-cast-row {
+                display: flex !important;
+
+                flex-wrap: nowrap !important;
+
+                gap: 16px !important;
+
+                width: 100% !important;
+
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+
+                padding:
+                    2px 2px 12px !important;
+
+                -webkit-overflow-scrolling: touch !important;
+
+                scrollbar-width: none !important;
+            }
+
+            #movie-modal .movie-cast-row::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            #movie-modal .movie-cast-item {
+                flex: 0 0 90px !important;
+
+                width: 90px !important;
+                min-width: 90px !important;
+
+                text-align: center !important;
+            }
+
+            #movie-modal .movie-cast-avatar {
+                width: 76px !important;
+                height: 76px !important;
+
+                min-width: 76px !important;
+
+                margin: 0 auto !important;
+
+                border-radius: 50% !important;
+
+                overflow: hidden !important;
+            }
+
+            #movie-modal .movie-cast-avatar img {
+                width: 100% !important;
+                height: 100% !important;
+
+                object-fit: cover !important;
+
+                border-radius: 50% !important;
+            }
+
+            #movie-modal .movie-cast-name {
+                display: block !important;
+
+                width: 90px !important;
+                max-width: 90px !important;
+
+                margin-top: 9px !important;
+
+                font-size: 11px !important;
+
+                line-height: 1.2 !important;
+
+                text-align: center !important;
+
+                white-space: normal !important;
+
+                overflow-wrap: anywhere !important;
+            }
+
+
+            /* =========================================
+            GATUNKI
+            ========================================= */
+
+            #movie-modal .movie-footer {
+                display: block !important;
+
+                width: 100% !important;
+
+                margin-top: 24px !important;
+
+                padding:
+                    22px 0 20px !important;
+
+                border-top:
+                    1px solid rgba(255,255,255,.12) !important;
+            }
+
+            #movie-modal .movie-genres {
+                display: flex !important;
+
+                flex-wrap: wrap !important;
+
+                gap: 8px !important;
+            }
+        }
+
+
+        /* =============================================
+        BARDZO MAŁE TELEFONY
+        ============================================= */
+
+        @media (max-width: 390px) {
+
+            #movie-modal .movie-modal-poster {
+                top: 88px !important;
+                left: 16px !important;
+
+                width: 105px !important;
+                height: 158px !important;
+            }
+
+            #movie-modal .movie-content {
+                margin-top: 270px !important;
+
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+            }
+
+            #movie-modal #modal-title {
+                font-size: 34px !important;
+            }
+
+            #movie-modal #modal-rate-shortcut,
+            #movie-modal #modal-watchlist-btn {
+                font-size: 9px !important;
+                padding-left: 7px !important;
+                padding-right: 7px !important;
+            }
+        }
+
         
         
     </style>
@@ -9009,7 +10298,63 @@
             </h1>
 
             <div class="flex items-center gap-3 md:gap-5">
-                <div id="auth-section" class="opacity-0 pointer-events-none"></div>
+
+            <!-- GLOBAL SEARCH -->
+            <div id="global-search" class="rativio-search">
+                <button
+                    type="button"
+                    class="rativio-search-trigger"
+                    onclick="openGlobalSearch()"
+                    aria-label="Wyszukaj"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5"></circle>
+                        <path d="M16 16l5 5"></path>
+                    </svg>
+
+                    <span>Szukaj filmów, użytkowników...</span>
+                    <kbd>⌘ K</kbd>
+                </button>
+
+                <div id="global-search-panel" class="rativio-search-panel">
+
+                    <div class="rativio-search-input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5"></circle>
+                            <path d="M16 16l5 5"></path>
+                        </svg>
+
+                        <input
+                            id="global-search-input"
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Szukaj filmu lub użytkownika..."
+                            oninput="handleGlobalSearch(this.value)"
+                        >
+
+                        <button
+                            type="button"
+                            onclick="closeGlobalSearch()"
+                            class="rativio-search-esc"
+                        >
+                            ESC
+                        </button>
+                    </div>
+
+                    <div id="global-search-results" class="rativio-search-results">
+
+                        <div class="rativio-search-empty">
+                            <div class="rativio-search-empty-icon">⌕</div>
+                            <p>Znajdź film albo użytkownika</p>
+                            <span>Zacznij wpisywać nazwę</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="auth-section" class="opacity-0 pointer-events-none"></div>
 
                 <button id="main-menu-button" onclick="openAppMenu()" class="hamburger-menu-btn" aria-label="Otwórz menu">
                     <span></span>
@@ -9019,6 +10364,7 @@
             </div>
         </div>
     </nav>
+
 
     <div id="app-menu-modal" class="app-menu-overlay" onclick="if(event.target === this) closeAppMenu()">
         <aside class="app-menu-panel">
@@ -9132,6 +10478,35 @@
                                 English
                             </button>
                         </div>
+                    </div>
+
+                    <div class="mt-3 rounded-2xl border border-zinc-800 bg-zinc-950/70 p-3">
+                        <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-2">
+                            Konto
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                id="account-public-btn"
+                                onclick="setAccountPrivacy(false)"
+                                class="rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest"
+                            >
+                                Publiczne
+                            </button>
+
+                            <button
+                                id="account-private-btn"
+                                onclick="setAccountPrivacy(true)"
+                                class="rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest"
+                            >
+                                Prywatne
+                            </button>
+                        </div>
+
+                        <p id="account-privacy-status"
+                        class="text-[9px] text-zinc-500 mt-2 text-center uppercase tracking-widest">
+                            Twój profil jest widoczny dla innych
+                        </p>
                     </div>
                 </section>
             </div>
@@ -13873,14 +15248,31 @@
             return {
                 id: String(movie.id || ''),
                 title: String(movie.title || 'Film'),
+                titlePl: String(movie.titlePl || ''),
                 category: String(movie.category || 'Action'),
-                img: String(movie.img || 'https://via.placeholder.com/300x450?text=Movie'),
+
+                duration: String(movie.duration || ''),
+
+                img: String(
+                    movie.img ||
+                    'https://via.placeholder.com/300x450?text=Movie'
+                ),
+
                 rating: String(movie.rating || 'COMING'),
                 date: String(movie.date || ''),
                 trailer: String(movie.trailer || ''),
+
                 desc: String(movie.desc || 'Brak opisu.'),
                 descEn: String(movie.descEn || ''),
-                updatedAtMs: Number(movie.updatedAtMs || Date.now())
+
+                // NAJWAŻNIEJSZE — OBSADA
+                cast: Array.isArray(movie.cast)
+                    ? movie.cast.map(id => String(id))
+                    : [],
+
+                updatedAtMs: Number(
+                    movie.updatedAtMs || Date.now()
+                )
             };
         }
 
@@ -14376,6 +15768,10 @@
                     email: user.email || "",
                     avatarUrl: user.photoURL || "",
                     provider: extraData.provider || "email",
+
+                    // NOWE
+                    private: false,
+
                     createdAt: serverTimestamp()
                 };
 
@@ -14411,10 +15807,83 @@
             return profile;
         }
 
+        async function syncPublicProfile() {
+            if (!currentFirebaseUser || !currentUserProfile) return;
+
+            const uid = currentFirebaseUser.uid;
+
+            await setDoc(
+                doc(db, "publicProfiles", uid),
+                {
+                    uid,
+                    nick: currentUserProfile.nick || "Użytkownik",
+                    nickLower: String(currentUserProfile.nick || "")
+                        .trim()
+                        .toLowerCase(),
+                    avatarUrl: currentUserProfile.avatarUrl || "",
+                    private: currentUserProfile.private === true,
+                    updatedAt: serverTimestamp()
+                },
+                { merge: true }
+            );
+        }
+
         async function loadUserProfile(user) {
             const userRef = doc(db, "users", user.uid);
             const snap = await getDoc(userRef);
             return snap.exists() ? snap.data() : null;
+        }
+
+        await syncPublicProfile();
+
+
+        async function searchPublicUsers(query) {
+            const q = String(query || "").trim().toLowerCase();
+
+            if (q.length < 2) return [];
+
+            const snap = await getDocs(
+                query(
+                    collection(db, "publicProfiles"),
+                    where("nickLower", ">=", q),
+                    where("nickLower", "<=", q + "\uf8ff"),
+                    limit(10)
+                )
+            );
+
+            return snap.docs
+                .map(doc => doc.data())
+                .filter(user => !user.private);
+        }
+
+
+        async function followUser(targetUid) {
+            if (!currentFirebaseUser) {
+                showGuestGate("obserwowania użytkowników");
+                return;
+            }
+
+            const myUid = currentFirebaseUser.uid;
+
+            if (myUid === targetUid) return;
+
+            await setDoc(
+                doc(db, "users", targetUid, "followers", myUid),
+                {
+                    uid: myUid,
+                    createdAt: serverTimestamp()
+                }
+            );
+
+            await setDoc(
+                doc(db, "users", myUid, "following", targetUid),
+                {
+                    uid: targetUid,
+                    createdAt: serverTimestamp()
+                }
+            );
+
+            await updateFollowButton(targetUid);
         }
 
         window.switchAuthTab = function(mode) {
@@ -14623,6 +16092,10 @@
                     emailVerifiedByCode: true,
                     avatarUrl: "",
                     provider: "email",
+
+                    // NOWE — każde nowe konto jest publiczne
+                    private: false,
+
                     createdAt: serverTimestamp()
                 }, { merge: true });
 
@@ -15029,6 +16502,7 @@
                             <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać oceny, listy i recenzje.</p>
                         </div>
                     `;
+                    updateAuthUI()
                 }
 
                 return;
@@ -16045,6 +17519,102 @@
             return weeklyNewsCache;
         }
 
+        async function setAccountPrivacy(isPrivate) {
+            if (!currentFirebaseUser || !currentUserProfile) {
+                return;
+            }
+
+            const uid = currentFirebaseUser.uid;
+
+            try {
+                currentUserProfile.private = isPrivate;
+
+                // zapis głównego profilu użytkownika
+                await updateDoc(
+                    doc(db, "users", uid),
+                    {
+                        private: isPrivate
+                    }
+                );
+
+                // aktualizacja profilu używanego przez wyszukiwarkę
+                await setDoc(
+                    doc(db, "publicProfiles", uid),
+                    {
+                        uid,
+                        nick: currentUserProfile.nick || "Użytkownik",
+                        nickLower: String(currentUserProfile.nick || "")
+                            .trim()
+                            .toLowerCase(),
+                        avatarUrl: currentUserProfile.avatarUrl || "",
+                        private: isPrivate,
+                        updatedAt: serverTimestamp()
+                    },
+                    { merge: true }
+                );
+
+                // odśwież cache wyszukiwarki
+                globalSearchUsersLoaded = false;
+                globalSearchUsersCache = [];
+
+                updateAccountPrivacyUI();
+
+                showAuthError(
+                    isPrivate
+                        ? "Konto ustawione jako prywatne."
+                        : "Konto ustawione jako publiczne."
+                );
+
+            } catch (error) {
+                console.error("Privacy change error:", error);
+
+                // cofnięcie lokalnej zmiany jeśli Firebase się nie zapisał
+                currentUserProfile.private = !isPrivate;
+
+                alert("Nie udało się zmienić widoczności konta.");
+                updateAccountPrivacyUI();
+            }
+        }
+
+        window.setAccountPrivacy = setAccountPrivacy;
+
+
+        function updateAccountPrivacyUI() {
+            const publicBtn = document.getElementById("account-public-btn");
+            const privateBtn = document.getElementById("account-private-btn");
+            const status = document.getElementById("account-privacy-status");
+
+            if (!publicBtn || !privateBtn) return;
+
+            const isPrivate = currentUserProfile?.private === true;
+
+            if (isPrivate) {
+                publicBtn.className =
+                    "rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest";
+
+                privateBtn.className =
+                    "rounded-xl bg-red-500 text-black py-3 text-[10px] font-black uppercase tracking-widest";
+
+                if (status) {
+                    status.textContent =
+                        "Twój profil jest prywatny";
+                }
+            } else {
+                publicBtn.className =
+                    "rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest";
+
+                privateBtn.className =
+                    "rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest";
+
+                if (status) {
+                    status.textContent =
+                        "Twój profil jest widoczny dla innych";
+                }
+            }
+        }
+
+        window.updateAccountPrivacyUI = updateAccountPrivacyUI;
+
         async function fetchSharedWeeklyNews() {
             if (typeof window.loadCloudWeeklyNews === 'function') {
                 try {
@@ -16557,6 +18127,905 @@
         }
         window.saveAdminMotm = saveAdminMotm;
 
+        /* =========================================================
+        RATIVIO GLOBAL SEARCH
+        ========================================================= */
+
+        let globalSearchUsersCache = [];
+        let globalSearchUsersLoaded = false;
+        let globalSearchTimer = null;
+
+
+        function openGlobalSearch() {
+
+            const search = document.getElementById('global-search');
+            const input = document.getElementById('global-search-input');
+
+            if (!search) return;
+
+            search.classList.add('open');
+
+            setTimeout(() => {
+                input?.focus();
+            }, 40);
+        }
+
+
+        function closeGlobalSearch() {
+
+            const search = document.getElementById('global-search');
+
+            if (!search) return;
+
+            search.classList.remove('open');
+        }
+
+
+        window.openGlobalSearch = openGlobalSearch;
+        window.closeGlobalSearch = closeGlobalSearch;
+
+
+        /* klik poza wyszukiwarką */
+
+        document.addEventListener('click', event => {
+
+            const search = document.getElementById('global-search');
+
+            if (!search) return;
+
+            if (!search.contains(event.target)) {
+                closeGlobalSearch();
+            }
+        });
+
+
+        /* ESC */
+
+        document.addEventListener('keydown', event => {
+
+            if (event.key === 'Escape') {
+                closeGlobalSearch();
+            }
+
+            if (
+                (event.ctrlKey || event.metaKey) &&
+                event.key.toLowerCase() === 'k'
+            ) {
+                event.preventDefault();
+                openGlobalSearch();
+            }
+        });
+
+
+        /* =========================================================
+        USER CACHE
+        ========================================================= */
+
+        async function loadGlobalSearchUsers() {
+
+            if (globalSearchUsersLoaded) {
+                return globalSearchUsersCache;
+            }
+
+            try {
+
+                const snap = await getDocs(
+                    collection(db, 'publicProfiles')
+                );
+
+                globalSearchUsersCache = [];
+
+                snap.forEach(docSnap => {
+
+                    const data = docSnap.data();
+
+                    globalSearchUsersCache.push({
+                        uid: docSnap.id,
+                        ...data
+                    });
+
+                });
+
+                globalSearchUsersLoaded = true;
+
+            } catch (error) {
+
+                console.warn(
+                    'Nie udało się pobrać publicznych profili:',
+                    error
+                );
+
+                globalSearchUsersCache = [];
+            }
+
+            return globalSearchUsersCache;
+        }
+
+
+        /* =========================================================
+        SEARCH
+        ========================================================= */
+
+        function handleGlobalSearch(value) {
+
+            clearTimeout(globalSearchTimer);
+
+            const q = String(value || '')
+                .trim()
+                .toLowerCase();
+
+            const results =
+                document.getElementById('global-search-results');
+
+            if (!results) return;
+
+            if (!q) {
+
+                results.innerHTML = `
+                    <div class="rativio-search-empty">
+                        <div class="rativio-search-empty-icon">⌕</div>
+                        <p>Znajdź film albo użytkownika</p>
+                        <span>Zacznij wpisywać nazwę</span>
+                    </div>
+                `;
+
+                return;
+            }
+
+            results.innerHTML = `
+                <div class="rativio-search-loading">
+                    SZUKAM...
+                </div>
+            `;
+
+            globalSearchTimer = setTimeout(async () => {
+
+                const movieResults = Array.isArray(movies)
+                    ? movies
+                        .filter(movie =>
+                            String(movie.title || '')
+                                .toLowerCase()
+                                .includes(q)
+                        )
+                        .slice(0, 6)
+                    : [];
+
+                const users = await loadGlobalSearchUsers();
+
+                const userResults = users
+                    .filter(user => {
+
+                        if (user.private === true) return false;
+
+                        const nick =
+                            String(user.nick || '').toLowerCase();
+
+                        const nickLower =
+                            String(user.nickLower || '').toLowerCase();
+
+                        return (
+                            nick.includes(q) ||
+                            nickLower.includes(q)
+                        );
+                    })
+                    .slice(0, 6);
+
+                renderGlobalSearchResults(
+                    movieResults,
+                    userResults,
+                    q
+                );
+
+            }, 120);
+        }
+
+
+        window.handleGlobalSearch = handleGlobalSearch;
+
+
+        /* =========================================================
+        RENDER
+        ========================================================= */
+
+        function renderGlobalSearchResults(
+            movieResults,
+            userResults,
+            q
+        ) {
+
+            const results =
+                document.getElementById('global-search-results');
+
+            if (!results) return;
+
+            if (!movieResults.length && !userResults.length) {
+
+                results.innerHTML = `
+                    <div class="rativio-search-empty">
+
+                        <div class="rativio-search-empty-icon">
+                            ×
+                        </div>
+
+                        <p>Brak wyników</p>
+
+                        <span>
+                            Nie znaleziono „${escapeHtmlGlobalSearch(q)}”
+                        </span>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+            let html = '';
+
+            /* FILMY */
+
+            if (movieResults.length) {
+
+                html += `
+                    <div class="rativio-search-section">
+
+                        <div class="rativio-search-section-title">
+                            Filmy
+                        </div>
+
+                        ${movieResults.map(movie => {
+
+                            const firstGenre =
+                                String(movie.category || 'FILM')
+                                    .split('/')[0]
+                                    .trim();
+
+                            return `
+                                <button
+                                    type="button"
+                                    class="rativio-search-result"
+                                    onclick="globalSearchOpenMovie('${escapeAttrGlobalSearch(movie.id)}')"
+                                >
+
+                                    <img
+                                        class="rativio-search-poster"
+                                        src="${escapeAttrGlobalSearch(movie.img)}"
+                                        alt=""
+                                        onerror="this.src='https://via.placeholder.com/100x150?text=Film'"
+                                    >
+
+                                    <div class="rativio-search-result-main">
+
+                                        <div class="rativio-search-result-title">
+                                            ${escapeHtmlGlobalSearch(movie.title)}
+                                        </div>
+
+                                        <div class="rativio-search-result-meta">
+                                            ${escapeHtmlGlobalSearch(firstGenre)}
+                                            ${movie.date ? ` · ${escapeHtmlGlobalSearch(movie.date)}` : ''}
+                                        </div>
+
+                                    </div>
+
+                                    <span class="rativio-search-result-arrow">
+                                        ›
+                                    </span>
+
+                                </button>
+                            `;
+
+                        }).join('')}
+
+                    </div>
+                `;
+            }
+
+
+            /* UŻYTKOWNICY */
+
+            if (userResults.length) {
+
+                html += `
+                    <div class="rativio-search-section">
+
+                        <div class="rativio-search-section-title">
+                            Użytkownicy
+                        </div>
+
+                        ${userResults.map(user => {
+
+                            const nick =
+                                user.nick || 'Użytkownik';
+
+                            const avatar =
+                                user.avatarUrl || '';
+
+                            return `
+                                <button
+                                    type="button"
+                                    class="rativio-search-result"
+                                    onclick="globalSearchOpenUser('${escapeAttrGlobalSearch(user.uid)}')"
+                                >
+
+                                    ${
+                                        avatar
+
+                                        ? `
+                                            <img
+                                                class="rativio-search-avatar"
+                                                src="${escapeAttrGlobalSearch(avatar)}"
+                                                alt=""
+                                                onerror="this.style.display='none'"
+                                            >
+                                        `
+
+                                        : `
+                                            <div class="rativio-search-avatar-fallback">
+                                                ${escapeHtmlGlobalSearch(
+                                                    nick.charAt(0).toUpperCase()
+                                                )}
+                                            </div>
+                                        `
+                                    }
+
+                                    <div class="rativio-search-result-main">
+
+                                        <div class="rativio-search-result-title">
+                                            ${escapeHtmlGlobalSearch(nick)}
+                                        </div>
+
+                                        <div class="rativio-search-result-meta">
+                                            Profil publiczny
+                                        </div>
+
+                                    </div>
+
+                                    <span class="rativio-search-result-arrow">
+                                        ›
+                                    </span>
+
+                                </button>
+                            `;
+
+                        }).join('')}
+
+                    </div>
+                `;
+            }
+
+
+            results.innerHTML = html;
+        }
+
+
+        /* =========================================================
+        HELPERS
+        ========================================================= */
+
+        function escapeHtmlGlobalSearch(value) {
+
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+
+        function escapeAttrGlobalSearch(value) {
+            return escapeHtmlGlobalSearch(value);
+        }
+
+
+        /* =========================================================
+        OPEN MOVIE
+        ========================================================= */
+
+        window.globalSearchOpenMovie = function(movieId) {
+
+            closeGlobalSearch();
+
+            const input =
+                document.getElementById('global-search-input');
+
+            if (input) input.value = '';
+
+            if (typeof openModalById === 'function') {
+                openModalById(movieId);
+            }
+        };
+
+
+        /* =========================================================
+        OPEN USER
+        ========================================================= */
+
+        window.globalSearchOpenUser = function(uid) {
+
+            closeGlobalSearch();
+
+            const input =
+                document.getElementById('global-search-input');
+
+            if (input) input.value = '';
+
+            if (typeof openPublicProfile === 'function') {
+                openPublicProfile(uid);
+            }
+        };
+
+
+       
+
+        window.syncPublicProfile =
+            syncPublicProfile;
+
+
+            syncPublicProfile().catch(error => {
+            console.warn(
+                'Nie udało się zsynchronizować profilu publicznego:',
+                error
+            );
+        });
+
+
+        window.openPublicProfile = async function(uid) {
+
+            const modal =
+                document.getElementById('public-profile-modal');
+
+            const container =
+                document.getElementById('public-profile-content');
+
+            if (!modal || !container) return;
+
+            modal.classList.add('open');
+
+            container.innerHTML = `
+                <div class="rativio-search-loading" style="padding:100px">
+                    ŁADOWANIE PROFILU...
+                </div>
+            `;
+
+            try {
+
+                const profileSnap =
+                    await getDoc(
+                        doc(db, 'publicProfiles', uid)
+                    );
+
+                if (!profileSnap.exists()) {
+
+                    container.innerHTML = `
+                        <div class="public-profile-private">
+                            <div class="public-profile-private-icon">×</div>
+                            <h2>Profil nie istnieje</h2>
+                            <p>Ten użytkownik nie jest już dostępny.</p>
+                        </div>
+                    `;
+
+                    return;
+                }
+
+                const profile =
+                    profileSnap.data();
+
+                const nick =
+                    profile.nick || 'Użytkownik';
+
+                if (
+                    profile.private === true &&
+                    currentFirebaseUser?.uid !== uid
+                ) {
+
+                    container.innerHTML = `
+                        <div class="public-profile-private">
+
+                            <div class="public-profile-private-icon">
+                                🔒
+                            </div>
+
+                            <h2>
+                                Konto prywatne
+                            </h2>
+
+                            <p>
+                                Ten użytkownik ograniczył dostęp do swojego profilu.
+                            </p>
+
+                        </div>
+                    `;
+
+                    return;
+                }
+
+                const avatar =
+                    profile.avatarUrl || '';
+
+                container.innerHTML = `
+
+                    <div class="public-profile-head">
+
+                        ${
+                            avatar
+
+                            ? `
+                                <img
+                                    class="public-profile-avatar"
+                                    src="${escapeAttrGlobalSearch(avatar)}"
+                                    alt=""
+                                >
+                            `
+
+                            : `
+                                <div class="public-profile-avatar-fallback">
+                                    ${escapeHtmlGlobalSearch(
+                                        nick.charAt(0).toUpperCase()
+                                    )}
+                                </div>
+                            `
+                        }
+
+                        <div class="min-w-0">
+
+                            <div class="public-profile-name">
+                                ${escapeHtmlGlobalSearch(nick)}
+                            </div>
+
+                            <div class="public-profile-stats">
+
+                                <div class="public-profile-stat">
+                                    <strong>0</strong>
+                                    <span>Obserwujących</span>
+                                </div>
+
+                                <div class="public-profile-stat">
+                                    <strong>0</strong>
+                                    <span>Obserwowanych</span>
+                                </div>
+
+                            </div>
+
+                            ${
+                                currentFirebaseUser?.uid !== uid
+
+                                ? `
+                                    <button
+                                        class="public-profile-follow"
+                                        onclick="followPublicUser('${escapeAttrGlobalSearch(uid)}')"
+                                    >
+                                        + Obserwuj
+                                    </button>
+                                `
+
+                                : ''
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="public-profile-body">
+
+                        <section class="public-profile-section">
+
+                            <h2 class="public-profile-section-title">
+                                Watchlista
+                            </h2>
+
+                            <div id="public-profile-watchlist">
+                                <div class="rativio-search-loading">
+                                    ŁADOWANIE...
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <section class="public-profile-section">
+
+                            <h2 class="public-profile-section-title">
+                                Listy
+                            </h2>
+
+                            <div id="public-profile-lists">
+                                <div class="rativio-search-loading">
+                                    ŁADOWANIE...
+                                </div>
+                            </div>
+
+                        </section>
+
+                    </div>
+                `;
+
+                await loadPublicProfileData(uid);
+
+            } catch (error) {
+
+                console.error(
+                    'Błąd profilu publicznego:',
+                    error
+                );
+
+                container.innerHTML = `
+                    <div class="public-profile-private">
+
+                        <div class="public-profile-private-icon">
+                            !
+                        </div>
+
+                        <h2>
+                            Nie udało się załadować
+                        </h2>
+
+                        <p>
+                            Sprawdź połączenie z Firebase.
+                        </p>
+
+                    </div>
+                `;
+            }
+        };
+
+
+        window.closePublicProfile = function() {
+
+            const modal =
+                document.getElementById('public-profile-modal');
+
+            if (!modal) return;
+
+            modal.classList.remove('open');
+        };
+
+        async function loadPublicProfileData(uid) {
+
+            const watchlistBox =
+                document.getElementById(
+                    'public-profile-watchlist'
+                );
+
+            const listsBox =
+                document.getElementById(
+                    'public-profile-lists'
+                );
+
+            if (!watchlistBox || !listsBox) return;
+
+            try {
+
+                const snap =
+                    await getDoc(
+                        doc(
+                            db,
+                            'publicProfiles',
+                            uid,
+                            'publicData',
+                            'movies'
+                        )
+                    );
+
+                if (!snap.exists()) {
+
+                    watchlistBox.innerHTML = `
+                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
+                            Brak publicznych filmów
+                        </div>
+                    `;
+
+                    listsBox.innerHTML = `
+                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
+                            Brak publicznych list
+                        </div>
+                    `;
+
+                    return;
+                }
+
+                const data = snap.data();
+
+                const watchlist =
+                    Array.isArray(data.watchlist)
+                        ? data.watchlist
+                        : [];
+
+                const lists =
+                    Array.isArray(data.lists)
+                        ? data.lists
+                        : [];
+
+
+                /* WATCHLISTA */
+
+                const watchMovies =
+                    watchlist
+                        .map(id =>
+                            movies.find(movie =>
+                                movie.id === id
+                            )
+                        )
+                        .filter(Boolean);
+
+                if (!watchMovies.length) {
+
+                    watchlistBox.innerHTML = `
+                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
+                            Watchlista jest pusta
+                        </div>
+                    `;
+
+                } else {
+
+                    watchlistBox.innerHTML = `
+                        <div class="public-profile-movies">
+
+                            ${watchMovies.map(movie => `
+
+                                <button
+                                    type="button"
+                                    class="public-profile-movie"
+                                    onclick="closePublicProfile(); openModalById('${escapeAttrGlobalSearch(movie.id)}')"
+                                >
+
+                                    <img
+                                        src="${escapeAttrGlobalSearch(movie.img)}"
+                                        alt=""
+                                        onerror="this.src='https://via.placeholder.com/200x300?text=Film'"
+                                    >
+
+                                    <div class="public-profile-movie-title">
+                                        ${escapeHtmlGlobalSearch(movie.title)}
+                                    </div>
+
+                                </button>
+
+                            `).join('')}
+
+                        </div>
+                    `;
+                }
+
+
+                /* LISTY */
+
+                if (!lists.length) {
+
+                    listsBox.innerHTML = `
+                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
+                            Brak publicznych list
+                        </div>
+                    `;
+
+                } else {
+
+                    listsBox.innerHTML = lists.map(list => {
+
+                        const listMovies =
+                            (Array.isArray(list.movies)
+                                ? list.movies
+                                : []
+                            )
+                            .map(id =>
+                                movies.find(movie =>
+                                    movie.id === id
+                                )
+                            )
+                            .filter(Boolean);
+
+                        return `
+                            <section class="mb-8">
+
+                                <h3 class="text-white font-black italic uppercase text-lg mb-4">
+                                    ${escapeHtmlGlobalSearch(
+                                        list.name || 'Lista'
+                                    )}
+                                </h3>
+
+                                ${
+                                    listMovies.length
+
+                                    ? `
+                                        <div class="public-profile-movies">
+
+                                            ${listMovies.map(movie => `
+
+                                                <button
+                                                    type="button"
+                                                    class="public-profile-movie"
+                                                    onclick="closePublicProfile(); openModalById('${escapeAttrGlobalSearch(movie.id)}')"
+                                                >
+
+                                                    <img
+                                                        src="${escapeAttrGlobalSearch(movie.img)}"
+                                                        alt=""
+                                                        onerror="this.src='https://via.placeholder.com/200x300?text=Film'"
+                                                    >
+
+                                                    <div class="public-profile-movie-title">
+                                                        ${escapeHtmlGlobalSearch(movie.title)}
+                                                    </div>
+
+                                                </button>
+
+                                            `).join('')}
+
+                                        </div>
+                                    `
+
+                                    : `
+                                        <p class="text-zinc-600 text-xs font-black uppercase tracking-widest">
+                                            Pusta lista
+                                        </p>
+                                    `
+                                }
+
+                            </section>
+                        `;
+
+                    }).join('');
+                }
+
+            } catch (error) {
+
+                console.error(
+                    'Nie udało się załadować publicznych danych:',
+                    error
+                );
+
+                watchlistBox.innerHTML = `
+                    <p class="text-red-500 text-xs font-black uppercase">
+                        Brak dostępu
+                    </p>
+                `;
+
+                listsBox.innerHTML = '';
+            }
+        }
+
+        
+
+        async function syncPublicMovieData() {
+
+            if (!currentFirebaseUser) return;
+
+            const isPrivate =
+                currentUserProfile?.private === true;
+
+            if (isPrivate) return;
+
+            await setDoc(
+                doc(
+                    db,
+                    'publicProfiles',
+                    currentFirebaseUser.uid,
+                    'publicData',
+                    'movies'
+                ),
+                {
+                    watchlist: Array.isArray(watchlist)
+                        ? [...watchlist]
+                        : [],
+
+                    lists: Array.isArray(userLists)
+                        ? userLists.map(list => ({
+                            name: list.name || 'Lista',
+                            movies: Array.isArray(list.movies)
+                                ? [...list.movies]
+                                : []
+                        }))
+                        : [],
+
+                    updatedAt: serverTimestamp()
+                },
+                {
+                    merge: true
+                }
+            );
+        }
+
+        window.syncPublicMovieData =
+            syncPublicMovieData;
+
     </script>
 
     <div
@@ -16782,6 +19251,28 @@
                 </iframe>
             </div>
         </div>
+    </div>
+
+
+    <div
+        id="public-profile-modal"
+        class="public-profile-overlay"
+    >
+
+        <div class="public-profile">
+
+            <button
+                type="button"
+                class="public-profile-close"
+                onclick="closePublicProfile()"
+            >
+                ×
+            </button>
+
+            <div id="public-profile-content"></div>
+
+        </div>
+
     </div>
 
     <button
