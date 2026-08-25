@@ -4818,30 +4818,7 @@
 
 
         /* PLAKAT */
-        #movie-modal .movie-modal-poster {
-            position: absolute;
-
-            right: clamp(40px, 8vw, 140px);
-            top: 50%;
-
-            width: clamp(210px, 18vw, 300px);
-            height: clamp(315px, 27vw, 450px);
-
-            transform: translateY(-50%);
-
-            object-fit: cover;
-            object-position: center;
-
-            border-radius: 18px;
-
-            border: 1px solid rgba(255,255,255,.12);
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.75),
-                0 0 0 1px rgba(255,255,255,.03);
-
-            z-index: 2;
-        }
+       
 
 
         /* treść nie wchodzi na plakat */
@@ -4851,36 +4828,12 @@
         }
 
 
-        /* na mniejszych ekranach zmniejszamy plakat */
-        @media (max-width: 900px) {
-
-            #movie-modal .movie-modal-poster {
-                right: 30px;
-                width: 190px;
-                height: 285px;
-            }
-
-            #movie-modal .movie-content {
-                right: 250px;
-            }
-        }
-
+   
 
         /* TELEFON */
         @media (max-width: 700px) {
 
-            #movie-modal .movie-modal-poster {
-                right: 18px;
-                top: 115px;
-
-                width: 105px;
-                height: 158px;
-
-                transform: none;
-
-                border-radius: 14px;
-            }
-
+           
             #movie-modal .movie-content {
                 right: 0;
                 max-width: none;
@@ -4957,34 +4910,7 @@
         }
 
         /* =========================
-        PLAKAT — LEWA STRONA
-        ========================= */
-
-        #movie-modal .movie-modal-poster {
-            position: absolute !important;
-
-            left: clamp(75px, 6vw, 140px) !important;
-            right: auto !important;
-
-            top: 115px !important;
-
-            width: clamp(190px, 17vw, 260px) !important;
-            height: clamp(285px, 25.5vw, 390px) !important;
-
-            transform: none !important;
-
-            object-fit: cover !important;
-            object-position: center !important;
-
-            border-radius: 18px !important;
-            border: 1px solid rgba(255,255,255,.12) !important;
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.75),
-                0 0 0 1px rgba(255,255,255,.03) !important;
-
-            z-index: 5 !important;
-        }
+        
 
         /* =========================
         TREŚĆ — POD PLAKATEM
@@ -11295,6 +11221,284 @@
             }
         }
 
+
+        /* =========================================================
+        FINAL MOBILE MOVIE HEADER
+        Tytuł i plakat w jednym wierszu
+        ========================================================= */
+
+        .movie-mobile-poster {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            #movie-modal {
+                padding: 0 !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                align-items: flex-start !important;
+                background: #050507 !important;
+            }
+
+            #movie-modal > .movie-screen {
+                position: relative !important;
+                width: 100% !important;
+                min-height: 100dvh !important;
+                height: auto !important;
+                overflow: visible !important;
+                background: #050507 !important;
+            }
+
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 100 !important;
+                padding: 16px 18px !important;
+                background: rgba(5, 5, 7, .96) !important;
+                backdrop-filter: blur(14px) !important;
+                -webkit-backdrop-filter: blur(14px) !important;
+            }
+
+            /* Ukrycie starego, absolutnie pozycjonowanego plakatu */
+            #movie-modal #movie-modal-poster {
+                display: none !important;
+            }
+
+            #movie-modal .movie-backdrop {
+                position: absolute !important;
+                inset: 0 !important;
+                background: #050507 !important;
+                transform: none !important;
+                pointer-events: none !important;
+            }
+
+            #movie-modal .movie-content {
+                position: relative !important;
+                inset: auto !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+
+                width: 100% !important;
+                max-width: none !important;
+                max-height: none !important;
+
+                margin: 0 !important;
+                padding: 22px 18px 60px !important;
+
+                overflow: visible !important;
+                transform: none !important;
+                z-index: 20 !important;
+            }
+
+            .movie-mobile-header {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) 112px !important;
+                align-items: start !important;
+                gap: 16px !important;
+                width: 100% !important;
+                margin: 0 0 24px !important;
+            }
+
+            .movie-mobile-heading {
+                min-width: 0 !important;
+            }
+
+            .movie-mobile-poster {
+                display: block !important;
+                width: 112px !important;
+                height: 168px !important;
+                aspect-ratio: 2 / 3 !important;
+                object-fit: cover !important;
+                object-position: center !important;
+                border-radius: 16px !important;
+                border: 1px solid rgba(255, 255, 255, .13) !important;
+                background: #111114 !important;
+                box-shadow: 0 18px 45px rgba(0, 0, 0, .65) !important;
+            }
+
+            #movie-modal #modal-title {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                margin: 0 0 12px !important;
+                padding: 0 !important;
+
+                font-size: clamp(31px, 9vw, 43px) !important;
+                line-height: .92 !important;
+                overflow-wrap: anywhere !important;
+            }
+
+            #movie-modal #modal-desc {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+
+                color: #a1a1aa !important;
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+
+                display: -webkit-box !important;
+                -webkit-box-orient: vertical !important;
+                -webkit-line-clamp: 7 !important;
+                overflow: hidden !important;
+            }
+
+            #movie-modal .movie-meta-row {
+                width: 100% !important;
+                margin: 0 0 24px !important;
+                padding: 0 !important;
+            }
+
+            #movie-modal .movie-actions {
+                width: 100% !important;
+                margin: 0 0 28px !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #movie-modal .movie-content {
+                padding: 18px 15px 50px !important;
+            }
+
+            .movie-mobile-header {
+                grid-template-columns: minmax(0, 1fr) 100px !important;
+                gap: 12px !important;
+            }
+
+            .movie-mobile-poster {
+                width: 100px !important;
+                height: 150px !important;
+                border-radius: 14px !important;
+            }
+
+            #movie-modal #modal-title {
+                font-size: clamp(28px, 8.7vw, 36px) !important;
+            }
+
+            #movie-modal #modal-desc {
+                font-size: 12px !important;
+                -webkit-line-clamp: 5 !important;
+            }
+        }
+
+        /* =========================================================
+        DESKTOP POSTER FIX - LIBRARY / PANELS
+        ========================================================= */
+
+        @media (min-width: 769px) {
+            .poster-card {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                min-height: 0;
+            }
+
+            .poster-img-wrap {
+                aspect-ratio: 2 / 3;
+                width: 100%;
+                background: #09090b;
+                overflow: hidden;
+            }
+
+            .poster-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover !important;
+                object-position: center center !important;
+                display: block;
+            }
+
+            .poster-overlay {
+                min-height: 94px;
+            }
+
+            .movie-card img,
+            .rating-pick-poster img,
+            .rating-poster img,
+            .rating-poster-box img {
+                object-fit: cover !important;
+                object-position: center center !important;
+            }
+        }
+
+        /* ===== PLAKAT FILMU — DESKTOP ===== */
+        @media (min-width: 769px) {
+            #movie-modal #movie-modal-poster {
+                position: absolute !important;
+
+                /* pozycja */
+                top: 62px !important;
+                left: 84px !important;
+                right: auto !important;
+
+                /* rozmiar */
+                width: 220px !important;
+                height: 330px !important;
+
+                /* wygląd */
+                aspect-ratio: 2 / 3 !important;
+                object-fit: cover !important;
+                object-position: center !important;
+
+                border-radius: 18px !important;
+                border: 1px solid rgba(255,255,255,.12) !important;
+                box-shadow: 0 22px 55px rgba(0,0,0,.58) !important;
+
+                transform: none !important;
+            }
+        }
+
+
+        /* ===== PLAKAT NAD TYTUŁEM — DESKTOP ===== */
+        @media (min-width: 769px) {
+            #movie-modal #movie-modal-poster {
+                position: absolute !important;
+                top: 60px !important;
+                left: 84px !important;
+                right: auto !important;
+
+                width: 220px !important;
+                height: 330px !important;
+
+                object-fit: cover !important;
+                object-position: center !important;
+
+                border-radius: 18px !important;
+                border: 1px solid rgba(255,255,255,.12) !important;
+                box-shadow: 0 20px 50px rgba(0,0,0,.55) !important;
+
+                transform: none !important;
+                z-index: 10 !important;
+            }
+
+            @media (min-width: 769px) {
+            #movie-modal #modal-title {
+                margin-top: -80px !important;
+            }
+        }
+
+
+        @media (min-width: 769px) {
+            #movie-modal #movie-modal-poster {
+                top: 90px !important;
+                left: 125px !important;
+            }
+        }
+
+
+        @media (min-width: 769px) {
+            #movie-modal #modal-title {
+                margin-top: -60px !important;
+            }
+        }
+
+
+       
+
         
         
     </style>
@@ -12440,6 +12644,80 @@
                         alt=""
                     >
                 </div>
+
+
+
+                <div class="movie-meta-row">
+
+                    <!-- OCENA -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Ocena
+                        </span>
+
+                        <div class="movie-score-bar">
+                            <i id="modal-score-fill"></i>
+                        </div>
+
+                        <strong 
+                            id="modal-rating-value"
+                            class="movie-meta-value"
+                            style="font-size:14px;">
+                        </strong>
+
+                    </div>
+
+
+                    <!-- MOJA OCENA -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Moja ocena
+                        </span>
+
+                        <div class="movie-stars"
+                            id="modal-star-row">
+
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ROK -->
+                    <div class="movie-meta">
+
+                        <span class="movie-meta-label">
+                            Rok
+                        </span>
+
+                        <strong
+                            id="modal-date"
+                            class="movie-meta-value">
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CZAS -->
+                    <div class="movie-meta">
+                        <span class="movie-meta-label">Czas trwania</span>
+                        <strong id="modal-duration" class="movie-meta-value">—</strong>
+                    </div>
+
+                </div>
+
 
                 <!-- PRZYCISKI -->
                 <div class="movie-actions">
@@ -14932,6 +15210,15 @@
                 moviePoster.alt = m.title;
             }
 
+            const mobileMoviePoster =
+                document.getElementById('movie-mobile-poster');
+
+            if (mobileMoviePoster) {
+                mobileMoviePoster.src = m.img;
+                mobileMoviePoster.alt = m.title;
+            }
+
+
 
             /* =========================
             OPIS
@@ -15909,9 +16196,6 @@
             }
         }
 
-
-
-
         async function deleteAdminCalendarRelease(id) {
             if (!confirm('Usunąć/ukryć tę premierę z kalendarza?')) return;
 
@@ -16600,6 +16884,144 @@
         window.firebaseDoc = doc;
         window.db = db; // <-- DODAJ TĘ LINIĘ
         const googleProvider = new GoogleAuthProvider();
+
+
+        let currentNewsCommentsId = null;
+
+        window.openNewsCommentsModal = async function(newsId, title) {
+            currentNewsCommentsId = newsId;
+
+            const titleBox = document.getElementById('news-comments-title');
+            const listBox = document.getElementById('news-comments-list');
+            const statusBox = document.getElementById('news-comment-status');
+            const textBox = document.getElementById('news-comment-text');
+
+            if (titleBox) titleBox.textContent = `Komentarze - ${title}`;
+            if (listBox) listBox.innerHTML = '<div class="text-zinc-500 text-sm font-bold">Ładowanie komentarzy...</div>';
+            if (statusBox) statusBox.textContent = '';
+            if (textBox) textBox.value = '';
+
+            toggleModal('news-comments-modal', true);
+            await loadNewsComments(newsId);
+        };
+
+        window.closeNewsCommentsModal = function() {
+            currentNewsCommentsId = null;
+            toggleModal('news-comments-modal', false);
+        };
+
+        async function loadNewsComments(newsId) {
+            const listBox = document.getElementById('news-comments-list');
+            if (!listBox) return;
+
+            try {
+                const snap = await getDocs(collection(db, 'weeklyNews', newsId, 'comments'));
+                const comments = [];
+
+                snap.forEach(docSnap => {
+                    comments.push({
+                        id: docSnap.id,
+                        ...docSnap.data()
+                    });
+                });
+
+                comments.sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+
+                if (!comments.length) {
+                    listBox.innerHTML = `
+                        <div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">
+                            Brak komentarzy. Napisz pierwszy.
+                        </div>
+                    `;
+                    return;
+                }
+
+                listBox.innerHTML = comments.map(comment => {
+                    const nick = comment.nick || 'Użytkownik';
+                    const avatar = comment.avatarUrl || '';
+                    const text = comment.text || '';
+                    const date = comment.createdAtMs
+                        ? new Date(comment.createdAtMs).toLocaleString('pl-PL')
+                        : 'teraz';
+
+                    return `
+                        <article class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
+                            <div class="flex items-center gap-3 mb-3">
+                                ${
+                                    avatar
+                                        ? `<img src="${avatar}" class="w-10 h-10 rounded-full object-cover border border-zinc-700" alt="${nick}">`
+                                        : `<div class="w-10 h-10 rounded-full bg-green-600 text-black flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`
+                                }
+                                <div class="min-w-0">
+                                    <p class="text-white font-black uppercase text-xs truncate">${nick}</p>
+                                    <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest">${date}</p>
+                                </div>
+                            </div>
+
+                            <p class="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap break-words">${text}</p>
+                        </article>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Błąd ładowania komentarzy:', error);
+                listBox.innerHTML = `
+                    <div class="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-red-400 text-sm font-bold">
+                        Nie udało się załadować komentarzy.
+                    </div>
+                `;
+            }
+        }
+
+        window.submitNewsComment = async function() {
+            await waitForAuthReady();
+
+            if (!currentFirebaseUser) {
+                showGuestGate('komentarzy');
+                return;
+            }
+
+            if (!currentNewsCommentsId) return;
+
+            const textBox = document.getElementById('news-comment-text');
+            const statusBox = document.getElementById('news-comment-status');
+            const text = textBox?.value.trim() || '';
+
+            if (!text) {
+                if (statusBox) statusBox.textContent = 'Komentarz nie może być pusty.';
+                return;
+            }
+
+            if (text.length > 1000) {
+                if (statusBox) statusBox.textContent = 'Komentarz jest za długi (max 1000 znaków).';
+                return;
+            }
+
+            const payload = {
+                uid: currentFirebaseUser.uid,
+                nick: currentUserProfile?.nick || currentFirebaseUser.displayName || 'Użytkownik',
+                avatarUrl: currentUserProfile?.avatarUrl || currentFirebaseUser.photoURL || '',
+                text,
+                createdAt: serverTimestamp(),
+                createdAtMs: Date.now()
+            };
+
+            try {
+                const commentId = `comment-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+
+                await setDoc(
+                    doc(db, 'weeklyNews', currentNewsCommentsId, 'comments', commentId),
+                    payload
+                );
+
+                if (textBox) textBox.value = '';
+                if (statusBox) statusBox.textContent = 'Komentarz dodany.';
+                await loadNewsComments(currentNewsCommentsId);
+            } catch (error) {
+                console.error('Błąd dodawania komentarza:', error);
+                if (statusBox) statusBox.textContent = 'Nie udało się dodać komentarza.';
+            }
+        };
+
 
         
 
@@ -18611,6 +19033,7 @@
                 "Moje listy": "My lists",
                 "Watchlista i prywatne listy": "Watchlist and private lists",
                 "Moje oceny": "My ratings",
+                "Obsada": "Cast",
                 "Historia oceniania": "Rating history",
                 "Moje recenzje": "My reviews",
                 "Twoje opinie o filmach": "Your movie reviews",
@@ -19273,7 +19696,12 @@
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','heart')"><span class="news-reaction-emoji">❤️</span><span class="news-reaction-count" data-key="heart">–</span></button>
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','shock')"><span class="news-reaction-emoji">😱</span><span class="news-reaction-count" data-key="shock">–</span></button>
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','skull')"><span class="news-reaction-emoji">💀</span><span class="news-reaction-count" data-key="skull">–</span></button>
+                                <button type="button" class="news-reaction-btn" onclick="openNewsCommentsModal('${item.id}', '${String(item.title).replace(/'/g, "\\'")}')">
+                                    <span class="news-reaction-emoji">💬</span>
+                                    <span class="news-reaction-count" data-key="comments">Komentarze</span>
+                                </button>
                             </div>
+
                         </div>
                     </article>
                 `;
@@ -20643,7 +21071,43 @@
         </div>
 
     </div>
-    
+
+
+    <div id="news-comments-modal" class="modal-overlay" onclick="if(event.target === this) closeNewsCommentsModal()">
+        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-3xl rounded-[32px] p-5 md:p-8 relative shadow-2xl shadow-black/80 max-h-[88vh] overflow-y-auto">
+            <button onclick="closeNewsCommentsModal()" class="absolute top-5 right-5 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition">✕</button>
+
+            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">RATIVIO Comments</p>
+            <h2 id="news-comments-title" class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter text-white mb-4">
+                Komentarze
+            </h2>
+
+            <div id="news-comments-list" class="grid gap-3 mb-6">
+                <div class="text-zinc-500 text-sm font-bold">Ładowanie komentarzy...</div>
+            </div>
+
+            <div class="border-t border-zinc-800 pt-5">
+                <textarea
+                    id="news-comment-text"
+                    placeholder="Napisz komentarz..."
+                    class="w-full min-h-[110px] bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 resize-y"
+                ></textarea>
+
+                <div class="flex justify-between items-center mt-3 gap-3">
+                    <span id="news-comment-status" class="text-[10px] font-black uppercase tracking-widest text-zinc-500"></span>
+                    <button
+                        onclick="submitNewsComment()"
+                        class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest"
+                        type="button"
+                    >
+                        Dodaj komentarz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
 
 
     <div id="trailer-modal" class="modal-overlay trailer-modal" onclick="if(event.target === this) closeTrailerModal()">
