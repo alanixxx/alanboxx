@@ -7919,6 +7919,25 @@
                 animation: none !important;
                 transition: none !important;
             }
+
+            .rativio-intro-brand {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+
+            .rativio-intro-line {
+                opacity: 1 !important;
+            }
+
+            .rativio-intro-line span {
+                width: 100% !important;
+            }
+
+            .rativio-intro-subtitle {
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
 
         /* ===== BANGER SLIDER — POSTER-ONLY REDESIGN ===== */
@@ -8200,6 +8219,360 @@
                 text-indent: .22em;
             }
         }
+
+        .movie-cast-footer {
+            border-top: 1px solid #27272a;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .movie-cast-footer p {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            margin-bottom: 12px;
+        }
+
+        .movie-cast-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .movie-cast-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            width: 64px;
+        }
+
+        .movie-cast-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: #18181b;
+            border: 2px solid #27272a;
+            flex-shrink: 0;
+            transition: border-color .2s ease, transform .2s ease;
+        }
+
+        .movie-cast-item:hover .movie-cast-avatar {
+            border-color: #22c55e;
+            transform: scale(1.08);
+        }
+
+        .movie-cast-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .movie-cast-avatar-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #18181b, #27272a);
+            color: #71717a;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .movie-cast-name {
+            color: #d4d4d8;
+            font-size: 9px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+            white-space: normal;
+            max-width: 64px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        @media (max-width: 768px) {
+            .movie-cast-avatar {
+                width: 46px;
+                height: 46px;
+            }
+
+            .movie-cast-item {
+                width: 54px;
+            }
+
+            .movie-cast-name {
+                font-size: 8px;
+                max-width: 54px;
+            }
+
+            .movie-cast-footer {
+                margin-top: 16px;
+                padding-top: 16px;
+            }
+        }
+
+        /* === POPRAWKA: usuń stopkę z gatunkiem + jeden, naturalny scroll razem z plakatem === */
+        @media (max-width: 768px) {
+
+            /* usuwamy cały pasek z gatunkiem na dole */
+            #movie-modal .movie-genres-footer,
+            #movie-modal .movie-footer {
+                display: none !important;
+            }
+
+            /* modal scrolluje się jako całość */
+            #movie-modal {
+                overflow-y: auto !important;
+                align-items: flex-start !important;
+            }
+
+            #movie-modal .movie-screen {
+                position: relative !important;
+                height: auto !important;
+                min-height: 100dvh !important;
+                overflow: visible !important;
+            }
+
+            /* tło już nie jest position:absolute na całym ekranie */
+            #movie-modal .movie-backdrop {
+                position: relative !important;
+                inset: auto !important;
+                height: auto !important;
+                min-height: 0 !important;
+            }
+
+            #movie-modal .movie-backdrop::before,
+            #movie-modal .movie-backdrop::after {
+                display: none !important;
+            }
+
+            /* PLAKAT — zwykły element w przepływie, nie "przyklejony" */
+            #movie-modal .movie-modal-poster {
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                transform: none !important;
+                display: block !important;
+                width: min(260px, 60vw) !important;
+                height: auto !important;
+                aspect-ratio: 2 / 3 !important;
+                margin: 78px auto 20px !important;
+            }
+
+            /* treść też w normalnym przepływie */
+            #movie-modal .movie-content {
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+                max-height: none !important;
+                max-width: none !important;
+                overflow: visible !important;
+                padding: 0 20px 60px !important;
+            }
+
+            #modal-title,
+            #modal-desc,
+            #movie-modal .movie-meta-row,
+            #movie-modal .movie-actions {
+                padding-right: 0 !important;
+            }
+
+            /* górna belka zostaje przyklejona tylko ona, reszta scrolluje normalnie */
+            #movie-modal .movie-topbar {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 30 !important;
+            }
+        }
+
+        #movie-modal .movie-modal-poster {
+            position: absolute !important;
+            top: 115px !important;
+        }
+
+        #movie-modal .movie-content {
+            position: relative !important;
+            top: auto !important;
+            bottom: auto !important;
+            left: clamp(50px, 6vw, 100px) !important;
+            right: clamp(50px, 6vw, 100px) !important;
+            margin-top: 520px !important;
+            overflow: visible !important;
+        }
+
+        /* =========================================================
+        MOVIE MODAL — JEDEN SCROLL NA DESKTOP + MOBILE
+        ========================================================= */
+
+        #movie-modal {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            align-items: flex-start !important;
+        }
+
+        #movie-modal > .movie-screen {
+            position: relative !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 100dvh !important;
+            overflow: visible !important;
+        }
+
+        /* Treść nie może mieć własnego scrollbara */
+        #movie-modal .movie-content {
+            overflow: visible !important;
+        }
+
+        /* =========================================================
+        MOVIE MODAL — CZYSTA OBSADA
+        ========================================================= */
+
+        /* Usunięcie linii między sekcjami */
+        #movie-modal .movie-footer,
+        #movie-modal .movie-cast-footer {
+            border-top: none !important;
+            border-bottom: none !important;
+        }
+
+        /* Większe avatary aktorów */
+        #movie-modal .movie-cast-avatar {
+            width: 120px !important;
+            height: 120px !important;
+            min-width: 120px !important;
+            border-radius: 50% !important;
+        }
+
+        /* Samo zdjęcie */
+        #movie-modal .movie-cast-avatar img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 50% !important;
+        }
+
+        /* Trochę większy odstęp między aktorami */
+        #movie-modal .movie-cast-row {
+            gap: 24px !important;
+        }
+
+        /* Nazwy pod avatarami */
+        #movie-modal .movie-cast-name {
+            max-width: 120px !important;
+            text-align: center !important;
+        }
+
+        /* ===== OBSADA — FINAL ===== */
+
+        #movie-modal .movie-cast-footer {
+            border-top: 1px solid rgba(255,255,255,.12) !important;
+            border-bottom: none !important;
+            padding-top: 18px !important;
+            padding-bottom: 24px !important;
+        }
+
+        #movie-modal .movie-cast-row {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 32px !important;
+            align-items: flex-start !important;
+        }
+
+        /* avatar */
+        #movie-modal .movie-cast-avatar {
+            width: 95px !important;
+            height: 95px !important;
+            min-width: 95px !important;
+            flex: 0 0 95px !important;
+            border-radius: 50% !important;
+        }
+
+        /* zdjęcie */
+        #movie-modal .movie-cast-avatar img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 50% !important;
+        }
+
+        /* kontener pojedynczego aktora */
+        #movie-modal .movie-cast-item {
+            width: 115px !important;
+            min-width: 115px !important;
+            text-align: center !important;
+        }
+
+        /* imię i nazwisko */
+        #movie-modal .movie-cast-name {
+            display: block !important;
+            width: 115px !important;
+            max-width: 115px !important;
+            margin-top: 9px !important;
+            font-size: 14px !important;
+            line-height: 1.2 !important;
+            font-weight: 700 !important;
+            text-align: center !important;
+            white-space: normal !important;
+        }
+
+        /* rola aktora, jeśli jest wyświetlana */
+        #movie-modal .movie-cast-role {
+            font-size: 11px !important;
+            line-height: 1.2 !important;
+            margin-top: 3px !important;
+            text-align: center !important;
+        }
+
+        /* ===== FINALNE DOPRACOWANIE MODALA ===== */
+
+        /* Aktorzy trochę bliżej siebie */
+        #movie-modal .movie-cast-row {
+            gap: 18px !important;
+        }
+
+        /* Pojedynczy aktor */
+        #movie-modal .movie-cast-item {
+            width: 115px !important;
+            min-width: 115px !important;
+        }
+
+        /* Avatary */
+        #movie-modal .movie-cast-avatar {
+            width: 95px !important;
+            height: 95px !important;
+            min-width: 95px !important;
+            flex: 0 0 95px !important;
+        }
+
+        /* Większy odstęp między obsadą a linią */
+        #movie-modal .movie-cast-footer {
+            padding-bottom: 30px !important;
+            border-bottom: 1px solid rgba(255,255,255,.12) !important;
+        }
+
+        /* Sekcja gatunków — odstęp od linii */
+        #movie-modal .movie-footer {
+            border-top: none !important;
+            padding-top: 18px !important;
+        }
+
+        /* Plakat minimalnie wyżej */
+        #movie-modal .movie-modal-poster {
+            top: 105px !important;
+        }
+
+        
         
     </style>
 </head>
@@ -8251,6 +8624,7 @@
                     <button id="admin-calendar-tab" onclick="setAdminTab('calendar')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Kalendarz premier</button>
                     <button id="admin-news-tab" onclick="setAdminTab('news')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Newsy tygodnia</button>
                     <button id="admin-motm-tab" onclick="setAdminTab('motm')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Premiera miesiąca</button>
+                    <button id="admin-actors-tab" onclick="setAdminTab('actors')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Aktorzy</button>
                 </div>
 
                 <form id="admin-movie-form" class="grid lg:grid-cols-[1fr_260px] gap-6" onsubmit="saveAdminMovie(event)">
@@ -8258,6 +8632,11 @@
                         <div class="sm:col-span-2">
                             <label class="admin-label" for="admin-title">Tytuł</label>
                             <input id="admin-title" class="admin-field" required placeholder="np. Nowy film">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="admin-label" for="admin-title-pl">Tytuł polski (opcjonalnie)</label>
+                            <input id="admin-title-pl" class="admin-field" placeholder="np. Diuna zamiast Dune">
                         </div>
 
                         <div>
@@ -8313,6 +8692,11 @@
                                 <label class="admin-genre-option">
                                     <input type="checkbox" value="War">
                                     <span>War</span>
+                                </label>
+
+                                <label class="admin-genre-option">
+                                    <input type="checkbox" value="Drama">
+                                    <span>Drama</span>
                                 </label>
 
                                 <label class="admin-genre-option">
@@ -8384,6 +8768,15 @@
                             </div>
                             <textarea id="admin-desc-en" class="admin-field min-h-[120px] resize-y" placeholder="English description - zostaw puste, panel przetlumaczy przy zapisie"></textarea>
                             <p id="admin-translate-msg" class="mt-2 text-[10px] font-bold text-zinc-500"></p>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="admin-label">Obsada (aktorzy)</label>
+                            <input id="admin-movie-actor-search" class="admin-field mb-2" type="text" placeholder="Szukaj aktora, kliknij żeby dodać do obsady..." oninput="renderAdminMovieActorPicker(this.value)">
+                            <div id="admin-movie-actor-picker" class="grid gap-2 mb-2 max-h-40 overflow-y-auto"></div>
+
+                            <p class="text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-2">Wybrana obsada:</p>
+                            <div id="admin-movie-selected-cast" class="flex flex-wrap gap-2"></div>
                         </div>
 
                         <div>
@@ -8586,6 +8979,24 @@
 
                         <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-7 py-4 text-xs font-black uppercase tracking-widest w-fit" type="submit">Zapisz premierę miesiąca</button>
                     </form>
+                </div>
+                <div id="admin-actors-section" class="mt-8 hidden">
+                    <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Baza aktorów</h3>
+                    <p class="text-zinc-500 text-xs font-bold mb-4">Dodaj aktora raz, potem przypisujesz go do dowolnej liczby filmów w formularzu "Dodaj film".</p>
+
+                    <form onsubmit="saveAdminActor(event)" class="grid gap-3 mb-6">
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <input id="admin-actor-name" class="admin-field" placeholder="Imię i nazwisko" required>
+                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)">
+                        </div>
+                        <div class="grid sm:grid-cols-[1fr_auto] gap-3">
+                            <input id="admin-actor-photo-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*">
+                            <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Dodaj</button>
+                        </div>
+                    </form>
+
+                    <input id="admin-actors-search" class="admin-field mb-4" type="text" placeholder="Szukaj aktora..." oninput="renderAdminActorsList(this.value)">
+                    <div id="admin-actors-list" class="grid gap-3"></div>
                 </div>
             </div>
         </div>
@@ -8897,6 +9308,7 @@
                         <button onclick="filterCategory('Animation')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Animation</button>
                         <button onclick="filterCategory('Comedy')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Comedy</button>
                         <button onclick="filterCategory('Romance')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Romance</button>
+                        <button onclick="filterCategory('Drama')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Drama</button>
                         <button onclick="filterCategory('War')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">War</button>
                         <button onclick="filterCategory('Psychological')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Psychological</button>
                         <button onclick="filterCategory('Crime')" class="cat-btn lib-chip shrink-0 px-5 py-3 rounded-2xl font-black italic uppercase text-xs">Crime</button>
@@ -9021,6 +9433,7 @@
                     <button onclick="setRatingStudioFilter('Thriller')" class="rating-filter-btn studio-chip" data-filter="Thriller">Thriller</button>
                     <button onclick="setRatingStudioFilter('Adventure')" class="rating-filter-btn studio-chip" data-filter="Adventure">Adventure</button>
                     <button onclick="setRatingStudioFilter('Animation')" class="rating-filter-btn studio-chip" data-filter="Animation">Animation</button>
+                    <button onclick="setRatingStudioFilter('Drama')" class="rating-filter-btn studio-chip" data-filter="Animation">Drama</button>
                     <button onclick="setRatingStudioFilter('Comedy')" class="rating-filter-btn studio-chip" data-filter="Comedy">Comedy</button>
                     <button onclick="setRatingStudioFilter('Romance')" class="rating-filter-btn studio-chip" data-filter="Romance">Romance</button>
                     <button onclick="setRatingStudioFilter('War')" class="rating-filter-btn studio-chip" data-filter="War">War</button>
@@ -9285,17 +9698,18 @@
                 </div>
 
 
-                <!-- DÓŁ -->
-                <div class="movie-footer">
+                <!-- OBSADA -->
+                <div id="modal-cast-footer" class="movie-cast-footer hidden">
+                    <p>Obsada</p>
+                    <div id="modal-cast-row" class="movie-cast-row"></div>
+                </div>
 
+                <!-- GATUNKI -->
+                <div class="movie-footer">
                     <div
                         id="modal-genre-list"
                         class="movie-genres">
                     </div>
-
-
-                
-
                 </div>
                 
 
@@ -9999,7 +10413,7 @@
         }
 
         function setAdminTab(tab) {
-            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news', 'motm'].includes(tab) ? tab : 'add';
+            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news', 'motm', 'actors'].includes(tab) ? tab : 'add';
 
             const addTab = document.getElementById('admin-add-tab');
             const manageTab = document.getElementById('admin-manage-tab');
@@ -10034,6 +10448,11 @@
             if (activeAdminTab === 'calendar') fetchSharedCalendarOverrides().then(ov => { rebuildLiveCalendarReleases(ov); renderAdminCalendarList(); });
             if (activeAdminTab === 'news') fetchSharedWeeklyNews().then(renderAdminNewsList);
             if (activeAdminTab === 'motm') renderAdminMotmCurrent(); // NOWE
+
+            const actorsTab = document.getElementById('admin-actors-tab');
+            if (actorsTab) actorsTab.className = activeAdminTab === 'actors' ? activeClass : inactiveClass;
+            document.getElementById('admin-actors-section')?.classList.toggle('hidden', activeAdminTab !== 'actors');
+            if (activeAdminTab === 'actors') fetchSharedActors().then(() => renderAdminActorsList());
         }
 
         function loginAdmin() {
@@ -10160,57 +10579,101 @@
 
             const title = safeAdminText(document.getElementById('admin-title')?.value);
             if (!title) return;
-            const desc = safeAdminText(document.getElementById('admin-desc')?.value) || 'Brak opisu.';
-            let descEn = safeAdminText(document.getElementById('admin-desc-en')?.value);
 
-            if (!descEn && desc && desc !== 'Brak opisu.') {
+            const submitBtn = document.getElementById('admin-submit-btn');
+            const originalBtnText = submitBtn ? submitBtn.textContent : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Zapisywanie...';
+                submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+
+            try {
+                const desc = safeAdminText(document.getElementById('admin-desc')?.value) || 'Brak opisu.';
+                let descEn = safeAdminText(document.getElementById('admin-desc-en')?.value);
+
+                if (!descEn && desc && desc !== 'Brak opisu.') {
+                    try {
+                        descEn = await translateTextToEnglish(desc, (done, total) => {
+                            setAdminTranslateMessage(`Tlumacze opis przed zapisem (${done}/${total})...`);
+                        });
+                        if (descEn) setAdminTranslateMessage('Opis EN zostal zapisany automatycznie.');
+                    } catch (error) {
+                        console.warn('Admin auto translation failed:', error);
+                        setAdminTranslateMessage('Film zapisze sie bez opisu EN. Mozesz dopisac go pozniej.', 'error');
+                    }
+                }
+
+                let imgSource;
                 try {
-                    descEn = await translateTextToEnglish(desc, (done, total) => {
-                        setAdminTranslateMessage(`Tlumacze opis przed zapisem (${done}/${total})...`);
-                    });
-                    if (descEn) setAdminTranslateMessage('Opis EN zostal zapisany automatycznie.');
-                } catch (error) {
-                    console.warn('Admin auto translation failed:', error);
-                    setAdminTranslateMessage('Film zapisze sie bez opisu EN. Mozesz dopisac go pozniej.', 'error');
+                    imgSource = await getAdminImageSource();
+                } catch (imgError) {
+                    console.error('Blad przetwarzania zdjecia:', imgError);
+                    showAdminToast('Nie udalo sie przetworzyc zdjecia (za duze / niewspierany format). Sprobuj innego pliku.', 'error');
+                    return;
+                }
+
+                const movie = {
+                    id: editingAdminMovieId || makeAdminMovieId(title),
+                    title,
+                    category: Array.from(
+                        document.querySelectorAll('#admin-category-picker input[type="checkbox"]:checked')
+                    )
+                    .map(input => input.value)
+                    .join(' / ') || 'Action',
+                    duration: safeAdminText(document.getElementById('admin-duration')?.value),
+                    img: imgSource,
+                    rating: safeAdminText(document.getElementById('admin-rating')?.value) || 'COMING',
+                    date: safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
+                    trailer: safeAdminText(document.getElementById('admin-trailer')?.value),
+                    titlePl: safeAdminText(document.getElementById('admin-title-pl')?.value),
+                    cast: [...currentMovieCast],
+                    desc,
+                    descEn
+                };
+
+                const adminMovies = getAdminMovies().filter(item => item.id !== movie.id);
+                adminMovies.unshift(movie);
+                saveAdminMovies(adminMovies);
+
+                // zapis do chmury — jeśli padnie, film ZOSTAJE lokalnie, ale dostajesz jasny komunikat
+                if (typeof window.saveCloudAdminMovie === 'function') {
+                    try {
+                        await window.saveCloudAdminMovie(movie);
+                    } catch (cloudError) {
+                        console.error('Blad zapisu do Firestore:', cloudError);
+                        showAdminToast(`Zapisano lokalnie, ale nie wyslalo sie do chmury (${cloudError?.code || 'blad sieci'}). Sprobuj zapisac jeszcze raz.`, 'error');
+                        // nie robimy return — film jest już w library() lokalnie, żebyś mógł spróbować ponownie
+                    }
+                }
+
+                const existingIndex = movies.findIndex(item => item.id === movie.id);
+                if (existingIndex === -1) {
+                    movies.push(movie);
+                } else {
+                    movies[existingIndex] = movie;
+                }
+
+                filteredMovies = [...movies];
+                currentPage = 1;
+                resetAdminForm();
+                renderAdminMovieList();
+                setAdminTab('manage');
+
+                showAdminToast(`Zapisano film: "${movie.title}"`);
+                if (typeof renderTable === 'function') renderTable();
+                if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
+
+            } catch (error) {
+                console.error('Nieoczekiwany blad zapisu filmu:', error);
+                showAdminToast(`Cos poszlo nie tak przy zapisie: ${error?.message || 'nieznany blad'}`, 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText || 'Dodaj film';
+                    submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
                 }
             }
-
-            const movie = {
-                id: editingAdminMovieId || makeAdminMovieId(title),
-                title,
-                category: Array.from(
-                    document.getElementById('admin-category')?.selectedOptions || []
-                ).map(option => option.value).join(' / ') || 'Action',
-                duration: safeAdminText(document.getElementById('admin-duration')?.value), // <- nowa linia
-                img: await getAdminImageSource(),
-                rating: safeAdminText(document.getElementById('admin-rating')?.value) || 'COMING',
-                date: safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
-                trailer: safeAdminText(document.getElementById('admin-trailer')?.value),
-                desc,
-                descEn
-            };
-
-            const adminMovies = getAdminMovies().filter(item => item.id !== movie.id);
-            adminMovies.unshift(movie);
-            saveAdminMovies(adminMovies);
-            if (typeof window.saveCloudAdminMovie === 'function') await window.saveCloudAdminMovie(movie);
-
-            const existingIndex = movies.findIndex(item => item.id === movie.id);
-            if (existingIndex === -1) {
-                movies.push(movie);
-            } else {
-                movies[existingIndex] = movie;
-            }
-
-            filteredMovies = [...movies];
-            currentPage = 1;
-            resetAdminForm();
-            renderAdminMovieList();
-            setAdminTab('manage');
-
-            showAdminToast(`Zapisano film: "${movie.title}"`);
-            if (typeof renderTable === 'function') renderTable();
-            if (typeof renderRatingStudioMovies === 'function') renderRatingStudioMovies();
         }
 
         async function deleteAdminMovie(id) {
@@ -10262,6 +10725,9 @@
             document.getElementById('admin-desc').value = movie.desc || '';
             document.getElementById('admin-desc-en').value = movie.descEn || '';
             setAdminTranslateMessage('');
+            document.getElementById('admin-title-pl').value = movie.titlePl || '';
+            currentMovieCast = Array.isArray(movie.cast) ? [...movie.cast] : [];
+            renderSelectedCast();
             document.getElementById('admin-img-url').value = movie.img?.startsWith('data:') ? '' : movie.img || '';
             document.getElementById('admin-img-preview').src = movie.img || 'https://via.placeholder.com/300x450?text=Plakat';
 
@@ -10359,6 +10825,134 @@
 
             renderAdminManagePagination(totalPages);
         }
+
+        const ADMIN_ACTORS_KEY = 'movieHubActors';
+        let actorsCache = null;
+        let currentMovieCast = []; // id-ki aktorów wybranych w aktualnie edytowanym formularzu filmu
+
+        function getLocalActors() {
+            try { return JSON.parse(localStorage.getItem(ADMIN_ACTORS_KEY)) || []; } catch { return []; }
+        }
+
+        function saveLocalActors(items) {
+            actorsCache = items;
+            localStorage.setItem(ADMIN_ACTORS_KEY, JSON.stringify(items));
+        }
+
+        function getActors() {
+            if (actorsCache) return actorsCache;
+            actorsCache = getLocalActors();
+            return actorsCache;
+        }
+
+        async function fetchSharedActors() {
+            if (typeof window.loadCloudActors === 'function') {
+                try {
+                    const cloud = await window.loadCloudActors();
+                    if (cloud) { saveLocalActors(cloud); return actorsCache; }
+                } catch (err) {
+                    console.warn('Nie udało się pobrać aktorów z chmury:', err);
+                }
+            }
+            return getActors();
+        }
+
+        function makeActorId(name) {
+            const slug = safeAdminText(name).toLowerCase().normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '').slice(0, 40) || 'aktor';
+            return `actor-${slug}-${Date.now().toString(36)}`;
+        }
+
+        async function saveAdminActor(event) {
+            event.preventDefault();
+
+            const name = safeAdminText(document.getElementById('admin-actor-name')?.value);
+            const fileInput = document.getElementById('admin-actor-photo-file');
+            const file = fileInput?.files?.[0];
+            if (!name) return;
+
+            let photo = safeAdminText(document.getElementById('admin-actor-photo')?.value);
+            if (file) {
+                try {
+                    photo = await resizeAdminImageToBase64(file, 400, 0.82);
+                } catch (err) {
+                    showAdminToast('Nie udało się wczytać zdjęcia aktora.', 'error');
+                    return;
+                }
+            }
+
+            const actor = { id: makeActorId(name), name, photo, updatedAtMs: Date.now() };
+            const items = getActors().filter(a => a.name.toLowerCase() !== name.toLowerCase());
+            items.unshift(actor);
+            saveLocalActors(items);
+
+            if (typeof window.saveCloudActor === 'function') {
+                try { await window.saveCloudActor(actor); }
+                catch (err) {
+                    console.error('Firestore save error (actors):', err);
+                    showAdminToast(`Aktor zapisany lokalnie, ale nie wysłał się do chmury (${err?.code || 'błąd'}).`, 'error');
+                }
+            }
+
+            document.getElementById('admin-actor-name').value = '';
+            document.getElementById('admin-actor-photo').value = '';
+            if (fileInput) fileInput.value = '';
+            renderAdminActorsList();
+            showAdminToast(`Dodano aktora: "${actor.name}"`);
+        }
+        window.saveAdminActor = saveAdminActor;
+
+        async function deleteAdminActor(id) {
+            if (!confirm('Usunąć tego aktora z bazy? Zniknie też z obsady filmów.')) return;
+
+            saveLocalActors(getActors().filter(a => a.id !== id));
+
+            // usuń go też z obsady wszystkich filmów lokalnie
+            getAdminMovies().forEach(m => {
+                if (Array.isArray(m.cast) && m.cast.includes(id)) {
+                    m.cast = m.cast.filter(x => x !== id);
+                }
+            });
+            movies.forEach(m => {
+                if (Array.isArray(m.cast) && m.cast.includes(id)) {
+                    m.cast = m.cast.filter(x => x !== id);
+                }
+            });
+
+            if (typeof window.deleteCloudActor === 'function') {
+                try { await window.deleteCloudActor(id); }
+                catch (err) { console.error('Firestore delete error (actors):', err); }
+            }
+
+            renderAdminActorsList();
+            showAdminToast('Usunięto aktora.');
+        }
+        window.deleteAdminActor = deleteAdminActor;
+
+        function renderAdminActorsList(query = '') {
+            const list = document.getElementById('admin-actors-list');
+            if (!list) return;
+
+            const q = query.toLowerCase().trim();
+            const actors = getActors().filter(a => a.name.toLowerCase().includes(q));
+
+            if (!actors.length) {
+                list.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Brak aktorów w bazie.</div>';
+                return;
+            }
+
+            list.innerHTML = actors.map(a => `
+                <div class="admin-movie-row" style="grid-template-columns: 54px 1fr auto;">
+                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/108x156?text=Aktor')}" alt="${escapeAdminHtml(a.name)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <div class="min-w-0">
+                        <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(a.name)}</p>
+                    </div>
+                    <button onclick="deleteAdminActor('${a.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                </div>
+            `).join('');
+        }
+        window.renderAdminActorsList = renderAdminActorsList;
 
         function renderAdminManagePagination(totalPages) {
             const box = document.getElementById('admin-movie-pagination');
@@ -10481,7 +11075,7 @@
                                 ${m.title}
                             </h4>
                             <p class="text-green-400 font-black uppercase text-[9px] tracking-widest mt-2">
-                                ${m.category} • ${m.date}
+                                ${String(m.category || 'Film').split('/')[0].trim()} • ${m.date}
                             </p>
                         </div>
                     </button>
@@ -10491,6 +11085,69 @@
                     ` : ''}
                 </article>
             `;
+        }
+
+        function renderAdminMovieActorPicker(query = '') {
+            const box = document.getElementById('admin-movie-actor-picker');
+            if (!box) return;
+
+            const q = query.toLowerCase().trim();
+            if (!q) { box.innerHTML = ''; return; }
+
+            const matches = getActors().filter(a =>
+                a.name.toLowerCase().includes(q) && !currentMovieCast.includes(a.id)
+            ).slice(0, 8);
+
+            if (!matches.length) {
+                box.innerHTML = '<div class="text-zinc-600 text-xs font-bold p-2">Brak wyników. Dodaj aktora w zakładce "Aktorzy".</div>';
+                return;
+            }
+
+            box.innerHTML = matches.map(a => `
+                <button type="button" onclick="addActorToCast('${a.id}')" class="admin-movie-row text-left" style="grid-template-columns: 40px 1fr auto;">
+                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/60x60?text=A')}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
+                    <p class="text-white font-bold text-xs truncate">${escapeAdminHtml(a.name)}</p>
+                    <span class="text-green-500 text-[10px] font-black uppercase">+ Dodaj</span>
+                </button>
+            `).join('');
+        }
+        window.renderAdminMovieActorPicker = renderAdminMovieActorPicker;
+
+        function addActorToCast(actorId) {
+            if (!currentMovieCast.includes(actorId)) currentMovieCast.push(actorId);
+            document.getElementById('admin-movie-actor-search').value = '';
+            document.getElementById('admin-movie-actor-picker').innerHTML = '';
+            renderSelectedCast();
+        }
+        window.addActorToCast = addActorToCast;
+
+        function removeActorFromCast(actorId) {
+            currentMovieCast = currentMovieCast.filter(id => id !== actorId);
+            renderSelectedCast();
+        }
+        window.removeActorFromCast = removeActorFromCast;
+
+        function renderSelectedCast() {
+            const box = document.getElementById('admin-movie-selected-cast');
+            if (!box) return;
+
+            if (!currentMovieCast.length) {
+                box.innerHTML = '<span class="text-zinc-600 text-xs font-bold">Brak wybranych aktorów.</span>';
+                return;
+            }
+
+            const actors = getActors();
+            box.innerHTML = currentMovieCast.map(id => {
+                const a = actors.find(x => x.id === id);
+                if (!a) return '';
+                return `
+                    <span class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-full pl-1 pr-3 py-1">
+                        <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/40x40?text=A')}" style="width:24px;height:24px;border-radius:999px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/40x40?text=A'">
+                        <span class="text-white text-[10px] font-black uppercase">${escapeAdminHtml(a.name)}</span>
+                        <button type="button" onclick="removeActorFromCast('${a.id}')" class="text-red-400 hover:text-red-300 font-black">×</button>
+                    </span>
+                `;
+            }).join('');
         }
 
         // 1. ZIELONY COUNTDOWN (18.12.2026)
@@ -11189,7 +11846,14 @@
             refreshUserScopedData();
 
             filteredMovies = movies.filter(m => {
-                const matchesCategory = activeCategory === 'Wszystkie' || m.category === activeCategory;
+                const movieGenres = String(m.category || '')
+                    .split('/')
+                    .map(g => g.trim())
+                    .filter(Boolean);
+
+                const matchesCategory =
+                    activeCategory === 'Wszystkie' ||
+                    movieGenres.includes(activeCategory);
                 const matchesSearch = m.title.toLowerCase().includes(searchQuery);
 
                 let matchesQuick = true;
@@ -11267,7 +11931,9 @@
                                     ${m.title}
                                 </h3>
 
-                                <p class="text-zinc-400 font-black uppercase text-[9px] tracking-widest mt-2">${m.category}</p>
+                                <p class="text-zinc-400 font-black uppercase text-[9px] tracking-widest mt-2">
+                                    ${String(m.category || 'Film').split('/')[0].trim()}
+                                </p>
                             </div>
                         </button>
 
@@ -11395,11 +12061,38 @@
             alert('Sekcja recenzji będzie dodana w kolejnym etapie.');
         }
 
-        function openModalById(id) {
+        let actorsLoadPromise = null;
 
+        async function fetchSharedActors() {
+            if (actorsCache?.length) return actorsCache;
+
+            if (!actorsLoadPromise) {
+                actorsLoadPromise = (async () => {
+                    if (typeof window.loadCloudActors === 'function') {
+                        try {
+                            const cloud = await window.loadCloudActors();
+
+                            if (Array.isArray(cloud)) {
+                                saveLocalActors(cloud);
+                                return actorsCache;
+                            }
+                        } catch (err) {
+                            console.warn('Nie udało się pobrać aktorów z chmury:', err);
+                        }
+                    }
+
+                    return getActors();
+                })();
+            }
+
+            return actorsLoadPromise;
+        }
+
+        async function openModalById(id) {
             const m = movies.find(x => x.id === id);
-
             if (!m) return;
+
+            await fetchSharedActors();
 
             currentMovieId = m.id;
 
@@ -11597,6 +12290,35 @@
                     genres
                         .map(g => `<span class="movie-genre">${g}</span>`)
                         .join('');
+            }
+            await fetchSharedActors();
+            const castFooter = document.getElementById('modal-cast-footer');
+            const castRow = document.getElementById('modal-cast-row');
+            await fetchSharedActors();
+
+            if (castFooter && castRow) {
+                const castIds = Array.isArray(m.cast) ? m.cast : [];
+                const actors = castIds.map(id => getActors().find(a => a.id === id)).filter(Boolean);
+
+                if (!actors.length) {
+                    castFooter.classList.add('hidden');
+                    castRow.innerHTML = '';
+                } else {
+                    castFooter.classList.remove('hidden');
+                    castRow.innerHTML = actors.map(a => {
+                        const initial = (a.name || '?').trim().charAt(0).toUpperCase();
+                        const avatarInner = a.photo
+                            ? `<img src="${a.photo}" alt="${a.name}" onerror="this.parentElement.innerHTML='<div class=&quot;movie-cast-avatar-fallback&quot;>${initial}</div>'">`
+                            : `<div class="movie-cast-avatar-fallback">${initial}</div>`;
+
+                        return `
+                            <div class="movie-cast-item" title="${a.name}">
+                                <div class="movie-cast-avatar">${avatarInner}</div>
+                                <span class="movie-cast-name">${a.name}</span>
+                            </div>
+                        `;
+                    }).join('');
+                }
             }
 
 
@@ -12518,7 +13240,8 @@
                 "DC": "DC",
                 "Marvel": "Marvel",
                 "IMAX": "IMAX",
-                "Kaiju": "Kaiju"
+                "Kaiju": "Kaiju",
+                "Drama": "Drama"
             };
 
             return String(genre)
@@ -13345,6 +14068,21 @@
                 ...cleanMovie,
                 updatedAt: serverTimestamp()
             }, { merge: true });
+        };
+
+        window.loadCloudActors = async function() {
+            const snap = await getDocs(collection(db, "actors"));
+            const items = [];
+            snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+            return items.sort((a, b) => (b.updatedAtMs || 0) - (a.updatedAtMs || 0));
+        };
+
+        window.saveCloudActor = async function(actor) {
+            await setDoc(doc(db, "actors", actor.id), { ...actor, updatedAt: serverTimestamp() }, { merge: true });
+        };
+
+        window.deleteCloudActor = async function(id) {
+            await deleteDoc(doc(db, "actors", id));
         };
 
         window.deleteCloudAdminMovie = async function(id) {
@@ -15667,6 +16405,9 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadMonthlyPremiereIntoSite();
         });
+
+        fetchSharedActors();
+        renderSelectedCast();
 
         /* =========================================================
         RATIVIO — INTRO CONTROL
