@@ -8976,331 +8976,399 @@
         }
 
         /* =========================================================
-        PUBLIC USER PROFILE
+        PUBLIC USER PROFILE — FULLSCREEN / SIMPLE
         ========================================================= */
 
+        body.profile-modal-open { overflow: hidden !important; }
+
         .public-profile-overlay {
-            position: fixed;
-            inset: 0;
-
-            z-index: 9999;
-
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 99999 !important;
             display: none;
-
-            align-items: flex-start;
-            justify-content: center;
-
-            padding: 80px 20px 40px;
-
-            background: rgba(0,0,0,.78);
-
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            overflow-y: auto;
+            align-items: stretch;
+            justify-content: stretch;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: #050507;
+            overflow: hidden;
         }
 
         .public-profile-overlay.open {
-            display: flex;
+            display: flex !important;
         }
 
         .public-profile {
             position: relative;
-
-            width: min(1050px, 100%);
-
-            min-height: 600px;
-
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 32px;
-
+            width: 100vw !important;
+            max-width: none !important;
+            min-width: 100vw !important;
+            height: 100dvh !important;
+            min-height: 100dvh !important;
+            border: 0;
+            border-radius: 0 !important;
             background:
-                radial-gradient(
-                    circle at 15% 0%,
-                    rgba(34,197,94,.08),
-                    transparent 32%
-                ),
-                #080809;
-
-            box-shadow:
-                0 40px 120px rgba(0,0,0,.75);
-
+                radial-gradient(circle at 12% 0%, rgba(34,211,238,.12), transparent 32%),
+                radial-gradient(circle at 100% 20%, rgba(59,130,246,.07), transparent 30%),
+                radial-gradient(circle at 50% 100%, rgba(34,197,94,.055), transparent 36%),
+                #050507;
+            box-shadow: none;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .public-profile-close {
             position: absolute;
-
-            top: 20px;
-            right: 20px;
-
-            z-index: 10;
-
-            width: 40px;
-            height: 40px;
-
-            border: 1px solid rgba(255,255,255,.09);
+            top: 18px;
+            right: 18px;
+            z-index: 20;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255,255,255,.10);
             border-radius: 50%;
-
-            background: rgba(0,0,0,.45);
-
+            background: rgba(10,10,12,.78);
             color: #a1a1aa;
-
             font-size: 22px;
-
+            line-height: 1;
             cursor: pointer;
-
             transition: .2s ease;
+            backdrop-filter: blur(12px);
         }
 
         .public-profile-close:hover {
             color: white;
-            border-color: rgba(34,197,94,.4);
-            background: rgba(34,197,94,.1);
+            border-color: rgba(34,197,94,.45);
+            background: rgba(34,197,94,.10);
+            transform: scale(1.04);
         }
 
         .public-profile-head {
             display: flex;
             align-items: center;
-            gap: 25px;
-
-            padding: 45px;
-
+            gap: 22px;
+            flex: 0 0 auto;
+            padding: 42px clamp(22px, 5vw, 72px) 28px;
             border-bottom: 1px solid rgba(255,255,255,.07);
+            background: linear-gradient(180deg, rgba(255,255,255,.025), transparent);
+        }
+
+        .public-profile-avatar,
+        .public-profile-avatar-fallback {
+            width: 82px;
+            height: 82px;
+            flex: 0 0 82px;
+            border-radius: 50%;
         }
 
         .public-profile-avatar {
-            width: 105px;
-            height: 105px;
-
-            flex: 0 0 105px;
-
-            border-radius: 50%;
-
             object-fit: cover;
-
-            border: 2px solid rgba(34,197,94,.55);
-
-            box-shadow:
-                0 0 35px rgba(34,197,94,.12);
+            border: 2px solid rgba(34,211,238,.70);
+            box-shadow: 0 0 30px rgba(34,211,238,.14), 0 0 55px rgba(34,197,94,.08);
         }
 
         .public-profile-avatar-fallback {
-            width: 105px;
-            height: 105px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
-            border-radius: 50%;
-
             background: #22c55e;
             color: #000;
-
-            font-size: 38px;
+            font-size: 30px;
             font-weight: 1000;
         }
 
         .public-profile-name {
             color: white;
-
-            font-size: clamp(28px, 5vw, 58px);
+            font-size: clamp(26px, 4vw, 48px);
             font-weight: 1000;
             font-style: italic;
-
             text-transform: uppercase;
-            letter-spacing: -.06em;
+            letter-spacing: -.055em;
             line-height: .95;
         }
 
         .public-profile-stats {
             display: flex;
-            gap: 25px;
-
-            margin-top: 14px;
+            gap: 22px;
+            margin-top: 10px;
         }
 
         .public-profile-stat strong {
             display: block;
-
-            color: white;
-
-            font-size: 18px;
+            color: #22d3ee;
+            font-size: 20px;
             font-weight: 1000;
+            line-height: 1;
         }
 
         .public-profile-stat span {
-            color: #52525b;
-
+            display: block;
+            margin-top: 5px;
+            color: #71717a;
             font-size: 8px;
             font-weight: 900;
-            letter-spacing: .2em;
+            letter-spacing: .16em;
             text-transform: uppercase;
         }
 
         .public-profile-follow {
-            margin-top: 18px;
-
-            padding: 11px 20px;
-
-            border: 1px solid rgba(34,197,94,.45);
-            border-radius: 13px;
-
-            background: rgba(34,197,94,.1);
-
-            color: #22c55e;
-
-            font-size: 9px;
+            margin-top: 14px;
+            padding: 9px 16px;
+            border: 1px solid rgba(34,211,238,.38);
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(34,211,238,.10), rgba(34,197,94,.08));
+            color: #67e8f9;
+            font-size: 8px;
             font-weight: 1000;
-            letter-spacing: .15em;
+            letter-spacing: .14em;
             text-transform: uppercase;
-
             cursor: pointer;
-
-            transition: .2s ease;
-        }
-
-        .public-profile-follow:hover {
-            background: #22c55e;
-            color: #000;
         }
 
         .public-profile-body {
-            padding: 35px 45px 55px;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 28px clamp(22px, 5vw, 72px) 60px;
         }
 
         .public-profile-section {
-            margin-bottom: 42px;
+            margin: 0;
         }
 
         .public-profile-section-title {
-            margin-bottom: 17px;
-
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 18px;
             color: white;
-
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 1000;
             font-style: italic;
-
             text-transform: uppercase;
-            letter-spacing: -.03em;
+            letter-spacing: -.025em;
+        }
+
+        .public-profile-section-title::after {
+            content: '';
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, rgba(34,211,238,.55), rgba(34,197,94,.22), transparent);
         }
 
         .public-profile-movies {
             display: grid;
-
-            grid-template-columns:
-                repeat(auto-fill, minmax(130px, 1fr));
-
-            gap: 15px;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 18px;
+            max-width: 1180px;
         }
 
         .public-profile-movie {
+            min-width: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            text-align: left;
             cursor: pointer;
+        }
+
+        .public-profile-movie-poster {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            aspect-ratio: 2 / 3;
+            background: #0b0b0e;
+            border: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 10px 25px rgba(0,0,0,.28);
         }
 
         .public-profile-movie img {
             display: block;
-
             width: 100%;
-            aspect-ratio: 2 / 3;
-
+            height: 100%;
             object-fit: cover;
-
-            border-radius: 13px;
-
-            border: 1px solid rgba(255,255,255,.07);
-
-            transition: .2s ease;
+            transition: transform .22s ease, filter .22s ease;
         }
 
         .public-profile-movie:hover img {
-            transform: translateY(-4px);
+            transform: scale(1.045);
+            filter: brightness(1.08);
+        }
 
-            border-color: rgba(34,197,94,.4);
+        .public-profile-movie-score {
+            position: absolute;
+            left: 7px;
+            bottom: 7px;
+            min-width: 48px;
+            padding: 6px 8px;
+            border: 1px solid rgba(255,255,255,.26);
+            border-radius: 9px;
+            background: rgba(5,7,10,.94);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 1000;
+            line-height: 1;
+            letter-spacing: -.02em;
+            text-align: center;
+            box-shadow: 0 4px 14px rgba(0,0,0,.42);
+            backdrop-filter: blur(10px);
+            text-shadow: 0 1px 8px rgba(0,0,0,.5);
+        }
 
-            box-shadow:
-                0 15px 30px rgba(0,0,0,.45);
+        .public-profile-movie-score::first-letter {
+            color: #facc15;
+        }
+
+        .public-profile-movie-score.score-high {
+            border-color: rgba(34,197,94,.70);
+            background: linear-gradient(135deg, rgba(21,128,61,.96), rgba(5,7,10,.96));
+            box-shadow: 0 0 16px rgba(34,197,94,.20), 0 4px 14px rgba(0,0,0,.42);
+        }
+
+        .public-profile-movie-score.score-mid {
+            border-color: rgba(34,211,238,.70);
+            background: linear-gradient(135deg, rgba(8,105,125,.96), rgba(5,7,10,.96));
+            box-shadow: 0 0 16px rgba(34,211,238,.18), 0 4px 14px rgba(0,0,0,.42);
+        }
+
+        .public-profile-movie-score.score-low {
+            border-color: rgba(251,191,36,.72);
+            background: linear-gradient(135deg, rgba(146,90,8,.96), rgba(5,7,10,.96));
+            box-shadow: 0 0 16px rgba(251,191,36,.16), 0 4px 14px rgba(0,0,0,.42);
+        }
+
+        .public-profile-movie-score.score-bad {
+            border-color: rgba(248,113,113,.72);
+            background: linear-gradient(135deg, rgba(153,27,27,.96), rgba(5,7,10,.96));
+            box-shadow: 0 0 16px rgba(248,113,113,.15), 0 4px 14px rgba(0,0,0,.42);
         }
 
         .public-profile-movie-title {
-            margin-top: 8px;
-
-            color: #d4d4d8;
-
-            font-size: 9px;
+            margin-top: 9px;
+            color: #e4e4e7;
+            font-size: 10px;
             font-weight: 900;
+            line-height: 1.25;
             text-transform: uppercase;
-
-            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
         }
 
-        .public-profile-private {
-            padding: 80px 30px;
+        .public-profile-movie-date {
+            margin-top: 4px;
+            color: #52525b;
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
 
+        .public-profile-empty,
+        .public-profile-private {
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            color: #71717a;
         }
 
         .public-profile-private-icon {
-            font-size: 38px;
-            margin-bottom: 15px;
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
         .public-profile-private h2 {
             color: white;
-
-            font-size: 28px;
+            font-size: 25px;
             font-weight: 1000;
             font-style: italic;
             text-transform: uppercase;
         }
 
         .public-profile-private p {
-            margin-top: 10px;
-
+            margin-top: 8px;
             color: #52525b;
-
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 900;
             letter-spacing: .12em;
             text-transform: uppercase;
         }
 
-        @media (max-width: 650px) {
-
-            .public-profile-overlay {
-                padding: 55px 8px 15px;
+        @media (max-width: 900px) {
+            .public-profile-movies {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 14px;
             }
+        }
 
-            .public-profile {
-                border-radius: 22px;
-            }
-
+        @media (max-width: 600px) {
             .public-profile-head {
-                align-items: flex-start;
-
-                padding: 30px 22px;
-
-                flex-direction: column;
-            }
-
-            .public-profile-body {
-                padding: 25px 22px 40px;
+                gap: 15px;
+                padding: 34px 18px 22px;
             }
 
             .public-profile-avatar,
             .public-profile-avatar-fallback {
-                width: 85px;
-                height: 85px;
-                flex-basis: 85px;
+                width: 64px;
+                height: 64px;
+                flex-basis: 64px;
+            }
+
+            .public-profile-name {
+                font-size: 25px;
+            }
+
+            .public-profile-body {
+                padding: 20px 12px 42px;
+            }
+
+            .public-profile-section-title {
+                margin-bottom: 14px;
+                font-size: 16px;
             }
 
             .public-profile-movies {
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 11px 8px;
+            }
 
-                gap: 9px;
+            .public-profile-movie-poster {
+                border-radius: 11px;
+            }
+
+            .public-profile-movie-score {
+                left: 4px;
+                bottom: 4px;
+                min-width: 42px;
+                padding: 5px 6px;
+                border-radius: 8px;
+                font-size: 9px;
+            }
+
+            .public-profile-movie-title {
+                margin-top: 7px;
+                color: #f4f4f5;
+                font-size: 7.5px;
+                line-height: 1.2;
+            }
+
+            .public-profile-movie-date {
+                margin-top: 3px;
+                color: #8b8b96;
+                font-size: 6.5px;
+            }
+
+            .public-profile-close {
+                top: 12px;
+                right: 12px;
+                width: 38px;
+                height: 38px;
             }
         }
 
@@ -14842,6 +14910,13 @@
             // Zapisujemy ocenę OD RAZU, niezależnie od tego czy recenzja się uda
             await window.saveMovieHubData?.();
 
+            // Publikujemy tylko ostatnie oceny na profilu publicznym.
+            try {
+                await syncPublicMovieData();
+            } catch (error) {
+                console.warn('Nie udało się zsynchronizować ocen profilu publicznego:', error);
+            }
+
             // --- RECENZJA ---
             let reviewSaved = false;
 
@@ -18827,6 +18902,14 @@
                     try {
                         await loadUserReviews();
                         await loadCloudMovieHubData(user);
+
+                        // Po wczytaniu danych użytkownika publikujemy jego ostatnie oceny.
+                        try {
+                            await syncPublicProfile();
+                            await syncPublicMovieData();
+                        } catch (profileSyncError) {
+                            console.warn("Nie udało się zsynchronizować profilu publicznego:", profileSyncError);
+                        }
                     } catch (reviewError) {
                         console.warn("Nie udało się wczytać recenzji:", reviewError);
                         userReviews = {};
@@ -20417,16 +20500,12 @@
 
 
         window.openPublicProfile = async function(uid) {
-
-            const modal =
-                document.getElementById('public-profile-modal');
-
-            const container =
-                document.getElementById('public-profile-content');
-
+            const modal = document.getElementById('public-profile-modal');
+            const container = document.getElementById('public-profile-content');
             if (!modal || !container) return;
 
             modal.classList.add('open');
+            document.body.classList.add('profile-modal-open');
 
             container.innerHTML = `
                 <div class="rativio-search-loading" style="padding:100px">
@@ -20435,14 +20514,9 @@
             `;
 
             try {
-
-                const profileSnap =
-                    await getDoc(
-                        doc(db, 'publicProfiles', uid)
-                    );
+                const profileSnap = await getDoc(doc(db, 'publicProfiles', uid));
 
                 if (!profileSnap.exists()) {
-
                     container.innerHTML = `
                         <div class="public-profile-private">
                             <div class="public-profile-private-icon">×</div>
@@ -20450,423 +20524,203 @@
                             <p>Ten użytkownik nie jest już dostępny.</p>
                         </div>
                     `;
-
                     return;
                 }
 
-                const profile =
-                    profileSnap.data();
+                const profile = profileSnap.data() || {};
+                const nick = profile.nick || 'Użytkownik';
+                const avatar = profile.avatarUrl || '';
 
-                const nick =
-                    profile.nick || 'Użytkownik';
-
-                if (
-                    profile.private === true &&
-                    currentFirebaseUser?.uid !== uid
-                ) {
-
+                if (profile.private === true && currentFirebaseUser?.uid !== uid) {
                     container.innerHTML = `
                         <div class="public-profile-private">
-
-                            <div class="public-profile-private-icon">
-                                🔒
-                            </div>
-
-                            <h2>
-                                Konto prywatne
-                            </h2>
-
-                            <p>
-                                Ten użytkownik ograniczył dostęp do swojego profilu.
-                            </p>
-
+                            <div class="public-profile-private-icon">🔒</div>
+                            <h2>Konto prywatne</h2>
+                            <p>Ten użytkownik ograniczył dostęp do swojego profilu.</p>
                         </div>
                     `;
-
                     return;
                 }
 
-                const avatar =
-                    profile.avatarUrl || '';
-
                 container.innerHTML = `
-
                     <div class="public-profile-head">
-
-                        ${
-                            avatar
-
-                            ? `
-                                <img
-                                    class="public-profile-avatar"
-                                    src="${escapeAttrGlobalSearch(avatar)}"
-                                    alt=""
-                                >
-                            `
-
-                            : `
-                                <div class="public-profile-avatar-fallback">
-                                    ${escapeHtmlGlobalSearch(
-                                        nick.charAt(0).toUpperCase()
-                                    )}
-                                </div>
-                            `
-                        }
+                        ${avatar ? `
+                            <img
+                                class="public-profile-avatar"
+                                src="${escapeAttrGlobalSearch(avatar)}"
+                                alt=""
+                                onerror="this.style.display='none'"
+                            >
+                        ` : `
+                            <div class="public-profile-avatar-fallback">
+                                ${escapeHtmlGlobalSearch(nick.charAt(0).toUpperCase())}
+                            </div>
+                        `}
 
                         <div class="min-w-0">
-
                             <div class="public-profile-name">
                                 ${escapeHtmlGlobalSearch(nick)}
                             </div>
 
                             <div class="public-profile-stats">
-
                                 <div class="public-profile-stat">
-                                    <strong>0</strong>
-                                    <span>Obserwujących</span>
+                                    <strong id="public-profile-rating-count">0</strong>
+                                    <span>Ocenionych filmów</span>
                                 </div>
-
-                                <div class="public-profile-stat">
-                                    <strong>0</strong>
-                                    <span>Obserwowanych</span>
-                                </div>
-
                             </div>
 
-                            ${
-                                currentFirebaseUser?.uid !== uid
-
-                                ? `
-                                    <button
-                                        class="public-profile-follow"
-                                        onclick="followPublicUser('${escapeAttrGlobalSearch(uid)}')"
-                                    >
-                                        + Obserwuj
-                                    </button>
-                                `
-
-                                : ''
-                            }
-
+                            ${currentFirebaseUser?.uid !== uid ? `
+                                <button
+                                    type="button"
+                                    class="public-profile-follow"
+                                    onclick="followUser('${escapeAttrGlobalSearch(uid)}')"
+                                >
+                                    + Obserwuj
+                                </button>
+                            ` : ''}
                         </div>
-
                     </div>
 
                     <div class="public-profile-body">
-
                         <section class="public-profile-section">
-
-                            <h2 class="public-profile-section-title">
-                                Watchlista
-                            </h2>
-
-                            <div id="public-profile-watchlist">
-                                <div class="rativio-search-loading">
-                                    ŁADOWANIE...
-                                </div>
+                            <h2 class="public-profile-section-title">Ostatnio ocenione</h2>
+                            <div id="public-profile-ratings">
+                                <div class="rativio-search-loading">ŁADOWANIE...</div>
                             </div>
-
                         </section>
-
-                        <section class="public-profile-section">
-
-                            <h2 class="public-profile-section-title">
-                                Listy
-                            </h2>
-
-                            <div id="public-profile-lists">
-                                <div class="rativio-search-loading">
-                                    ŁADOWANIE...
-                                </div>
-                            </div>
-
-                        </section>
-
                     </div>
                 `;
 
                 await loadPublicProfileData(uid);
-
             } catch (error) {
-
-                console.error(
-                    'Błąd profilu publicznego:',
-                    error
-                );
-
+                console.error('Błąd profilu publicznego:', error);
                 container.innerHTML = `
                     <div class="public-profile-private">
-
-                        <div class="public-profile-private-icon">
-                            !
-                        </div>
-
-                        <h2>
-                            Nie udało się załadować
-                        </h2>
-
-                        <p>
-                            Sprawdź połączenie z Firebase.
-                        </p>
-
+                        <div class="public-profile-private-icon">!</div>
+                        <h2>Nie udało się załadować</h2>
+                        <p>Sprawdź połączenie z Firebase.</p>
                     </div>
                 `;
             }
         };
 
-
         window.closePublicProfile = function() {
-
-            const modal =
-                document.getElementById('public-profile-modal');
-
+            const modal = document.getElementById('public-profile-modal');
             if (!modal) return;
-
             modal.classList.remove('open');
+            document.body.classList.remove('profile-modal-open');
         };
 
         async function loadPublicProfileData(uid) {
-
-            const watchlistBox =
-                document.getElementById(
-                    'public-profile-watchlist'
-                );
-
-            const listsBox =
-                document.getElementById(
-                    'public-profile-lists'
-                );
-
-            if (!watchlistBox || !listsBox) return;
+            const ratingsBox = document.getElementById('public-profile-ratings');
+            const countBox = document.getElementById('public-profile-rating-count');
+            if (!ratingsBox) return;
 
             try {
+                const snap = await getDoc(
+                    doc(db, 'publicProfiles', uid, 'publicData', 'movies')
+                );
 
-                const snap =
-                    await getDoc(
-                        doc(
-                            db,
-                            'publicProfiles',
-                            uid,
-                            'publicData',
-                            'movies'
-                        )
-                    );
+                const data = snap.exists() ? snap.data() : {};
+                const ratingHistory = Array.isArray(data.ratingHistory)
+                    ? data.ratingHistory
+                    : [];
 
-                if (!snap.exists()) {
+                const recentRatings = ratingHistory
+                    .filter(entry => entry && entry.id && entry.rating !== undefined)
+                    .sort((a, b) => Number(b.timestamp || 0) - Number(a.timestamp || 0))
+                    .slice(0, 12);
 
-                    watchlistBox.innerHTML = `
-                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
-                            Brak publicznych filmów
+                if (countBox) countBox.textContent = String(ratingHistory.length);
+
+                if (!recentRatings.length) {
+                    ratingsBox.innerHTML = `
+                        <div class="public-profile-empty">
+                            Ten użytkownik nie ocenił jeszcze żadnego filmu.
                         </div>
                     `;
-
-                    listsBox.innerHTML = `
-                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
-                            Brak publicznych list
-                        </div>
-                    `;
-
                     return;
                 }
 
-                const data = snap.data();
+                ratingsBox.innerHTML = `
+                    <div class="public-profile-movies">
+                        ${recentRatings.map(entry => {
+                            const movie = movies.find(m => m.id === entry.id);
+                            if (!movie) return '';
 
-                const watchlist =
-                    Array.isArray(data.watchlist)
-                        ? data.watchlist
-                        : [];
+                            const score = Number(entry.rating);
+                            const safeScore = Number.isFinite(score)
+                                ? (Number.isInteger(score) ? String(score) : score.toFixed(1))
+                                : '-';
+                            const scoreClass = Number.isFinite(score)
+                                ? (score >= 8 ? 'score-high' : score >= 6 ? 'score-mid' : score >= 4 ? 'score-low' : 'score-bad')
+                                : '';
 
-                const lists =
-                    Array.isArray(data.lists)
-                        ? data.lists
-                        : [];
+                            const dateLabel = entry.date || (
+                                entry.timestamp
+                                    ? new Date(Number(entry.timestamp)).toLocaleDateString('pl-PL')
+                                    : ''
+                            );
 
-
-                /* WATCHLISTA */
-
-                const watchMovies =
-                    watchlist
-                        .map(id =>
-                            movies.find(movie =>
-                                movie.id === id
-                            )
-                        )
-                        .filter(Boolean);
-
-                if (!watchMovies.length) {
-
-                    watchlistBox.innerHTML = `
-                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
-                            Watchlista jest pusta
-                        </div>
-                    `;
-
-                } else {
-
-                    watchlistBox.innerHTML = `
-                        <div class="public-profile-movies">
-
-                            ${watchMovies.map(movie => `
-
+                            return `
                                 <button
                                     type="button"
                                     class="public-profile-movie"
                                     onclick="closePublicProfile(); openModalById('${escapeAttrGlobalSearch(movie.id)}')"
                                 >
-
-                                    <img
-                                        src="${escapeAttrGlobalSearch(movie.img)}"
-                                        alt=""
-                                        onerror="this.src='https://via.placeholder.com/200x300?text=Film'"
-                                    >
-
+                                    <div class="public-profile-movie-poster">
+                                        <img
+                                            src="${escapeAttrGlobalSearch(movie.img)}"
+                                            alt="${escapeAttrGlobalSearch(movie.title)}"
+                                            onerror="this.src='https://via.placeholder.com/300x450?text=Film'"
+                                        >
+                                        <span class="public-profile-movie-score ${scoreClass}">★ ${escapeHtmlGlobalSearch(safeScore)}/10</span>
+                                    </div>
                                     <div class="public-profile-movie-title">
                                         ${escapeHtmlGlobalSearch(movie.title)}
                                     </div>
-
+                                    <div class="public-profile-movie-date">
+                                        ${escapeHtmlGlobalSearch(dateLabel)}
+                                    </div>
                                 </button>
-
-                            `).join('')}
-
-                        </div>
-                    `;
-                }
-
-
-                /* LISTY */
-
-                if (!lists.length) {
-
-                    listsBox.innerHTML = `
-                        <div class="text-zinc-600 text-xs font-black uppercase tracking-widest">
-                            Brak publicznych list
-                        </div>
-                    `;
-
-                } else {
-
-                    listsBox.innerHTML = lists.map(list => {
-
-                        const listMovies =
-                            (Array.isArray(list.movies)
-                                ? list.movies
-                                : []
-                            )
-                            .map(id =>
-                                movies.find(movie =>
-                                    movie.id === id
-                                )
-                            )
-                            .filter(Boolean);
-
-                        return `
-                            <section class="mb-8">
-
-                                <h3 class="text-white font-black italic uppercase text-lg mb-4">
-                                    ${escapeHtmlGlobalSearch(
-                                        list.name || 'Lista'
-                                    )}
-                                </h3>
-
-                                ${
-                                    listMovies.length
-
-                                    ? `
-                                        <div class="public-profile-movies">
-
-                                            ${listMovies.map(movie => `
-
-                                                <button
-                                                    type="button"
-                                                    class="public-profile-movie"
-                                                    onclick="closePublicProfile(); openModalById('${escapeAttrGlobalSearch(movie.id)}')"
-                                                >
-
-                                                    <img
-                                                        src="${escapeAttrGlobalSearch(movie.img)}"
-                                                        alt=""
-                                                        onerror="this.src='https://via.placeholder.com/200x300?text=Film'"
-                                                    >
-
-                                                    <div class="public-profile-movie-title">
-                                                        ${escapeHtmlGlobalSearch(movie.title)}
-                                                    </div>
-
-                                                </button>
-
-                                            `).join('')}
-
-                                        </div>
-                                    `
-
-                                    : `
-                                        <p class="text-zinc-600 text-xs font-black uppercase tracking-widest">
-                                            Pusta lista
-                                        </p>
-                                    `
-                                }
-
-                            </section>
-                        `;
-
-                    }).join('');
-                }
-
-            } catch (error) {
-
-                console.error(
-                    'Nie udało się załadować publicznych danych:',
-                    error
-                );
-
-                watchlistBox.innerHTML = `
-                    <p class="text-red-500 text-xs font-black uppercase">
-                        Brak dostępu
-                    </p>
+                            `;
+                        }).join('')}
+                    </div>
                 `;
-
-                listsBox.innerHTML = '';
+            } catch (error) {
+                console.error('Nie udało się załadować ocen publicznego profilu:', error);
+                ratingsBox.innerHTML = `
+                    <div class="public-profile-empty">
+                        Nie udało się załadować ocen.
+                    </div>
+                `;
             }
         }
 
-        
-
         async function syncPublicMovieData() {
-
             if (!currentFirebaseUser) return;
+            if (currentUserProfile?.private === true) return;
 
-            const isPrivate =
-                currentUserProfile?.private === true;
-
-            if (isPrivate) return;
+            const ratingHistory = Array.isArray(window.movieHubData?.ratingHistory)
+                ? window.movieHubData.ratingHistory
+                    .slice(0, 50)
+                    .map(entry => ({
+                        id: entry.id,
+                        img: entry.img || '',
+                        title: entry.title || '',
+                        date: entry.date || '',
+                        rating: String(entry.rating ?? ''),
+                        timestamp: Number(entry.timestamp || 0)
+                    }))
+                : [];
 
             await setDoc(
-                doc(
-                    db,
-                    'publicProfiles',
-                    currentFirebaseUser.uid,
-                    'publicData',
-                    'movies'
-                ),
+                doc(db, 'publicProfiles', currentFirebaseUser.uid, 'publicData', 'movies'),
                 {
-                    watchlist: Array.isArray(watchlist)
-                        ? [...watchlist]
-                        : [],
-
-                    lists: Array.isArray(userLists)
-                        ? userLists.map(list => ({
-                            name: list.name || 'Lista',
-                            movies: Array.isArray(list.movies)
-                                ? [...list.movies]
-                                : []
-                        }))
-                        : [],
-
+                    ratingHistory,
                     updatedAt: serverTimestamp()
                 },
-                {
-                    merge: true
-                }
+                { merge: true }
             );
         }
 
