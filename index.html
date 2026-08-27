@@ -4600,7 +4600,188 @@
         .weekly-news-dot { width:8px; height:8px; border-radius:999px; background:#3f3f46; transition:.2s ease; }
         .weekly-news-dot.active { width:24px; background:#e879f9; }
 
-        .news-reaction-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+        /* =========================================================
+           FULL-WIDTH NEWS COMMENTS
+           Zamiast popupowej chmurki — komentarze są normalną
+           sekcją strony pod Newsy Tygodnia.
+           ========================================================= */
+        #news-comments-section {
+            width: 100%;
+            margin-top: 34px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            background:
+                radial-gradient(circle at 12% 0%, rgba(217,70,239,.10), transparent 34%),
+                radial-gradient(circle at 88% 100%, rgba(34,197,94,.06), transparent 32%),
+                linear-gradient(180deg, rgba(24,24,27,.78), rgba(7,7,10,.96));
+        }
+
+        #news-comments-section.news-comments-hidden {
+            display: none;
+        }
+
+        .news-comments-inner {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 46px 0 54px;
+        }
+
+        .news-comments-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .news-comments-kicker {
+            color: #e879f9;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .news-comments-heading {
+            margin: 0;
+            color: #fff;
+            font-size: clamp(34px, 5vw, 64px);
+            line-height: .9;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: -.045em;
+        }
+
+        .news-comments-heading span {
+            color: #e879f9;
+        }
+
+        .news-comments-current {
+            max-width: 520px;
+            color: #71717a;
+            font-size: 11px;
+            font-weight: 900;
+            line-height: 1.5;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            text-align: right;
+        }
+
+        #news-comments-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            max-height: 620px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        #news-comments-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #news-comments-list::-webkit-scrollbar-thumb {
+            background: #e879f9;
+            border-radius: 999px;
+        }
+
+        .news-comment-card {
+            border: 1px solid #27272a;
+            background: linear-gradient(180deg, rgba(24,24,27,.92), rgba(10,10,12,.96));
+            border-radius: 22px;
+            padding: 18px;
+            transition: .2s ease;
+        }
+
+        .news-comment-card:hover {
+            border-color: rgba(232,121,249,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(0,0,0,.30);
+        }
+
+        .news-comment-avatar {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #3f3f46;
+        }
+
+        .news-comment-avatar-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #22c55e;
+            color: #050505;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .news-comment-composer {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #27272a;
+        }
+
+        #news-comment-text {
+            width: 100%;
+            min-height: 130px;
+            resize: vertical;
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            background: rgba(9,9,11,.90);
+            color: #fff;
+            padding: 17px 19px;
+            outline: none;
+            font-size: 14px;
+            line-height: 1.55;
+            transition: .2s ease;
+        }
+
+        #news-comment-text:focus {
+            border-color: #e879f9;
+            box-shadow: 0 0 0 3px rgba(217,70,239,.08);
+        }
+
+        .news-comments-empty {
+            grid-column: 1 / -1;
+            border: 1px dashed #3f3f46;
+            border-radius: 22px;
+            padding: 42px 24px;
+            text-align: center;
+            color: #71717a;
+            background: rgba(9,9,11,.55);
+        }
+
+        @media (max-width: 767px) {
+            .news-comments-inner {
+                width: min(100% - 28px, 1180px);
+                padding: 34px 0 40px;
+            }
+
+            .news-comments-head {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 22px;
+            }
+
+            .news-comments-current {
+                max-width: none;
+                text-align: left;
+            }
+
+            #news-comments-list {
+                grid-template-columns: 1fr;
+                max-height: 520px;
+            }
+        }
+
+        .news-reaction-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; justify-content: center; }
         .news-reaction-btn {
             position: relative;
             display: inline-flex; align-items: center; gap: 6px;
@@ -11942,6 +12123,16 @@
 
                     <h4 class="text-white font-black uppercase italic tracking-tight mb-3">Aktualne newsy</h4>
                     <div id="admin-news-list" class="grid gap-3"></div>
+                    <div id="admin-news-comments-panel" class="mt-10 hidden">
+                        <div class="flex items-center justify-between gap-3 mb-4">
+                            <h4 class="text-white font-black uppercase italic tracking-tight">
+                                Komentarze: <span id="admin-news-comments-title" class="text-cyan-400"></span>
+                            </h4>
+                            <button onclick="closeAdminNewsComments()" class="text-zinc-400 hover:text-white text-[10px] font-black uppercase tracking-widest" type="button">Zamknij</button>
+                        </div>
+
+                        <div id="admin-news-comments-list" class="grid gap-3"></div>
+                    </div>
                 </div>
 
                 <div id="admin-motm-section" class="mt-8 hidden">
@@ -11979,14 +12170,26 @@
                     <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Baza aktorów</h3>
                     <p class="text-zinc-500 text-xs font-bold mb-4">Dodaj aktora raz, potem przypisujesz go do dowolnej liczby filmów w formularzu "Dodaj film".</p>
 
-                    <form onsubmit="saveAdminActor(event)" class="grid gap-3 mb-6">
+                    <form id="admin-actor-form" onsubmit="saveAdminActor(event)" class="grid gap-3 mb-6">
                         <div class="grid sm:grid-cols-2 gap-3">
                             <input id="admin-actor-name" class="admin-field" placeholder="Imię i nazwisko" required>
-                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)">
+                            <input id="admin-actor-birthdate" type="date" class="admin-field" required>
                         </div>
-                        <div class="grid sm:grid-cols-[1fr_auto] gap-3">
-                            <input id="admin-actor-photo-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*">
-                            <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Dodaj</button>
+
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'https://via.placeholder.com/150x150?text=Aktor'">
+                            <input id="admin-actor-photo-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*" onchange="previewAdminActorPhoto()">
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-24 h-24 rounded-2xl border border-zinc-800 bg-black overflow-hidden shrink-0">
+                                <img id="admin-actor-photo-preview" src="https://via.placeholder.com/150x150?text=Aktor" class="w-full h-full object-cover" alt="Podgląd">
+                            </div>
+
+                            <div class="flex gap-3 flex-1">
+                                <button id="admin-actor-submit-btn" class="flex-1 bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Dodaj</button>
+                                <button onclick="resetAdminActorForm()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Wyczyść</button>
+                            </div>
                         </div>
                     </form>
 
@@ -13994,6 +14197,9 @@
             return getActors();
         }
 
+        let editingActorId = null;
+        let editingActorPhotoSource = '';
+
         function makeActorId(name) {
             const slug = safeAdminText(name).toLowerCase().normalize('NFD')
                 .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
@@ -14001,15 +14207,63 @@
             return `actor-${slug}-${Date.now().toString(36)}`;
         }
 
+        function previewAdminActorPhoto() {
+            const fileInput = document.getElementById('admin-actor-photo-file');
+            const preview = document.getElementById('admin-actor-photo-preview');
+            const file = fileInput?.files?.[0];
+            if (!file || !preview) return;
+
+            const reader = new FileReader();
+            reader.onload = e => { preview.src = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+        window.previewAdminActorPhoto = previewAdminActorPhoto;
+
+        function resetAdminActorForm() {
+            editingActorId = null;
+            editingActorPhotoSource = '';
+            document.getElementById('admin-actor-form')?.reset();
+            document.getElementById('admin-actor-photo-preview').src = 'https://via.placeholder.com/150x150?text=Aktor';
+            const btn = document.getElementById('admin-actor-submit-btn');
+            if (btn) btn.textContent = 'Dodaj';
+        }
+        window.resetAdminActorForm = resetAdminActorForm;
+
+        function editAdminActor(id) {
+            const actor = getActors().find(a => a.id === id);
+            if (!actor) return;
+
+            editingActorId = actor.id;
+            editingActorPhotoSource = actor.photo || '';
+
+            document.getElementById('admin-actor-name').value = actor.name || '';
+            document.getElementById('admin-actor-birthdate').value = actor.birthDate || '';
+            document.getElementById('admin-actor-photo').value = actor.photo?.startsWith('data:') ? '' : (actor.photo || '');
+            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'https://via.placeholder.com/150x150?text=Aktor';
+
+            const btn = document.getElementById('admin-actor-submit-btn');
+            if (btn) btn.textContent = 'Zapisz zmiany';
+
+            document.getElementById('admin-actor-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        window.editAdminActor = editAdminActor;
+
         async function saveAdminActor(event) {
             event.preventDefault();
 
             const name = safeAdminText(document.getElementById('admin-actor-name')?.value);
+            const birthDate = document.getElementById('admin-actor-birthdate')?.value || '';
             const fileInput = document.getElementById('admin-actor-photo-file');
             const file = fileInput?.files?.[0];
-            if (!name) return;
 
-            let photo = safeAdminText(document.getElementById('admin-actor-photo')?.value);
+            if (!name) return;
+            if (!birthDate) {
+                showAdminToast('Podaj datę urodzenia aktora.', 'error');
+                return;
+            }
+
+            let photo = safeAdminText(document.getElementById('admin-actor-photo')?.value) || editingActorPhotoSource;
+
             if (file) {
                 try {
                     photo = await resizeAdminImageToBase64(file, 400, 0.82);
@@ -14019,8 +14273,15 @@
                 }
             }
 
-            const actor = { id: makeActorId(name), name, photo, updatedAtMs: Date.now() };
-            const items = getActors().filter(a => a.name.toLowerCase() !== name.toLowerCase());
+            const actor = {
+                id: editingActorId || makeActorId(name),
+                name,
+                birthDate,
+                photo,
+                updatedAtMs: Date.now()
+            };
+
+            const items = getActors().filter(a => a.id !== actor.id);
             items.unshift(actor);
             saveLocalActors(items);
 
@@ -14032,11 +14293,10 @@
                 }
             }
 
-            document.getElementById('admin-actor-name').value = '';
-            document.getElementById('admin-actor-photo').value = '';
-            if (fileInput) fileInput.value = '';
+            // odśwież obsadę we wszystkich filmach, które go mają — nazwa/zdjęcie mogły się zmienić
+            resetAdminActorForm();
             renderAdminActorsList();
-            showAdminToast(`Dodano aktora: "${actor.name}"`);
+            showAdminToast(editingActorId ? `Zaktualizowano: "${actor.name}"` : `Dodano aktora: "${actor.name}"`);
         }
         window.saveAdminActor = saveAdminActor;
 
@@ -14045,7 +14305,6 @@
 
             saveLocalActors(getActors().filter(a => a.id !== id));
 
-            // usuń go też z obsady wszystkich filmów lokalnie
             getAdminMovies().forEach(m => {
                 if (Array.isArray(m.cast) && m.cast.includes(id)) {
                     m.cast = m.cast.filter(x => x !== id);
@@ -14062,10 +14321,23 @@
                 catch (err) { console.error('Firestore delete error (actors):', err); }
             }
 
+            if (editingActorId === id) resetAdminActorForm();
+
             renderAdminActorsList();
             showAdminToast('Usunięto aktora.');
         }
         window.deleteAdminActor = deleteAdminActor;
+
+        function formatActorAge(birthDate) {
+            if (!birthDate) return '';
+            const d = new Date(birthDate);
+            if (isNaN(d)) return '';
+            const now = new Date();
+            let age = now.getFullYear() - d.getFullYear();
+            const m = now.getMonth() - d.getMonth();
+            if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+            return `${age} lat`;
+        }
 
         function renderAdminActorsList(query = '') {
             const list = document.getElementById('admin-actors-list');
@@ -14084,8 +14356,14 @@
                     <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/108x156?text=Aktor')}" alt="${escapeAdminHtml(a.name)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(a.name)}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">
+                            ${a.birthDate ? `Ur. ${escapeAdminHtml(a.birthDate)} (${formatActorAge(a.birthDate)})` : 'Brak daty urodzenia'}
+                        </p>
                     </div>
-                    <button onclick="deleteAdminActor('${a.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                    <div class="flex gap-2">
+                        <button onclick="editAdminActor('${a.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Edytuj</button>
+                        <button onclick="deleteAdminActor('${a.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                    </div>
                 </div>
             `).join('');
         }
@@ -16966,23 +17244,124 @@
         window.openNewsCommentsModal = async function(newsId, title) {
             currentNewsCommentsId = newsId;
 
-            const titleBox = document.getElementById('news-comments-title');
+            const section = document.getElementById('news-comments-section');
+            const currentBox = document.getElementById('news-comments-current');
             const listBox = document.getElementById('news-comments-list');
             const statusBox = document.getElementById('news-comment-status');
             const textBox = document.getElementById('news-comment-text');
 
-            if (titleBox) titleBox.textContent = `Komentarze - ${title}`;
-            if (listBox) listBox.innerHTML = '<div class="text-zinc-500 text-sm font-bold">Ładowanie komentarzy...</div>';
+            if (currentBox) {
+                currentBox.textContent = `Komentujesz news: ${title}`;
+            }
+
+            if (listBox) {
+                listBox.innerHTML = '<div class="news-comments-empty">Ładowanie komentarzy...</div>';
+            }
+
             if (statusBox) statusBox.textContent = '';
             if (textBox) textBox.value = '';
 
-            toggleModal('news-comments-modal', true);
+            if (section) {
+                section.classList.remove('news-comments-hidden');
+
+                requestAnimationFrame(() => {
+                    section.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            }
+
             await loadNewsComments(newsId);
+        };
+
+        let adminActiveCommentsNewsId = null;
+
+        window.openAdminNewsComments = async function(newsId, title) {
+            adminActiveCommentsNewsId = newsId;
+
+            const panel = document.getElementById('admin-news-comments-panel');
+            const titleBox = document.getElementById('admin-news-comments-title');
+            const listBox = document.getElementById('admin-news-comments-list');
+
+            if (titleBox) titleBox.textContent = title;
+            if (listBox) listBox.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Ładowanie komentarzy...</div>';
+
+            panel?.classList.remove('hidden');
+            panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            await renderAdminNewsCommentsList(newsId);
+        };
+
+        window.closeAdminNewsComments = function() {
+            adminActiveCommentsNewsId = null;
+            document.getElementById('admin-news-comments-panel')?.classList.add('hidden');
+        };
+
+        async function renderAdminNewsCommentsList(newsId) {
+            const listBox = document.getElementById('admin-news-comments-list');
+            if (!listBox) return;
+
+            try {
+                const snap = await getDocs(collection(db, 'weeklyNews', newsId, 'comments'));
+                const comments = [];
+                snap.forEach(docSnap => comments.push({ id: docSnap.id, ...docSnap.data() }));
+                comments.sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+
+                if (!comments.length) {
+                    listBox.innerHTML = '<div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">Brak komentarzy pod tym newsem.</div>';
+                    return;
+                }
+
+                listBox.innerHTML = comments.map(c => {
+                    const nick = c.nick || 'Użytkownik';
+                    const date = c.createdAtMs ? new Date(c.createdAtMs).toLocaleString('pl-PL') : 'brak daty';
+                    const text = String(c.text || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+                    return `
+                        <div class="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <p class="text-white font-black uppercase text-xs truncate">${nick}</p>
+                                    <p class="text-zinc-600 text-[9px] font-black uppercase tracking-widest mt-1">${date}</p>
+                                </div>
+                                <button onclick="deleteAdminNewsComment('${newsId}', '${c.id}')" class="shrink-0 bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-2 text-[9px] font-black uppercase tracking-widest" type="button">Usuń</button>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mt-3 whitespace-pre-wrap break-words">${text}</p>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Błąd ładowania komentarzy (admin):', error);
+                listBox.innerHTML = '<div class="rounded-2xl border border-red-500/30 bg-black p-5 text-red-400 text-sm font-bold">Nie udało się załadować komentarzy.</div>';
+            }
+        }
+        window.renderAdminNewsCommentsList = renderAdminNewsCommentsList;
+
+        window.deleteAdminNewsComment = async function(newsId, commentId) {
+            if (!confirm('Usunąć ten komentarz?')) return;
+
+            try {
+                await deleteDoc(doc(db, 'weeklyNews', newsId, 'comments', commentId));
+                showAdminToast('Usunięto komentarz.');
+                await renderAdminNewsCommentsList(newsId);
+
+                // odśwież licznik komentarzy pod newsem na stronie głównej, jeśli jest widoczny
+                if (typeof window.loadNewsCommentsCount === 'function') {
+                    const commentCount = await window.loadNewsCommentsCount(newsId);
+                    document
+                        .querySelectorAll(`.news-reaction-row[data-news-id="${newsId}"] .news-reaction-count[data-key="comments"]`)
+                        .forEach(el => { el.textContent = formatReactionCount(commentCount); });
+                }
+            } catch (error) {
+                console.error('Błąd usuwania komentarza:', error);
+                showAdminToast('Nie udało się usunąć komentarza.', 'error');
+            }
         };
 
         window.closeNewsCommentsModal = function() {
             currentNewsCommentsId = null;
-            toggleModal('news-comments-modal', false);
+            document.getElementById('news-comments-section')?.classList.add('news-comments-hidden');
         };
 
         async function loadNewsComments(newsId) {
@@ -17004,7 +17383,7 @@
 
                 if (!comments.length) {
                     listBox.innerHTML = `
-                        <div class="rounded-2xl border border-zinc-800 bg-black p-5 text-zinc-500 text-sm font-bold">
+                        <div class="news-comments-empty">
                             Brak komentarzy. Napisz pierwszy.
                         </div>
                     `;
@@ -17020,16 +17399,16 @@
                         : 'teraz';
 
                     return `
-                        <article class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
-                            <div class="flex items-center gap-3 mb-3">
+                        <article class="news-comment-card">
+                            <div class="flex items-center gap-3 mb-4">
                                 ${
                                     avatar
-                                        ? `<img src="${avatar}" class="w-10 h-10 rounded-full object-cover border border-zinc-700" alt="${nick}">`
-                                        : `<div class="w-10 h-10 rounded-full bg-green-600 text-black flex items-center justify-center font-black uppercase">${nick.charAt(0)}</div>`
+                                        ? `<img src="${avatar}" class="news-comment-avatar" alt="${nick}">`
+                                        : `<div class="news-comment-avatar news-comment-avatar-fallback">${nick.charAt(0)}</div>`
                                 }
                                 <div class="min-w-0">
                                     <p class="text-white font-black uppercase text-xs truncate">${nick}</p>
-                                    <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest">${date}</p>
+                                    <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${date}</p>
                                 </div>
                             </div>
 
@@ -17040,7 +17419,7 @@
             } catch (error) {
                 console.error('Błąd ładowania komentarzy:', error);
                 listBox.innerHTML = `
-                    <div class="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-red-400 text-sm font-bold">
+                    <div class="news-comments-empty" style="border-color:rgba(239,68,68,.30);color:#f87171;">
                         Nie udało się załadować komentarzy.
                     </div>
                 `;
@@ -17091,6 +17470,12 @@
                 if (textBox) textBox.value = '';
                 if (statusBox) statusBox.textContent = 'Komentarz dodany.';
                 await loadNewsComments(currentNewsCommentsId);
+                if (typeof window.loadNewsCommentsCount === 'function') {
+                    const commentCount = await window.loadNewsCommentsCount(currentNewsCommentsId);
+                    document
+                        .querySelectorAll(`.news-reaction-row[data-news-id="${currentNewsCommentsId}"] .news-reaction-count[data-key="comments"]`)
+                        .forEach(el => { el.textContent = formatReactionCount(commentCount); });
+                }
             } catch (error) {
                 console.error('Błąd dodawania komentarza:', error);
                 if (statusBox) statusBox.textContent = 'Nie udało się dodać komentarza.';
@@ -19732,6 +20117,7 @@
                    <div class="flex gap-2 flex-wrap">
                         <button onclick="moveAdminNews('${item.id}', -1)" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-3 py-3 text-[10px] font-black" type="button">↑</button>
                         <button onclick="moveAdminNews('${item.id}', 1)" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-3 py-3 text-[10px] font-black" type="button">↓</button>
+                        <button onclick="openAdminNewsComments('${item.id}', '${escapeAdminHtml(item.title).replace(/'/g, "\\'")}')" class="bg-cyan-500/10 hover:bg-cyan-500 text-cyan-300 hover:text-black border border-cyan-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Komentarze</button>
                         <button onclick="editAdminNews('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Edytuj</button>
                         <button onclick="deleteAdminNews('${item.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/30 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Usuń</button>
                     </div>
@@ -19781,7 +20167,7 @@
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','skull')"><span class="news-reaction-emoji">💀</span><span class="news-reaction-count" data-key="skull">–</span></button>
                                 <button type="button" class="news-reaction-btn" onclick="openNewsCommentsModal('${item.id}', '${String(item.title).replace(/'/g, "\\'")}')">
                                     <span class="news-reaction-emoji">💬</span>
-                                    <span class="news-reaction-count" data-key="comments">Komentarze</span>
+                                    <span class="news-reaction-count" data-key="comments">-</span>
                                 </button>
                             </div>
 
@@ -19796,6 +20182,16 @@
             dots.innerHTML = items.map((_, i) => `<span class="weekly-news-dot ${i === weeklyNewsIndex ? 'active' : ''}"></span>`).join('');
             updateWeeklyNewsPosition();
         }
+
+        window.loadNewsCommentsCount = async function(newsId) {
+            try {
+                const snap = await getDocs(collection(db, 'weeklyNews', newsId, 'comments'));
+                return snap.size;
+            } catch (err) {
+                console.warn('Nie udało się pobrać liczby komentarzy:', err);
+                return 0;
+            }
+        };
 
         function formatReactionCount(n) {
             const num = Number(n) || 0;
@@ -19825,6 +20221,12 @@
                         const el = row.querySelector(`.news-reaction-count[data-key="${key}"]`);
                         if (el) el.textContent = formatReactionCount(counts?.[key] || 0);
                     });
+
+                    if (typeof window.loadNewsCommentsCount === 'function') {
+                        const commentCount = await window.loadNewsCommentsCount(item.id);
+                        const commentsEl = row.querySelector('.news-reaction-count[data-key="comments"]');
+                        if (commentsEl) commentsEl.textContent = formatReactionCount(commentCount);
+                    }
                 } catch (err) {
                     console.warn('Nie udało się pobrać reakcji dla newsa', item.id, err);
                 }
@@ -20927,41 +21329,61 @@
     </div>
 
 
-    <div id="news-comments-modal" class="modal-overlay" onclick="if(event.target === this) closeNewsCommentsModal()">
-        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-3xl rounded-[32px] p-5 md:p-8 relative shadow-2xl shadow-black/80 max-h-[88vh] overflow-y-auto">
-            <button onclick="closeNewsCommentsModal()" class="absolute top-5 right-5 bg-white text-black w-8 h-8 rounded-full font-bold hover:bg-green-500 transition">✕</button>
+    <!-- =========================================================
+         FULL-WIDTH NEWS COMMENTS
+         ========================================================= -->
+    <section id="news-comments-section" class="news-comments-hidden" aria-label="Komentarze do newsów">
+        <div class="news-comments-inner">
+            <div class="news-comments-head">
+                <div>
+                    <p class="news-comments-kicker">RATIVIO COMMENTS</p>
+                    <h2 class="news-comments-heading">
+                        Komentarze <span>społeczności</span>
+                    </h2>
+                </div>
 
-            <p class="text-[10px] font-black uppercase tracking-[0.35em] text-green-500 mb-2">RATIVIO Comments</p>
-            <h2 id="news-comments-title" class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter text-white mb-4">
-                Komentarze
-            </h2>
-
-            <div id="news-comments-list" class="grid gap-3 mb-6">
-                <div class="text-zinc-500 text-sm font-bold">Ładowanie komentarzy...</div>
+                <p id="news-comments-current" class="news-comments-current">
+                    Wybierz komentarze przy wybranym newsie.
+                </p>
             </div>
 
-            <div class="border-t border-zinc-800 pt-5">
+            <div id="news-comments-list">
+                <div class="news-comments-empty">
+                    Ładowanie komentarzy...
+                </div>
+            </div>
+
+            <div class="news-comment-composer">
                 <textarea
                     id="news-comment-text"
-                    placeholder="Napisz komentarz..."
-                    class="w-full min-h-[110px] bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 resize-y"
+                    maxlength="1000"
+                    placeholder="Napisz komentarz do tego newsa..."
                 ></textarea>
 
-                <div class="flex justify-between items-center mt-3 gap-3">
+                <div class="flex justify-between items-center mt-3 gap-3 flex-wrap">
                     <span id="news-comment-status" class="text-[10px] font-black uppercase tracking-widest text-zinc-500"></span>
-                    <button
-                        onclick="submitNewsComment()"
-                        class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest"
-                        type="button"
-                    >
-                        Dodaj komentarz
-                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button
+                            onclick="closeNewsCommentsModal()"
+                            class="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 rounded-2xl px-5 py-3 text-[10px] font-black uppercase tracking-widest transition"
+                            type="button"
+                        >
+                            Wyjdź z komentarzy
+                        </button>
+
+                        <button
+                            onclick="submitNewsComment()"
+                            class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest transition"
+                            type="button"
+                        >
+                            Dodaj komentarz
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-        
+    </section>
 
 
     <div id="trailer-modal" class="modal-overlay trailer-modal" onclick="if(event.target === this) closeTrailerModal()">
