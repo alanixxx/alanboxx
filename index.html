@@ -190,9 +190,9 @@
 
         .rating-stars button.active,
         .rating-stars button:hover {
-            background: rgba(34,211,238,.16);
-            border-color: #22d3ee;
-            color: #22d3ee;
+            background: rgba(250,204,21,.16);
+            border-color: #facc15;
+            color: #facc15;
         }
 
         .rating-history-grid {
@@ -806,11 +806,9 @@
 
 
         #movie-modal .movie-stars span.active {
-
-            color: #f4f3f0;
-
+            color: #facc15;
             text-shadow:
-                0 0 8px rgba(244,243,240,.25);
+                0 0 8px rgba(250,204,21,.45);
         }
 
         /* PRZYCISKI */
@@ -5049,10 +5047,9 @@
         }
 
         #movie-modal .movie-stars span.active {
-            color: #f4f3f0;
-
+            color: #facc15;
             text-shadow:
-                0 0 8px rgba(244,243,240,.25);
+                0 0 8px rgba(250,204,21,.45);
         }
 
         #movie-modal .movie-stars span {
@@ -8635,10 +8632,13 @@
 
         /* rola aktora, jeśli jest wyświetlana */
         #movie-modal .movie-cast-role {
+            display: block !important;
             font-size: 11px !important;
             line-height: 1.2 !important;
             margin-top: 3px !important;
             text-align: center !important;
+            color: #71717a;
+            font-weight: 700;
         }
 
         /* ===== FINALNE DOPRACOWANIE MODALA ===== */
@@ -11745,6 +11745,8 @@
             }
         }
 
+        
+
 
        
 
@@ -12170,26 +12172,38 @@
                     <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Baza aktorów</h3>
                     <p class="text-zinc-500 text-xs font-bold mb-4">Dodaj aktora raz, potem przypisujesz go do dowolnej liczby filmów w formularzu "Dodaj film".</p>
 
-                    <form id="admin-actor-form" onsubmit="saveAdminActor(event)" class="grid gap-3 mb-6">
+                    <form id="admin-actor-form" onsubmit="saveAdminActor(event)" class="grid gap-4 mb-6">
                         <div class="grid sm:grid-cols-2 gap-3">
                             <input id="admin-actor-name" class="admin-field" placeholder="Imię i nazwisko" required>
                             <input id="admin-actor-birthdate" type="date" class="admin-field" required>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-3">
-                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'https://via.placeholder.com/150x150?text=Aktor'">
+                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'https://via.placeholder.com/300x300?text=Aktor'">
                             <input id="admin-actor-photo-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*" onchange="previewAdminActorPhoto()">
                         </div>
 
-                        <div class="flex items-center gap-4">
-                            <div class="w-24 h-24 rounded-2xl border border-zinc-800 bg-black overflow-hidden shrink-0">
-                                <img id="admin-actor-photo-preview" src="https://via.placeholder.com/150x150?text=Aktor" class="w-full h-full object-cover" alt="Podgląd">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 bg-zinc-950/60 border border-zinc-800 rounded-2xl p-4">
+                            <div class="w-44 h-44 rounded-full border-2 border-green-500/50 bg-black overflow-hidden shrink-0 shadow-[0_0_25px_rgba(34,197,94,.15)]">
+                                <img id="admin-actor-photo-preview" src="https://via.placeholder.com/300x300?text=Aktor" class="w-full h-full object-cover" style="object-position:50% 50%;" alt="Podgląd avatara">
                             </div>
 
-                            <div class="flex gap-3 flex-1">
-                                <button id="admin-actor-submit-btn" class="flex-1 bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Dodaj</button>
-                                <button onclick="resetAdminActorForm()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Wyczyść</button>
+                            <div class="flex-1 w-full grid gap-4">
+                                <div>
+                                    <label class="admin-label">Kadrowanie — poziom</label>
+                                    <input id="admin-actor-pos-x" type="range" min="0" max="100" value="50" class="w-full" style="accent-color:#22c55e" oninput="updateAdminActorPhotoPosition()">
+                                </div>
+                                <div>
+                                    <label class="admin-label">Kadrowanie — pion</label>
+                                    <input id="admin-actor-pos-y" type="range" min="0" max="100" value="50" class="w-full" style="accent-color:#22c55e" oninput="updateAdminActorPhotoPosition()">
+                                </div>
+                                <p class="text-zinc-500 text-[10px] font-bold">Przesuń suwaki, żeby twarz nie ucinała się w okrągłym avatarze — podgląd po lewej pokazuje dokładnie to, co zobaczą użytkownicy.</p>
                             </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button id="admin-actor-submit-btn" class="flex-1 bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Dodaj</button>
+                            <button onclick="resetAdminActorForm()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Wyczyść</button>
                         </div>
                     </form>
 
@@ -12823,7 +12837,7 @@
 
                                 <span id="studio-review-word-count"
                                     class="text-[9px] font-black uppercase tracking-widest text-zinc-600">
-                                    0 / 500 słów
+                                    0 / 500 Liter
                                 </span>
                             </div>
 
@@ -13967,7 +13981,11 @@
                     date: safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
                     trailer: safeAdminText(document.getElementById('admin-trailer')?.value),
                     titlePl: safeAdminText(document.getElementById('admin-title-pl')?.value),
-                    cast: [...currentMovieCast],
+                    cast: currentMovieCast.map(c => c.id),
+                    castRoles: currentMovieCast.reduce((acc, c) => {
+                        if (c.role && c.role.trim()) acc[c.id] = c.role.trim();
+                        return acc;
+                    }, {}),
                     desc,
                     descEn
                 };
@@ -14066,7 +14084,9 @@
             document.getElementById('admin-desc-en').value = movie.descEn || '';
             setAdminTranslateMessage('');
             document.getElementById('admin-title-pl').value = movie.titlePl || '';
-            currentMovieCast = Array.isArray(movie.cast) ? [...movie.cast] : [];
+            currentMovieCast = Array.isArray(movie.cast)
+                ? movie.cast.map(id => ({ id, role: movie.castRoles?.[id] || '' }))
+                : [];
             renderSelectedCast();
             document.getElementById('admin-img-url').value = movie.img?.startsWith('data:') ? '' : movie.img || '';
             document.getElementById('admin-img-preview').src = movie.img || 'https://via.placeholder.com/300x450?text=Plakat';
@@ -14207,6 +14227,14 @@
             return `actor-${slug}-${Date.now().toString(36)}`;
         }
 
+        function updateAdminActorPhotoPosition() {
+            const x = document.getElementById('admin-actor-pos-x')?.value ?? 50;
+            const y = document.getElementById('admin-actor-pos-y')?.value ?? 50;
+            const preview = document.getElementById('admin-actor-photo-preview');
+            if (preview) preview.style.objectPosition = `${x}% ${y}%`;
+        }
+        window.updateAdminActorPhotoPosition = updateAdminActorPhotoPosition;
+
         function previewAdminActorPhoto() {
             const fileInput = document.getElementById('admin-actor-photo-file');
             const preview = document.getElementById('admin-actor-photo-preview');
@@ -14214,7 +14242,10 @@
             if (!file || !preview) return;
 
             const reader = new FileReader();
-            reader.onload = e => { preview.src = e.target.result; };
+            reader.onload = e => {
+                preview.src = e.target.result;
+                updateAdminActorPhotoPosition();
+            };
             reader.readAsDataURL(file);
         }
         window.previewAdminActorPhoto = previewAdminActorPhoto;
@@ -14223,7 +14254,10 @@
             editingActorId = null;
             editingActorPhotoSource = '';
             document.getElementById('admin-actor-form')?.reset();
-            document.getElementById('admin-actor-photo-preview').src = 'https://via.placeholder.com/150x150?text=Aktor';
+            document.getElementById('admin-actor-photo-preview').src = 'https://via.placeholder.com/300x300?text=Aktor';
+            document.getElementById('admin-actor-pos-x').value = 50;
+            document.getElementById('admin-actor-pos-y').value = 50;
+            updateAdminActorPhotoPosition();
             const btn = document.getElementById('admin-actor-submit-btn');
             if (btn) btn.textContent = 'Dodaj';
         }
@@ -14239,7 +14273,10 @@
             document.getElementById('admin-actor-name').value = actor.name || '';
             document.getElementById('admin-actor-birthdate').value = actor.birthDate || '';
             document.getElementById('admin-actor-photo').value = actor.photo?.startsWith('data:') ? '' : (actor.photo || '');
-            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'https://via.placeholder.com/150x150?text=Aktor';
+            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'https://via.placeholder.com/300x300?text=Aktor';
+            document.getElementById('admin-actor-pos-x').value = actor.photoPosX ?? 50;
+            document.getElementById('admin-actor-pos-y').value = actor.photoPosY ?? 50;
+            updateAdminActorPhotoPosition();
 
             const btn = document.getElementById('admin-actor-submit-btn');
             if (btn) btn.textContent = 'Zapisz zmiany';
@@ -14266,18 +14303,23 @@
 
             if (file) {
                 try {
-                    photo = await resizeAdminImageToBase64(file, 400, 0.82);
+                    photo = await resizeAdminImageToBase64(file, 500, 0.85);
                 } catch (err) {
                     showAdminToast('Nie udało się wczytać zdjęcia aktora.', 'error');
                     return;
                 }
             }
 
+            const photoPosX = Number(document.getElementById('admin-actor-pos-x')?.value ?? 50);
+            const photoPosY = Number(document.getElementById('admin-actor-pos-y')?.value ?? 50);
+
             const actor = {
                 id: editingActorId || makeActorId(name),
                 name,
                 birthDate,
                 photo,
+                photoPosX,
+                photoPosY,
                 updatedAtMs: Date.now()
             };
 
@@ -14293,7 +14335,6 @@
                 }
             }
 
-            // odśwież obsadę we wszystkich filmach, które go mają — nazwa/zdjęcie mogły się zmienić
             resetAdminActorForm();
             renderAdminActorsList();
             showAdminToast(editingActorId ? `Zaktualizowano: "${actor.name}"` : `Dodano aktora: "${actor.name}"`);
@@ -14308,11 +14349,13 @@
             getAdminMovies().forEach(m => {
                 if (Array.isArray(m.cast) && m.cast.includes(id)) {
                     m.cast = m.cast.filter(x => x !== id);
+                    if (m.castRoles) delete m.castRoles[id];
                 }
             });
             movies.forEach(m => {
                 if (Array.isArray(m.cast) && m.cast.includes(id)) {
                     m.cast = m.cast.filter(x => x !== id);
+                    if (m.castRoles) delete m.castRoles[id];
                 }
             });
 
@@ -14353,7 +14396,7 @@
 
             list.innerHTML = actors.map(a => `
                 <div class="admin-movie-row" style="grid-template-columns: 54px 1fr auto;">
-                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/108x156?text=Aktor')}" alt="${escapeAdminHtml(a.name)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/108x156?text=Aktor')}" alt="${escapeAdminHtml(a.name)}" style="object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(a.name)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">
@@ -14509,8 +14552,9 @@
             const q = query.toLowerCase().trim();
             if (!q) { box.innerHTML = ''; return; }
 
+            const selectedIds = currentMovieCast.map(c => c.id);
             const matches = getActors().filter(a =>
-                a.name.toLowerCase().includes(q) && !currentMovieCast.includes(a.id)
+                a.name.toLowerCase().includes(q) && !selectedIds.includes(a.id)
             ).slice(0, 8);
 
             if (!matches.length) {
@@ -14520,7 +14564,7 @@
 
             box.innerHTML = matches.map(a => `
                 <button type="button" onclick="addActorToCast('${a.id}')" class="admin-movie-row text-left" style="grid-template-columns: 40px 1fr auto;">
-                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/60x60?text=A')}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
+                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/60x60?text=A')}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
                     <p class="text-white font-bold text-xs truncate">${escapeAdminHtml(a.name)}</p>
                     <span class="text-green-500 text-[10px] font-black uppercase">+ Dodaj</span>
                 </button>
@@ -14529,7 +14573,9 @@
         window.renderAdminMovieActorPicker = renderAdminMovieActorPicker;
 
         function addActorToCast(actorId) {
-            if (!currentMovieCast.includes(actorId)) currentMovieCast.push(actorId);
+            if (!currentMovieCast.some(c => c.id === actorId)) {
+                currentMovieCast.push({ id: actorId, role: '' });
+            }
             document.getElementById('admin-movie-actor-search').value = '';
             document.getElementById('admin-movie-actor-picker').innerHTML = '';
             renderSelectedCast();
@@ -14537,10 +14583,16 @@
         window.addActorToCast = addActorToCast;
 
         function removeActorFromCast(actorId) {
-            currentMovieCast = currentMovieCast.filter(id => id !== actorId);
+            currentMovieCast = currentMovieCast.filter(c => c.id !== actorId);
             renderSelectedCast();
         }
         window.removeActorFromCast = removeActorFromCast;
+
+        function updateCastRole(actorId, value) {
+            const entry = currentMovieCast.find(c => c.id === actorId);
+            if (entry) entry.role = value;
+        }
+        window.updateCastRole = updateCastRole;
 
         function renderSelectedCast() {
             const box = document.getElementById('admin-movie-selected-cast');
@@ -14552,15 +14604,22 @@
             }
 
             const actors = getActors();
-            box.innerHTML = currentMovieCast.map(id => {
-                const a = actors.find(x => x.id === id);
+            box.innerHTML = currentMovieCast.map(entry => {
+                const a = actors.find(x => x.id === entry.id);
                 if (!a) return '';
                 return `
-                    <span class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-full pl-1 pr-3 py-1">
-                        <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/40x40?text=A')}" style="width:24px;height:24px;border-radius:999px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/40x40?text=A'">
-                        <span class="text-white text-[10px] font-black uppercase">${escapeAdminHtml(a.name)}</span>
-                        <button type="button" onclick="removeActorFromCast('${a.id}')" class="text-red-400 hover:text-red-300 font-black">×</button>
-                    </span>
+                    <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-2xl pl-1 pr-2 py-1.5">
+                        <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/40x40?text=A')}" style="width:32px;height:32px;border-radius:999px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/40x40?text=A'">
+                        <span class="text-white text-[10px] font-black uppercase whitespace-nowrap">${escapeAdminHtml(a.name)}</span>
+                        <input
+                            type="text"
+                            placeholder="Rola (opcjonalnie)"
+                            value="${escapeAdminHtml(entry.role || '')}"
+                            oninput="updateCastRole('${a.id}', this.value)"
+                            class="bg-zinc-950 border border-zinc-800 rounded-lg px-2 py-1 text-[10px] text-white font-bold w-32 outline-none focus:border-green-500"
+                        >
+                        <button type="button" onclick="removeActorFromCast('${a.id}')" class="text-red-400 hover:text-red-300 font-black px-1">×</button>
+                    </div>
                 `;
             }).join('');
         }
@@ -15738,14 +15797,19 @@
                     castFooter.classList.remove('hidden');
                     castRow.innerHTML = actors.map(a => {
                         const initial = (a.name || '?').trim().charAt(0).toUpperCase();
+                        const role = m.castRoles?.[a.id] || '';
+                        const posX = a.photoPosX ?? 50;
+                        const posY = a.photoPosY ?? 50;
+
                         const avatarInner = a.photo
-                            ? `<img src="${a.photo}" alt="${a.name}" onerror="this.parentElement.innerHTML='<div class=&quot;movie-cast-avatar-fallback&quot;>${initial}</div>'">`
+                            ? `<img src="${a.photo}" alt="${a.name}" style="object-position:${posX}% ${posY}%" onerror="this.parentElement.innerHTML='<div class=&quot;movie-cast-avatar-fallback&quot;>${initial}</div>'">`
                             : `<div class="movie-cast-avatar-fallback">${initial}</div>`;
 
                         return `
-                            <div class="movie-cast-item" title="${a.name}">
+                            <div class="movie-cast-item" title="${a.name}${role ? ' jako ' + role : ''}">
                                 <div class="movie-cast-avatar">${avatarInner}</div>
                                 <span class="movie-cast-name">${a.name}</span>
+                                ${role ? `<span class="movie-cast-role">${role}</span>` : ''}
                             </div>
                         `;
                     }).join('');
@@ -17570,6 +17634,9 @@
                 cast: Array.isArray(movie.cast)
                     ? movie.cast.map(id => String(id))
                     : [],
+                castRoles: movie.castRoles && typeof movie.castRoles === 'object'
+                    ? movie.castRoles
+                    : {},
 
                 updatedAtMs: Number(
                     movie.updatedAtMs || Date.now()
@@ -21313,7 +21380,7 @@
                         <span class="review-footer-dot"></span>
 
                         <span>
-                            MOVIEHUB · TWOJA HISTORIA
+                            RATIVIO · TWOJA HISTORIA
                         </span>
 
                     </div>
