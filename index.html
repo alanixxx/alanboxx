@@ -11745,8 +11745,246 @@
             }
         }
 
-        
 
+        .rt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+        .rt-card {
+            display: flex;
+            gap: 12px;
+            background: #131316;
+            border: 1px solid #27272a;
+            border-radius: 18px;
+            padding: 12px;
+            transition: .2s ease;
+        }
+        .rt-card:hover {
+            border-color: rgba(34, 211, 238, .5);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(0,0,0,.4);
+        }
+        .rt-poster {
+            position: relative;
+            flex-shrink: 0;
+            width: 78px;
+            height: 112px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #09090b;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+        .rt-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .rt-poster-score {
+            position: absolute;
+            left: 5px; bottom: 5px;
+            background: rgba(0,0,0,.85);
+            color: #22d3ee;
+            font-size: 10px; font-weight: 900;
+            padding: 3px 6px; border-radius: 7px; line-height: 1.2;
+        }
+        .rt-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+        .rt-title {
+            color: white; font-weight: 900; font-style: italic; text-transform: uppercase;
+            font-size: 14px; line-height: 1.15; margin-bottom: 4px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .rt-date {
+            color: #52525b; font-size: 9px; font-weight: 900; text-transform: uppercase;
+            letter-spacing: .08em; margin-bottom: 8px;
+        }
+        .rt-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+        .rt-btn {
+            flex: none;
+            min-width: 0;
+            background: transparent;
+            border: none;
+            padding: 0;
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: color .2s ease;
+        }
+        .rt-btn:hover {
+            background: transparent;
+            color: #22d3ee;
+        }
+        .rt-btn-del {
+            margin-left: auto;
+            width: auto;
+            background: transparent;
+            border: none;
+            color: #52525b;
+            font-size: 14px;
+            padding: 0;
+        }
+        .rt-btn-del:hover {
+            background: transparent;
+            color: #ef4444;
+            transform: none;
+        }
+
+
+        .rt-stars {
+            display: flex;
+            gap: 2px;
+            margin: 4px 0 6px;
+        }
+        .rt-star {
+            font-size: 13px;
+            line-height: 1;
+            color: #3f3f46;
+        }
+        .rt-star.filled {
+            color: #facc15;
+            text-shadow: 0 0 6px rgba(250,204,21,.5);
+        }
+
+        .rt-stars-wrap {
+            position: relative;
+            display: inline-block;
+            line-height: 1;
+            margin: 4px 0 6px;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+        .rt-stars-bg {
+            color: #3f3f46;
+            white-space: nowrap;
+        }
+        .rt-stars-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            color: #facc15;
+            text-shadow: 0 0 6px rgba(250,204,21,.5);
+        }
+
+                
+
+
+
+        @media (max-width: 768px) {
+            #movie-modal {
+                position: fixed;
+                inset: 0;
+                width: 100vw;
+                height: 100dvh;
+                padding: 0;
+                margin: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+                background: #050507;
+                z-index: 1000;
+            }
+
+            #movie-modal .movie-screen {
+                position: relative;
+                min-height: 100dvh;
+                background: #050507;
+            }
+
+            #movie-modal .movie-topbar {
+                position: sticky;
+                top: 0;
+                z-index: 20;
+                padding: 16px 18px;
+                background: rgba(5,5,7,.96);
+            }
+
+            #movie-modal .movie-backdrop {
+                position: absolute;
+                inset: 0;
+                background: #050507 !important;
+            }
+
+            #movie-modal .movie-backdrop::before,
+            #movie-modal .movie-backdrop::after {
+                display: none !important;
+            }
+
+            #movie-modal #movie-modal-poster {
+                display: none !important;
+            }
+
+            #movie-modal .movie-content {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                padding: 22px 18px 60px;
+                margin: 0;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                overflow: visible;
+            }
+
+            .movie-mobile-header {
+                display: grid !important;
+                grid-template-columns: 1fr 112px;
+                gap: 16px;
+                margin-bottom: 24px;
+                align-items: start;
+            }
+
+            .movie-mobile-poster {
+                display: block !important;
+                width: 112px;
+                height: 168px;
+                object-fit: cover;
+                border-radius: 16px;
+                border: 1px solid rgba(255,255,255,.13);
+            }
+
+            #movie-modal #modal-title {
+                margin: 0 0 12px;
+                font-size: clamp(31px, 9vw, 43px);
+                line-height: .92;
+                max-width: 100%;
+                padding: 0 !important;
+            }
+
+            #movie-modal #modal-desc {
+                margin: 0;
+                font-size: 13px;
+                line-height: 1.45;
+                color: #a1a1aa;
+                padding: 0 !important;
+            }
+
+            #movie-modal .movie-actions {
+                display: flex !important;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin: 0 0 28px;
+            }
+
+            #movie-modal #modal-trailer-link {
+                flex: 0 0 100%;
+                width: 100%;
+            }
+
+            #movie-modal #modal-rate-shortcut,
+            #movie-modal #modal-watchlist-btn {
+                flex: 1 1 calc(50% - 5px);
+                min-height: 50px;
+            }
+        }
 
        
 
@@ -14737,7 +14975,6 @@
         // ==========================================
         function renderRatingHistory() {
             window.activeView = 'ratings';
-
             hideAll();
 
             const listsPage = document.getElementById('lists-page');
@@ -14748,7 +14985,6 @@
 
             const listsHeader = listsPage.querySelector('h2');
             const newListBtn = listsPage.querySelector('button[onclick*="createNewList"]');
-
             if (listsHeader) listsHeader.style.display = 'none';
             if (newListBtn) newListBtn.style.display = 'none';
 
@@ -14770,13 +15006,23 @@
                 return;
             }
 
-            const ratingValues = history
-                .map(entry => parseFloat(entry.rating))
-                .filter(score => !isNaN(score));
-
+            const ratingValues = history.map(e => parseFloat(e.rating)).filter(s => !isNaN(s));
             const averageRating = ratingValues.length
-                ? (ratingValues.reduce((sum, score) => sum + score, 0) / ratingValues.length).toFixed(1)
+                ? (ratingValues.reduce((sum, s) => sum + s, 0) / ratingValues.length).toFixed(1)
                 : '0.0';
+
+            function buildStarRow(rating) {
+                const value = Math.max(0, Math.min(10, parseFloat(rating) || 0));
+
+                return `
+                    <div class="rt-stars">
+                        ${Array.from({ length: 10 }, (_, i) => {
+                            const starValue = i + 1;
+                            return `<span class="rt-star ${value >= starValue ? 'filled' : ''}">★</span>`;
+                        }).join('')}
+                    </div>
+                `;
+            }
 
             let html = `
                 <section class="rating-history-shell rounded-[32px] border border-zinc-800 p-5 md:p-8 shadow-2xl shadow-black/50">
@@ -14787,10 +15033,9 @@
                                 Historia <span class="text-cyan-400">ocen</span>
                             </h2>
                             <p class="text-zinc-500 font-bold text-sm mt-4 max-w-xl">
-                                Plakaty filmów, które już oceniłeś. Ocena jest mocno wyciągnięta na wierzch, żeby na telefonie od razu było widać co dałeś.
+                                Wszystkie ocenione filmy w jednym miejscu — krótko i na temat.
                             </p>
                         </div>
-
                         <div class="grid grid-cols-2 gap-3 min-w-[220px]">
                             <div class="rounded-2xl bg-zinc-950/80 border border-zinc-800 p-4">
                                 <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Wszystkie</p>
@@ -14803,7 +15048,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                    <div class="rt-grid">
             `;
 
             html += history.map((entry, index) => {
@@ -14812,70 +15057,30 @@
                     (entry.title && m.title.toUpperCase() === String(entry.title).toUpperCase())
                 );
 
-                const poster = entry.img && entry.img !== 'DIAMOND'
-                    ? entry.img
-                    : matchedMovie?.img;
-
+                const poster = entry.img && entry.img !== 'DIAMOND' ? entry.img : matchedMovie?.img;
                 const title = entry.title || matchedMovie?.title || 'Nieznany film';
                 const date = entry.date || 'Brak daty';
                 const cleanRating = String(entry.rating || '-').replace('/10', '');
                 const canOpen = matchedMovie ? `onclick="openModalById('${matchedMovie.id}')"` : '';
 
                 const posterHTML = poster
-                    ? `<img src="${poster}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-3xl\\'>${cleanRating}</div>'">`
-                    : `<div class="w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-4xl">${cleanRating}</div>`;
+                    ? `<img src="${poster}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-xl\\'>${cleanRating}</div>'">`
+                    : `<div class="w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-xl">${cleanRating}</div>`;
 
                 return `
-                    <article class="rating-history-card group">
-                        <button ${canOpen} class="rating-poster-box block w-full text-left relative ${matchedMovie ? 'cursor-pointer' : 'cursor-default'}">
+                    <article class="rt-card">
+                        <button ${canOpen} class="rt-poster" title="${matchedMovie ? 'Otwórz film' : ''}">
                             ${posterHTML}
-
-                            <div class="absolute left-3 right-3 bottom-3 rating-score-badge rounded-2xl px-3 py-2 flex items-center justify-between">
-                                <span class="text-[9px] font-black uppercase tracking-widest opacity-80">Twoja ocena</span>
-                                <span class="font-black italic text-2xl leading-none">
-                                    ${cleanRating}<span class="text-xs opacity-75">/10</span>
-                                </span>
-                            </div>
+                            <span class="rt-poster-score">★ ${cleanRating}</span>
                         </button>
-
-                        <div class="p-4 flex flex-col justify-between min-w-0">
-                            <div>
-                                
-
-                                <h3 class="text-white font-black italic uppercase text-lg leading-tight tracking-tight">
-                                    ${title}
-                                </h3>
-
-                                <button onclick="deleteRatingHistoryItem(${index})"
-                                    class="mt-3 w-fit rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-2 text-[9px] font-black uppercase tracking-widest text-zinc-500 hover:text-red-400 hover:border-red-500 transition">
-                                    Usuń ocenę
-                                </button>
-                            </div>
-
-                            <div class="mt-5 flex items-center justify-between gap-3">
-                                <p class="text-zinc-500 font-black uppercase tracking-widest text-[9px] leading-tight">
-                                    ${window.translateSavedDate ? window.translateSavedDate(date) : date}
-                                </p>
-
-                                <div class="flex items-center gap-2">
-
-                                    ${userReviews[entry.id] ? `
-                                        <button
-                                            onclick="openMovieReview('${entry.id}')"
-                                            class="bg-cyan-400 hover:bg-cyan-300 text-black border border-cyan-400 rounded-xl px-3 py-2 text-[9px] font-black uppercase tracking-wider transition">
-                                            Zobacz recenzję
-                                        </button>
-                                    ` : ''}
-
-                                    ${matchedMovie ? `
-                                        <button
-                                            onclick="openModalById('${matchedMovie.id}')"
-                                            class="bg-zinc-900 hover:bg-cyan-500 hover:text-black border border-zinc-800 hover:border-cyan-500 text-white rounded-xl px-3 py-2 text-[9px] font-black uppercase transition">
-                                            Opis
-                                        </button>
-                                    ` : ''}
-
-                                </div>
+                        <div class="rt-body">
+                            <h3 class="rt-title">${title}</h3>
+                            ${buildStarRow(entry.rating)}
+                            <p class="rt-date">${window.translateSavedDate ? window.translateSavedDate(date) : date}</p>
+                            <div class="rt-actions">
+                                ${userReviews[entry.id] ? `<button type="button" class="rt-btn" onclick="openMovieReview('${entry.id}')">Recenzja</button>` : ''}
+                                ${matchedMovie ? `<button type="button" class="rt-btn" onclick="openModalById('${matchedMovie.id}')">Opis</button>` : ''}
+                                <button type="button" class="rt-btn-del" onclick="deleteRatingHistoryItem(${index})" title="Usuń ocenę">🗑</button>
                             </div>
                         </div>
                     </article>
@@ -14902,6 +15107,7 @@
 
             if (removed?.id) {
                 delete data.ratings[removed.id];
+                localStorage.removeItem(`rating-${removed.id}`); // ← DODANE
             }
 
             window.movieHubData = data;
