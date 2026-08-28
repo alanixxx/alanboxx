@@ -16884,10 +16884,41 @@
             }
         }
 
-        function saveAdminMovies(items) {
-            adminMoviesCache = Array.isArray(items) ? items : [];
-            localStorage.setItem(ADMIN_MOVIES_KEY, JSON.stringify(items));
+        function safeLocalStorageSet(key, value) {
+            try {
+                localStorage.setItem(key, value);
+                return true;
+            } catch (err) {
+                console.warn(`localStorage quota exceeded for ${key}:`, err);
+                return false;
+            }
         }
+
+        function stripHeavyImage(movie) {
+            // Only strip if it's a big base64 blob — normal URLs stay as-is
+            const isBase64Img = typeof movie.img === 'string' && movie.img.startsWith('data:');
+            return isBase64Img ? { ...movie, img: '' } : movie;
+        }
+
+        function saveAdminMovies(items) {
+            // Full data (with real images) stays in memory for the current session
+            adminMoviesCache = Array.isArray(items) ? items : [];
+
+            // Only a lightweight, image-free copy goes into localStorage
+            const lightweight = adminMoviesCache.map(stripHeavyImage);
+            const ok = safeLocalStorageSet(ADMIN_MOVIES_KEY, JSON.stringify(lightweight));
+
+            if (!ok) {
+                // Even the lightweight version didn't fit — clear old cache and retry once
+                try {
+                    localStorage.removeItem(ADMIN_MOVIES_KEY);
+                    localStorage.setItem(ADMIN_MOVIES_KEY, JSON.stringify(lightweight));
+                } catch (err2) {
+                    console.warn('Could not cache admin movies locally at all — continuing without local cache (Firestore save still works).', err2);
+                }
+            }
+        }
+
 
         async function fetchSharedAdminMovies() {
             if (typeof window.loadCloudAdminMovies === 'function') {
