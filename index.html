@@ -6598,7 +6598,7 @@
 
             display: grid;
 
-            grid-template-columns: 340px minmax(0,1fr);
+            grid-template-columns: 1fr;
 
             overflow: hidden;
 
@@ -11702,34 +11702,27 @@
         }
 
 
-        /* ===== PLAKAT NAD TYTUŁEM — DESKTOP ===== */
         @media (min-width: 769px) {
             #movie-modal #movie-modal-poster {
                 position: absolute !important;
                 top: 60px !important;
                 left: 84px !important;
                 right: auto !important;
-
                 width: 220px !important;
                 height: 330px !important;
-
                 object-fit: cover !important;
                 object-position: center !important;
-
                 border-radius: 18px !important;
                 border: 1px solid rgba(255,255,255,.12) !important;
                 box-shadow: 0 20px 50px rgba(0,0,0,.55) !important;
-
                 transform: none !important;
                 z-index: 10 !important;
             }
 
-            @media (min-width: 769px) {
             #movie-modal #modal-title {
                 margin-top: -80px !important;
             }
         }
-
 
         @media (min-width: 769px) {
             #movie-modal #movie-modal-poster {
@@ -11738,257 +11731,3246 @@
             }
         }
 
-
         @media (min-width: 769px) {
             #movie-modal #modal-title {
                 margin-top: -60px !important;
             }
+        } 
+
+
+        /* =========================================================
+        RATIVIO — RATING HISTORY
+        JEDEN SYSTEM RESPONSIVE
+        ========================================================= */
+
+        .rating-history-shell {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
-
+        /* GRID */
         .rt-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            width: 100%;
         }
+
+        /* CARD */
         .rt-card {
-            display: flex;
-            gap: 12px;
-            background: #131316;
+            min-width: 0;
+            overflow: hidden;
             border: 1px solid #27272a;
-            border-radius: 18px;
-            padding: 12px;
-            transition: .2s ease;
+            border-radius: 22px;
+            background: linear-gradient(
+                180deg,
+                rgba(24,24,27,.96),
+                rgba(9,9,11,.98)
+            );
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
         }
+
         .rt-card:hover {
-            border-color: rgba(34, 211, 238, .5);
-            transform: translateY(-2px);
-            box-shadow: 0 14px 34px rgba(0,0,0,.4);
+            transform: translateY(-4px);
+            border-color: rgba(34,211,238,.55);
+            box-shadow:
+                0 18px 40px rgba(0,0,0,.45),
+                0 0 25px rgba(34,211,238,.08);
         }
+
+        /* POSTER */
         .rt-poster {
             position: relative;
-            flex-shrink: 0;
-            width: 78px;
-            height: 112px;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #09090b;
-            border: 0;
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 3;
             padding: 0;
+            margin: 0;
+            overflow: hidden;
+            border: 0;
+            background: #09090b;
             cursor: pointer;
         }
-        .rt-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .rt-poster img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* RATING NA PLAKACIE */
         .rt-poster-score {
             position: absolute;
-            left: 5px; bottom: 5px;
-            background: rgba(0,0,0,.85);
-            color: #22d3ee;
-            font-size: 10px; font-weight: 900;
-            padding: 3px 6px; border-radius: 7px; line-height: 1.2;
+            left: 10px;
+            bottom: 10px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 6px 9px;
+
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 10px;
+
+            background: rgba(0,0,0,.78);
+            backdrop-filter: blur(8px);
+
+            color: #facc15;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 900;
         }
-        .rt-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+        /* BODY */
+        .rt-body {
+            min-width: 0;
+            padding: 14px;
+        }
+
+        /* TITLE */
         .rt-title {
-            color: white; font-weight: 900; font-style: italic; text-transform: uppercase;
-            font-size: 14px; line-height: 1.15; margin-bottom: 4px;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            margin: 0 0 9px;
+
+            color: #fff;
+            font-family: 'Anton', sans-serif;
+            font-size: 19px;
+            line-height: 1;
+            letter-spacing: .01em;
+            text-transform: uppercase;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
+
+        /* STARS */
+        .rt-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+
+            min-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .rt-star {
+            flex: 0 0 auto;
+            color: #3f3f46;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .rt-star.filled {
+            color: #facc15;
+            text-shadow: 0 0 7px rgba(250,204,21,.3);
+        }
+
+        /* DATE */
         .rt-date {
-            color: #52525b; font-size: 9px; font-weight: 900; text-transform: uppercase;
-            letter-spacing: .08em; margin-bottom: 8px;
+            margin: 8px 0 0;
+
+            color: #71717a;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
+
+        /* BUTTONS */
         .rt-actions {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-top: auto;
-            flex-wrap: wrap;
-        }
-        .rt-btn {
-            flex: none;
+            gap: 7px;
+
+            margin-top: 12px;
             min-width: 0;
-            background: transparent;
-            border: none;
+        }
+
+        .rt-btn,
+        .rt-btn-del {
+            min-width: 0;
+            height: 32px;
+
+            border-radius: 10px;
+
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+
+            cursor: pointer;
+        }
+
+        .rt-btn {
+            flex: 1;
+
+            padding: 0 9px;
+
+            border: 1px solid #27272a;
+            background: #18181b;
+            color: #a1a1aa;
+        }
+
+        .rt-btn:hover {
+            border-color: #22d3ee;
+            color: #fff;
+            background: rgba(34,211,238,.08);
+        }
+
+        .rt-btn-del {
+            flex: 0 0 32px;
+
             padding: 0;
+
+            border: 1px solid rgba(239,68,68,.18);
+            background: rgba(239,68,68,.05);
+            color: #71717a;
+        }
+
+        .rt-btn-del:hover {
+            border-color: #ef4444;
+            background: rgba(239,68,68,.15);
+            color: #f87171;
+        }
+
+
+        /* =========================================================
+        TABLET
+        ========================================================= */
+
+        @media (max-width: 1023px) {
+            .rt-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+        }
+
+
+        /* =========================================================
+        TELEFON
+        ========================================================= */
+
+        @media (max-width: 640px) {
+
+            #lists-page {
+                width: 100%;
+                max-width: 100vw;
+                box-sizing: border-box;
+
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                padding-top: 24px !important;
+                padding-bottom: 32px !important;
+            }
+
+            .rating-history-shell {
+                width: 100%;
+                box-sizing: border-box;
+
+                padding: 16px !important;
+                border-radius: 22px !important;
+            }
+
+            .rating-history-shell > div:first-child {
+                gap: 16px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .rating-history-shell h2 {
+                font-size: clamp(34px, 11vw, 46px) !important;
+                line-height: .88 !important;
+            }
+
+            .rating-history-shell > div:first-child > div:last-child {
+                width: 100%;
+                min-width: 0 !important;
+            }
+
+            .rating-history-shell > div:first-child > div:last-child > div {
+                padding: 11px !important;
+            }
+
+            .rating-history-shell > div:first-child > div:last-child p:last-child {
+                font-size: 20px !important;
+            }
+
+            /* 1 karta w rzędzie — żadnego ściskania */
+            .rt-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            /* karta jako poziomy element */
+            .rt-card {
+                display: grid;
+                grid-template-columns: 82px minmax(0, 1fr);
+
+                gap: 13px;
+
+                width: 100%;
+                min-width: 0;
+
+                padding: 13px 0;
+
+                border: 0;
+                border-bottom: 1px solid rgba(39,39,42,.9);
+                border-radius: 0;
+
+                background: transparent;
+            }
+
+            .rt-card:first-child {
+                border-top: 1px solid rgba(39,39,42,.9);
+            }
+
+            .rt-card:hover {
+                transform: none;
+                border-color: rgba(39,39,42,.9);
+                box-shadow: none;
+            }
+
+            /* mały, stały plakat */
+            .rt-poster {
+                width: 82px;
+                height: 122px;
+
+                aspect-ratio: auto;
+
+                border-radius: 13px;
+            }
+
+            .rt-poster-score {
+                left: 5px;
+                right: 5px;
+                bottom: 5px;
+
+                width: auto;
+
+                padding: 5px 4px;
+
+                border-radius: 8px;
+
+                font-size: 10px;
+            }
+
+            /* prawa część */
+            .rt-body {
+                display: flex;
+                flex-direction: column;
+
+                min-width: 0;
+
+                padding: 1px 0;
+            }
+
+            .rt-title {
+                margin-bottom: 8px;
+
+                font-size: 17px;
+                line-height: 1.02;
+
+                -webkit-line-clamp: 3;
+            }
+
+            .rt-stars {
+                gap: 1px;
+                max-width: 100%;
+            }
+
+            .rt-star {
+                font-size: 11px;
+            }
+
+            .rt-date {
+                margin-top: 7px;
+                font-size: 8px;
+            }
+
+            .rt-actions {
+                margin-top: auto;
+                padding-top: 10px;
+
+                gap: 6px;
+            }
+
+            .rt-btn,
+            .rt-btn-del {
+                height: 30px;
+                font-size: 7px;
+            }
+
+            .rt-btn {
+                padding: 0 7px;
+            }
+
+            .rt-btn-del {
+                flex-basis: 30px;
+            }
+        }
+
+
+        /* =========================================================
+        BARDZO MAŁY TELEFON
+        ========================================================= */
+
+        @media (max-width: 390px) {
+
+            #lists-page {
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+
+            .rating-history-shell {
+                padding: 14px !important;
+                border-radius: 20px !important;
+            }
+
+            .rt-card {
+                grid-template-columns: 74px minmax(0, 1fr);
+                gap: 11px;
+                padding: 12px 0;
+            }
+
+            .rt-poster {
+                width: 74px;
+                height: 111px;
+                border-radius: 11px;
+            }
+
+            .rt-title {
+                font-size: 15px;
+            }
+
+            .rt-star {
+                font-size: 10px;
+            }
+
+            .rt-date {
+                font-size: 7px;
+            }
+
+            .rt-actions {
+                gap: 5px;
+            }
+
+            .rt-btn,
+            .rt-btn-del {
+                height: 28px;
+                font-size: 6.5px;
+            }
+
+            .rt-btn-del {
+                flex-basis: 28px;
+            }
+        }
+
+
+        /* =========================================================
+        DESKTOP — MAŁE PLAKATY W HISTORII OCEN
+        TELEFONU NIE DOTYKA
+        ========================================================= */
+
+        @media (min-width: 641px) {
+
+            .rt-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 14px;
+            }
+
+            .rt-card {
+                display: grid;
+                grid-template-columns: 62px minmax(0, 1fr);
+                gap: 10px;
+
+                min-width: 0;
+                padding: 10px;
+
+                border-radius: 17px;
+                box-sizing: border-box;
+            }
+
+            .rt-poster {
+                width: 62px;
+                height: 93px;
+
+                aspect-ratio: auto;
+                border-radius: 9px;
+            }
+
+            .rt-poster-score {
+                left: 4px;
+                bottom: 4px;
+                padding: 4px 5px;
+                border-radius: 6px;
+                font-size: 8px;
+            }
+
+            .rt-body {
+                min-width: 0;
+                padding: 1px 0;
+            }
+
+            .rt-title {
+                font-size: 14px;
+                line-height: 1.05;
+                margin-bottom: 7px;
+
+                -webkit-line-clamp: 3;
+            }
+
+            .rt-stars {
+                gap: 1px;
+            }
+
+            .rt-star {
+                font-size: 9px;
+            }
+
+            .rt-date {
+                margin-top: 6px;
+                font-size: 7px;
+            }
+
+            .rt-actions {
+                margin-top: 9px;
+                gap: 4px;
+            }
+
+            .rt-btn,
+            .rt-btn-del {
+                height: 25px;
+                font-size: 6px;
+                border-radius: 7px;
+            }
+
+            .rt-btn {
+                padding: 0 5px;
+            }
+
+            .rt-btn-del {
+                flex-basis: 25px;
+            }
+        }
+
+
+        /* 641–1100px — trochę większe, żeby nie było za ciasno */
+
+        @media (min-width: 641px) and (max-width: 1100px) {
+
+            .rt-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .rt-card {
+                grid-template-columns: 58px minmax(0, 1fr);
+                gap: 9px;
+                padding: 9px;
+            }
+
+            .rt-poster {
+                width: 58px;
+                height: 87px;
+            }
+        }
+
+
+        /* =========================================================
+        RATIVIO — RATING HISTORY
+        DESKTOP FINAL CARD
+        ========================================================= */
+
+        @media (min-width: 1101px) {
+
+            /* =====================================================
+            GRID — WIĘKSZE KARTY
+            ===================================================== */
+
+            .rt-grid {
+                display: grid !important;
+
+                /*
+                * 4 kolumny zamiast 5
+                * = karty są wyraźnie większe
+                */
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+                gap: 20px !important;
+
+                width: 100% !important;
+            }
+
+
+            /* =====================================================
+            CAŁA KARTA FILMU
+            ===================================================== */
+
+            .rt-card {
+                position: relative !important;
+
+                display: grid !important;
+
+                /*
+                * PLAKAT | INFORMACJE
+                */
+                grid-template-columns:
+                    145px minmax(0, 1fr) !important;
+
+                column-gap: 17px !important;
+
+                min-width: 0 !important;
+                min-height: 218px !important;
+
+                padding: 13px !important;
+
+                box-sizing: border-box !important;
+
+                overflow: hidden !important;
+
+                border-radius: 20px !important;
+            }
+
+
+            /* =====================================================
+            PLAKAT — WIĘKSZY
+            ===================================================== */
+
+            .rt-poster {
+                position: relative !important;
+
+                width: 145px !important;
+                height: 218px !important;
+
+                min-width: 145px !important;
+                max-width: 145px !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                overflow: hidden !important;
+
+                border: 0 !important;
+                border-radius: 13px !important;
+
+                z-index: 1 !important;
+            }
+
+
+            .rt-poster img {
+                display: block !important;
+
+                width: 100% !important;
+                height: 100% !important;
+
+                object-fit: cover !important;
+            }
+
+
+            /* =====================================================
+            USUŃ STARĄ LICZBĘ / GWIAZDKI Z PLAKATU
+            ===================================================== */
+
+            .rt-poster-score,
+            .poster-score,
+            .poster-rating,
+            .rating-on-poster {
+                display: none !important;
+            }
+
+
+            /* =====================================================
+            PRAWA CZĘŚĆ KARTY
+            ===================================================== */
+
+            .rt-body {
+                position: relative !important;
+
+                display: flex !important;
+                flex-direction: column !important;
+
+                min-width: 0 !important;
+
+                /*
+                * trochę miejsca po prawej na reakcję
+                */
+                padding:
+                    2px 45px 2px 0 !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            /* =====================================================
+            TYTUŁ
+            ===================================================== */
+
+            .rt-title {
+                display: -webkit-box !important;
+
+                width: 100% !important;
+                min-width: 0 !important;
+
+                margin: 0 0 9px !important;
+
+                font-size: 18px !important;
+                line-height: 1.08 !important;
+
+                overflow: hidden !important;
+
+                text-overflow: ellipsis !important;
+
+                -webkit-line-clamp: 3 !important;
+                -webkit-box-orient: vertical !important;
+            }
+
+
+            /* =====================================================
+            GWIAZDKI
+            ===================================================== */
+
+            .rt-stars {
+                display: flex !important;
+                align-items: center !important;
+
+                gap: 2px !important;
+
+                width: 100% !important;
+
+                overflow: hidden !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            .rt-star {
+                flex: 0 0 auto !important;
+
+                font-size: 11px !important;
+                line-height: 1 !important;
+            }
+
+
+            /* =====================================================
+            DATA
+            ===================================================== */
+
+            .rt-date {
+                width: 100% !important;
+
+                margin: 8px 0 0 !important;
+
+                font-size: 8px !important;
+
+                overflow: hidden !important;
+
+                text-overflow: ellipsis !important;
+
+                white-space: nowrap !important;
+            }
+
+
+            /* =====================================================
+            ❤️ / 👎
+            
+            PRAWO-GÓRA KARTY
+            W TEJ SAMEJ STREFIE CO TYTUŁ
+            ===================================================== */
+
+            .rt-reaction {
+                position: absolute !important;
+
+                /*
+                * PRAWDZIWY PRAWY GÓRNY RÓG KARTY
+                */
+                top: 13px !important;
+                right: 13px !important;
+
+                width: 38px !important;
+                height: 38px !important;
+
+                display: flex !important;
+
+                align-items: center !important;
+                justify-content: center !important;
+
+                box-sizing: border-box !important;
+
+                border-radius: 10px !important;
+
+                background: rgba(8, 8, 10, .94) !important;
+
+                border: 1px solid rgba(255,255,255,.16) !important;
+
+                backdrop-filter: blur(10px) !important;
+                -webkit-backdrop-filter: blur(10px) !important;
+
+                z-index: 50 !important;
+
+                pointer-events: none !important;
+
+                font-size: 20px !important;
+
+                line-height: 1 !important;
+            }
+
+
+            /* SERCE */
+
+            .rt-reaction-heart {
+                color: #ff3b81 !important;
+
+                border-color:
+                    rgba(255,59,129,.45) !important;
+
+                text-shadow:
+                    0 0 10px rgba(255,59,129,.5) !important;
+            }
+
+
+            /* KCIUK */
+
+            .rt-reaction-down {
+                font-size: 16px !important;
+            }
+
+
+            /* =====================================================
+            PRZYCISKI
+            
+            ZAWSZE NA DOLE PRAWEJ CZĘŚCI
+            ===================================================== */
+
+            .rt-actions {
+                display: flex !important;
+
+                align-items: center !important;
+
+                width: 100% !important;
+                min-width: 0 !important;
+
+                margin-top: auto !important;
+
+                padding-top: 13px !important;
+
+                gap: 8px !important;
+
+                box-sizing: border-box !important;
+            }
+
+
+            .rt-btn {
+                flex: 1 1 auto !important;
+
+                min-width: 0 !important;
+
+                height: 34px !important;
+
+                padding: 0 10px !important;
+
+                border-radius: 9px !important;
+
+                overflow: hidden !important;
+
+                text-overflow: ellipsis !important;
+
+                white-space: nowrap !important;
+
+                font-size: 7px !important;
+            }
+
+
+            /* =====================================================
+            ŚMIETNIK
+            ===================================================== */
+
+            .rt-btn-del {
+                flex: 0 0 34px !important;
+
+                width: 34px !important;
+                min-width: 34px !important;
+
+                height: 34px !important;
+
+                border-radius: 9px !important;
+            }
+
+
+            /* =====================================================
+            USUWAMY WSZYSTKIE STARE KRESKI W KARCIE
+            ===================================================== */
+
+            .rt-card::before,
+            .rt-card::after,
+            .rt-body::before,
+            .rt-body::after,
+            .rt-poster::before,
+            .rt-poster::after {
+                display: none !important;
+
+                content: none !important;
+            }
+        }
+
+
+        /* =========================================================
+        DUŻY DESKTOP — JESZCZE TROCHĘ WIĘKSZE
+        ========================================================= */
+
+        @media (min-width: 1450px) {
+
+            .rt-grid {
+                gap: 22px !important;
+
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr)) !important;
+            }
+
+
+            .rt-card {
+                grid-template-columns:
+                    155px minmax(0, 1fr) !important;
+
+                column-gap: 18px !important;
+
+                min-height: 230px !important;
+
+                padding: 14px !important;
+            }
+
+
+            .rt-poster {
+                width: 155px !important;
+                height: 230px !important;
+
+                min-width: 155px !important;
+                max-width: 155px !important;
+            }
+
+
+            .rt-title {
+                font-size: 19px !important;
+            }
+
+
+            .rt-reaction {
+                top: 14px !important;
+                right: 14px !important;
+
+                width: 40px !important;
+                height: 40px !important;
+
+                font-size: 21px !important;
+            }
+
+
+            .rt-actions {
+                padding-top: 15px !important;
+            }
+
+
+            .rt-btn {
+                height: 36px !important;
+            }
+
+
+            .rt-btn-del {
+                width: 36px !important;
+                min-width: 36px !important;
+
+                height: 36px !important;
+            }
+        }
+
+
+        /* =========================================================
+        TELEFON — NIE RUSZAMY UKŁADU, TYLKO PILNUJEMY REAKCJI
+        ========================================================= */
+
+        @media (max-width: 1100px) {
+
+            .rt-poster-score,
+            .poster-score,
+            .poster-rating,
+            .rating-on-poster {
+                display: none !important;
+            }
+
+
+            .rt-card::before,
+            .rt-card::after {
+                display: none !important;
+                content: none !important;
+            }
+        }
+
+
+        /* =========================================================
+        MINIMAL REVIEW VIEW
+        ========================================================= */
+
+        #review-view-modal.review-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999 !important;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background: rgba(3, 4, 6, .94);
+            backdrop-filter: blur(18px);
+        }
+
+
+        /* GŁÓWNY UKŁAD */
+
+        .review-view-content {
+            position: relative;
+
+            width: min(1050px, 92vw);
+            min-height: 560px;
+
+            display: grid;
+            grid-template-columns: 190px minmax(0, 1fr);
+            gap: 55px;
+
+            align-items: center;
+
+            background: transparent;
+        }
+
+
+        /* X */
+
+        .review-close-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            z-index: 10;
+
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+            background: transparent;
+
+            color: rgba(255,255,255,.45);
+
+            font-size: 30px;
+            font-weight: 300;
+            line-height: 1;
+
+            cursor: pointer;
+
+            transition:
+                color .2s ease,
+                transform .2s ease;
+        }
+
+        .review-close-btn:hover {
+            color: white;
+            transform: rotate(90deg);
+        }
+
+
+        /* PLAKAT */
+
+        .review-poster-side {
+            width: 190px;
+            align-self: center;
+        }
+
+        .review-poster {
+            display: block;
+
+            width: 190px;
+            aspect-ratio: 2 / 3;
+
+            object-fit: cover;
+
+            border: 0;
+            border-radius: 4px;
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,.65);
+
+            transition: transform .4s ease;
+        }
+
+        .review-poster:hover {
+            transform: scale(1.025);
+        }
+
+
+        /* PRAWA STRONA */
+
+        .review-main {
+            min-width: 0;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 25px 45px 25px 0;
+        }
+
+
+        /* TYTUŁ */
+
+        .review-title {
+            margin: 0;
+
+            max-width: 850px;
+
+            color: #fff;
+
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(52px, 7vw, 92px);
+            font-weight: 400;
+
+            line-height: .88;
+            letter-spacing: -.025em;
+
+            text-transform: uppercase;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* GWIAZDKI */
+
+        .review-stars {
+            display: flex;
+            align-items: center;
+
+            gap: 5px;
+
+            margin-top: 24px;
+
+            min-height: 28px;
+        }
+
+        .review-stars span {
+            position: relative;
+
+            display: inline-block;
+
+            color: #292b30;
+
+            font-size: 23px;
+            line-height: 1;
+
+            text-shadow: none;
+        }
+
+        .review-stars span.full {
+            color: #facc15;
+        }
+
+        .review-stars span.half {
+            background:
+                linear-gradient(
+                    90deg,
+                    #facc15 50%,
+                    #292b30 50%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        /* DELIKATNA LINIA */
+
+        .review-line {
+            width: 100%;
+            max-width: 820px;
+
+            height: 1px;
+
+            margin: 38px 0 30px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.18),
+                    rgba(255,255,255,.035),
+                    transparent
+                );
+        }
+
+
+        /* RECENZJA */
+
+        .review-body {
+            width: 100%;
+            max-width: 820px;
+
+            max-height: 280px;
+
+            overflow-y: auto;
+
+            scrollbar-width: thin;
+            scrollbar-color: #292b30 transparent;
+        }
+
+        .review-full-text {
+            margin: 0;
+
+            color: #c9cbd0;
+
+            font-size: clamp(17px, 1.5vw, 21px);
+            font-weight: 400;
+
+            line-height: 1.75;
+            letter-spacing: -.01em;
+
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .review-body::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .review-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .review-body::-webkit-scrollbar-thumb {
+            background: #292b30;
+            border-radius: 999px;
+        }
+
+
+        /* =========================================================
+        MOBILE
+        ========================================================= */
+
+        @media (max-width: 700px) {
+
+            #review-view-modal.review-modal-overlay {
+                padding: 24px 20px;
+                align-items: center;
+            }
+
+            .review-view-content {
+                width: 100%;
+                min-height: auto;
+
+                display: flex;
+                flex-direction: column;
+
+                gap: 28px;
+
+                align-items: center;
+            }
+
+            .review-close-btn {
+                top: -15px;
+                right: -5px;
+
+                width: 36px;
+                height: 36px;
+
+                font-size: 28px;
+            }
+
+            .review-poster-side {
+                width: 125px;
+            }
+
+            .review-poster {
+                width: 125px;
+
+                border-radius: 3px;
+
+                box-shadow:
+                    0 18px 45px rgba(0,0,0,.7);
+            }
+
+            .review-main {
+                width: 100%;
+
+                padding: 0;
+
+                align-items: flex-start;
+            }
+
+            .review-title {
+                width: 100%;
+
+                font-size: clamp(42px, 13vw, 64px);
+                line-height: .9;
+            }
+
+            .review-stars {
+                margin-top: 18px;
+                gap: 4px;
+            }
+
+            .review-stars span {
+                font-size: 20px;
+            }
+
+            .review-line {
+                margin: 26px 0 22px;
+            }
+
+            .review-body {
+                max-height: 42vh;
+                width: 100%;
+            }
+
+            .review-full-text {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+        }
+
+
+       /* =========================================================
+        RATIVIO — MODERN FULLSCREEN REVIEW
+        ========================================================= */
+
+        #review-view-modal.review-modal-overlay {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 999999 !important;
+
+            display: none;
+            align-items: stretch !important;
+            justify-content: stretch !important;
+
+            padding: 0 !important;
+
+            background:
+                radial-gradient(
+                    circle at 78% 12%,
+                    rgba(34, 211, 238, .055),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 10% 80%,
+                    rgba(255,255,255,.025),
+                    transparent 35%
+                ),
+                #07090b !important;
+
+            backdrop-filter: none !important;
+        }
+
+
+        /* =========================================================
+        GŁÓWNY OBSZAR
+        ========================================================= */
+
+        #review-view-modal .review-view-content {
+            position: relative !important;
+
+            width: 100% !important;
+            max-width: none !important;
+
+            height: 100dvh !important;
+            min-height: 0 !important;
+
+            margin: 0 !important;
+
+            padding:
+                clamp(45px, 7vh, 90px)
+                clamp(28px, 7vw, 110px)
+                clamp(55px, 8vh, 100px) !important;
+
+            display: block !important;
+
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+
+            background: transparent !important;
+
+            border: 0 !important;
+            border-radius: 0 !important;
+
+            box-shadow: none !important;
+        }
+
+
+        /* =========================================================
+        WEWNĘTRZNA KOMPOZYCJA
+        ========================================================= */
+
+        /*
+        Górę kontrolujemy szerokością.
+        Nie rozciągamy plakatu i tytułu po całym ekranie.
+        */
+
+        #review-view-modal .review-poster-side {
+            position: absolute !important;
+
+            top: clamp(45px, 7vh, 90px);
+            left: clamp(28px, 7vw, 110px);
+
+            width: clamp(180px, 16vw, 240px) !important;
+
+            display: block !important;
+
+            padding: 0 !important;
+            margin: 0 !important;
+
+            background: transparent !important;
+            border: 0 !important;
+        }
+
+
+        /* =========================================================
+        PLAKAT
+        ========================================================= */
+
+        #review-view-modal .review-poster {
+            display: block !important;
+
+            width: 100% !important;
+            height: auto !important;
+
+            aspect-ratio: 2 / 3 !important;
+
+            object-fit: cover !important;
+
+            border: 0 !important;
+            border-radius: 3px !important;
+
+            box-shadow:
+                0 24px 70px rgba(0,0,0,.55),
+                0 8px 25px rgba(0,0,0,.25) !important;
+
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+        PRAWA CZĘŚĆ GÓRY
+        ========================================================= */
+
+        #review-view-modal .review-main {
+            display: block !important;
+
+            width: min(
+                100%,
+                1200px
+            ) !important;
+
+            margin-left:
+                calc(
+                    clamp(180px, 16vw, 240px)
+                    + clamp(35px, 4vw, 65px)
+                ) !important;
+
+            padding: 0 !important;
+        }
+
+
+        /* =========================================================
+        TYTUŁ
+        ========================================================= */
+
+        #review-view-modal .review-title {
+            display: block !important;
+
+            width: 100% !important;
+            max-width: 1050px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            color: #f4f4f5 !important;
+
+            font-family: 'Anton', sans-serif !important;
+
+            font-size:
+                clamp(52px, 6.4vw, 104px) !important;
+
+            font-weight: 400 !important;
+            font-style: italic !important;
+
+            line-height: .88 !important;
+
+            letter-spacing: -.035em !important;
+
+            text-transform: uppercase !important;
+
+            /*
+            KLUCZOWE:
+            tytuł nigdy nie nachodzi na siebie
+            */
+            overflow-wrap: normal !important;
+            word-break: normal !important;
+        }
+
+
+        /* =========================================================
+        GWIAZDKI
+        ========================================================= */
+
+        #review-view-modal .review-stars {
+            display: flex !important;
+            align-items: center !important;
+
+            gap: 5px !important;
+
+            width: fit-content !important;
+
+            margin:
+                25px 0
+                0 !important;
+
+            padding: 0 !important;
+        }
+
+
+        #review-view-modal .review-stars span {
+            display: inline-block !important;
+
+            font-size: 21px !important;
+            line-height: 1 !important;
+
+            color: #30343a !important;
+        }
+
+
+        #review-view-modal .review-stars span.full {
+            color: #facc15 !important;
+        }
+
+
+        #review-view-modal .review-stars span.half {
+            background:
+                linear-gradient(
+                    90deg,
+                    #facc15 50%,
+                    #30343a 50%
+                ) !important;
+
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+
+            -webkit-text-fill-color: transparent !important;
+        }
+
+
+        /* =========================================================
+        SEPARATOR
+        ========================================================= */
+
+        #review-view-modal .review-line {
+            display: block !important;
+
+            width: 100% !important;
+            height: 1px !important;
+
+            margin:
+                clamp(55px, 8vh, 90px)
+                0
+                0 !important;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.22) 0%,
+                    rgba(255,255,255,.12) 55%,
+                    rgba(255,255,255,.03) 100%
+                ) !important;
+        }
+
+
+        /* =========================================================
+        RECENZJA
+        ========================================================= */
+
+        #review-view-modal .review-body {
+            display: block !important;
+
+            width: min(
+                100%,
+                1250px
+            ) !important;
+
+            max-width: 1250px !important;
+
+            min-height: 0 !important;
+            max-height: none !important;
+
+            margin: 0 auto !important;
+
+            padding:
+                clamp(35px, 5vh, 55px)
+                0
+                100px !important;
+
+            overflow: visible !important;
+        }
+
+
+        #review-view-modal .review-full-text {
+            display: block !important;
+
+            width: 100% !important;
+            max-width: 1250px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            color: #d7d9dc !important;
+
+            font-family: inherit !important;
+
+            font-size:
+                clamp(18px, 1.45vw, 24px) !important;
+
+            font-weight: 400 !important;
+
+            line-height: 1.75 !important;
+
+            letter-spacing: -.008em !important;
+
+            white-space: pre-wrap !important;
+            overflow-wrap: break-word !important;
+        }
+
+
+        /* =========================================================
+        X
+        ========================================================= */
+
+        #review-view-modal .review-close-btn {
+            position: fixed !important;
+
+            top: 25px !important;
+            right: 30px !important;
+
+            z-index: 20 !important;
+
+            width: 40px !important;
+            height: 40px !important;
+
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            border: 0 !important;
+            border-radius: 50% !important;
+
+            background: rgba(255,255,255,.04) !important;
+
+            color: rgba(255,255,255,.55) !important;
+
+            font-size: 25px !important;
+            font-weight: 300 !important;
+
+            cursor: pointer !important;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease !important;
+        }
+
+
+        #review-view-modal .review-close-btn:hover {
+            background: rgba(255,255,255,.1) !important;
+
+            color: white !important;
+
+            transform: rotate(90deg) !important;
+        }
+
+
+        /* =========================================================
+        DESKTOP — WIĘKSZY EKRAN
+        ========================================================= */
+
+        @media (min-width: 1400px) {
+
+            #review-view-modal .review-poster-side {
+                width: 250px !important;
+            }
+
+            #review-view-modal .review-main {
+                margin-left:
+                    calc(250px + 70px) !important;
+            }
+
+            #review-view-modal .review-title {
+                max-width: 1100px !important;
+            }
+
+            #review-view-modal .review-body {
+                max-width: 1350px !important;
+            }
+
+            #review-view-modal .review-full-text {
+                max-width: 1350px !important;
+            }
+        }
+
+
+        /* =========================================================
+        TABLET
+        ========================================================= */
+
+        @media (max-width: 850px) {
+
+            #review-view-modal .review-view-content {
+                padding:
+                    45px
+                    40px
+                    70px !important;
+            }
+
+            #review-view-modal .review-poster-side {
+                width: 175px !important;
+
+                top: 45px;
+                left: 40px;
+            }
+
+            #review-view-modal .review-main {
+                margin-left:
+                    calc(175px + 35px) !important;
+            }
+
+            #review-view-modal .review-title {
+                font-size:
+                    clamp(43px, 7vw, 68px) !important;
+            }
+
+            #review-view-modal .review-line {
+                margin-top: 55px !important;
+            }
+        }
+
+
+        /* =========================================================
+        TELEFON
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            #review-view-modal .review-view-content {
+                padding:
+                    32px
+                    20px
+                    60px !important;
+            }
+
+
+            /* plakat + tytuł nadal obok siebie */
+
+            #review-view-modal .review-poster-side {
+                position: relative !important;
+
+                top: auto;
+                left: auto;
+
+                width: 105px !important;
+
+                float: left;
+
+                margin:
+                    0
+                    22px
+                    15px
+                    0 !important;
+            }
+
+
+            #review-view-modal .review-main {
+                width: auto !important;
+
+                margin-left: 0 !important;
+
+                padding: 0 !important;
+            }
+
+
+            #review-view-modal .review-title {
+                width: 100% !important;
+
+                font-size:
+                    clamp(38px, 11vw, 58px) !important;
+
+                line-height: .9 !important;
+
+                letter-spacing: -.03em !important;
+            }
+
+
+            #review-view-modal .review-stars {
+                margin-top: 17px !important;
+
+                gap: 4px !important;
+            }
+
+
+            #review-view-modal .review-stars span {
+                font-size: 18px !important;
+            }
+
+
+            /*
+            czyścimy float przed kreską
+            */
+
+            #review-view-modal .review-line {
+                clear: both !important;
+
+                width: 100% !important;
+
+                margin:
+                    42px
+                    0
+                    0 !important;
+            }
+
+
+            #review-view-modal .review-body {
+                width: 100% !important;
+
+                padding:
+                    27px
+                    0
+                    70px !important;
+            }
+
+
+            #review-view-modal .review-full-text {
+                width: 100% !important;
+
+                font-size: 16px !important;
+
+                line-height: 1.72 !important;
+            }
+
+
+            #review-view-modal .review-close-btn {
+                top: 12px !important;
+                right: 12px !important;
+
+                width: 35px !important;
+                height: 35px !important;
+
+                font-size: 23px !important;
+            }
+        }
+
+
+        /* =========================================================
+        RATIVIO — MODERN REVIEW
+        inspired by compact movie review layouts
+        ========================================================= */
+
+        #review-view-modal.review-modal-overlay {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 999999 !important;
+
+            display: none;
+            padding: 0 !important;
+
+            background: #050505 !important;
+            backdrop-filter: none !important;
+        }
+
+
+        /* =========================================================
+        MAIN
+        ========================================================= */
+
+        #review-view-modal .review-view-content {
+            position: relative !important;
+
+            width: 100% !important;
+            max-width: none !important;
+            height: 100dvh !important;
+
+            margin: 0 !important;
+            padding:
+                70px
+                clamp(28px, 8vw, 140px)
+                90px !important;
+
+            background: transparent !important;
+
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+
+        /* =========================================================
+        CLOSE
+        ========================================================= */
+
+        #review-view-modal .review-close-btn {
+            position: fixed !important;
+
+            top: 28px !important;
+            right: 32px !important;
+
+            width: 34px !important;
+            height: 34px !important;
+
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+
+            padding: 0 !important;
+
+            border: none !important;
+            border-radius: 50% !important;
+
+            background: transparent !important;
+
+            color: rgba(255,255,255,.38) !important;
+
+            font-size: 27px !important;
+            font-weight: 300 !important;
+
+            cursor: pointer !important;
+
+            transition: .2s ease !important;
+        }
+
+        #review-view-modal .review-close-btn:hover {
+            color: #fff !important;
+            transform: rotate(90deg) !important;
+        }
+
+
+        /* =========================================================
+        TOP SECTION
+        ========================================================= */
+
+        #review-view-modal .review-poster-side {
+            position: absolute !important;
+
+            top: 70px !important;
+            left: clamp(28px, 8vw, 140px) !important;
+
+            width: 180px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            background: transparent !important;
+            border: none !important;
+        }
+
+
+        /* =========================================================
+        POSTER
+        ========================================================= */
+
+        #review-view-modal .review-poster {
+            display: block !important;
+
+            width: 180px !important;
+            height: 270px !important;
+
+            object-fit: cover !important;
+
+            border: none !important;
+            border-radius: 10px !important;
+
+            box-shadow:
+                0 18px 50px rgba(0,0,0,.55) !important;
+
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+        INFO RIGHT OF POSTER
+        ========================================================= */
+
+        #review-view-modal .review-main {
+            display: block !important;
+
+            width: min(760px, calc(100% - 230px)) !important;
+
+            margin-left:
+                calc(
+                    clamp(28px, 8vw, 140px)
+                    + 230px
+                ) !important;
+
+            padding: 25px 0 0 !important;
+        }
+
+
+        /* =========================================================
+        TITLE
+        ========================================================= */
+
+        #review-view-modal .review-title {
+            display: inline !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            color: #f2f2f2 !important;
+
+            /*
+            normalna czcionka zamiast wielkiego plakatu
+            */
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif !important;
+
+            font-size: clamp(28px, 3vw, 42px) !important;
+
+            font-weight: 650 !important;
+
+            font-style: normal !important;
+
+            line-height: 1.1 !important;
+
+            letter-spacing: -.025em !important;
+
+            text-transform: none !important;
+
+            overflow-wrap: normal !important;
+        }
+
+
+        /* =========================================================
+        STARS
+        ========================================================= */
+
+        #review-view-modal .review-stars {
+            display: flex !important;
+            align-items: center !important;
+
+            gap: 3px !important;
+
+            width: fit-content !important;
+
+            margin: 14px 0 0 !important;
+            padding: 0 !important;
+        }
+
+        #review-view-modal .review-stars span {
+            display: inline-block !important;
+
+            font-size: 17px !important;
+            line-height: 1 !important;
+
+            color: #292d31 !important;
+        }
+
+        #review-view-modal .review-stars span.full {
+            color: #facc15 !important;
+        }
+
+        #review-view-modal .review-stars span.half {
+            background:
+                linear-gradient(
+                    90deg,
+                    #facc15 50%,
+                    #292d31 50%
+                ) !important;
+
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+
+            -webkit-text-fill-color: transparent !important;
+        }
+
+
+        /* =========================================================
+        SUBTLE DIVIDER
+        ========================================================= */
+
+        #review-view-modal .review-line {
+            display: block !important;
+
+            width: 100% !important;
+            height: 1px !important;
+
+            margin:
+                55px
+                0
+                0 !important;
+
+            background: rgba(255,255,255,.13) !important;
+        }
+
+
+        /* =========================================================
+        REVIEW
+        ========================================================= */
+
+        #review-view-modal .review-body {
+            display: block !important;
+
+            width: 100% !important;
+            max-width: 1100px !important;
+
+            margin: 0 !important;
+            padding:
+                32px
+                0
+                100px !important;
+
+            overflow: visible !important;
+        }
+
+
+        /* actual review text */
+
+        #review-view-modal .review-full-text {
+            display: block !important;
+
+            width: 100% !important;
+            max-width: 1000px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            color: #b8bcc1 !important;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif !important;
+
+            font-size: 17px !important;
+
+            font-weight: 400 !important;
+
+            line-height: 1.75 !important;
+
+            letter-spacing: 0 !important;
+
+            white-space: pre-wrap !important;
+
+            overflow-wrap: break-word !important;
+        }
+
+
+        /* =========================================================
+        MOBILE
+        ========================================================= */
+
+        @media (max-width: 650px) {
+
+            #review-view-modal .review-view-content {
+                padding:
+                    35px
+                    20px
+                    60px !important;
+            }
+
+
+            /* poster */
+
+            #review-view-modal .review-poster-side {
+                position: relative !important;
+
+                top: auto !important;
+                left: auto !important;
+
+                float: left;
+
+                width: 105px !important;
+
+                margin:
+                    0
+                    20px
+                    14px
+                    0 !important;
+            }
+
+
+            #review-view-modal .review-poster {
+                width: 105px !important;
+                height: 158px !important;
+
+                border-radius: 8px !important;
+            }
+
+
+            /* text beside poster */
+
+            #review-view-modal .review-main {
+                width: auto !important;
+
+                margin-left: 0 !important;
+
+                padding: 10px 0 0 !important;
+            }
+
+
+            #review-view-modal .review-title {
+                display: block !important;
+
+                font-size: 27px !important;
+                line-height: 1.08 !important;
+            }
+
+
+            #review-view-modal .review-stars {
+                margin-top: 12px !important;
+            }
+
+
+            #review-view-modal .review-stars span {
+                font-size: 16px !important;
+            }
+
+
+            /* divider below poster + header */
+
+            #review-view-modal .review-line {
+                clear: both !important;
+
+                width: 100% !important;
+
+                margin-top: 38px !important;
+            }
+
+
+            /* review */
+
+            #review-view-modal .review-body {
+                width: 100% !important;
+
+                padding:
+                    25px
+                    0
+                    70px !important;
+            }
+
+
+            #review-view-modal .review-full-text {
+                width: 100% !important;
+
+                font-size: 15px !important;
+
+                line-height: 1.7 !important;
+            }
+
+
+            #review-view-modal .review-close-btn {
+                top: 12px !important;
+                right: 12px !important;
+            }
+        }
+
+        /* =========================================================
+        REVIEW — FULL WIDTH BELOW HEADER
+        ========================================================= */
+
+        /* review body wychodzi spod .review-main */
+        #review-view-modal .review-body {
+            position: relative !important;
+
+            width: calc(
+                100% + 
+                clamp(28px, 8vw, 140px) +
+                230px
+            ) !important;
+
+            max-width: none !important;
+
+            margin-left:
+                calc(
+                    -(clamp(28px, 8vw, 140px) + 230px)
+                ) !important;
+
+            padding:
+                32px 0 100px !important;
+        }
+
+
+        /* tekst recenzji zaczyna się od lewej strony */
+        #review-view-modal .review-full-text {
+            width: 100% !important;
+            max-width: none !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            font-size: 17px !important;
+            line-height: 1.75 !important;
+
+            color: #b8bcc1 !important;
+        }
+
+
+        /* separator też przez całą szerokość */
+        #review-view-modal .review-line {
+            width: 100% !important;
+        }
+
+
+        /* =========================================================
+        MOBILE
+        ========================================================= */
+
+        @media (max-width: 650px) {
+
+            #review-view-modal .review-body {
+                width: 100% !important;
+
+                margin-left: 0 !important;
+
+                padding:
+                    25px 0 70px !important;
+            }
+
+            #review-view-modal .review-full-text {
+                width: 100% !important;
+
+                font-size: 15px !important;
+                line-height: 1.7 !important;
+            }
+        }
+
+
+        /* =========================================================
+        REVIEW MODAL — CLEAN RATIVIO
+        ========================================================= */
+
+        #review-view-modal.review-modal-overlay {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 999999 !important;
+
+            display: none;
+
+            padding: 0 !important;
+
+            background: #050505 !important;
+            backdrop-filter: none !important;
+        }
+
+
+        /* MAIN SCROLL AREA */
+
+        #review-view-modal .review-view-content {
+            width: 100% !important;
+            max-width: none !important;
+            height: 100dvh !important;
+
+            margin: 0 !important;
+
+            padding:
+                clamp(55px, 7vh, 90px)
+                clamp(25px, 7vw, 110px)
+                70px !important;
+
+            background: #050505 !important;
+
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+
+            overflow-y: auto !important;
+        }
+
+
+        /* =========================================================
+        HEADER
+        ========================================================= */
+
+        #review-view-modal .review-header {
+            display: flex !important;
+            align-items: flex-start !important;
+
+            width: 100% !important;
+
+            gap: clamp(30px, 4vw, 60px) !important;
+        }
+
+
+        /* =========================================================
+        POSTER
+        ========================================================= */
+
+        #review-view-modal .review-poster-side {
+            position: static !important;
+
+            flex: 0 0 180px !important;
+
+            width: 180px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            background: transparent !important;
+            border: 0 !important;
+        }
+
+
+        #review-view-modal .review-poster {
+            display: block !important;
+
+            width: 180px !important;
+            height: 270px !important;
+
+            object-fit: cover !important;
+
+            border: 0 !important;
+
+            /* właśnie takie delikatne zaokrąglenie */
+            border-radius: 11px !important;
+
+            box-shadow:
+                0 20px 55px rgba(0, 0, 0, .55) !important;
+        }
+
+
+        /* =========================================================
+        RIGHT SIDE
+        ========================================================= */
+
+        #review-view-modal .review-main {
+            flex: 1 1 auto !important;
+
+            min-width: 0 !important;
+
+            margin: 0 !important;
+            padding: 25px 0 0 !important;
+        }
+
+
+        /* TITLE */
+
+        #review-view-modal .review-title-row {
+            display: flex !important;
+            align-items: baseline !important;
+
+            flex-wrap: wrap !important;
+
+            gap: 9px !important;
+
+            margin: 0 !important;
+        }
+
+
+        #review-view-modal .review-title {
+            margin: 0 !important;
+            padding: 0 !important;
+
+            color: #f2f2f2 !important;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif !important;
+
+            font-size:
+                clamp(28px, 3vw, 43px) !important;
+
+            font-weight: 650 !important;
+
+            font-style: normal !important;
+
+            line-height: 1.12 !important;
+
+            letter-spacing: -.025em !important;
+
+            text-transform: none !important;
+        }
+
+
+        .review-year {
+            color: #686d73 !important;
+
+            font-size: 18px !important;
+            font-weight: 400 !important;
+        }
+
+
+        /* =========================================================
+        STARS
+        ========================================================= */
+
+        #review-view-modal .review-stars {
+            display: flex !important;
+
+            gap: 3px !important;
+
+            margin:
+                14px
+                0
+                0 !important;
+
+            padding: 0 !important;
+        }
+
+
+        #review-view-modal .review-stars span {
+            font-size: 17px !important;
+
+            color: #292d31 !important;
+        }
+
+
+        #review-view-modal .review-stars span.full {
+            color: #facc15 !important;
+        }
+
+
+        /* =========================================================
+        AUTHOR
+        ========================================================= */
+
+        #review-view-modal .review-author {
+            display: flex !important;
+            align-items: center !important;
+
+            gap: 11px !important;
+
+            margin-top: 25px !important;
+        }
+
+
+        #review-view-modal .review-author-avatar {
+            width: 39px !important;
+            height: 39px !important;
+
+            flex: 0 0 39px !important;
+
+            object-fit: cover !important;
+
+            border-radius: 50% !important;
+
+            background: #151719 !important;
+
+            border: 1px solid rgba(255,255,255,.08) !important;
+        }
+
+
+        #review-view-modal .review-author-info {
+            display: flex !important;
+            flex-direction: column !important;
+
+            gap: 2px !important;
+        }
+
+
+        #review-view-modal .review-author-name {
+            color: #e5e7eb !important;
+
+            font-size: 14px !important;
+            font-weight: 600 !important;
+
+            line-height: 1.2 !important;
+        }
+
+
+        #review-view-modal .review-author-date {
+            color: #686d73 !important;
+
+            font-size: 12px !important;
+            font-weight: 400 !important;
+        }
+
+
+        /* =========================================================
+        DIVIDER
+        ========================================================= */
+
+        #review-view-modal .review-line {
+            display: block !important;
+
+            width: 100% !important;
+            height: 1px !important;
+
+            margin:
+                55px
+                0
+                0 !important;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.16),
+                    rgba(255,255,255,.07),
+                    rgba(255,255,255,.02)
+                ) !important;
+        }
+
+
+        /* =========================================================
+        REVIEW TEXT
+        ========================================================= */
+
+        #review-view-modal .review-body {
+            width: 100% !important;
+            max-width: 1050px !important;
+
+            margin: 0 !important;
+
+            padding:
+                30px
+                0
+                85px !important;
+
+            overflow: visible !important;
+        }
+
+
+        #review-view-modal .review-full-text {
+            width: 100% !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            color: #b9bdc2 !important;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif !important;
+
+            font-size: 17px !important;
+
+            font-weight: 400 !important;
+
+            line-height: 1.75 !important;
+
+            letter-spacing: 0 !important;
+
+            white-space: pre-wrap !important;
+
+            overflow-wrap: break-word !important;
+        }
+
+
+        /* =========================================================
+        BOTTOM
+        ========================================================= */
+
+        #review-view-modal .review-footer-line {
+            display: flex !important;
+            align-items: center !important;
+
+            width: 100% !important;
+
+            gap: 18px !important;
+
+            color: #34383d !important;
+
+            font-size: 10px !important;
+            font-weight: 700 !important;
+
+            letter-spacing: .35em !important;
+        }
+
+
+        #review-view-modal .review-footer-line::before,
+        #review-view-modal .review-footer-line::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.1)
+                );
+        }
+
+
+        #review-view-modal .review-footer-line::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.1),
+                    transparent
+                );
+        }
+
+
+        /* =========================================================
+        CLOSE
+        ========================================================= */
+
+        #review-view-modal .review-close-btn {
+            position: fixed !important;
+
+            top: 25px !important;
+            right: 28px !important;
+
+            z-index: 10 !important;
+
+            width: 34px !important;
+            height: 34px !important;
+
+            border: 0 !important;
+
+            background: transparent !important;
+
+            color: #666b70 !important;
+
+            font-size: 25px !important;
+            font-weight: 300 !important;
+
+            cursor: pointer !important;
+
+            transition: .2s ease !important;
+        }
+
+        #review-view-modal .review-close-btn:hover {
+            color: white !important;
+            transform: rotate(90deg) !important;
+        }
+
+
+        /* =========================================================
+        MOBILE
+        ========================================================= */
+
+        @media (max-width: 650px) {
+
+            #review-view-modal .review-view-content {
+                padding:
+                    35px
+                    20px
+                    55px !important;
+            }
+
+
+            #review-view-modal .review-header {
+                gap: 18px !important;
+            }
+
+
+            #review-view-modal .review-poster-side {
+                flex: 0 0 105px !important;
+
+                width: 105px !important;
+            }
+
+
+            #review-view-modal .review-poster {
+                width: 105px !important;
+                height: 158px !important;
+
+                border-radius: 8px !important;
+            }
+
+
+            #review-view-modal .review-main {
+                padding: 5px 0 0 !important;
+            }
+
+
+            #review-view-modal .review-title {
+                font-size: 25px !important;
+
+                line-height: 1.08 !important;
+            }
+
+
+            .review-year {
+                font-size: 14px !important;
+            }
+
+
+            #review-view-modal .review-stars {
+                margin-top: 11px !important;
+            }
+
+
+            #review-view-modal .review-stars span {
+                font-size: 15px !important;
+            }
+
+
+            #review-view-modal .review-author {
+                margin-top: 18px !important;
+            }
+
+
+            #review-view-modal .review-author-avatar {
+                width: 32px !important;
+                height: 32px !important;
+
+                flex-basis: 32px !important;
+            }
+
+
+            #review-view-modal .review-author-name {
+                font-size: 12px !important;
+            }
+
+
+            #review-view-modal .review-author-date {
+                font-size: 11px !important;
+            }
+
+
+            #review-view-modal .review-line {
+                margin-top: 35px !important;
+            }
+
+
+            #review-view-modal .review-body {
+                padding:
+                    23px
+                    0
+                    60px !important;
+            }
+
+
+            #review-view-modal .review-full-text {
+                font-size: 15px !important;
+                line-height: 1.7 !important;
+            }
+
+
+            #review-view-modal .review-footer-line {
+                font-size: 8px !important;
+            }
+        }
+
+        .public-profile-follow.following {
+            background: rgba(34, 197, 94, .14);
+            border-color: rgba(34, 197, 94, .55);
+            color: #4ade80;
+        }
+
+        .public-profile-follow.following:hover {
+            background: rgba(239, 68, 68, .12);
+            border-color: rgba(239, 68, 68, .5);
+            color: #f87171;
+        }
+
+        .public-profile-follow.following:hover::after {
+            content: "  • PRZESTAŃ OBSERWOWAĆ";
+        }
+
+
+        .public-profile-list {
+            margin-top: 22px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 24px;
+            background: rgba(24,24,27,.65);
+        }
+
+        .public-profile-list-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .public-profile-list-head p {
+            margin: 0 0 5px;
+            color: #22c55e;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+        .public-profile-list-head h3 {
+            margin: 0;
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        .public-profile-list-head > span {
+            flex-shrink: 0;
             color: #71717a;
             font-size: 9px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: .08em;
+        }
+
+        .public-profile-list-grid {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .public-profile-list-movie {
+            min-width: 0;
+            text-align: left;
             cursor: pointer;
-            transition: color .2s ease;
-        }
-        .rt-btn:hover {
-            background: transparent;
-            color: #22d3ee;
-        }
-        .rt-btn-del {
-            margin-left: auto;
-            width: auto;
-            background: transparent;
-            border: none;
-            color: #52525b;
-            font-size: 14px;
-            padding: 0;
-        }
-        .rt-btn-del:hover {
-            background: transparent;
-            color: #ef4444;
-            transform: none;
         }
 
-
-        .rt-stars {
-            display: flex;
-            gap: 2px;
-            margin: 4px 0 6px;
-        }
-        .rt-star {
-            font-size: 13px;
-            line-height: 1;
-            color: #3f3f46;
-        }
-        .rt-star.filled {
-            color: #facc15;
-            text-shadow: 0 0 6px rgba(250,204,21,.5);
+        .public-profile-list-movie img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid #27272a;
+            transition: .2s ease;
         }
 
-        .rt-stars-wrap {
-            position: relative;
-            display: inline-block;
-            line-height: 1;
-            margin: 4px 0 6px;
-            font-size: 13px;
-            letter-spacing: 2px;
-        }
-        .rt-stars-bg {
-            color: #3f3f46;
-            white-space: nowrap;
-        }
-        .rt-stars-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            color: #facc15;
-            text-shadow: 0 0 6px rgba(250,204,21,.5);
+        .public-profile-list-movie:hover img {
+            transform: translateY(-4px);
+            border-color: #22c55e;
         }
 
-                
-
-
+        .public-profile-list-movie span {
+            display: block;
+            margin-top: 7px;
+            color: #a1a1aa;
+            font-size: 9px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
 
         @media (max-width: 768px) {
-            #movie-modal {
-                position: fixed;
-                inset: 0;
-                width: 100vw;
-                height: 100dvh;
-                padding: 0;
-                margin: 0;
-                overflow-y: auto;
-                overflow-x: hidden;
-                background: #050507;
-                z-index: 1000;
-            }
-
-            #movie-modal .movie-screen {
-                position: relative;
-                min-height: 100dvh;
-                background: #050507;
-            }
-
-            #movie-modal .movie-topbar {
-                position: sticky;
-                top: 0;
-                z-index: 20;
-                padding: 16px 18px;
-                background: rgba(5,5,7,.96);
-            }
-
-            #movie-modal .movie-backdrop {
-                position: absolute;
-                inset: 0;
-                background: #050507 !important;
-            }
-
-            #movie-modal .movie-backdrop::before,
-            #movie-modal .movie-backdrop::after {
-                display: none !important;
-            }
-
-            #movie-modal #movie-modal-poster {
-                display: none !important;
-            }
-
-            #movie-modal .movie-content {
-                position: relative;
-                z-index: 10;
-                width: 100%;
-                padding: 22px 18px 60px;
-                margin: 0;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-                bottom: auto !important;
-                overflow: visible;
-            }
-
-            .movie-mobile-header {
-                display: grid !important;
-                grid-template-columns: 1fr 112px;
-                gap: 16px;
-                margin-bottom: 24px;
-                align-items: start;
-            }
-
-            .movie-mobile-poster {
-                display: block !important;
-                width: 112px;
-                height: 168px;
-                object-fit: cover;
-                border-radius: 16px;
-                border: 1px solid rgba(255,255,255,.13);
-            }
-
-            #movie-modal #modal-title {
-                margin: 0 0 12px;
-                font-size: clamp(31px, 9vw, 43px);
-                line-height: .92;
-                max-width: 100%;
-                padding: 0 !important;
-            }
-
-            #movie-modal #modal-desc {
-                margin: 0;
-                font-size: 13px;
-                line-height: 1.45;
-                color: #a1a1aa;
-                padding: 0 !important;
-            }
-
-            #movie-modal .movie-actions {
-                display: flex !important;
-                flex-wrap: wrap;
+            .public-profile-list-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 10px;
-                margin: 0 0 28px;
             }
 
-            #movie-modal #modal-trailer-link {
-                flex: 0 0 100%;
-                width: 100%;
+            .public-profile-list {
+                padding: 15px;
             }
 
-            #movie-modal #modal-rate-shortcut,
-            #movie-modal #modal-watchlist-btn {
-                flex: 1 1 calc(50% - 5px);
-                min-height: 50px;
+            .public-profile-list-head h3 {
+                font-size: 17px;
             }
         }
 
-       
+        .public-profile-lists-section {
+            margin-top: 42px;
+            padding-top: 34px;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
 
-        
+        .public-profile-lists-section .public-profile-section-title {
+            margin-bottom: 22px;
+        }
+
+        .public-profile-list {
+            margin-top: 18px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 24px;
+            background: rgba(24,24,27,.65);
+        }
+
+        .public-profile-list-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .public-profile-list-head p {
+            margin: 0 0 5px;
+            color: #22c55e;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .public-profile-list-head h3 {
+            margin: 0;
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        .public-profile-list-head > span {
+            color: #71717a;
+            font-size: 9px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .public-profile-list-grid {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .public-profile-list-movie {
+            min-width: 0;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .public-profile-list-movie img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid #27272a;
+            transition: .2s ease;
+            background: #09090b;
+        }
+
+        .public-profile-list-movie:hover img {
+            transform: translateY(-4px);
+            border-color: #22c55e;
+        }
+
+        .public-profile-list-movie span {
+            display: block;
+            margin-top: 7px;
+            color: #a1a1aa;
+            font-size: 9px;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        @media (max-width: 768px) {
+            .public-profile-lists-section {
+                margin-top: 30px;
+                padding-top: 26px;
+            }
+
+            .public-profile-list {
+                padding: 15px;
+                border-radius: 20px;
+            }
+
+            .public-profile-list-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .public-profile-list-head h3 {
+                font-size: 16px;
+            }
+        }
+
+        /* =========================================================
+        FINAL REVIEW LAYOUT — PLAKAT GÓRA / RECENZJA FULL WIDTH
+        ========================================================= */
+
+        #review-view-modal .review-card {
+            display: grid !important;
+            grid-template-columns: 320px minmax(0, 1fr) !important;
+            grid-template-rows: auto minmax(0, 1fr) auto !important;
+            height: min(820px, 90vh) !important;
+        }
+
+        /* PLAKAT — LEWY GÓRNY */
+        #review-view-modal .review-left {
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+
+            padding: 35px !important;
+
+            border-right: 1px solid rgba(255,255,255,.10) !important;
+            border-bottom: 0 !important;
+        }
+
+        /* Plakat */
+        #review-view-modal .review-poster-wrap {
+            width: 100% !important;
+            max-width: 250px !important;
+            margin: 0 auto !important;
+        }
+
+        /* PRAWA CZĘŚĆ — TYTUŁ / OCENA / INFO */
+        #review-view-modal .review-right {
+            display: contents !important;
+        }
+
+        /* Wszystkie informacje filmu */
+        #review-view-modal .review-kicker,
+        #review-view-modal .review-title,
+        #review-view-modal .review-scores {
+            grid-column: 2 !important;
+        }
+
+        /* Nagłówek */
+        #review-view-modal .review-kicker {
+            grid-row: 1 !important;
+            align-self: start !important;
+            margin: 38px 60px 10px !important;
+        }
+
+        /* Tytuł */
+        #review-view-modal .review-title {
+            grid-row: 1 !important;
+            align-self: start !important;
+            margin: 65px 60px 0 !important;
+        }
+
+        /* Oceny */
+        #review-view-modal .review-scores {
+            grid-row: 1 !important;
+            align-self: end !important;
+            margin: 0 60px 35px !important;
+        }
+
+        /* =========================================================
+        RECENZJA — CAŁA SZEROKOŚĆ
+        ========================================================= */
+
+        #review-view-modal .review-content {
+            grid-column: 1 / -1 !important;
+            grid-row: 2 !important;
+
+            width: 100% !important;
+            min-width: 0 !important;
+
+            margin: 0 !important;
+            padding: 28px 40px 0 !important;
+
+            border-top: 1px solid rgba(255,255,255,.10) !important;
+        }
+
+        /* Nagłówek "MOJA RECENZJA" */
+        #review-view-modal .review-content-label {
+            margin-bottom: 12px !important;
+        }
+
+        /* Pole z tekstem */
+        #review-view-modal .review-text-box {
+            width: 100% !important;
+            max-width: none !important;
+
+            padding: 25px 0 !important;
+
+            border: 0 !important;
+            background: transparent !important;
+
+            overflow-y: auto !important;
+        }
+
+        /* Tekst */
+        #review-view-modal .review-text {
+            max-width: none !important;
+            width: 100% !important;
+        }
+
+        /* STOPKA */
+        #review-view-modal .review-footer {
+            grid-column: 1 / -1 !important;
+            grid-row: 3 !important;
+
+            margin: 15px 40px 25px !important;
+        }
+
+        /* =========================================================
+        MOBILE
+        ========================================================= */
+
+        @media (max-width: 750px) {
+
+            #review-view-modal .review-card {
+                display: flex !important;
+                flex-direction: column !important;
+                height: 96vh !important;
+                overflow-y: auto !important;
+            }
+
+            #review-view-modal .review-left {
+                display: flex !important;
+                width: 100% !important;
+
+                padding: 25px 20px 0 !important;
+
+                border-right: 0 !important;
+                border-bottom: 1px solid rgba(255,255,255,.10) !important;
+            }
+
+            #review-view-modal .review-poster-wrap {
+                width: 150px !important;
+                max-width: 150px !important;
+                margin: 0 auto !important;
+            }
+
+            #review-view-modal .review-right {
+                display: flex !important;
+                flex-direction: column !important;
+
+                width: 100% !important;
+                padding: 25px 20px !important;
+            }
+
+            #review-view-modal .review-kicker,
+            #review-view-modal .review-title,
+            #review-view-modal .review-scores {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            #review-view-modal .review-title {
+                margin-top: 0 !important;
+            }
+
+            #review-view-modal .review-content {
+                padding: 25px 20px 0 !important;
+
+                border-top: 1px solid rgba(255,255,255,.10) !important;
+            }
+
+            #review-view-modal .review-footer {
+                margin: 15px 20px 20px !important;
+            }
+        }
+                
         
     </style>
 </head>
@@ -13059,6 +16041,9 @@
                             <button type="button" onclick="setStudioRating(9)">★</button>
                             <button type="button" onclick="setStudioRating(10)">★</button>
                         </div>
+
+                        <!-- REAKCJA -->
+                        
 
                         <p id="selected-rating-value"
                             class="text-zinc-500 text-xs font-black uppercase tracking-widest mt-3">
@@ -14745,8 +17730,77 @@
 
         async function saveUserLists(newLists) {
             window.movieHubData.userLists = newLists;
+
             await window.saveMovieHubData?.();
+
+            // Publiczna kopia list dla profilu
+            if (
+                currentFirebaseUser &&
+                currentUserProfile?.private !== true
+            ) {
+                try {
+                    await setDoc(
+                        doc(
+                            db,
+                            "publicProfiles",
+                            currentFirebaseUser.uid,
+                            "publicData",
+                            "lists"
+                        ),
+                        {
+                            userLists: newLists.map(list => ({
+                                name: String(list.name || "Lista"),
+                                movies: Array.isArray(list.movies)
+                                    ? list.movies
+                                    : []
+                            })),
+                            updatedAt: serverTimestamp()
+                        },
+                        { merge: true }
+                    );
+
+                } catch (error) {
+                    console.error(
+                        "Nie udało się zsynchronizować publicznych list:",
+                        error
+                    );
+                }
+            }
         }
+
+
+        async function syncPublicLists() {
+            if (!currentFirebaseUser) return;
+            if (currentUserProfile?.private === true) return;
+
+            const lists = Array.isArray(window.movieHubData?.userLists)
+                ? window.movieHubData.userLists
+                : [];
+
+            const cleanLists = lists.map(list => ({
+                name: String(list?.name || "Lista"),
+                movies: Array.isArray(list?.movies)
+                    ? list.movies.filter(Boolean)
+                    : []
+            }));
+
+            await setDoc(
+                doc(
+                    db,
+                    "publicProfiles",
+                    currentFirebaseUser.uid,
+                    "publicData",
+                    "lists"
+                ),
+                {
+                    userLists: cleanLists,
+                    updatedAt: serverTimestamp()
+                },
+                { merge: true }
+            );
+        }
+
+        window.syncPublicLists = syncPublicLists;
 
         function refreshUserScopedData() {
             watchlist = loadWatchlist();
@@ -15071,7 +18125,14 @@
                     <article class="rt-card">
                         <button ${canOpen} class="rt-poster" title="${matchedMovie ? 'Otwórz film' : ''}">
                             ${posterHTML}
-                            <span class="rt-poster-score">★ ${cleanRating}</span>
+
+                            ${
+                                entry.reaction === 'heart'
+                                    ? `<span class="rt-reaction rt-reaction-heart">♥</span>`
+                                    : entry.reaction === 'down'
+                                        ? `<span class="rt-reaction rt-reaction-down">👎</span>`
+                                        : ''
+                            }
                         </button>
                         <div class="rt-body">
                             <h3 class="rt-title">${title}</h3>
@@ -15118,6 +18179,7 @@
 
         let selectedStudioMovieId = null;
         let selectedStudioRating = null;
+        let selectedStudioReaction = null; // 'heart' | 'down' | null
         let ratingStudioFilter = 'all';
         let ratingStudioPage = 1;
         const ratingStudioItemsPerPage = 10;
@@ -15311,6 +18373,13 @@
                 ? parseFloat(savedRating)
                 : null;
 
+            const existingRatingHistory =
+                window.movieHubData?.ratingHistory?.find(
+                    entry => entry.id === movie.id
+                );
+
+            selectedStudioReaction =
+                existingRatingHistory?.reaction || null;
             /*
             * ==========================
             * PODSTAWOWE INFORMACJE
@@ -15358,6 +18427,7 @@
                 .classList.remove('hidden');
 
             updateStudioStars();
+            updateStudioReactionButtons();
             renderRatingStudioMovies();
 
             document
@@ -15372,6 +18442,42 @@
             selectedStudioRating = value;
             document.getElementById('selected-rating-value').textContent = `Twoja ocena: ${value}/10`;
             updateStudioStars();
+        }
+
+        function setStudioReaction(type) {
+
+            if (type !== 'heart' && type !== 'down') {
+                selectedStudioReaction = null;
+                return;
+            }
+
+            // ponowne kliknięcie = wyłączenie reakcji
+            if (selectedStudioReaction === type) {
+                selectedStudioReaction = null;
+            } else {
+                selectedStudioReaction = type;
+            }
+
+            updateStudioReactionButtons();
+        }
+
+
+        function updateStudioReactionButtons() {
+
+            const heart = document.getElementById('studio-reaction-heart');
+            const down = document.getElementById('studio-reaction-down');
+
+            if (!heart || !down) return;
+
+            heart.classList.toggle(
+                'active',
+                selectedStudioReaction === 'heart'
+            );
+
+            down.classList.toggle(
+                'active',
+                selectedStudioReaction === 'down'
+            );
         }
 
         function getStudioReviewWordCount() {
@@ -15434,6 +18540,10 @@
                 title: movie.title,
                 date: getTodayDate().toUpperCase(),
                 rating: String(selectedStudioRating),
+
+                // ❤️ / 👎
+                reaction: selectedStudioReaction || null,
+
                 timestamp: Date.now()
             };
 
@@ -15521,6 +18631,7 @@
         window.renderRatingStudioMovies = renderRatingStudioMovies;
         window.selectStudioMovie = selectStudioMovie;
         window.setStudioRating = setStudioRating;
+        window.setStudioReaction = setStudioReaction;
         window.saveStudioRating = saveStudioRating;
 
 
@@ -18430,6 +21541,41 @@
                 .filter(user => !user.private);
         }
 
+        async function updateFollowButton(targetUid) {
+            if (!currentFirebaseUser) return;
+
+            const btn = document.querySelector(
+                `.public-profile-follow[data-uid="${CSS.escape(targetUid)}"]`
+            );
+
+            if (!btn) return;
+
+            try {
+                const ref = doc(
+                    db,
+                    "users",
+                    currentFirebaseUser.uid,
+                    "following",
+                    targetUid
+                );
+
+                const snap = await getDoc(ref);
+
+                if (snap.exists()) {
+                    btn.textContent = "✓ Obserwujesz";
+                    btn.classList.add("following");
+                } else {
+                    btn.textContent = "+ Obserwuj";
+                    btn.classList.remove("following");
+                }
+            } catch (error) {
+                console.error(
+                    "Nie udało się sprawdzić obserwowania:",
+                    error
+                );
+            }
+        }
+
 
         async function followUser(targetUid) {
             if (!currentFirebaseUser) {
@@ -18441,24 +21587,61 @@
 
             if (myUid === targetUid) return;
 
-            await setDoc(
-                doc(db, "users", targetUid, "followers", myUid),
-                {
-                    uid: myUid,
-                    createdAt: serverTimestamp()
-                }
+            const followingRef = doc(
+                db,
+                "users",
+                myUid,
+                "following",
+                targetUid
             );
 
-            await setDoc(
-                doc(db, "users", myUid, "following", targetUid),
-                {
-                    uid: targetUid,
-                    createdAt: serverTimestamp()
-                }
+            const followerRef = doc(
+                db,
+                "users",
+                targetUid,
+                "followers",
+                myUid
             );
 
-            await updateFollowButton(targetUid);
+            try {
+                const followingSnap = await getDoc(followingRef);
+
+                if (followingSnap.exists()) {
+
+                    // PRZESTAŃ OBSERWOWAĆ
+                    await deleteDoc(followingRef);
+                    await deleteDoc(followerRef);
+
+                } else {
+
+                    // OBSERWUJ
+                    await setDoc(followingRef, {
+                        uid: targetUid,
+                        createdAt: serverTimestamp()
+                    });
+
+                    await setDoc(followerRef, {
+                        uid: myUid,
+                        createdAt: serverTimestamp()
+                    });
+                }
+
+                await updateFollowButton(targetUid);
+
+            } catch (error) {
+                console.error(
+                    "Błąd obserwowania:",
+                    error
+                );
+
+                alert(
+                    "Nie udało się zmienić obserwowania: " +
+                    (error?.code || "unknown-error")
+                );
+            }
         }
+
+        window.followUser = followUser;
 
         window.switchAuthTab = function(mode) {
             clearAuthError();
@@ -19389,48 +22572,85 @@
             }
 
             const modal = document.getElementById("review-view-modal");
+            if (!modal) {
+                console.error("Brak #review-view-modal");
+                return;
+            }
+
             modal.dataset.movieId = movieId;
 
-            document.getElementById("review-view-img").src = review.img || "";
-            document.getElementById("review-view-title").textContent = review.title || "Film";
-            document.getElementById("review-view-user-rating").textContent = review.userRating ? `${review.userRating}/10` : "-";
-            document.getElementById("review-view-movie-rating").textContent = review.movieRating || "-";
-            document.getElementById("review-view-text").textContent = review.text || "";
+            const poster = document.getElementById("review-view-poster");
+            const title = document.getElementById("review-view-title");
+            const starsEl = document.getElementById("review-view-stars");
+            const text = document.getElementById("review-view-text");
+            const dateEl = document.getElementById("review-view-date");
+            const avatar = document.getElementById("review-view-avatar");
+            const username = document.getElementById("review-view-username");
+            const yearEl = document.getElementById("review-view-year");
 
-            const categoryEl = document.getElementById("review-view-category");
-
-            if (categoryEl) {
-                categoryEl.textContent =
-                    String(review.category || "FILM")
-                        .replace(/\//g, " · ")
-                        .toUpperCase();
+            if (poster) {
+                poster.src = review.img || "";
+                poster.alt = review.title || "Film";
             }
 
+            if (title) {
+                title.textContent = review.title || "Film";
+            }
 
-            const dateEl = document.getElementById("review-view-date");
+            if (text) {
+                text.textContent = review.text || "";
+            }
+
+            if (starsEl) {
+                const rating = Number(review.userRating) || 0;
+                const stars = rating / 2;
+
+                starsEl.innerHTML = "";
+
+                for (let i = 0; i < 5; i++) {
+                    const star = document.createElement("span");
+                    star.textContent = "★";
+
+                    if (stars >= i + 1) {
+                        star.className = "full";
+                    } else if (stars >= i + 0.5) {
+                        star.className = "half";
+                    }
+
+                    starsEl.appendChild(star);
+                }
+            }
 
             if (dateEl) {
-
-                const date = review.updatedAt
-                    ? new Date(review.updatedAt)
-                    : null;
-
-                dateEl.textContent = date
-                    ? date.toLocaleDateString("pl-PL", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                    }).toUpperCase()
-                    : "—";
+                dateEl.textContent = review.updatedAt
+                    ? new Date(review.updatedAt).toLocaleDateString("pl-PL")
+                    : "";
             }
 
+            if (username) {
+                username.textContent =
+                    currentUserProfile?.nick ||
+                    currentFirebaseUser?.displayName ||
+                    "Użytkownik";
+            }
 
-            const posterRating =
-                document.getElementById("review-poster-user-rating");
+            if (avatar) {
+                const avatarUrl =
+                    currentUserProfile?.avatarUrl ||
+                    currentFirebaseUser?.photoURL ||
+                    "";
 
-            if (posterRating) {
-                posterRating.textContent =
-                    review.userRating || "—";
+                if (avatarUrl) {
+                    avatar.src = avatarUrl;
+                    avatar.style.display = "";
+                } else {
+                    avatar.style.display = "none";
+                }
+            }
+
+            if (yearEl) {
+                const movie = movies.find(m => m.id === movieId);
+                yearEl.textContent = movie?.date || "";
             }
 
             toggleModal("review-view-modal", true);
@@ -19565,6 +22785,7 @@
                         try {
                             await syncPublicProfile();
                             await syncPublicMovieData();
+                            await syncPublicLists();
                         } catch (profileSyncError) {
                             console.warn("Nie udało się zsynchronizować profilu publicznego:", profileSyncError);
                         }
@@ -21248,6 +24469,8 @@
                                 <button
                                     type="button"
                                     class="public-profile-follow"
+                                    data-uid="${escapeAttrGlobalSearch(uid)}"
+                                    onclick="followUser('${escapeAttrGlobalSearch(uid)}')"
                                     onclick="followUser('${escapeAttrGlobalSearch(uid)}')"
                                 >
                                     + Obserwuj
@@ -21263,6 +24486,16 @@
                                 <div class="rativio-search-loading">ŁADOWANIE...</div>
                             </div>
                         </section>
+                        <section class="public-profile-section public-profile-lists-section">
+                            <h2 class="public-profile-section-title">Listy użytkownika</h2>
+
+                            <div id="public-profile-lists">
+                                <div class="rativio-search-loading">
+                                    ŁADOWANIE LIST...
+                                </div>
+                            </div>
+                        </section>
+                        
                     </div>
                 `;
 
@@ -21287,88 +24520,260 @@
         };
 
         async function loadPublicProfileData(uid) {
-            const ratingsBox = document.getElementById('public-profile-ratings');
-            const countBox = document.getElementById('public-profile-rating-count');
-            if (!ratingsBox) return;
+            const ratingsBox = document.getElementById("public-profile-ratings");
+            const countBox = document.getElementById("public-profile-rating-count");
+            const listsBox = document.getElementById("public-profile-lists");
 
             try {
-                const snap = await getDoc(
-                    doc(db, 'publicProfiles', uid, 'publicData', 'movies')
+                /* =========================
+                OCENY
+                ========================= */
+
+                const moviesSnap = await getDoc(
+                    doc(db, "publicProfiles", uid, "publicData", "movies")
                 );
 
-                const data = snap.exists() ? snap.data() : {};
-                const ratingHistory = Array.isArray(data.ratingHistory)
-                    ? data.ratingHistory
+                const moviesData = moviesSnap.exists()
+                    ? moviesSnap.data()
+                    : {};
+
+                const ratingHistory = Array.isArray(moviesData.ratingHistory)
+                    ? moviesData.ratingHistory
                     : [];
 
                 const recentRatings = ratingHistory
-                    .filter(entry => entry && entry.id && entry.rating !== undefined)
-                    .sort((a, b) => Number(b.timestamp || 0) - Number(a.timestamp || 0))
+                    .filter(entry =>
+                        entry &&
+                        entry.id &&
+                        entry.rating !== undefined
+                    )
+                    .sort(
+                        (a, b) =>
+                            Number(b.timestamp || 0) -
+                            Number(a.timestamp || 0)
+                    )
                     .slice(0, 12);
 
-                if (countBox) countBox.textContent = String(ratingHistory.length);
+                if (countBox) {
+                    countBox.textContent = String(ratingHistory.length);
+                }
 
-                if (!recentRatings.length) {
-                    ratingsBox.innerHTML = `
+                if (ratingsBox) {
+                    if (!recentRatings.length) {
+                        ratingsBox.innerHTML = `
+                            <div class="public-profile-empty">
+                                Ten użytkownik nie ocenił jeszcze żadnego filmu.
+                            </div>
+                        `;
+                    } else {
+                        ratingsBox.innerHTML = `
+                            <div class="public-profile-movies">
+                                ${recentRatings.map(entry => {
+                                    const movie = movies.find(
+                                        m => m.id === entry.id
+                                    );
+
+                                    if (!movie) return "";
+
+                                    const score = Number(entry.rating);
+
+                                    const safeScore =
+                                        Number.isFinite(score)
+                                            ? (
+                                                Number.isInteger(score)
+                                                    ? String(score)
+                                                    : score.toFixed(1)
+                                            )
+                                            : "-";
+
+                                    const scoreClass =
+                                        Number.isFinite(score)
+                                            ? (
+                                                score >= 8
+                                                    ? "score-high"
+                                                    : score >= 6
+                                                        ? "score-mid"
+                                                        : score >= 4
+                                                            ? "score-low"
+                                                            : "score-bad"
+                                            )
+                                            : "";
+
+                                    const dateLabel =
+                                        entry.date ||
+                                        (
+                                            entry.timestamp
+                                                ? new Date(
+                                                    Number(entry.timestamp)
+                                                ).toLocaleDateString("pl-PL")
+                                                : ""
+                                        );
+
+                                    return `
+                                        <button
+                                            type="button"
+                                            class="public-profile-movie"
+                                            onclick="
+                                                closePublicProfile();
+                                                openModalById(
+                                                    '${escapeAttrGlobalSearch(movie.id)}'
+                                                )
+                                            "
+                                        >
+                                            <div class="public-profile-movie-poster">
+                                                <img
+                                                    src="${escapeAttrGlobalSearch(movie.img)}"
+                                                    alt="${escapeAttrGlobalSearch(movie.title)}"
+                                                    onerror="this.style.display='none'"
+                                                >
+
+                                                <span class="public-profile-movie-score ${scoreClass}">
+                                                    ★ ${escapeHtmlGlobalSearch(safeScore)}/10
+                                                </span>
+                                            </div>
+
+                                            <div class="public-profile-movie-title">
+                                                ${escapeHtmlGlobalSearch(movie.title)}
+                                            </div>
+
+                                            <div class="public-profile-movie-date">
+                                                ${escapeHtmlGlobalSearch(dateLabel)}
+                                            </div>
+                                        </button>
+                                    `;
+                                }).join("")}
+                            </div>
+                        `;
+                    }
+                }
+
+
+                /* =========================
+                LISTY
+                ========================= */
+
+                const listsSnap = await getDoc(
+                    doc(
+                        db,
+                        "publicProfiles",
+                        uid,
+                        "publicData",
+                        "lists"
+                    )
+                );
+
+                const listsData = listsSnap.exists()
+                    ? listsSnap.data()
+                    : {};
+
+                const publicLists = Array.isArray(listsData.userLists)
+                    ? listsData.userLists
+                    : [];
+
+                if (!listsBox) return;
+
+                if (!publicLists.length) {
+                    listsBox.innerHTML = `
                         <div class="public-profile-empty">
-                            Ten użytkownik nie ocenił jeszcze żadnego filmu.
+                            Ten użytkownik nie ma jeszcze żadnych list.
                         </div>
                     `;
+
                     return;
                 }
 
-                ratingsBox.innerHTML = `
-                    <div class="public-profile-movies">
-                        ${recentRatings.map(entry => {
-                            const movie = movies.find(m => m.id === entry.id);
-                            if (!movie) return '';
+                listsBox.innerHTML = publicLists
+                    .map((list, listIndex) => {
+                        const movieIds = Array.isArray(list.movies)
+                            ? list.movies
+                            : [];
 
-                            const score = Number(entry.rating);
-                            const safeScore = Number.isFinite(score)
-                                ? (Number.isInteger(score) ? String(score) : score.toFixed(1))
-                                : '-';
-                            const scoreClass = Number.isFinite(score)
-                                ? (score >= 8 ? 'score-high' : score >= 6 ? 'score-mid' : score >= 4 ? 'score-low' : 'score-bad')
-                                : '';
+                        const validMovies = movieIds
+                            .map(movieId =>
+                                movies.find(movie => movie.id === movieId)
+                            )
+                            .filter(Boolean);
 
-                            const dateLabel = entry.date || (
-                                entry.timestamp
-                                    ? new Date(Number(entry.timestamp)).toLocaleDateString('pl-PL')
-                                    : ''
-                            );
+                        return `
+                            <section class="public-profile-list">
+                                <div class="public-profile-list-head">
+                                    <div>
+                                        <p>LISTA</p>
+                                        <h3>
+                                            ${escapeHtmlGlobalSearch(
+                                                list.name || "Lista"
+                                            )}
+                                        </h3>
+                                    </div>
 
-                            return `
-                                <button
-                                    type="button"
-                                    class="public-profile-movie"
-                                    onclick="closePublicProfile(); openModalById('${escapeAttrGlobalSearch(movie.id)}')"
-                                >
-                                    <div class="public-profile-movie-poster">
-                                        <img
-                                            src="${escapeAttrGlobalSearch(movie.img)}"
-                                            alt="${escapeAttrGlobalSearch(movie.title)}"
-                                            onerror="this.src='https://via.placeholder.com/300x450?text=Film'"
-                                        >
-                                        <span class="public-profile-movie-score ${scoreClass}">★ ${escapeHtmlGlobalSearch(safeScore)}/10</span>
-                                    </div>
-                                    <div class="public-profile-movie-title">
-                                        ${escapeHtmlGlobalSearch(movie.title)}
-                                    </div>
-                                    <div class="public-profile-movie-date">
-                                        ${escapeHtmlGlobalSearch(dateLabel)}
-                                    </div>
-                                </button>
-                            `;
-                        }).join('')}
-                    </div>
-                `;
+                                    <span>
+                                        ${validMovies.length}
+                                        ${validMovies.length === 1
+                                            ? "FILM"
+                                            : "FILMÓW"}
+                                    </span>
+                                </div>
+
+                                ${
+                                    validMovies.length
+                                        ? `
+                                            <div class="public-profile-list-grid">
+                                                ${validMovies.map(movie => `
+                                                    <button
+                                                        type="button"
+                                                        class="public-profile-list-movie"
+                                                        onclick="
+                                                            closePublicProfile();
+                                                            openModalById(
+                                                                '${escapeAttrGlobalSearch(movie.id)}'
+                                                            )
+                                                        "
+                                                    >
+                                                        <img
+                                                            src="${escapeAttrGlobalSearch(movie.img)}"
+                                                            alt="${escapeAttrGlobalSearch(movie.title)}"
+                                                            onerror="this.style.display='none'"
+                                                        >
+
+                                                        <span>
+                                                            ${escapeHtmlGlobalSearch(movie.title)}
+                                                        </span>
+                                                    </button>
+                                                `).join("")}
+                                            </div>
+                                        `
+                                        : `
+                                            <div class="public-profile-empty">
+                                                Ta lista jest pusta.
+                                            </div>
+                                        `
+                                }
+                            </section>
+                        `;
+                    })
+                    .join("");
+
             } catch (error) {
-                console.error('Nie udało się załadować ocen publicznego profilu:', error);
-                ratingsBox.innerHTML = `
-                    <div class="public-profile-empty">
-                        Nie udało się załadować ocen.
-                    </div>
-                `;
+                console.error(
+                    "Nie udało się załadować publicznego profilu:",
+                    error
+                );
+
+                if (ratingsBox) {
+                    ratingsBox.innerHTML = `
+                        <div class="public-profile-empty">
+                            Nie udało się załadować ocen.
+                        </div>
+                    `;
+                }
+
+                if (listsBox) {
+                    listsBox.innerHTML = `
+                        <div class="public-profile-empty">
+                            Nie udało się załadować list.
+                        </div>
+                    `;
+                }
             }
         }
 
@@ -21399,6 +24804,8 @@
             );
         }
 
+        
+
         window.syncPublicMovieData =
             syncPublicMovieData;
 
@@ -21409,196 +24816,53 @@
         class="modal-overlay review-modal-overlay"
         onclick="if(event.target === this) closeReviewView()"
     >
+       
+        <div class="review-header">
+            <div class="review-poster-side">
+                <img
+                    id="review-view-poster"
+                    class="review-poster"
+                    src=""
+                    alt=""
+                >
+            </div>
 
-        <div class="review-view-content">
+            <div class="review-main">
 
-            <!-- TŁO DEKORACYJNE -->
-            <div class="review-bg-glow"></div>
+                <div class="review-title-row">
+                    <h1 id="review-view-title" class="review-title"></h1>
+                    <span id="review-view-year" class="review-year"></span>
+                </div>
 
-            <!-- ZAMKNIJ -->
-            <button
-                onclick="closeReviewView()"
-                class="review-close-btn"
-                type="button"
-                aria-label="Zamknij recenzję"
-            >
-                <span>×</span>
-            </button>
+                <div id="review-view-stars" class="review-stars"></div>
 
-
-            <!-- LEWA STRONA — PLAKAT -->
-            <aside class="review-poster-side">
-
-                <div class="review-poster-wrap">
-
+                <div class="review-author">
                     <img
-                        id="review-view-img"
+                        id="review-view-avatar"
+                        class="review-author-avatar"
                         src=""
                         alt=""
-                        class="review-poster"
                     >
 
-                    <div class="review-poster-shade"></div>
-
-                    <div class="review-poster-rating">
-                        <span>★</span>
-                        <strong id="review-poster-user-rating">-</strong>
-                        <small>/10</small>
+                    <div class="review-author-info">
+                        <div id="review-view-username" class="review-author-name"></div>
+                        <div id="review-view-date" class="review-author-date"></div>
                     </div>
-
                 </div>
 
-                <div class="review-poster-caption">
-
-                    <span class="review-poster-caption-label">
-                        TWOJA RECENZJA
-                    </span>
-
-                    <span class="review-poster-caption-line"></span>
-
-                </div>
-
-            </aside>
-
-
-            <!-- PRAWA STRONA -->
-            <main class="review-main">
-
-                <!-- GÓRA -->
-                <header class="review-header">
-
-                    <div class="review-heading">
-
-                        <div class="review-meta-row">
-
-                            <span class="review-kicker">
-                                TWOJA OPINIA
-                            </span>
-
-                            
-
-                        </div>
-
-                        <h2
-                            id="review-view-title"
-                            class="review-title"
-                        >
-                        </h2>
-
-                        <p class="review-subtitle">
-                            Twoje spojrzenie na ten film.
-                        </p>
-
-                    </div>
-
-                </header>
-
-
-                <!-- STATYSTYKI -->
-                <section class="review-stats">
-
-                    <div class="review-stat review-stat-user">
-
-                        <span class="review-stat-label">
-                            TWOJA OCENA
-                        </span>
-
-                        <strong id="review-view-user-rating">
-                            -
-                        </strong>
-
-                        
-
-                    </div>
-
-
-                    <div class="review-stat review-stat-movie">
-
-                        <span class="review-stat-label">
-                            OCENA FILMU
-                        </span>
-
-                        <strong id="review-view-movie-rating">
-                            -
-                        </strong>
-
-                        
-
-                    </div>
-
-
-                    <div class="review-stat review-stat-date">
-
-                        <span class="review-stat-label">
-                            NAPISANO
-                        </span>
-
-                        <strong id="review-view-date">
-                            —
-                        </strong>
-
-                    </div>
-
-                </section>
-
-
-                <!-- LINIA -->
-                <div class="review-separator">
-                    <span></span>
-                </div>
-
-
-                <!-- TREŚĆ RECENZJI -->
-                <section class="review-body">
-
-                    <div class="review-body-heading">
-
-                        <span class="review-body-number">
-                            01
-                        </span>
-
-                        <span>
-                            TWOJA RECENZJA
-                        </span>
-
-                    </div>
-
-
-                    <div class="review-quote">
-
-                        
-
-                        <p
-                            id="review-view-text"
-                            class="review-full-text"
-                        ></p>
-
-                    </div>
-
-                </section>
-
-
-                <!-- DÓŁ -->
-                <footer class="review-footer">
-
-                    <div class="review-footer-left">
-
-                        <span class="review-footer-dot"></span>
-
-                        <span>
-                            RATIVIO · TWOJA HISTORIA
-                        </span>
-
-                    </div>
-
-                    
-
-                </footer>
-
-            </main>
+            </div>
 
         </div>
 
+        <div class="review-line"></div>
+
+        <div class="review-body">
+            <div id="review-view-text" class="review-full-text"></div>
+        </div>
+
+        <div class="review-footer-line">
+            <span>RATIVIO</span>
+        </div>
     </div>
 
 
