@@ -4976,6 +4976,86 @@
             .cal-release-info h4 { font-size: 13px; margin-bottom: 6px; }
         }
 
+
+        /* =========================================================
+        STREAMING PLATFORM BADGE + REVIEW DESKTOP FIXES
+        ========================================================= */
+        .cal-release-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .cal-release-meta .cal-release-genre {
+            margin: 0;
+        }
+        .cal-release-platform {
+            display: inline-flex;
+            align-items: center;
+            min-height: 24px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(34,197,94,.35);
+            background: rgba(34,197,94,.10);
+            color: #86efac;
+            font-size: 9px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        #review-view-modal .review-title-row {
+            justify-content: flex-start !important;
+            align-items: baseline !important;
+            width: 100% !important;
+        }
+        #review-view-modal .review-title {
+            max-width: 100% !important;
+            overflow-wrap: anywhere !important;
+        }
+        #review-view-modal .review-year {
+            flex: 0 0 auto !important;
+            margin-left: 4px !important;
+            white-space: nowrap !important;
+        }
+        #review-view-modal .review-close-btn {
+            position: fixed !important;
+            top: 18px !important;
+            right: 22px !important;
+            z-index: 9999999 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 42px !important;
+            height: 42px !important;
+            padding: 0 !important;
+            border: 1px solid rgba(255,255,255,.10) !important;
+            border-radius: 50% !important;
+            background: rgba(5,5,5,.72) !important;
+            color: rgba(255,255,255,.55) !important;
+            font-size: 25px !important;
+            line-height: 1 !important;
+            cursor: pointer !important;
+            backdrop-filter: blur(8px) !important;
+        }
+        #review-view-modal .review-close-btn:hover {
+            color: #fff !important;
+            border-color: rgba(255,255,255,.25) !important;
+            background: rgba(255,255,255,.08) !important;
+            transform: rotate(90deg) !important;
+        }
+
+        @media (max-width: 650px) {
+            #review-view-modal .review-close-btn {
+                top: 10px !important;
+                right: 10px !important;
+                width: 36px !important;
+                height: 36px !important;
+            }
+        }
+
         /* =========================================================
         MOVIE MODAL — CZARNE TŁO + NORMALNY PLAKAT
         ========================================================= */
@@ -14972,6 +15052,110 @@
         }
                 
         
+
+
+        /* =========================================================
+           RATIVIO CINEMATIC CALENDAR + PLATFORM THEMES
+           ========================================================= */
+        #calendar-page {
+            position: relative;
+            background:
+                radial-gradient(circle at 12% 5%, rgba(168,85,247,.055), transparent 28%),
+                radial-gradient(circle at 88% 18%, rgba(34,211,238,.04), transparent 30%),
+                linear-gradient(180deg, #08090d 0%, #050608 100%);
+        }
+
+        #calendar-page-container {
+            position: relative;
+        }
+
+        #calendar-page-container > div > h2,
+        #calendar-page-container h2 {
+            text-shadow: 0 0 35px rgba(168,85,247,.14);
+        }
+
+        .cal-month-nav {
+            background: rgba(10,11,16,.78);
+            border: 1px solid rgba(255,255,255,.06);
+            box-shadow: 0 18px 50px rgba(0,0,0,.28);
+            backdrop-filter: blur(18px);
+        }
+        .cal-month-btn:hover { border-color: rgba(168,85,247,.7); color: #fff; }
+        .cal-month-btn.active {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border-color: #a855f7;
+            color: #fff;
+            box-shadow: 0 0 26px rgba(168,85,247,.25);
+        }
+        .cal-month-heading { border-bottom-color: rgba(255,255,255,.08); }
+        .cal-month-heading span { color: #a855f7; }
+
+        .cal-release-card {
+            background:
+                radial-gradient(circle at 0% 50%, rgba(255,255,255,.025), transparent 38%),
+                linear-gradient(135deg, #111217 0%, #0b0c10 60%, #08090c 100%);
+            border-color: rgba(255,255,255,.085);
+            box-shadow: 0 12px 35px rgba(0,0,0,.24);
+        }
+        .cal-release-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(90deg, var(--platform-color, rgba(255,255,255,.12)), transparent 32%);
+            opacity: .055;
+        }
+        .cal-release-card:hover {
+            border-color: var(--platform-color, rgba(168,85,247,.65));
+            box-shadow: 0 18px 45px rgba(0,0,0,.42), 0 0 28px color-mix(in srgb, var(--platform-color, #a855f7) 16%, transparent);
+        }
+        .cal-release-day-badge {
+            background: #11131a;
+            color: var(--platform-color, #a855f7);
+            border: 1px solid color-mix(in srgb, var(--platform-color, #a855f7) 58%, transparent);
+            box-shadow: 0 5px 18px rgba(0,0,0,.55), 0 0 18px color-mix(in srgb, var(--platform-color, #a855f7) 15%, transparent);
+        }
+        .cal-release-platform {
+            color: var(--platform-color, #d4d4d8);
+            border-color: color-mix(in srgb, var(--platform-color, #a855f7) 48%, transparent);
+            background: color-mix(in srgb, var(--platform-color, #a855f7) 9%, transparent);
+            box-shadow: inset 0 0 14px color-mix(in srgb, var(--platform-color, #a855f7) 5%, transparent);
+        }
+
+        /* Platform colors */
+        .platform-netflix { --platform-color: #e50914; }
+        .platform-disney { --platform-color: #1688ff; }
+        .platform-max { --platform-color: #8b5cf6; }
+        .platform-canal { --platform-color: #f4f4f5; }
+        .platform-skyshowtime { --platform-color: #168cff; }
+        .platform-paramount { --platform-color: #4aa8ff; }
+        .platform-prime { --platform-color: #00a8e1; }
+        .platform-apple { --platform-color: #e5e7eb; }
+        .platform-peacock { --platform-color: #7c5cff; }
+        .platform-other { --platform-color: #f59e0b; }
+        .platform-none { --platform-color: #a855f7; }
+
+        /* Movie modal: platform badge next to genres */
+        #movie-modal .movie-platform {
+            padding: 6px 13px;
+            color: var(--platform-color, #a855f7);
+            background: color-mix(in srgb, var(--platform-color, #a855f7) 10%, transparent);
+            border: 1px solid color-mix(in srgb, var(--platform-color, #a855f7) 48%, transparent);
+            border-radius: 999px;
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 0 18px color-mix(in srgb, var(--platform-color, #a855f7) 8%, transparent);
+        }
+
+        @supports not (color: color-mix(in srgb, red 10%, transparent)) {
+            .cal-release-platform { color: #d4d4d8; background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+            #movie-modal .movie-platform { color: #d4d4d8; background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+        }
+
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -15145,6 +15329,28 @@
                         </div>
 
                         <div>
+                            <label class="admin-label" for="admin-platform">Platforma / sposób premiery</label>
+                            <select id="admin-platform" class="admin-field">
+                                <option value="">Kino / brak platformy</option>
+                                <option value="Netflix">Netflix</option>
+                                <option value="Disney+">Disney+</option>
+                                <option value="Max">Max (HBO Max)</option>
+                                <option value="Canal+">Canal+</option>
+                                <option value="SkyShowtime">SkyShowtime</option>
+                                <option value="Paramount+">Paramount+</option>
+                                <option value="Prime Video">Prime Video</option>
+                                <option value="Apple TV+">Apple TV+</option>
+                                <option value="Peacock">Peacock</option>
+                                <option value="Inna">Inna</option>
+                            </select>
+                        </div>
+
+                        <div id="admin-platform-custom-wrap" class="hidden">
+                            <label class="admin-label" for="admin-platform-custom">Nazwa platformy</label>
+                            <input id="admin-platform-custom" class="admin-field" placeholder="np. MUBI">
+                        </div>
+
+                        <div>
                             <label class="admin-label" for="admin-duration">Czas trwania (min)</label>
                             <input id="admin-duration" class="admin-field" placeholder="np. 128">
                         </div>
@@ -15235,6 +15441,20 @@
                         <input id="admin-cal-date" type="date" class="admin-field" required>
                         <input id="admin-cal-title" class="admin-field" placeholder="Tytuł filmu" required>
                         <input id="admin-cal-genre" class="admin-field" placeholder="Gatunek">
+                        <select id="admin-cal-platform" class="admin-field">
+                            <option value="">Kino / brak platformy</option>
+                            <option value="Netflix">Netflix</option>
+                            <option value="Disney+">Disney+</option>
+                            <option value="Max">Max (HBO Max)</option>
+                            <option value="Canal+">Canal+</option>
+                            <option value="SkyShowtime">SkyShowtime</option>
+                            <option value="Paramount+">Paramount+</option>
+                            <option value="Prime Video">Prime Video</option>
+                            <option value="Apple TV+">Apple TV+</option>
+                            <option value="Peacock">Peacock</option>
+                            <option value="Inna">Inna</option>
+                        </select>
+                        <input id="admin-cal-platform-custom" class="admin-field hidden" placeholder="Własna platforma, np. MUBI">
                         <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Zapisz</button>
                         <label class="sm:col-span-4 flex items-center gap-2 text-zinc-400 text-xs font-bold cursor-pointer">
                             <input id="admin-cal-featured" type="checkbox" class="w-4 h-4 accent-red-500">
@@ -17175,12 +17395,35 @@
             editingAdminMovieId = null;
             editingAdminImageSource = '';
             document.getElementById('admin-movie-form')?.reset();
+            document.getElementById('admin-platform-custom-wrap')?.classList.add('hidden');
+            if (document.getElementById('admin-platform-custom')) document.getElementById('admin-platform-custom').value = '';
             setAdminTranslateMessage('');
             const preview = document.getElementById('admin-img-preview');
             if (preview) preview.src = 'https://via.placeholder.com/300x450?text=Plakat';
             const submitBtn = document.getElementById('admin-submit-btn');
             if (submitBtn) submitBtn.textContent = 'Dodaj film';
         }
+
+        function updateAdminCalendarPlatformField() {
+            const select = document.getElementById('admin-cal-platform');
+            const input = document.getElementById('admin-cal-platform-custom');
+            const isCustom = select?.value === 'Inna';
+            input?.classList.toggle('hidden', !isCustom);
+            if (!isCustom && input) input.value = '';
+        }
+
+        document.getElementById('admin-cal-platform')?.addEventListener('change', updateAdminCalendarPlatformField);
+
+        function updateAdminPlatformField() {
+            const select = document.getElementById('admin-platform');
+            const wrap = document.getElementById('admin-platform-custom-wrap');
+            const input = document.getElementById('admin-platform-custom');
+            const isCustom = select?.value === 'Inna';
+            wrap?.classList.toggle('hidden', !isCustom);
+            if (!isCustom && input) input.value = '';
+        }
+
+        document.getElementById('admin-platform')?.addEventListener('change', updateAdminPlatformField);
 
         async function saveAdminMovie(event) {
             event.preventDefault();
@@ -17221,9 +17464,14 @@
                     return;
                 }
 
+                const selectedPlatform = safeAdminText(document.getElementById('admin-platform')?.value);
+                const customPlatform = safeAdminText(document.getElementById('admin-platform-custom')?.value);
+                const platform = selectedPlatform === 'Inna' ? customPlatform : selectedPlatform;
+
                 const movie = {
                     id: editingAdminMovieId || makeAdminMovieId(title),
                     title,
+                    platform,
                     category: Array.from(
                         document.querySelectorAll('#admin-category-picker input[type="checkbox"]:checked')
                     )
@@ -17338,6 +17586,14 @@
             document.getElementById('admin-desc-en').value = movie.descEn || '';
             setAdminTranslateMessage('');
             document.getElementById('admin-title-pl').value = movie.titlePl || '';
+            const knownPlatforms = ['Netflix','Disney+','Max','Canal+','SkyShowtime','Paramount+','Prime Video','Apple TV+','Peacock'];
+            const moviePlatform = safeAdminText(movie.platform || '');
+            const platformSelect = document.getElementById('admin-platform');
+            const platformCustom = document.getElementById('admin-platform-custom');
+            const platformCustomWrap = document.getElementById('admin-platform-custom-wrap');
+            if (platformSelect) platformSelect.value = knownPlatforms.includes(moviePlatform) ? moviePlatform : (moviePlatform ? 'Inna' : '');
+            if (platformCustom) platformCustom.value = knownPlatforms.includes(moviePlatform) ? '' : moviePlatform;
+            platformCustomWrap?.classList.toggle('hidden', !moviePlatform || knownPlatforms.includes(moviePlatform));
             currentMovieCast = Array.isArray(movie.cast)
                 ? movie.cast.map(id => ({ id, role: movie.castRoles?.[id] || '' }))
                 : [];
@@ -19124,10 +19380,15 @@
                         .map(g => g.trim())
                         .filter(Boolean);
 
+                const platform = String(m.platform || '').trim();
+                const platformHtml = platform
+                    ? `<span class="movie-platform ${getPlatformThemeClass(platform)}">${escapeAdminHtml(platform)}</span>`
+                    : '';
+
                 genreBox.innerHTML =
                     genres
                         .map(g => `<span class="movie-genre">${g}</span>`)
-                        .join('');
+                        .join('') + platformHtml;
             }
             await fetchSharedActors();
             const castFooter = document.getElementById('modal-cast-footer');
@@ -19871,7 +20132,7 @@
             upcomingReleases.forEach(orig => {
                 const ov = overrideMap.get(orig.id);
                 if (ov) {
-                    if (!ov.hidden) result.push({ id: orig.id, date: ov.date || orig.date, title: ov.title || orig.title, genre: ov.genre ?? orig.genre, featured: ov.featured });
+                    if (!ov.hidden) result.push({ id: orig.id, date: ov.date || orig.date, title: ov.title || orig.title, genre: ov.genre ?? orig.genre, platform: ov.platform ?? orig.platform ?? '', featured: ov.featured });
                     overrideMap.delete(orig.id);
                 } else {
                     result.push({ ...orig });
@@ -19881,7 +20142,7 @@
             
 
             // to, co zostało w overrideMap, to zupełnie nowe premiery dodane w adminie
-            overrideMap.forEach(ov => { if (!ov.hidden) result.push({ id: ov.id, date: ov.date, title: ov.title, genre: ov.genre || '' }); });
+            overrideMap.forEach(ov => { if (!ov.hidden) result.push({ id: ov.id, date: ov.date, title: ov.title, genre: ov.genre || '', platform: ov.platform || '', featured: !!ov.featured }); });
 
             result.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
             liveCalendarReleases = result;
@@ -19907,9 +20168,15 @@
             const date = document.getElementById('admin-cal-date')?.value;
             const title = safeAdminText(document.getElementById('admin-cal-title')?.value);
             const genre = safeAdminText(document.getElementById('admin-cal-genre')?.value);
+            const selectedPlatform = safeAdminText(document.getElementById('admin-cal-platform')?.value);
+            const customPlatform = safeAdminText(document.getElementById('admin-cal-platform-custom')?.value);
+            const platform = selectedPlatform === 'Inna' ? customPlatform : selectedPlatform;
             const featured = !!document.getElementById('admin-cal-featured')?.checked;
 
-            if (!date || !title) return;
+            if (!date || !title) {
+                calendarSaveInProgress = false;
+                return;
+            }
 
             // Przy edycji zachowujemy stare ID.
             // Przy nowym filmie ID = tytuł + data.
@@ -19920,6 +20187,7 @@
                 date,
                 title,
                 genre,
+                platform,
                 featured,
                 hidden: false
             };
@@ -19936,6 +20204,9 @@
             document.getElementById('admin-cal-date').value = '';
             document.getElementById('admin-cal-title').value = '';
             document.getElementById('admin-cal-genre').value = '';
+            document.getElementById('admin-cal-platform').value = '';
+            document.getElementById('admin-cal-platform-custom').value = '';
+            document.getElementById('admin-cal-platform-custom').classList.add('hidden');
             document.getElementById('admin-cal-featured').checked = false;
 
             renderAdminCalendarList();
@@ -20003,6 +20274,15 @@
             document.getElementById('admin-cal-date').value = item.date || '';
             document.getElementById('admin-cal-title').value = item.title || '';
             document.getElementById('admin-cal-genre').value = item.genre || '';
+            const knownCalendarPlatforms = ['Netflix','Disney+','Max','Canal+','SkyShowtime','Paramount+','Prime Video','Apple TV+','Peacock'];
+            const calendarPlatform = safeAdminText(item.platform || '');
+            const calendarPlatformSelect = document.getElementById('admin-cal-platform');
+            const calendarPlatformCustom = document.getElementById('admin-cal-platform-custom');
+            if (calendarPlatformSelect) calendarPlatformSelect.value = knownCalendarPlatforms.includes(calendarPlatform) ? calendarPlatform : (calendarPlatform ? 'Inna' : '');
+            if (calendarPlatformCustom) {
+                calendarPlatformCustom.value = knownCalendarPlatforms.includes(calendarPlatform) ? '' : calendarPlatform;
+                calendarPlatformCustom.classList.toggle('hidden', !calendarPlatform || knownCalendarPlatforms.includes(calendarPlatform));
+            }
             document.getElementById('admin-cal-featured').checked = !!item.featured;
             document.getElementById('admin-cal-date')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
@@ -20011,7 +20291,7 @@
             const item = liveCalendarReleases.find(r => r.id === id);
             if (!item) return;
 
-            const override = { id: item.id, date: item.date, title: item.title, genre: item.genre, featured: !item.featured, hidden: false };
+            const override = { id: item.id, date: item.date, title: item.title, genre: item.genre, platform: item.platform || '', featured: !item.featured, hidden: false };
             const items = getAdminCalendarOverrides().filter(r => r.id !== override.id);
             items.push(override);
             saveAdminCalendarOverridesLocal(items);
@@ -20046,7 +20326,7 @@
                 <div class="admin-movie-row" style="grid-template-columns: 1fr auto;">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)} ${item.featured ? '<span class="text-red-400 text-[9px] font-black uppercase tracking-widest ml-2">★ Wyróżniona</span>' : ''}</p>
-                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.date)} • ${escapeAdminHtml(item.genre || 'Brak gatunku')}</p>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.date)} • ${escapeAdminHtml(item.genre || 'Brak gatunku')}${item.platform ? ` • ${escapeAdminHtml(item.platform)}` : ''}</p>
                     </div>
                     <div class="flex gap-2 flex-wrap">
                         <button onclick="toggleAdminCalendarFeatured('${item.id}')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 ${item.featured ? 'text-red-400' : 'text-zinc-400'} rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest" type="button">${item.featured ? 'Zdejmij' : 'Wyróżnij'}</button>
@@ -20116,6 +20396,21 @@
 
         window.scrollCalendarToTop = scrollCalendarToTop;
 
+        function getPlatformThemeClass(platform) {
+            const p = String(platform || '').trim().toLowerCase();
+            if (!p) return 'platform-none';
+            if (p === 'netflix') return 'platform-netflix';
+            if (p === 'disney+') return 'platform-disney';
+            if (p === 'max' || p.includes('hbo')) return 'platform-max';
+            if (p === 'canal+') return 'platform-canal';
+            if (p === 'skyshowtime') return 'platform-skyshowtime';
+            if (p === 'paramount+') return 'platform-paramount';
+            if (p === 'prime video') return 'platform-prime';
+            if (p === 'apple tv+') return 'platform-apple';
+            if (p === 'peacock') return 'platform-peacock';
+            return 'platform-other';
+        }
+
         function renderCalendar() {
             window.activeView = 'calendar';
             hideAll();
@@ -20175,19 +20470,25 @@
                             rel.title.includes("Backrooms"));
 
                     const matchedMovie = findMovieForRelease(rel.title);
+                    const streamingPlatform = String(rel.platform || matchedMovie?.platform || '').trim();
                     const posterHtml = matchedMovie
                         ? `<img src="${matchedMovie.img}" alt="${rel.title}" onerror="this.remove()">`
                         : `<span>🎬</span>`;
 
+                    const platformTheme = getPlatformThemeClass(streamingPlatform);
+
                     return `
-                        <button type="button" class="cal-release-card ${isBigHit ? 'is-hit' : ''}" ${matchedMovie ? `onclick="openModalById('${matchedMovie.id}')"` : ''}>
+                        <button type="button" class="cal-release-card ${platformTheme} ${isBigHit ? 'is-hit' : ''}" ${matchedMovie ? `onclick="openModalById('${matchedMovie.id}')"` : ''}>
                             <div class="cal-release-poster">
                                 <div class="cal-release-poster-img-wrap">${posterHtml}</div>
                                 <span class="cal-release-day-badge">${day}<small>${monthAbbr}</small></span>
                             </div>
                             <div class="cal-release-info">
                                 <h4>${rel.title}</h4>
-                                <span class="cal-release-genre">${translateCalendarGenre(rel.genre)}</span>
+                                <div class="cal-release-meta">
+                                    <span class="cal-release-genre">${translateCalendarGenre(rel.genre)}</span>
+                                    ${streamingPlatform ? `<span class="cal-release-platform">${escapeAdminHtml(streamingPlatform)}</span>` : ''}
+                                </div>
                             </div>
                         </button>
                     `;
@@ -20962,6 +21263,7 @@
                 id: String(movie.id || ''),
                 title: String(movie.title || 'Film'),
                 titlePl: String(movie.titlePl || ''),
+                platform: String(movie.platform || ''),
                 category: String(movie.category || 'Action'),
 
                 duration: String(movie.duration || ''),
@@ -21067,6 +21369,7 @@
                 date: String(r.date || ''),
                 title: String(r.title || 'Premiera'),
                 genre: String(r.genre || ''),
+                platform: String(r.platform || ''),
                 featured: !!r.featured,
                 hidden: !!r.hidden,
                 updatedAtMs: Number(r.updatedAtMs || Date.now())
@@ -24848,7 +25151,9 @@
         onclick="if(event.target === this) closeReviewView()"
     >
        
-        <div class="review-header">
+        <div class="review-view-content">
+            <button type="button" class="review-close-btn" onclick="closeReviewView()" aria-label="Zamknij recenzję">×</button>
+            <div class="review-header">
             <div class="review-poster-side">
                 <img
                     id="review-view-poster"
@@ -24894,9 +25199,8 @@
         <div class="review-footer-line">
             <span>RATIVIO</span>
         </div>
+            </div>
     </div>
-
-
     <!-- =========================================================
          FULL-WIDTH NEWS COMMENTS
          ========================================================= -->
