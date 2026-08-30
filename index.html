@@ -1375,6 +1375,80 @@
         }
 
         /* === NOWY PRZYCISK WATCHLISTY ZAMIAST SERCA === */
+        .app-menu-follow-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin: 14px 0 18px;
+        }
+        .app-menu-follow-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 13px 15px;
+            border: 1px solid #27272a;
+            border-radius: 18px;
+            background: rgba(24,24,27,.72);
+            text-align: left;
+            transition: .2s ease;
+        }
+        .app-menu-follow-stat:hover {
+            border-color: #22c55e;
+            background: rgba(34,197,94,.08);
+            transform: translateY(-1px);
+        }
+        .app-menu-follow-stat strong { font-size: 22px; line-height: 1; font-weight: 900; color: white; }
+        .app-menu-follow-stat span { margin-top: 5px; font-size: 9px; text-transform: uppercase; letter-spacing: .13em; color: #71717a; font-weight: 900; }
+
+        .list-movie-item { position: relative; }
+        .list-order-badge {
+            position: absolute;
+            z-index: 8;
+            top: 9px;
+            left: 9px;
+            min-width: 30px;
+            height: 30px;
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: rgba(0,0,0,.84);
+            border: 1px solid rgba(34,197,94,.65);
+            color: #86efac;
+            font-size: 12px;
+            font-weight: 900;
+        }
+        .list-order-controls {
+            position: absolute;
+            left: 9px;
+            right: 9px;
+            bottom: 9px;
+            z-index: 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 5px;
+            border-radius: 14px;
+            background: rgba(0,0,0,.82);
+            backdrop-filter: blur(8px);
+        }
+        .list-order-controls button, .list-order-controls span {
+            width: 28px;
+            height: 28px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+        }
+        .list-order-controls button { border: 1px solid #3f3f46; background: #18181b; color: white; }
+        .list-order-controls button:hover:not(:disabled) { border-color: #22c55e; color: #86efac; }
+        .list-order-controls button:disabled { opacity: .3; cursor: not-allowed; }
+        .list-order-controls span { color: #22c55e; }
+
         .watch-btn {
             min-width: 42px;
             height: 42px;
@@ -8007,6 +8081,43 @@
             pointer-events: none;
         }
 
+        /* Intro ładuje stronę w tle i pokazuje realny postęp zasobów. */
+        .rativio-intro-status {
+            margin-top: 11px;
+            min-height: 14px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 8px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: #52525b;
+            opacity: 0;
+            transition: opacity .18s ease;
+        }
+        .rativio-intro-status.is-visible { opacity: 1; }
+        .rativio-intro-status.is-fading { opacity: 0; }
+        .rativio-intro-line span {
+            transition: width .22s ease;
+            animation: none !important;
+        }
+        .rativio-intro-line {
+            position: relative;
+        }
+        .rativio-intro-percent {
+            position: absolute;
+            right: 0;
+            top: 8px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 8px;
+            color: #71717a;
+            letter-spacing: .08em;
+            opacity: .8;
+        }
+
+        @media (max-width: 768px) {
+            /* Hype na telefonie tymczasowo wyłączony. */
+            .backrooms-hype-row .mutiny-fire-btn { display: none !important; }
+        }
+
         body.rativio-loading {
             overflow: hidden;
         }
@@ -8762,47 +8873,6 @@
         /* =========================================================
         RATIVIO GLOBAL SEARCH
         ========================================================= */
-
-        /* =========================================================
-        NOTIFICATION INBOX
-        ========================================================= */
-        .rativio-notifications { position:relative; }
-        .rativio-notifications-trigger {
-            width:44px; height:44px; border-radius:14px;
-            display:flex; align-items:center; justify-content:center;
-            border:1px solid #27272a; background:#09090b; color:#a1a1aa;
-            cursor:pointer; transition:.2s ease; position:relative;
-        }
-        .rativio-notifications-trigger:hover, .rativio-notifications.open .rativio-notifications-trigger {
-            color:#fff; border-color:rgba(34,197,94,.55); background:rgba(34,197,94,.08);
-        }
-        .rativio-notifications-trigger svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; }
-        .rativio-notifications-badge {
-            position:absolute; top:-5px; right:-5px; min-width:18px; height:18px; padding:0 5px;
-            border-radius:999px; background:#22c55e; color:#050505; font-size:9px; font-weight:1000;
-            display:flex; align-items:center; justify-content:center; border:2px solid #09090b;
-        }
-        .rativio-notifications-panel {
-            position:absolute; top:54px; right:0; width:min(390px, calc(100vw - 24px)); max-height:min(620px, 76vh);
-            overflow:hidden; opacity:0; pointer-events:none; transform:translateY(-7px) scale(.98);
-            background:#0b0b0e; border:1px solid #27272a; border-radius:24px; box-shadow:0 30px 80px rgba(0,0,0,.55);
-            transition:.2s ease; z-index:100000;
-        }
-        .rativio-notifications.open .rativio-notifications-panel { opacity:1; pointer-events:auto; transform:none; }
-        .rativio-notifications-head { padding:18px 18px 14px; border-bottom:1px solid #27272a; display:flex; justify-content:space-between; gap:12px; align-items:center; }
-        .rativio-notifications-head h3 { color:#fff; font-size:15px; font-weight:1000; font-style:italic; text-transform:uppercase; }
-        .rativio-notifications-head span { color:#22c55e; font-size:9px; font-weight:1000; text-transform:uppercase; letter-spacing:.15em; }
-        .rativio-notifications-list { max-height:520px; overflow-y:auto; padding:8px; }
-        .rativio-notification-item { display:flex; gap:12px; padding:12px; border-radius:16px; transition:.18s ease; cursor:pointer; }
-        .rativio-notification-item:hover { background:rgba(255,255,255,.045); }
-        .rativio-notification-item.unread { background:rgba(34,197,94,.07); }
-        .rativio-notification-icon { width:38px; height:38px; flex:0 0 38px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:#18181b; border:1px solid #27272a; overflow:hidden; }
-        .rativio-notification-icon img { width:100%; height:100%; object-fit:cover; }
-        .rativio-notification-title { color:#fff; font-size:11px; font-weight:900; line-height:1.25; }
-        .rativio-notification-text { color:#a1a1aa; font-size:10px; line-height:1.45; margin-top:4px; }
-        .rativio-notification-time { color:#52525b; font-size:8px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; margin-top:6px; }
-        .rativio-notifications-empty { padding:48px 20px; text-align:center; color:#52525b; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; }
-        @media(max-width:640px){ .rativio-notifications-panel { position:fixed; top:70px; right:10px; left:10px; width:auto; } }
 
         .rativio-search {
             position: relative;
@@ -15213,8 +15283,11 @@
             </div>
 
             <div class="rativio-intro-line">
-                <span></span>
+                <span id="rativio-intro-progress-fill"></span>
+                <strong id="rativio-intro-percent" class="rativio-intro-percent">0%</strong>
             </div>
+
+            <div id="rativio-intro-status" class="rativio-intro-status" aria-live="polite">Ładowanie strony...</div>
 
             <div class="rativio-intro-subtitle">
                 WORLDWIDE CINEMA AUTHORITY
@@ -15250,7 +15323,6 @@
                     <button id="admin-bangers-tab" onclick="setAdminTab('bangers')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Główny slider</button>
                     <button id="admin-calendar-tab" onclick="setAdminTab('calendar')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Kalendarz premier</button>
                     <button id="admin-news-tab" onclick="setAdminTab('news')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Newsy tygodnia</button>
-                    <button id="admin-notifications-tab" onclick="setAdminTab('notifications')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Wiadomości RATIVIO</button>
                     <button id="admin-motm-tab" onclick="setAdminTab('motm')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Premiera miesiąca</button>
                     <button id="admin-actors-tab" onclick="setAdminTab('actors')" class="bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl px-6 py-3 text-[10px] font-black uppercase tracking-widest" type="button">Aktorzy</button>
                 </div>
@@ -15454,7 +15526,7 @@
                     <div>
                         <label class="admin-label">Podgląd plakatu</label>
                         <div class="aspect-[2/3] rounded-[24px] border border-zinc-800 bg-black overflow-hidden">
-                            <img id="admin-img-preview" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+" class="w-full h-full object-cover" alt="Podgląd plakatu">
+                            <img id="admin-img-preview" src="https://via.placeholder.com/300x450?text=Plakat" class="w-full h-full object-cover" alt="Podgląd plakatu">
                         </div>
                     </div>
                 </form>
@@ -15569,7 +15641,7 @@
                                 <div class="aspect-[3/4] mt-2 rounded-2xl border border-zinc-800 bg-black overflow-hidden max-w-[220px]">
                                     <img
                                         id="admin-news-preview-desktop"
-                                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+"
+                                        src="https://via.placeholder.com/300x400?text=Desktop"
                                         class="w-full h-full object-cover"
                                     >
                                 </div>
@@ -15601,7 +15673,7 @@
                                 <div class="aspect-[16/9] mt-2 rounded-2xl border border-zinc-800 bg-black overflow-hidden max-w-[220px]">
                                     <img
                                         id="admin-news-preview-mobile"
-                                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+"
+                                        src="https://via.placeholder.com/400x225?text=Mobile"
                                         class="w-full h-full object-cover"
                                     >
                                 </div>
@@ -15626,22 +15698,6 @@
                         </div>
 
                         <div id="admin-news-comments-list" class="grid gap-3"></div>
-                    </div>
-                </div>
-
-                <div id="admin-notifications-section" class="mt-8 hidden">
-                    <div class="max-w-3xl">
-                        <h3 class="text-white font-black uppercase italic tracking-tight mb-2">Wiadomości RATIVIO</h3>
-                        <p class="text-zinc-500 text-xs font-bold mb-5">Napisz wiadomość, która pojawi się w skrzynkach użytkowników jako komunikat od RATIVIO.</p>
-                        <form id="admin-notification-form" class="grid gap-4 mb-8" onsubmit="saveAdminNotificationMessage(event)">
-                            <input id="admin-notification-title" class="admin-field" required maxlength="100" placeholder="Tytuł wiadomości">
-                            <textarea id="admin-notification-body" class="admin-field min-h-[130px] resize-y" required maxlength="1000" placeholder="Treść wiadomości..."></textarea>
-                            <div class="flex gap-3">
-                                <button class="bg-green-600 hover:bg-green-500 text-black rounded-2xl px-7 py-3 text-[10px] font-black uppercase tracking-widest" type="submit">Wyślij do skrzynek</button>
-                                <button class="bg-zinc-900 border border-zinc-800 text-white rounded-2xl px-7 py-3 text-[10px] font-black uppercase tracking-widest" type="button" onclick="resetAdminNotificationForm()">Wyczyść</button>
-                            </div>
-                        </form>
-                        <div id="admin-notification-list" class="grid gap-3"></div>
                     </div>
                 </div>
 
@@ -15687,13 +15743,13 @@
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-3">
-                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+'">
+                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'https://via.placeholder.com/300x300?text=Aktor'">
                             <input id="admin-actor-photo-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*" onchange="previewAdminActorPhoto()">
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 bg-zinc-950/60 border border-zinc-800 rounded-2xl p-4">
                             <div class="w-44 h-44 rounded-full border-2 border-green-500/50 bg-black overflow-hidden shrink-0 shadow-[0_0_25px_rgba(34,197,94,.15)]">
-                                <img id="admin-actor-photo-preview" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+" class="w-full h-full object-cover" style="object-position:50% 50%;" alt="Podgląd avatara">
+                                <img id="admin-actor-photo-preview" src="https://via.placeholder.com/300x300?text=Aktor" class="w-full h-full object-cover" style="object-position:50% 50%;" alt="Podgląd avatara">
                             </div>
 
                             <div class="flex-1 w-full grid gap-4">
@@ -15785,23 +15841,6 @@
                 </div>
             </div>
 
-            <div id="rativio-notifications" class="rativio-notifications">
-                <button type="button" class="rativio-notifications-trigger" onclick="toggleRativioNotifications(event)" aria-label="Powiadomienia">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                        <path d="M10 21h4"></path>
-                    </svg>
-                    <span id="rativio-notifications-badge" class="rativio-notifications-badge" style="display:none">0</span>
-                </button>
-                <div id="rativio-notifications-panel" class="rativio-notifications-panel">
-                    <div class="rativio-notifications-head">
-                        <div><h3>Skrzynka</h3><span>RATIVIO + OBSERWOWANI</span></div>
-                        <button type="button" onclick="markRativioNotificationsRead()" class="text-[9px] font-black uppercase tracking-widest text-zinc-500 hover:text-white">Odczytaj</button>
-                    </div>
-                    <div id="rativio-notifications-list" class="rativio-notifications-list"><div class="rativio-notifications-empty">Brak nowych powiadomień.</div></div>
-                </div>
-            </div>
-
             <div id="auth-section" class="opacity-0 pointer-events-none"></div>
 
                 <button id="main-menu-button" onclick="openAppMenu()" class="hamburger-menu-btn" aria-label="Otwórz menu">
@@ -15836,6 +15875,17 @@
                     <h3 class="text-white font-black italic uppercase text-2xl leading-none truncate">Gość</h3>
                     <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać dane.</p>
                 </div>
+            </div>
+
+            <div id="app-menu-follow-stats" class="app-menu-follow-stats" aria-label="Followers and following">
+                <button type="button" onclick="menuRequireLogin('followers', () => openFollowListModal('followers'))" class="app-menu-follow-stat">
+                    <strong id="app-menu-followers-count">0</strong>
+                    <span>Followers</span>
+                </button>
+                <button type="button" onclick="menuRequireLogin('following', () => openFollowListModal('following'))" class="app-menu-follow-stat">
+                    <strong id="app-menu-following-count">0</strong>
+                    <span>Following</span>
+                </button>
             </div>
 
             <div class="app-menu-grid">
@@ -15959,6 +16009,21 @@
                 </section>
             </div>
         </aside>
+    </div>
+
+    <div id="follow-list-modal" class="modal-overlay" onclick="if(event.target === this) closeFollowListModal()">
+        <div class="w-full max-w-2xl max-h-[88dvh] overflow-hidden rounded-[30px] border border-zinc-800 bg-zinc-950 shadow-2xl">
+            <div class="flex items-center justify-between gap-4 p-5 sm:p-7 border-b border-zinc-800">
+                <div>
+                    <p class="text-[9px] font-black uppercase tracking-[.3em] text-green-500">RATIVIO</p>
+                    <h2 id="follow-list-title" class="text-3xl sm:text-4xl font-black italic uppercase tracking-tighter">Followers</h2>
+                </div>
+                <button type="button" onclick="closeFollowListModal()" class="app-menu-close">Zamknij</button>
+            </div>
+            <div id="follow-list-content" class="max-h-[70dvh] overflow-y-auto p-4 sm:p-6">
+                <div class="rativio-search-loading">ŁADOWANIE...</div>
+            </div>
+        </div>
     </div>
 
     <main id="home-page">
@@ -17043,7 +17108,6 @@
             {id:'jumanji4',title:'Jumanji 4',category:'Action',img:'./static/jumanji4.jpg',rating:'COMING',date:'2026',trailer:'',desc:'Nowa przygoda w Jumanji.'},
             {id:'iceage6',title:'Ice Age 6',category:'Sci-Fi',img:'./static/iceage6.jpg',rating:'COMING',date:'2026',trailer:'',desc:'Powrót Sida i spółki.'}
         ];
-        window.movies = movies;
 
         const ADMIN_PASSWORD = 'szef123';
         const ADMIN_MOVIES_KEY = 'movieHubAdminMovies';
@@ -17327,14 +17391,13 @@
         }
 
         function setAdminTab(tab) {
-            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news', 'notifications', 'motm', 'actors'].includes(tab) ? tab : 'add';
+            activeAdminTab = ['add', 'manage', 'bangers', 'calendar', 'news', 'motm', 'actors'].includes(tab) ? tab : 'add';
 
             const addTab = document.getElementById('admin-add-tab');
             const manageTab = document.getElementById('admin-manage-tab');
             const bangersTab = document.getElementById('admin-bangers-tab');
             const calendarTab = document.getElementById('admin-calendar-tab');
             const newsTab = document.getElementById('admin-news-tab');
-            const notificationsTab = document.getElementById('admin-notifications-tab');
             const motmTab = document.getElementById('admin-motm-tab'); // NOWE
 
             const form = document.getElementById('admin-movie-form');
@@ -17349,7 +17412,6 @@
             if (bangersTab) bangersTab.className = activeAdminTab === 'bangers' ? activeClass : inactiveClass;
             if (calendarTab) calendarTab.className = activeAdminTab === 'calendar' ? activeClass : inactiveClass;
             if (newsTab) newsTab.className = activeAdminTab === 'news' ? activeClass : inactiveClass;
-            if (notificationsTab) notificationsTab.className = activeAdminTab === 'notifications' ? activeClass : inactiveClass;
             if (motmTab) motmTab.className = activeAdminTab === 'motm' ? activeClass : inactiveClass; // NOWE
 
             form?.classList.toggle('hidden', activeAdminTab !== 'add');
@@ -17357,14 +17419,12 @@
             bangersSection?.classList.toggle('hidden', activeAdminTab !== 'bangers');
             document.getElementById('admin-calendar-section')?.classList.toggle('hidden', activeAdminTab !== 'calendar');
             document.getElementById('admin-news-section')?.classList.toggle('hidden', activeAdminTab !== 'news');
-            document.getElementById('admin-notifications-section')?.classList.toggle('hidden', activeAdminTab !== 'notifications');
             document.getElementById('admin-motm-section')?.classList.toggle('hidden', activeAdminTab !== 'motm'); // NOWE
 
             if (activeAdminTab === 'manage') renderAdminMovieList();
             if (activeAdminTab === 'bangers') fetchSharedBangerIds().then(renderAdminBangerList);
             if (activeAdminTab === 'calendar') fetchSharedCalendarOverrides().then(ov => { rebuildLiveCalendarReleases(ov); renderAdminCalendarList(); });
             if (activeAdminTab === 'news') fetchSharedWeeklyNews().then(renderAdminNewsList);
-            if (activeAdminTab === 'notifications') loadAdminNotificationMessages();
             if (activeAdminTab === 'motm') renderAdminMotmCurrent(); // NOWE
 
             const actorsTab = document.getElementById('admin-actors-tab');
@@ -17468,7 +17528,7 @@
             const file = fileInput?.files?.[0];
 
             if (!file) {
-                return safeAdminText(urlInput?.value) || editingAdminImageSource || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+                return safeAdminText(urlInput?.value) || editingAdminImageSource || 'https://via.placeholder.com/300x450?text=Movie';
             }
 
             return resizeAdminImageToBase64(file);
@@ -17491,7 +17551,7 @@
             if (document.getElementById('admin-platform-custom')) document.getElementById('admin-platform-custom').value = '';
             setAdminTranslateMessage('');
             const preview = document.getElementById('admin-img-preview');
-            if (preview) preview.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            if (preview) preview.src = 'https://via.placeholder.com/300x450?text=Plakat';
             const submitBtn = document.getElementById('admin-submit-btn');
             if (submitBtn) submitBtn.textContent = 'Dodaj film';
         }
@@ -17696,7 +17756,7 @@
                 : [];
             renderSelectedCast();
             document.getElementById('admin-img-url').value = movie.img?.startsWith('data:') ? '' : movie.img || '';
-            document.getElementById('admin-img-preview').src = movie.img || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-img-preview').src = movie.img || 'https://via.placeholder.com/300x450?text=Plakat';
 
             const submitBtn = document.getElementById('admin-submit-btn');
             if (submitBtn) submitBtn.textContent = 'Zapisz zmiany';
@@ -17771,7 +17831,7 @@
 
                 return `
                 <div class="admin-movie-row">
-                    <img src="${escapeAdminHtml(movie.img)}" alt="${escapeAdminHtml(movie.title)}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${escapeAdminHtml(movie.img)}" alt="${escapeAdminHtml(movie.title)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(movie.title)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(movie.category)} / ${escapeAdminHtml(movie.date)}</p>
@@ -17861,7 +17921,7 @@
             editingActorId = null;
             editingActorPhotoSource = '';
             document.getElementById('admin-actor-form')?.reset();
-            document.getElementById('admin-actor-photo-preview').src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-actor-photo-preview').src = 'https://via.placeholder.com/300x300?text=Aktor';
             document.getElementById('admin-actor-pos-x').value = 50;
             document.getElementById('admin-actor-pos-y').value = 50;
             updateAdminActorPhotoPosition();
@@ -17880,7 +17940,7 @@
             document.getElementById('admin-actor-name').value = actor.name || '';
             document.getElementById('admin-actor-birthdate').value = actor.birthDate || '';
             document.getElementById('admin-actor-photo').value = actor.photo?.startsWith('data:') ? '' : (actor.photo || '');
-            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'https://via.placeholder.com/300x300?text=Aktor';
             document.getElementById('admin-actor-pos-x').value = actor.photoPosX ?? 50;
             document.getElementById('admin-actor-pos-y').value = actor.photoPosY ?? 50;
             updateAdminActorPhotoPosition();
@@ -18003,7 +18063,7 @@
 
             list.innerHTML = actors.map(a => `
                 <div class="admin-movie-row" style="grid-template-columns: 54px 1fr auto;">
-                    <img src="${escapeAdminHtml(a.photo || "")}" alt="${escapeAdminHtml(a.name)}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/108x156?text=Aktor')}" alt="${escapeAdminHtml(a.name)}" style="object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(a.name)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">
@@ -18166,7 +18226,7 @@
 
         async function syncPublicLists() {
             if (!currentFirebaseUser) return;
-            if (window.currentUserProfile?.private === true) return;
+            if (currentUserProfile?.private === true) return;
 
             const lists = Array.isArray(window.movieHubData?.userLists)
                 ? window.movieHubData.userLists
@@ -18204,7 +18264,7 @@
 
         refreshUserScopedData();
 
-        function renderListMovieTile(id, onRemove) {
+        function renderListMovieTile(id, onRemove, listIndex = -1, movieIndex = -1, total = 0) {
             const normalizedId =
                 typeof id === "string"
                     ? id
@@ -18216,8 +18276,16 @@
             );
             if (!m) return '';
 
+            const canReorder = listIndex >= 0 && movieIndex >= 0;
+            const upDisabled = movieIndex <= 0;
+            const downDisabled = movieIndex >= total - 1;
+            const numberBadge = canReorder
+                ? `<div class="list-order-badge">${movieIndex + 1}</div>`
+                : '';
+
             return `
-                <article class="poster-card group">
+                <article class="poster-card group list-movie-item">
+                    ${numberBadge}
                     <button onclick="openModalById('${m.id}')" class="block w-full text-left">
                         <div class="poster-img-wrap">
                             <img src="${m.img}" alt="${m.title}" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
@@ -18232,6 +18300,14 @@
                             </p>
                         </div>
                     </button>
+
+                    ${canReorder ? `
+                        <div class="list-order-controls" onclick="event.stopPropagation()">
+                            <button type="button" onclick="moveListMovie(${listIndex}, ${movieIndex}, -1)" ${upDisabled ? 'disabled' : ''} aria-label="Przenieś film wyżej">↑</button>
+                            <span>${movieIndex + 1}</span>
+                            <button type="button" onclick="moveListMovie(${listIndex}, ${movieIndex}, 1)" ${downDisabled ? 'disabled' : ''} aria-label="Przenieś film niżej">↓</button>
+                        </div>
+                    ` : ''}
 
                     ${onRemove ? `
                         <button type="button" onclick="event.stopPropagation(); ${onRemove}" class="list-remove-x" title="Usuń z listy">✕</button>
@@ -18259,7 +18335,7 @@
 
             box.innerHTML = matches.map(a => `
                 <button type="button" onclick="addActorToCast('${a.id}')" class="admin-movie-row text-left" style="grid-template-columns: 40px 1fr auto;">
-                    <img src="${escapeAdminHtml(a.photo || "")}" alt="${escapeAdminHtml(a.name)}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/60x60?text=A')}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
                     <p class="text-white font-bold text-xs truncate">${escapeAdminHtml(a.name)}</p>
                     <span class="text-green-500 text-[10px] font-black uppercase">+ Dodaj</span>
                 </button>
@@ -18304,7 +18380,7 @@
                 if (!a) return '';
                 return `
                     <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-2xl pl-1 pr-2 py-1.5">
-                        <img src="${escapeAdminHtml(a.photo || "")}" alt="${escapeAdminHtml(a.name)}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                        <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/40x40?text=A')}" style="width:32px;height:32px;border-radius:999px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/40x40?text=A'">
                         <span class="text-white text-[10px] font-black uppercase whitespace-nowrap">${escapeAdminHtml(a.name)}</span>
                         <input
                             type="text"
@@ -18713,7 +18789,7 @@
             grid.innerHTML = pageData.map(movie => `
                 <button onclick="selectStudioMovie('${movie.id}')" class="rating-pick-card ${selectedStudioMovieId === movie.id ? 'selected' : ''} text-left">
                     <div class="rating-pick-poster">
-                        <img src="${movie.img}" alt="${movie.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                        <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
                     </div>
                     <div class="p-3">
                         <h3 class="text-white font-black italic uppercase text-sm leading-tight line-clamp-2">${movie.title}</h3>
@@ -18972,10 +19048,6 @@
             } catch (error) {
                 console.warn('Nie udało się zsynchronizować ocen profilu publicznego:', error);
             }
-
-            // Powiadom obserwujących o nowej ocenie.
-            try { await createFollowerRatingNotifications(movie); }
-            catch (error) { console.warn('Powiadomienia obserwujących pominięte:', error); }
 
             // --- RECENZJA ---
             let reviewSaved = false;
@@ -19741,7 +19813,7 @@
                     <div class="add-to-list-card ${inList ? 'in-list' : ''}"
                         onclick="${inList ? `showListToast('${escapeAdminHtml(m.title)} jest już na liście')` : `addMovieToTargetList('${m.id}')`}">
                         ${inList ? `<span class="add-to-list-added-badge" title="Już na liście">✓</span>` : ''}
-                        <img src="${m.img}" alt="${m.title}" loading="lazy" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                        <img src="${m.img}" alt="${m.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
                         <div class="p-2">
                             <h4 class="text-white font-black italic uppercase text-[11px] leading-tight">${m.title}</h4>
                         </div>
@@ -19820,7 +19892,7 @@
         window.addMovieToTargetList = addMovieToTargetList;
         window.removeMovieFromTargetList = removeMovieFromTargetList;
 
-        function buildExpandableListGrid(ids, uniqueId, onRemoveFn) {
+        function buildExpandableListGrid(ids, uniqueId, onRemoveFn, listIndex = -1) {
             if (!ids.length) {
                 return `<div class="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-center"><p class="text-zinc-600 font-black uppercase italic tracking-widest text-xs">Pusto</p></div>`;
             }
@@ -19830,12 +19902,12 @@
             const extraIds = ids.slice(limit);
 
             let html = `<div class="list-movie-grid">` +
-                visibleIds.map(id => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '')).join('') +
+                visibleIds.map((id, idx) => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, idx, ids.length)).join('') +
                 `</div>`;
 
             if (extraIds.length) {
                 html += `<div class="list-movie-grid hidden" id="extra-${uniqueId}">` +
-                    extraIds.map(id => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '')).join('') +
+                    extraIds.map((id, idx) => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, limit + idx, ids.length)).join('') +
                 `</div>`;
                 html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}">Pokaż więcej (+${extraIds.length})</button>`;
             }
@@ -19853,6 +19925,33 @@
         }
 
         window.toggleListExpand = toggleListExpand;
+
+        async function moveListMovie(listIndex, movieIndex, direction) {
+            const lists = loadUserLists();
+            const list = lists[listIndex];
+            if (!list || !Array.isArray(list.movies)) return;
+
+            const target = movieIndex + direction;
+            if (target < 0 || target >= list.movies.length) return;
+
+            [list.movies[movieIndex], list.movies[target]] = [list.movies[target], list.movies[movieIndex]];
+            await saveUserLists(lists);
+            refreshUserScopedData();
+            renderCustomLists();
+        }
+
+        async function removeMovieFromList(listIndex, movieId) {
+            const lists = loadUserLists();
+            const list = lists[listIndex];
+            if (!list) return;
+            list.movies = list.movies.filter(id => id !== movieId);
+            await saveUserLists(lists);
+            refreshUserScopedData();
+            renderCustomLists();
+        }
+
+        window.moveListMovie = moveListMovie;
+        window.removeMovieFromList = removeMovieFromList;
 
         function renderCustomLists() {
             refreshUserScopedData();
@@ -19876,7 +19975,7 @@
                         <button onclick="openAddToListPicker('watchlist')" class="list-add-btn" title="Dodaj film do watchlisty">+</button>
                     </div>
 
-                    ${buildExpandableListGrid(wl, 'watchlist', (id) => `toggleWatchlist('${id}'); renderCustomLists();`)}
+                    ${buildExpandableListGrid(wl, 'watchlist', (id) => `toggleWatchlist('${id}'); renderCustomLists();`, -1)}
                    
 
                     <div class="list-section-foot">
@@ -19895,7 +19994,7 @@
                         <button onclick="openAddToListPicker('custom', ${i})" class="list-add-btn" title="Dodaj film do listy">+</button>
                     </div>
 
-                    ${buildExpandableListGrid(list.movies, `custom-${i}`, (id) => `userLists[${i}].movies=userLists[${i}].movies.filter(x=>x!=='${id}');saveUserLists(userLists);renderCustomLists();`)}
+                    ${buildExpandableListGrid(list.movies, `custom-${i}`, (id) => `removeMovieFromList(${i}, '${id}')`, i)}
                     
 
                     <div class="list-section-foot">
@@ -19979,6 +20078,7 @@
             if (!menu) return;
 
             menu.classList.add('open');
+            refreshFollowCounts();
             document.body.style.overflow = 'hidden';
         }
 
@@ -20020,14 +20120,19 @@
                        if (!container) return; // Zabezpieczenie przed błędem
             
                         // Szukamy filmów z 2026 i sortujemy po ocenie
-                        const topMovies = movies
+                        const top2026 = movies
                             .filter(m => m.date === '2026')
                             .sort((a, b) => {
                                 const rateA = parseFloat(a.rating) || 0;
                                 const rateB = parseFloat(b.rating) || 0;
                                 return rateB - rateA;
-                         })
-                            .slice(0, 5); // Wyświetl tylko 4 najlepsze
+                         });
+
+                        // Jeśli w bazie jest film „Obsesja”, renderTop2026 nie może go zgubić.
+                        const obsession = top2026.find(m => String(m.title || '').trim().toLowerCase() === 'obsesja');
+                        const topMovies = obsession
+                            ? [obsession, ...top2026.filter(m => m.id !== obsession.id)].slice(0, 5)
+                            : top2026.slice(0, 5); // TOP 5 2026
 
                         if (topMovies.length === 0) {
                             container.innerHTML = `<p class="text-zinc-600 font-black italic uppercase">W bazie nie ma jeszcze filmów z datą 2026...</p>`;
@@ -20043,7 +20148,7 @@
         
                             <!-- Karta filmu -->
                             <div class="relative z-20 rounded-[30px] overflow-hidden border border-zinc-800 group-hover:border-green-500 transition-all duration-500 shadow-2xl bg-zinc-900">
-                                <img src="${m.img}" class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                                <img src="${m.img}" class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=2026'">
             
                                 <!-- Ciemny gradient na dole dla czytelności napisów -->
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
@@ -20058,48 +20163,54 @@
         }
 
 
-        // Funkcja odliczania do premiery The Backrooms Movie
-        let motmCountdownTarget = new Date(2026, 7, 21, 0, 0, 0).getTime(); // domyślna data, admin może nadpisać
+        // Stabilne odliczanie: najpierw czekamy na datę z konfiguracji premiery,
+        // dopiero potem uruchamiamy timer. Dzięki temu ładowanie Firestore nie może
+        // chwilowo pokazać "PREMIERA ROZPOCZĘTA" przed otrzymaniem właściwej daty.
+        let motmCountdownTarget = null;
+        let motmCountdownInterval = null;
+        let motmCountdownStarted = false;
 
-        function initMovieCountdown() {
-            const timerInterval = setInterval(function() {
-                const now = new Date().getTime();
-                const difference = motmCountdownTarget - now;
-                // reszta funkcji BEZ ZMIAN
+        function renderCountdownState() {
+            const dEl = document.getElementById("countdown-days");
+            const hEl = document.getElementById("countdown-hours");
+            const mEl = document.getElementById("countdown-minutes");
+            const sEl = document.getElementById("countdown-seconds");
+            if (!dEl || !hEl || !mEl || !sEl || !motmCountdownTarget) return;
 
-                // Obliczenia dni, godzin, minut i sekund
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                // Pobranie Twoich boksów z HTML
-                const dEl = document.getElementById("countdown-days");
-                const hEl = document.getElementById("countdown-hours");
-                const mEl = document.getElementById("countdown-minutes");
-                const sEl = document.getElementById("countdown-seconds");
-
-                // Jeśli boksy są na ekranie, aktualizujemy cyfry
-                if (dEl && hEl && mEl && sEl) {
-                    dEl.innerText = days < 10 ? "0" + days : days;
-                    hEl.innerText = hours < 10 ? "0" + hours : hours;
-                    mEl.innerText = minutes < 10 ? "0" + minutes : minutes;
-                    sEl.innerText = seconds < 10 ? "0" + seconds : seconds;
+            const difference = motmCountdownTarget - Date.now();
+            if (difference <= 0) {
+                if (motmCountdownInterval) clearInterval(motmCountdownInterval);
+                motmCountdownInterval = null;
+                const boxes = dEl.parentElement?.parentElement;
+                if (boxes && !boxes.querySelector('.motm-premiere-started')) {
+                    boxes.innerHTML = `<div class="motm-premiere-started bg-yellow-500 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-sm tracking-wider">🎬 PREMIERA ROZPOCZĘTA!</div>`;
                 }
+                return;
+            }
 
-                // Gdy czas minie
-                if (difference < 0) {
-                    clearInterval(timerInterval);
-                    const container = document.getElementById("countdown-days")?.parentElement?.parentElement;
-                    if (container) {
-                        container.innerHTML = `<div class="bg-yellow-500 text-black px-6 py-3 rounded-2xl font-black uppercase italic text-sm tracking-wider animate-bounce">🎬 PREMIERA ROZPOCZĘTA!</div>`;
-                    }
-                }
-            }, 1000);
+            const days = Math.floor(difference / 86400000);
+            const hours = Math.floor((difference % 86400000) / 3600000);
+            const minutes = Math.floor((difference % 3600000) / 60000);
+            const seconds = Math.floor((difference % 60000) / 1000);
+
+            dEl.textContent = String(days).padStart(2, '0');
+            hEl.textContent = String(hours).padStart(2, '0');
+            mEl.textContent = String(minutes).padStart(2, '0');
+            sEl.textContent = String(seconds).padStart(2, '0');
         }
 
-        // Odpalenie licznika automatycznie po włączeniu strony
-        document.addEventListener("DOMContentLoaded", initMovieCountdown);
+        function initMovieCountdown(targetMs) {
+            if (Number.isFinite(targetMs)) motmCountdownTarget = targetMs;
+            if (!Number.isFinite(motmCountdownTarget)) return;
+
+            if (motmCountdownInterval) clearInterval(motmCountdownInterval);
+            motmCountdownStarted = true;
+            renderCountdownState();
+            if (motmCountdownTarget > Date.now()) {
+                motmCountdownInterval = setInterval(renderCountdownState, 1000);
+            }
+        }
+        window.initMovieCountdown = initMovieCountdown;
 
 
         
@@ -20657,7 +20768,7 @@
                     const matchedMovie = findMovieForRelease(rel.title);
                     const streamingPlatform = String(rel.platform || matchedMovie?.platform || '').trim();
                     const posterHtml = matchedMovie
-                        ? `<img src="${matchedMovie.img}" alt="${rel.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">`
+                        ? `<img src="${matchedMovie.img}" alt="${rel.title}" onerror="this.remove()">`
                         : `<span>🎬</span>`;
 
                     const platformTheme = getPlatformThemeClass(streamingPlatform);
@@ -20811,7 +20922,7 @@
                 card.setAttribute('onclick', `openModalById('${movie.id}')`);
 
                 card.innerHTML = `
-                    <img src="${movie.img}" alt="${movie.title}" loading="lazy" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${movie.img}" alt="${movie.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
                     <span class="banger-pill ${isComing ? 'is-coming' : ''}">
                         ${isComing ? '<i class="banger-dot"></i>COMING SOON' : `★ ${movie.rating}`}
                     </span>
@@ -21470,7 +21581,7 @@
 
                 img: String(
                     movie.img ||
-                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+'
+                    'https://via.placeholder.com/300x450?text=Movie'
                 ),
 
                 rating: String(movie.rating || 'COMING'),
@@ -21632,17 +21743,19 @@
             }
 
             renderMonthlyPremiere();
+            renderTop2026();
         }
         window.loadMonthlyPremiereIntoSite = loadMonthlyPremiereIntoSite;
 
         function renderMonthlyPremiere() {
-            const movie = currentMotm?.movieId ? (window.movies || []).find(m => m.id === currentMotm.movieId) : null;
+            const movie = currentMotm?.movieId ? movies.find(m => m.id === currentMotm.movieId) : null;
             const hypeBtn = document.getElementById('mutiny-hype-btn');
 
             if (!movie) {
                 // nic nie zapisane w adminie — zostaje domyślny Mutiny wpisany w HTML
                 if (hypeBtn) hypeBtn.dataset.movieId = 'mutiny';
                 initMotmHype('mutiny');
+                // Bez daty z konfiguracji nie uruchamiamy timera na losowym terminie.
                 return;
             }
 
@@ -21667,7 +21780,7 @@
 
             if (currentMotm.countdownISO) {
                 const parsed = new Date(currentMotm.countdownISO).getTime();
-                if (!isNaN(parsed)) motmCountdownTarget = parsed;
+                if (!isNaN(parsed)) initMovieCountdown(parsed);
             }
         }
         window.renderMonthlyPremiere = renderMonthlyPremiere;
@@ -21726,7 +21839,7 @@
 
             box.innerHTML = matches.map(m => `
                 <button type="button" onclick="addBangerMovie('${m.id}')" class="admin-movie-row text-left">
-                    <img src="${m.img}" alt="${m.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${m.title}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${m.category} / ${m.date}</p>
@@ -21789,7 +21902,7 @@
 
                 return `
                     <div class="admin-movie-row">
-                        <img src="${movie.img}" alt="${movie.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                        <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                         <div class="min-w-0">
                             <p class="text-white font-black uppercase italic leading-tight truncate">${movie.title}</p>
                             <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date} / ${movie.rating}</p>
@@ -22164,6 +22277,7 @@
                 }
 
                 await updateFollowButton(targetUid);
+                await refreshFollowCounts();
 
             } catch (error) {
                 console.error(
@@ -22179,6 +22293,80 @@
         }
 
         window.followUser = followUser;
+
+        async function getFollowUsers(type) {
+            if (!currentFirebaseUser) return [];
+            const snap = await getDocs(collection(db, 'users', currentFirebaseUser.uid, type));
+            const uids = snap.docs.map(d => d.id || d.data()?.uid).filter(Boolean);
+            const profiles = await Promise.all(uids.map(async uid => {
+                try {
+                    const profileSnap = await getDoc(doc(db, 'publicProfiles', uid));
+                    return profileSnap.exists() ? { uid, ...profileSnap.data() } : { uid, nick: 'Użytkownik' };
+                } catch {
+                    return { uid, nick: 'Użytkownik' };
+                }
+            }));
+            return profiles;
+        }
+
+        async function refreshFollowCounts() {
+            const followersEl = document.getElementById('app-menu-followers-count');
+            const followingEl = document.getElementById('app-menu-following-count');
+            if (!currentFirebaseUser) {
+                if (followersEl) followersEl.textContent = '0';
+                if (followingEl) followingEl.textContent = '0';
+                return;
+            }
+            try {
+                const [followersSnap, followingSnap] = await Promise.all([
+                    getDocs(collection(db, 'users', currentFirebaseUser.uid, 'followers')),
+                    getDocs(collection(db, 'users', currentFirebaseUser.uid, 'following'))
+                ]);
+                if (followersEl) followersEl.textContent = String(followersSnap.size);
+                if (followingEl) followingEl.textContent = String(followingSnap.size);
+            } catch (error) {
+                console.warn('Nie udało się pobrać liczby obserwujących:', error);
+            }
+        }
+
+        async function openFollowListModal(type) {
+            const modal = document.getElementById('follow-list-modal');
+            const content = document.getElementById('follow-list-content');
+            const title = document.getElementById('follow-list-title');
+            if (!modal || !content) return;
+            const label = type === 'followers' ? 'Followers' : 'Following';
+            if (title) title.textContent = label;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            content.innerHTML = `<div class="rativio-search-loading">ŁADOWANIE ${label.toUpperCase()}...</div>`;
+            try {
+                const users = await getFollowUsers(type);
+                if (!users.length) {
+                    content.innerHTML = `<div class="p-10 text-center text-zinc-600 font-black uppercase tracking-widest text-xs">Brak użytkowników</div>`;
+                    return;
+                }
+                content.innerHTML = users.map(user => {
+                    const nick = escapeHtmlGlobalSearch(user.nick || 'Użytkownik');
+                    const avatar = user.avatarUrl
+                        ? `<img src="${escapeAttrGlobalSearch(user.avatarUrl)}" class="w-12 h-12 rounded-full object-cover border border-zinc-800" alt="">`
+                        : `<div class="w-12 h-12 rounded-full bg-green-600 text-black flex items-center justify-center font-black uppercase">${escapeHtmlGlobalSearch((user.nick || 'U').charAt(0))}</div>`;
+                    return `<button type="button" onclick="closeFollowListModal(); openPublicProfile('${escapeAttrGlobalSearch(user.uid)}')" class="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-zinc-900 transition text-left">${avatar}<span class="min-w-0"><strong class="block text-white font-black uppercase truncate">${nick}</strong><small class="text-zinc-600 uppercase tracking-widest">View profile</small></span></button>`;
+                }).join('');
+            } catch (error) {
+                console.error('Błąd listy obserwowania:', error);
+                content.innerHTML = `<div class="p-10 text-center text-red-400 font-black uppercase tracking-widest text-xs">Nie udało się załadować listy</div>`;
+            }
+        }
+
+        function closeFollowListModal() {
+            const modal = document.getElementById('follow-list-modal');
+            if (modal) modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        window.refreshFollowCounts = refreshFollowCounts;
+        window.openFollowListModal = openFollowListModal;
+        window.closeFollowListModal = closeFollowListModal;
 
         window.switchAuthTab = function(mode) {
             clearAuthError();
@@ -22796,6 +22984,7 @@
                             <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać oceny, listy i recenzje.</p>
                         </div>
                     `;
+                    updateAuthUI()
                 }
 
                 return;
@@ -23253,7 +23442,7 @@
                         ${reviews.map(r => `
                             <article class="rvw-card">
                                 <button type="button" class="rvw-poster" onclick="openMovieReview('${r.movieId}')" title="Otwórz recenzję">
-                                    <img src="${r.img}" alt="${r.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                                    <img src="${r.img}" alt="${r.title}" onerror="this.src='https://via.placeholder.com/200x300?text=Brak'">
                                     <span class="rvw-poster-badge">★ ${r.userRating || '—'}</span>
                                 </button>
 
@@ -24009,8 +24198,8 @@
         function resetAdminNewsForm() {
             editingNewsId = null;
             document.getElementById('admin-news-form')?.reset();
-            document.getElementById('admin-news-preview-desktop').src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
-            document.getElementById('admin-news-preview-mobile').src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-news-preview-desktop').src = 'https://via.placeholder.com/300x400?text=Desktop';
+            document.getElementById('admin-news-preview-mobile').src = 'https://via.placeholder.com/400x225?text=Mobile';
             const btn = document.getElementById('admin-news-submit-btn');
             if (btn) btn.textContent = 'Dodaj news';
             const desktopFile = document.getElementById('admin-news-img-desktop-file');
@@ -24083,8 +24272,8 @@
             document.getElementById('admin-news-date').value = item.date || '';
             document.getElementById('admin-news-img-desktop').value = item.imgDesktop || '';
             document.getElementById('admin-news-img-mobile').value = item.imgMobile || '';
-            document.getElementById('admin-news-preview-desktop').src = item.imgDesktop || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
-            document.getElementById('admin-news-preview-mobile').src = item.imgMobile || item.imgDesktop || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-news-preview-desktop').src = item.imgDesktop || 'https://via.placeholder.com/300x400?text=Desktop';
+            document.getElementById('admin-news-preview-mobile').src = item.imgMobile || item.imgDesktop || 'https://via.placeholder.com/400x225?text=Mobile';
 
             const btn = document.getElementById('admin-news-submit-btn');
             if (btn) btn.textContent = 'Zapisz zmiany';
@@ -24150,7 +24339,7 @@
 
             list.innerHTML = items.map(item => `
                 <div class="admin-movie-row">
-                    <img src="${escapeAdminHtml(item.imgDesktop)}" alt="${escapeAdminHtml(item.title)}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${escapeAdminHtml(item.imgDesktop)}" alt="${escapeAdminHtml(item.title)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.tag)} / ${escapeAdminHtml(item.date)}${item.imgMobile ? ' / ma osobną grafikę mobile' : ''}</p>
@@ -24168,10 +24357,10 @@
         window.renderAdminNewsList = renderAdminNewsList;
 
         document.getElementById('admin-news-img-desktop')?.addEventListener('input', function() {
-            document.getElementById('admin-news-preview-desktop').src = this.value || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-news-preview-desktop').src = this.value || 'https://via.placeholder.com/300x400?text=Desktop';
         });
         document.getElementById('admin-news-img-mobile')?.addEventListener('input', function() {
-            document.getElementById('admin-news-preview-mobile').src = this.value || document.getElementById('admin-news-img-desktop')?.value || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzA5MDkwYiIvPjx0ZXh0IHg9IjE1MCIgeT0iMjI1IiBmaWxsPSIjNzE3MTdhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJBVElWSU88L3RleHQ+PC9zdmc+';
+            document.getElementById('admin-news-preview-mobile').src = this.value || document.getElementById('admin-news-img-desktop')?.value || 'https://via.placeholder.com/400x225?text=Mobile';
         });
 
         let weeklyNewsIndex = 0;
@@ -24194,7 +24383,7 @@
                 return `
                     <article class="weekly-news-slide">
                         <div class="weekly-news-img-wrap">
-                            <img src="${img}" alt="${item.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                            <img src="${img}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/600x800?text=Movie+Hub+News'">
                         </div>
                         <div class="weekly-news-body">
                             <span class="weekly-news-tag">${item.tag}</span>
@@ -24358,45 +24547,74 @@
 
         (function initRativioIntro() {
             const intro = document.getElementById('rativio-intro');
-
             if (!intro) return;
 
             document.body.classList.add('rativio-loading');
 
-            const minimumIntroTime = 1700;
+            const fill = document.getElementById('rativio-intro-progress-fill');
+            const percentEl = document.getElementById('rativio-intro-percent');
+            const statusEl = document.getElementById('rativio-intro-status');
             const introStartedAt = performance.now();
+            const minimumIntroTime = 900;
+            let finished = false;
+            let progress = 4;
 
-            let introFinished = false;
+            const setProgress = (value, message) => {
+                progress = Math.max(progress, Math.min(100, Math.round(value)));
+                if (fill) fill.style.width = progress + '%';
+                if (percentEl) percentEl.textContent = progress + '%';
+                if (statusEl && message) {
+                    statusEl.classList.remove('is-fading');
+                    statusEl.classList.add('is-visible');
+                    statusEl.textContent = message;
+                }
+            };
 
-            function finishIntro() {
-                if (introFinished) return;
-                introFinished = true;
+            setProgress(8, 'Ładowanie interfejsu...');
 
+            // Postęp bazuje na rzeczywistych obrazach obecnych w DOM.
+            const images = Array.from(document.images);
+            const total = Math.max(images.length, 1);
+            let loaded = images.filter(img => img.complete).length;
+            const updateImageProgress = () => {
+                setProgress(8 + (loaded / total) * 72, `Ładowanie materiałów ${loaded}/${total}`);
+            };
+            images.forEach(img => {
+                if (img.complete) return;
+                const done = () => { loaded++; updateImageProgress(); };
+                img.addEventListener('load', done, { once: true });
+                img.addEventListener('error', done, { once: true });
+            });
+            updateImageProgress();
+
+            // Końcowe 20% przypada na gotowy DOM i dane zainicjalizowane przez skrypty.
+            const finishIntro = () => {
+                if (finished) return;
                 const elapsed = performance.now() - introStartedAt;
                 const remaining = Math.max(0, minimumIntroTime - elapsed);
 
+                setProgress(100, 'Gotowe');
                 setTimeout(() => {
+                    if (finished) return;
+                    finished = true;
+                    statusEl?.classList.add('is-fading');
                     document.body.classList.remove('rativio-loading');
                     document.body.classList.add('rativio-ready');
-
                     intro.classList.add('is-done');
-
-                    setTimeout(() => {
-                        intro.remove();
-                    }, 800);
+                    setTimeout(() => intro.remove(), 450);
                 }, remaining);
-            }
+            };
 
-            if (document.readyState === 'complete') {
+            window.addEventListener('load', () => {
+                setProgress(94, 'Finalizowanie...');
+                requestAnimationFrame(() => finishIntro());
+            }, { once: true });
+
+            setTimeout(() => {
+                setProgress(94, 'Finalizowanie...');
                 finishIntro();
-            } else {
-                window.addEventListener('load', finishIntro, { once: true });
-            }
-
-            // Awaryjnie — intro nigdy nie może zablokować strony
-            setTimeout(finishIntro, 4500);
+            }, 4500);
         })();
-
 
         let editingMotmMovieId = null;
 
@@ -24416,7 +24634,7 @@
 
             box.innerHTML = matches.map(m => `
                 <button type="button" onclick="selectAdminMotmMovie('${m.id}')" class="admin-movie-row text-left">
-                    <img src="${m.img}" alt="${m.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${m.title}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${m.category} / ${m.date}</p>
@@ -24449,7 +24667,7 @@
 
             box.innerHTML = `
                 <div class="admin-movie-row">
-                    <img src="${movie.img}" alt="${movie.title}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">
+                    <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">Wybrany: ${movie.title}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date}</p>
@@ -24763,7 +24981,7 @@
                                         class="rativio-search-poster"
                                         src="${escapeAttrGlobalSearch(movie.img)}"
                                         alt=""
-                                        onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER"
+                                        onerror="this.src='https://via.placeholder.com/100x150?text=Film'"
                                     >
 
                                     <div class="rativio-search-result-main">
@@ -25409,7 +25627,7 @@
 
         async function syncPublicMovieData() {
             if (!currentFirebaseUser) return;
-            if (window.currentUserProfile?.private === true) return;
+            if (currentUserProfile?.private === true) return;
 
             const ratingHistory = Array.isArray(window.movieHubData?.ratingHistory)
                 ? window.movieHubData.ratingHistory
@@ -25439,170 +25657,7 @@
         window.syncPublicMovieData =
             syncPublicMovieData;
 
-    
-
-        /* Local fallback poster: no external placeholder service required. */
-        window.RATIVIO_FALLBACK_POSTER = window.RATIVIO_FALLBACK_POSTER ||
-            'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450">' +
-                '<rect width="300" height="450" rx="18" fill="#09090b"/>' +
-                '<text x="150" y="220" fill="#22c55e" font-family="Arial,sans-serif" font-size="28" font-weight="900" text-anchor="middle">RATIVIO</text>' +
-                '<text x="150" y="250" fill="#71717a" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">BRAK PLAKATU</text>' +
-                '</svg>'
-            );
-
-        /* =========================================================
-        RATIVIO NOTIFICATION INBOX
-        ========================================================= */
-        let rativioNotifications = [];
-
-        function formatRativioNotificationTime(value) {
-            const ms = Number(value || 0);
-            if (!ms) return 'teraz';
-            const d = new Date(ms);
-            return d.toLocaleString('pl-PL', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
-        }
-
-        function renderRativioNotifications() {
-            const list = document.getElementById('rativio-notifications-list');
-            const badge = document.getElementById('rativio-notifications-badge');
-            if (!list || !badge) return;
-            const unread = rativioNotifications.filter(n => !n.read).length;
-            badge.textContent = unread > 99 ? '99+' : String(unread);
-            badge.style.display = unread ? 'flex' : 'none';
-            if (!rativioNotifications.length) {
-                list.innerHTML = '<div class="rativio-notifications-empty">Brak nowych powiadomień.</div>';
-                return;
-            }
-            list.innerHTML = rativioNotifications.slice(0, 50).map(n => {
-                const icon = n.icon || '';
-                return `<div class="rativio-notification-item ${n.read ? '' : 'unread'}" onclick="openRativioNotification('${String(n.id).replace(/'/g, "\\'")}')">
-                    <div class="rativio-notification-icon">${icon ? `<img src="${escapeHtmlGlobalSearch(icon)}" onerror="this.onerror=null;this.src=window.RATIVIO_FALLBACK_POSTER">` : (n.type === 'system' ? '📣' : '★')}</div>
-                    <div class="min-w-0 flex-1">
-                        <div class="rativio-notification-title">${escapeHtmlGlobalSearch(n.title || 'Powiadomienie')}</div>
-                        <div class="rativio-notification-text">${escapeHtmlGlobalSearch(n.body || '')}</div>
-                        <div class="rativio-notification-time">${formatRativioNotificationTime(n.createdAtMs)}</div>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        async function loadRativioNotifications() {
-            const user = window.currentFirebaseUser || auth?.currentUser;
-            if (!user) { rativioNotifications = []; renderRativioNotifications(); return; }
-            try {
-                const [personalSnap, systemSnap] = await Promise.all([
-                    getDocs(collection(db, 'users', user.uid, 'notifications')),
-                    getDocs(collection(db, 'rativioMessages'))
-                ]);
-                const personal = personalSnap.docs.map(d => ({ id:d.id, ...d.data(), type:d.data().type || 'activity' }));
-                const system = systemSnap.docs.map(d => ({ id:'system-' + d.id, sourceId:d.id, ...d.data(), type:'system', read:!!d.data().readBy?.[user.uid] }));
-                rativioNotifications = [...personal, ...system].map(n => ({ ...n, createdAtMs:Number(n.createdAtMs || n.updatedAtMs || 0) })).sort((a,b)=>b.createdAtMs-a.createdAtMs);
-                renderRativioNotifications();
-            } catch (error) {
-                console.warn('Nie udało się wczytać skrzynki RATIVIO:', error);
-            }
-        }
-
-        async function toggleRativioNotifications(event) {
-            event?.stopPropagation();
-            const box = document.getElementById('rativio-notifications');
-            if (!box) return;
-            const willOpen = !box.classList.contains('open');
-            document.querySelectorAll('.rativio-search.open').forEach(x => x.classList.remove('open'));
-            box.classList.toggle('open', willOpen);
-            if (willOpen) await loadRativioNotifications();
-        }
-        window.toggleRativioNotifications = toggleRativioNotifications;
-
-        async function markRativioNotificationsRead() {
-            const user = window.currentFirebaseUser || auth?.currentUser;
-            if (!user) return;
-            try {
-                const unreadPersonal = rativioNotifications.filter(n => !n.read && n.type !== 'system');
-                await Promise.all(unreadPersonal.map(n => updateDoc(doc(db,'users',user.uid,'notifications',n.id), { read:true, readAt:serverTimestamp() })));
-                const systemUnread = rativioNotifications.filter(n => !n.read && n.type === 'system');
-                await Promise.all(systemUnread.map(n => updateDoc(doc(db,'rativioMessages',n.sourceId), { [`readBy.${user.uid}`]: true })));
-                await loadRativioNotifications();
-            } catch (error) { console.warn('Nie udało się oznaczyć powiadomień jako przeczytane:', error); }
-        }
-        window.markRativioNotificationsRead = markRativioNotificationsRead;
-
-        async function openRativioNotification(id) {
-            const n = rativioNotifications.find(x => x.id === id);
-            if (!n) return;
-            if (!n.read && n.type !== 'system' && window.currentFirebaseUser) {
-                try { await updateDoc(doc(db,'users',window.currentFirebaseUser.uid,'notifications',n.id), { read:true, readAt:serverTimestamp() }); } catch {}
-            }
-            if (n.movieId && typeof openModalById === 'function') {
-                document.getElementById('rativio-notifications')?.classList.remove('open');
-                openModalById(n.movieId);
-            }
-            await loadRativioNotifications();
-        }
-        window.openRativioNotification = openRativioNotification;
-
-        async function createFollowerRatingNotifications(movie) {
-            const user = window.currentFirebaseUser || auth?.currentUser;
-            if (!user || !movie?.id) return;
-            try {
-                const followersSnap = await getDocs(collection(db, 'users', user.uid, 'followers'));
-                const nick = currentUserProfile?.nick || user.displayName || 'Użytkownik';
-                await Promise.all(followersSnap.docs.map(f => {
-                    const followerUid = f.id;
-                    const id = `rating-${user.uid}-${movie.id}`;
-                    return setDoc(doc(db,'users',followerUid,'notifications',id), {
-                        type:'activity', title:`${nick} ocenił film`, body:`${movie.title} — nowa ocena na RATIVIO.`, movieId:movie.id, icon:movie.img || '', actorUid:user.uid, createdAtMs:Date.now(), read:false
-                    }, { merge:true });
-                }));
-            } catch (error) { console.warn('Nie udało się utworzyć powiadomień dla obserwujących:', error); }
-        }
-        window.createFollowerRatingNotifications = createFollowerRatingNotifications;
-
-        async function saveAdminNotificationMessage(event) {
-            event.preventDefault();
-            const title = safeAdminText(document.getElementById('admin-notification-title')?.value);
-            const body = safeAdminText(document.getElementById('admin-notification-body')?.value);
-            if (!title || !body) return;
-            const id = 'msg-' + Date.now().toString(36);
-            try {
-                await setDoc(doc(db,'rativioMessages',id), { title, body, createdAtMs:Date.now(), createdAt:serverTimestamp(), readBy:{} });
-                resetAdminNotificationForm();
-                await loadAdminNotificationMessages();
-                showAdminToast('Wiadomość RATIVIO została wysłana.');
-            } catch (error) { console.error('Nie udało się wysłać wiadomości RATIVIO:', error); showAdminToast('Nie udało się wysłać wiadomości.', 'error'); }
-        }
-        window.saveAdminNotificationMessage = saveAdminNotificationMessage;
-
-        function resetAdminNotificationForm() {
-            document.getElementById('admin-notification-title') && (document.getElementById('admin-notification-title').value='');
-            document.getElementById('admin-notification-body') && (document.getElementById('admin-notification-body').value='');
-        }
-        window.resetAdminNotificationForm = resetAdminNotificationForm;
-
-        async function loadAdminNotificationMessages() {
-            const box = document.getElementById('admin-notification-list');
-            if (!box) return;
-            try {
-                const snap = await getDocs(collection(db,'rativioMessages'));
-                const items = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>Number(b.createdAtMs||0)-Number(a.createdAtMs||0));
-                box.innerHTML = items.length ? items.slice(0,30).map(item=>`<div class="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 flex items-start justify-between gap-4"><div><p class="text-green-500 text-[9px] font-black uppercase tracking-widest mb-1">RATIVIO</p><h4 class="text-white font-black uppercase italic">${escapeAdminHtml(item.title||'')}</h4><p class="text-zinc-500 text-xs font-bold mt-2 whitespace-pre-wrap">${escapeAdminHtml(item.body||'')}</p></div><button type="button" onclick="deleteAdminNotificationMessage('${item.id}')" class="text-red-400 hover:text-white text-[9px] font-black uppercase">Usuń</button></div>`).join('') : '<div class="rounded-2xl border border-zinc-800 p-6 text-zinc-600 text-xs font-black uppercase">Brak wysłanych wiadomości.</div>';
-            } catch (error) { box.innerHTML='<div class="text-red-400 text-xs font-bold">Nie udało się pobrać wiadomości.</div>'; }
-        }
-        window.loadAdminNotificationMessages = loadAdminNotificationMessages;
-
-        async function deleteAdminNotificationMessage(id) {
-            if (!confirm('Usunąć tę wiadomość RATIVIO?')) return;
-            try { await deleteDoc(doc(db,'rativioMessages',id)); await loadAdminNotificationMessages(); showAdminToast('Usunięto wiadomość.'); }
-            catch (error) { console.error(error); showAdminToast('Nie udało się usunąć wiadomości.', 'error'); }
-        }
-        window.deleteAdminNotificationMessage = deleteAdminNotificationMessage;
-
-        document.addEventListener('click', event => {
-            const box = document.getElementById('rativio-notifications');
-            if (box && !box.contains(event.target)) box.classList.remove('open');
-        });
-</script>
+    </script>
 
     <div
         id="review-view-modal"
