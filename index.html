@@ -9240,6 +9240,8 @@
         PUBLIC USER PROFILE — FULLSCREEN / SIMPLE
         ========================================================= */
 
+        /* Profil publiczny blokuje scroll strony pod spodem,
+           ale sam profil ma normalny, pełny scroll. */
         body.profile-modal-open { overflow: hidden !important; }
 
         .public-profile-overlay {
@@ -9247,12 +9249,14 @@
             inset: 0 !important;
             z-index: 99999 !important;
             display: none;
-            align-items: stretch;
+            align-items: flex-start;
             justify-content: stretch;
             padding: 0 !important;
             margin: 0 !important;
             background: #050507;
-            overflow: hidden;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
         }
 
         .public-profile-overlay.open {
@@ -9264,7 +9268,7 @@
             width: 100vw !important;
             max-width: none !important;
             min-width: 100vw !important;
-            height: 100dvh !important;
+            height: auto !important;
             min-height: 100dvh !important;
             border: 0;
             border-radius: 0 !important;
@@ -9274,9 +9278,10 @@
                 radial-gradient(circle at 50% 100%, rgba(34,197,94,.055), transparent 36%),
                 #050507;
             box-shadow: none;
-            overflow: hidden;
+            overflow: visible !important;
             display: flex;
             flex-direction: column;
+            flex: 0 0 auto;
         }
 
         .public-profile-close {
@@ -9387,10 +9392,9 @@
         }
 
         .public-profile-body {
-            flex: 1 1 auto;
+            flex: 0 0 auto;
             min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: visible !important;
             padding: 28px clamp(22px, 5vw, 72px) 60px;
         }
 
@@ -15324,6 +15328,12 @@
                         </div>
 
                         <div>
+                            <label class="admin-label" for="admin-release-date">Dokładna data premiery <span class="text-zinc-600">(opcjonalnie)</span></label>
+                            <input id="admin-release-date" type="date" class="admin-field">
+                            <p class="text-zinc-600 text-[9px] font-bold mt-1">Po zapisaniu film automatycznie pojawi się w kalendarzu premier.</p>
+                        </div>
+
+                        <div>
                             <label class="admin-label" for="admin-rating">Ocena</label>
                             <input id="admin-rating" class="admin-field" placeholder="7.5/10 albo COMING">
                         </div>
@@ -17395,6 +17405,8 @@
             editingAdminMovieId = null;
             editingAdminImageSource = '';
             document.getElementById('admin-movie-form')?.reset();
+            const releaseDateInput = document.getElementById('admin-release-date');
+            if (releaseDateInput) releaseDateInput.value = '';
             document.getElementById('admin-platform-custom-wrap')?.classList.add('hidden');
             if (document.getElementById('admin-platform-custom')) document.getElementById('admin-platform-custom').value = '';
             setAdminTranslateMessage('');
@@ -17467,6 +17479,8 @@
                 const selectedPlatform = safeAdminText(document.getElementById('admin-platform')?.value);
                 const customPlatform = safeAdminText(document.getElementById('admin-platform-custom')?.value);
                 const platform = selectedPlatform === 'Inna' ? customPlatform : selectedPlatform;
+                const releaseDate = safeAdminText(document.getElementById('admin-release-date')?.value);
+                const releaseYear = releaseDate ? releaseDate.slice(0, 4) : '';
 
                 const movie = {
                     id: editingAdminMovieId || makeAdminMovieId(title),
@@ -17480,7 +17494,8 @@
                     duration: safeAdminText(document.getElementById('admin-duration')?.value),
                     img: imgSource,
                     rating: safeAdminText(document.getElementById('admin-rating')?.value) || 'COMING',
-                    date: safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
+                    date: releaseYear || safeAdminText(document.getElementById('admin-date')?.value) || new Date().getFullYear().toString(),
+                    releaseDate: releaseDate || '',
                     trailer: safeAdminText(document.getElementById('admin-trailer')?.value),
                     titlePl: safeAdminText(document.getElementById('admin-title-pl')?.value),
                     cast: currentMovieCast.map(c => c.id),
@@ -17579,6 +17594,8 @@
                 input.checked = selectedGenres.includes(input.value);
             });
             document.getElementById('admin-date').value = movie.date || '';
+            const releaseDateInput = document.getElementById('admin-release-date');
+            if (releaseDateInput) releaseDateInput.value = movie.releaseDate || '';
             document.getElementById('admin-duration').value = movie.duration || '';
             document.getElementById('admin-rating').value = movie.rating || '';
             document.getElementById('admin-trailer').value = movie.trailer || '';
@@ -18036,9 +18053,20 @@
                         ),
                         {
                             userLists: newLists.map(list => ({
-                                name: String(list.name || "Lista"),
-                                movies: Array.isArray(list.movies)
+                                name: String(list?.name || "Lista"),
+                                movies: Array.isArray(list?.movies)
                                     ? list.movies
+                                        .map(movie => {
+                                            if (typeof movie === "string") return movie;
+                                            return String(
+                                                movie?.id ??
+                                                movie?.movieId ??
+                                                movie?.M_ID ??
+                                                movie?.mId ??
+                                                ""
+                                            );
+                                        })
+                                        .filter(Boolean)
                                     : []
                             })),
                             updatedAt: serverTimestamp()
@@ -18097,7 +18125,15 @@
         refreshUserScopedData();
 
         function renderListMovieTile(id, onRemove) {
-            const m = movies.find(x => x.id === id);
+            const normalizedId =
+                typeof id === "string"
+                    ? id
+                    : String(id?.id ?? id?.movieId ?? id?.M_ID ?? id?.mId ?? "");
+
+            const m = movies.find(x =>
+                x?.id === normalizedId ||
+                x?.M_ID === normalizedId
+            );
             if (!m) return '';
 
             return `
@@ -20411,6 +20447,52 @@
             return 'platform-other';
         }
 
+        let calendarSelectedYear = new Date().getFullYear();
+
+        function setCalendarYear(year) {
+            const parsedYear = Number(year);
+            if (!Number.isInteger(parsedYear) || parsedYear < 1900 || parsedYear > 2200) return;
+            calendarSelectedYear = parsedYear;
+            renderCalendar();
+        }
+        window.setCalendarYear = setCalendarYear;
+
+        function shiftCalendarYear(delta) {
+            setCalendarYear(calendarSelectedYear + Number(delta || 0));
+        }
+        window.shiftCalendarYear = shiftCalendarYear;
+
+        function getCalendarReleasesWithMovieDates() {
+            const result = [...liveCalendarReleases];
+            const seen = new Set(result.map(r => `${String(r.title || '').trim().toLowerCase()}|${r.date || ''}`));
+
+            if (Array.isArray(movies)) {
+                movies.forEach(movie => {
+                    const exactDate = String(movie.releaseDate || '').trim();
+                    if (!/^\d{4}-\d{2}-\d{2}$/.test(exactDate)) return;
+
+                    const title = String(movie.title || '').trim();
+                    if (!title) return;
+
+                    const key = `${title.toLowerCase()}|${exactDate}`;
+                    if (seen.has(key)) return;
+
+                    seen.add(key);
+                    result.push({
+                        id: `movie-release-${movie.id}`,
+                        date: exactDate,
+                        title,
+                        genre: movie.category || '',
+                        platform: movie.platform || '',
+                        featured: false,
+                        sourceMovieId: movie.id
+                    });
+                });
+            }
+
+            return result;
+        }
+
         function renderCalendar() {
             window.activeView = 'calendar';
             hideAll();
@@ -20431,11 +20513,30 @@
                 ? ["January","February","March","April","May","June","July","August","September","October","November","December"]
                 : ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"];
 
-            // grupowanie premier po miesiącu
+            // Bazowe premiery + filmy dodane w panelu z opcjonalną dokładną datą.
+            const allCalendarReleases = getCalendarReleasesWithMovieDates();
+
+            const availableYears = new Set([
+                new Date().getFullYear() - 1,
+                new Date().getFullYear(),
+                new Date().getFullYear() + 1,
+                calendarSelectedYear
+            ]);
+            allCalendarReleases.forEach(r => {
+                const y = Number(String(r.date || '').slice(0, 4));
+                if (Number.isInteger(y) && y >= 1900 && y <= 2200) availableYears.add(y);
+            });
+
+            const yearOptionsHtml = [...availableYears]
+                .sort((a, b) => a - b)
+                .map(y => `<option value="${y}" ${y === calendarSelectedYear ? 'selected' : ''}>${y}</option>`)
+                .join('');
+
+            // Grupowanie premier tylko dla wybranego roku.
             const groups = {};
-            liveCalendarReleases.forEach(r => {
-                const d = new Date(r.date);
-                if (isNaN(d)) return;
+            allCalendarReleases.forEach(r => {
+                const d = new Date(`${r.date}T00:00:00`);
+                if (isNaN(d) || d.getFullYear() !== calendarSelectedYear) return;
                 const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
                 (groups[key] = groups[key] || []).push(r);
             });
@@ -20507,10 +20608,22 @@
 
             container.innerHTML = `
                 <div class="animate-in fade-in slide-in-from-bottom-4 duration-700 px-1 sm:px-0">
-                    <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+                    <div class="flex flex-col lg:flex-row justify-between items-center mb-5 gap-4">
                         <h2 class="text-3xl sm:text-4xl font-black italic uppercase text-white tracking-tighter text-center sm:text-left">
-                            📅 ${isEn ? 'RELEASE <span class="text-green-500">CALENDAR</span>' : 'KALENDARZ <span class="text-green-500">PREMIER</span>'}
+                            📅 ${isEn ? 'RELEASE <span class="text-green-500">CALENDAR</span>' : 'KALENDARZ <span class="text-green-500">PREMIER</span>'} <span class="text-zinc-500">${calendarSelectedYear}</span>
                         </h2>
+
+                        <div class="flex items-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-950/80 p-1.5">
+                            <button type="button" onclick="shiftCalendarYear(-1)" class="w-10 h-10 rounded-xl border border-zinc-800 bg-zinc-900 hover:border-green-500 hover:text-green-500 text-white font-black transition-colors" aria-label="${isEn ? 'Previous year' : 'Poprzedni rok'}">
+                                ←
+                            </button>
+                            <select id="calendar-year-select" class="h-10 min-w-[92px] bg-zinc-900 border border-zinc-800 rounded-xl px-3 text-white font-black text-sm outline-none focus:border-green-500" onchange="setCalendarYear(this.value)">
+                                ${yearOptionsHtml}
+                            </select>
+                            <button type="button" onclick="shiftCalendarYear(1)" class="w-10 h-10 rounded-xl border border-zinc-800 bg-zinc-900 hover:border-green-500 hover:text-green-500 text-white font-black transition-colors" aria-label="${isEn ? 'Next year' : 'Następny rok'}">
+                                →
+                            </button>
+                        </div>
                     </div>
                     <div class="cal-month-nav">${navHtml}</div>
 
@@ -20522,10 +20635,13 @@
 
             window.applyLanguage?.();
 
-            // automatyczne wejście na bieżący miesiąc
+            // Dla bieżącego roku startujemy od bieżącego miesiąca.
+            // Dla pozostałych lat pokazujemy pierwszy dostępny miesiąc.
             const now = new Date();
-            const currentKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-            const targetKey = groups[currentKey] ? currentKey : (sortedKeys.find(k => k >= currentKey) || sortedKeys[0]);
+            const currentKey = `${calendarSelectedYear}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            const targetKey = calendarSelectedYear === now.getFullYear()
+                ? (groups[currentKey] ? currentKey : (sortedKeys.find(k => k >= currentKey) || sortedKeys[0]))
+                : sortedKeys[0];
 
             if (targetKey) {
                 document.querySelectorAll('.cal-month-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.month === targetKey));
@@ -21275,6 +21391,9 @@
 
                 rating: String(movie.rating || 'COMING'),
                 date: String(movie.date || ''),
+                releaseDate: /^\d{4}-\d{2}-\d{2}$/.test(String(movie.releaseDate || ''))
+                    ? String(movie.releaseDate)
+                    : '',
                 trailer: String(movie.trailer || ''),
 
                 desc: String(movie.desc || 'Brak opisu.'),
@@ -23697,6 +23816,17 @@
 
                 updateAccountPrivacyUI();
 
+                if (!isPrivate && typeof syncPublicLists === "function") {
+                    try {
+                        await syncPublicLists();
+                    } catch (syncError) {
+                        console.warn(
+                            "Profil jest publiczny, ale nie udało się zsynchronizować list:",
+                            syncError
+                        );
+                    }
+                }
+
                 showAuthError(
                     isPrivate
                         ? "Konto ustawione jako prywatne."
@@ -25000,9 +25130,73 @@
                     ? listsSnap.data()
                     : {};
 
-                const publicLists = Array.isArray(listsData.userLists)
+                let publicLists = Array.isArray(listsData.userLists)
                     ? listsData.userLists
                     : [];
+
+                /*
+                 * Ważne:
+                 * własne listy są źródłowo przechowywane w:
+                 * users/{uid}/app/movieHub
+                 *
+                 * Publiczna kopia mogła nie istnieć, jeśli lista została
+                 * utworzona przed wdrożeniem synchronizacji. Dla własnego
+                 * profilu możemy więc bezpiecznie użyć danych z konta jako
+                 * fallbacku i od razu naprawić brak publicznej kopii.
+                 */
+                if (!publicLists.length && currentFirebaseUser?.uid === uid) {
+                    const ownLists = Array.isArray(window.movieHubData?.userLists)
+                        ? window.movieHubData.userLists
+                        : [];
+
+                    if (ownLists.length) {
+                        publicLists = ownLists;
+
+                        /*
+                         * Nie używamy tutaj currentUserProfile ani syncPublicLists(),
+                         * bo profil może być otwierany z innego scope/skryptu.
+                         * Zapisujemy publiczną kopię bezpośrednio.
+                         */
+                        try {
+                            await setDoc(
+                                doc(
+                                    db,
+                                    "publicProfiles",
+                                    uid,
+                                    "publicData",
+                                    "lists"
+                                ),
+                                {
+                                    userLists: ownLists.map(list => ({
+                                        name: String(list?.name || "Lista"),
+                                        movies: Array.isArray(list?.movies)
+                                            ? list.movies
+                                                .map(movieId =>
+                                                    typeof movieId === "string"
+                                                        ? movieId
+                                                        : String(
+                                                            movieId?.id ??
+                                                            movieId?.movieId ??
+                                                            movieId?.M_ID ??
+                                                            movieId?.mId ??
+                                                            ""
+                                                        )
+                                                )
+                                                .filter(Boolean)
+                                            : []
+                                    })),
+                                    updatedAt: serverTimestamp()
+                                },
+                                { merge: true }
+                            );
+                        } catch (syncError) {
+                            console.warn(
+                                "Nie udało się naprawić publicznej kopii list:",
+                                syncError
+                            );
+                        }
+                    }
+                }
 
                 if (!listsBox) return;
 
@@ -25016,15 +25210,34 @@
                     return;
                 }
 
+                // Obsługujemy zarówno stare ID stringowe, jak i ewentualne
+                // stare rekordy w formacie { id }, { M_ID } albo { movieId }.
+                const normalizeListMovieId = value => {
+                    if (typeof value === "string") return value;
+                    if (!value || typeof value !== "object") return "";
+                    return String(
+                        value.id ??
+                        value.movieId ??
+                        value.M_ID ??
+                        value.mId ??
+                        ""
+                    );
+                };
+
                 listsBox.innerHTML = publicLists
                     .map((list, listIndex) => {
-                        const movieIds = Array.isArray(list.movies)
+                        const movieIds = Array.isArray(list?.movies)
                             ? list.movies
+                                .map(normalizeListMovieId)
+                                .filter(Boolean)
                             : [];
 
                         const validMovies = movieIds
                             .map(movieId =>
-                                movies.find(movie => movie.id === movieId)
+                                movies.find(movie =>
+                                    movie?.id === movieId ||
+                                    movie?.M_ID === movieId
+                                )
                             )
                             .filter(Boolean);
 
