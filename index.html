@@ -6,6 +6,7 @@
     <title>RATIVIO | Pro Authority</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>emailjs.init({ publicKey: "kDlKgSmNBD5M7RERy" });</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -990,6 +991,74 @@
 
 
        
+
+        /* === BOJOWY PAKIET UI: FOLLOWERS / INBOX / LIST SETTINGS / EXPANSIONS === */
+        .follow-list-shell { width:100vw; height:100dvh; max-width:none; max-height:none; background:#09090b; border:0; border-radius:0; overflow:hidden; box-shadow:none; display:flex; flex-direction:column; }
+        .follow-list-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:24px clamp(22px,5vw,72px); border-bottom:1px solid #27272a; flex-shrink:0; }
+        .follow-list-stats { display:flex; gap:10px; flex-wrap:wrap; padding:22px clamp(22px,5vw,72px) 0; }
+        .follow-list-stat { min-width:150px; padding:14px 16px; border:1px solid #27272a; border-radius:16px; background:#111113; }
+        .follow-list-stat strong { display:block; font-size:24px; line-height:1; color:#fff; font-weight:900; }
+        .follow-list-stat span { display:block; margin-top:6px; color:#71717a; font-size:9px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+        .follow-list-search { margin:18px clamp(22px,5vw,72px) 0; width:calc(100% - clamp(44px,10vw,144px)); height:52px; border:1px solid #27272a; border-radius:16px; background:#111113; color:#fff; padding:0 16px; outline:none; flex-shrink:0; }
+        .follow-list-search:focus { border-color:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.08); }
+        .follow-list-content { flex:1; min-height:0; overflow-y:auto; padding:18px clamp(22px,5vw,72px) 40px; }
+        .follow-user-row { display:grid; grid-template-columns:56px minmax(0,1fr) auto; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid rgba(39,39,42,.75); max-width:1100px; margin:0 auto; }
+        .follow-user-avatar { width:56px; height:56px; border-radius:50%; object-fit:cover; background:#18181b; border:1px solid #27272a; }
+        .follow-user-name { color:#fff; font-weight:900; font-size:15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .follow-user-meta { color:#71717a; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; margin-top:4px; }
+        .follow-user-open { border:1px solid #27272a; background:#111113; color:#a1a1aa; border-radius:12px; padding:10px 14px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+        .follow-user-open:hover { color:#fff; border-color:#22c55e; }
+        .notification-trigger { position:relative; width:42px; height:42px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:1px solid #27272a; background:#0f0f12; color:#a1a1aa; border-radius:14px; transition:.2s ease; }
+        .notification-trigger:hover { color:#fff; border-color:#22c55e; background:rgba(34,197,94,.08); }
+        .notification-trigger svg { width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:1.7; }
+        .notification-badge { position:absolute; top:-4px; right:-4px; min-width:16px; height:16px; padding:0 4px; border-radius:999px; background:#22c55e; color:#050505; font-size:8px; font-weight:900; display:none; align-items:center; justify-content:center; border:2px solid #09090b; }
+        .notification-center { width:100vw; height:100dvh; background:#09090b; display:flex; flex-direction:column; }
+        .notification-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:24px clamp(22px,5vw,72px); border-bottom:1px solid #27272a; flex-shrink:0; }
+        .notification-content { flex:1; min-height:0; overflow-y:auto; padding:8px clamp(22px,5vw,72px) 40px; }
+        #follow-list-modal, #notification-center-modal { padding:0 !important; align-items:stretch !important; justify-content:stretch !important; }
+        .notification-item { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:14px; align-items:start; padding:18px 0; border-bottom:1px solid rgba(39,39,42,.75); cursor:pointer; }
+        .notification-item:hover .notification-item-title { color:#4ade80; }
+        .notification-icon { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#111113; border:1px solid #27272a; font-size:18px; }
+        .notification-item-title { color:#fff; font-size:14px; font-weight:900; transition:.15s ease; }
+        .notification-item-meta { color:#71717a; font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; margin-top:5px; }
+        .notification-item-body { color:#a1a1aa; font-size:12px; line-height:1.55; margin-top:8px; }
+        .notification-unread { position:relative; }
+        .notification-unread::before { content:''; position:absolute; left:-12px; top:22px; width:5px; height:5px; border-radius:50%; background:#22c55e; box-shadow:0 0 12px rgba(34,197,94,.65); }
+        @media(max-width:640px){ .follow-list-head,.notification-head{padding:18px}.follow-list-stats{padding:16px 18px 0}.follow-list-stat{flex:1;min-width:0}.follow-list-search{margin:14px 18px 0;width:calc(100% - 36px)}.follow-list-content,.notification-content{padding:12px 18px 28px}.follow-user-row{grid-template-columns:46px minmax(0,1fr);}.follow-user-avatar{width:46px;height:46px}.follow-user-open{grid-column:2;width:max-content}.follow-user-name{font-size:13px}.notification-item{grid-template-columns:38px minmax(0,1fr);}.notification-icon{width:38px;height:38px}.notification-item button{grid-column:2} }
+        .inbox-tabs { display:flex; gap:8px; padding:0 0 16px; border-bottom:1px solid #27272a; }
+        .inbox-tab { border:1px solid #27272a; background:#111113; color:#71717a; border-radius:13px; padding:10px 14px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; }
+        .inbox-tab.active { background:#22c55e; color:#050505; border-color:#22c55e; }
+        .inbox-message { padding:15px 0; border-bottom:1px solid rgba(39,39,42,.8); }
+        .inbox-message-title { color:#fff; font-weight:900; font-size:13px; }
+        .inbox-message-meta { color:#71717a; font-size:9px; text-transform:uppercase; letter-spacing:.08em; margin-top:4px; }
+        .inbox-message-body { color:#a1a1aa; font-size:12px; line-height:1.55; margin-top:8px; }
+        .list-settings-btn { flex-shrink:0; width:42px; height:42px; border-radius:50%; border:1px solid #3f3f46; background:#111113; color:#a1a1aa; display:flex; align-items:center; justify-content:center; font-size:17px; transition:.2s ease; }
+        .list-settings-btn:hover { color:#fff; border-color:#22c55e; background:rgba(34,197,94,.08); transform:rotate(30deg); }
+        .list-settings-modal-box { width:min(460px,100%); background:#09090b; border:1px solid #27272a; border-radius:26px; padding:22px; box-shadow:0 30px 90px rgba(0,0,0,.7); }
+        .list-settings-field { width:100%; height:48px; border:1px solid #27272a; border-radius:14px; background:#111113; color:#fff; padding:0 14px; outline:none; }
+        .list-settings-field:focus { border-color:#22c55e; }
+        .list-settings-order { max-height:360px; overflow-y:auto; border-top:1px solid #27272a; }
+        .list-settings-order-row { display:grid; grid-template-columns:30px 42px minmax(0,1fr) auto; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(39,39,42,.75); }
+        .list-settings-order-num { color:#22c55e; font:900 10px/1 'IBM Plex Mono',monospace; text-align:center; }
+        .list-settings-order-poster { width:42px; height:60px; border-radius:9px; object-fit:cover; background:#18181b; }
+        .list-settings-order-title { color:#fff; font-size:11px; font-weight:900; line-height:1.2; }
+        .list-settings-order-buttons { display:flex; gap:5px; }
+        .list-settings-order-buttons button { width:32px; height:32px; border-radius:10px; border:1px solid #27272a; background:#111113; color:#a1a1aa; font-weight:900; }
+        .list-settings-order-buttons button:hover:not(:disabled) { color:#fff; border-color:#22c55e; background:rgba(34,197,94,.08); }
+        .list-settings-order-buttons button:disabled { opacity:.25; cursor:not-allowed; }
+
+        .list-settings-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:18px; }
+        .list-settings-actions button { border-radius:13px; padding:11px 14px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+        .rating-more-btn { display:flex; align-items:center; justify-content:center; gap:9px; margin:18px auto 0; border:1px solid #27272a; background:#111113; color:#a1a1aa; border-radius:999px; padding:11px 17px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; }
+        .rating-more-btn:hover { color:#fff; border-color:#22d3ee; background:rgba(34,211,238,.08); }
+        .rating-more-plus { width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:#22d3ee; color:#050505; font-size:16px; font-weight:900; }
+        .motm-mobile-trailer { display:none; position:relative; width:100%; aspect-ratio:16/9; background:#000 center/cover no-repeat; border-radius:20px; overflow:hidden; border:1px solid #27272a; }
+        .motm-mobile-trailer iframe { position:absolute; inset:0; width:100%; height:100%; border:0; display:none; }
+        .motm-trailer-play { position:absolute; inset:0; margin:auto; width:62px; height:62px; border-radius:50%; border:0; background:#fff; color:#050505; display:flex; align-items:center; justify-content:center; box-shadow:0 14px 45px rgba(0,0,0,.55); cursor:pointer; z-index:3; transition:.2s ease; }
+        .motm-trailer-play:hover { transform:scale(1.08); background:#22c55e; }
+        .motm-trailer-play::after { content:''; margin-left:4px; width:0; height:0; border-top:9px solid transparent; border-bottom:9px solid transparent; border-left:13px solid currentColor; }
+        .motm-trailer-play.is-hidden { display:none; }
+        @media(max-width:640px){ .motm-mobile-trailer{display:block}.motm-desktop-poster{display:none!important} }
 
         .list-movie-grid {
             display: grid;
@@ -14859,6 +14928,8 @@
             border-color: #22c55e;
         }
 
+        .public-profile-extra-list-movie { min-width:0; }
+        .public-profile-extra-rating { min-width:0; }
         .public-profile-list-movie span {
             display: block;
             margin-top: 7px;
@@ -15610,8 +15681,18 @@
                         </div>
 
                         <div>
-                            <label class="admin-label" for="admin-news-excerpt">Treść</label>
+                            <label class="admin-label" for="admin-news-excerpt">Treść PL</label>
                             <textarea id="admin-news-excerpt" class="admin-field min-h-[100px] resize-y" placeholder="Krótki opis newsa"></textarea>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div><label class="admin-label" for="admin-news-title-en">Tytuł EN</label><input id="admin-news-title-en" class="admin-field" placeholder="English title"></div>
+                            <div><label class="admin-label" for="admin-news-tag-en">Tag EN</label><input id="admin-news-tag-en" class="admin-field" placeholder="English tag"></div>
+                        </div>
+                        <div>
+                            <label class="admin-label" for="admin-news-excerpt-en">Treść EN</label>
+                            <textarea id="admin-news-excerpt-en" class="admin-field min-h-[100px] resize-y" placeholder="English news text"></textarea>
+                            <button type="button" onclick="translateAdminNewsFields()" class="mt-2 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded-xl px-4 py-2 text-[9px] font-black uppercase tracking-widest">Przetłumacz cały news</button>
+                            <p id="admin-news-translate-msg" class="mt-2 text-[10px] font-bold text-zinc-500"></p>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-4">
@@ -15716,6 +15797,11 @@
                         <div>
                             <label class="admin-label" for="admin-motm-desc">Opis (opcjonalnie, nadpisuje opis filmu z bazy)</label>
                             <textarea id="admin-motm-desc" class="admin-field min-h-[90px] resize-y" placeholder="Zostaw puste, żeby użyć opisu z bazy filmów"></textarea>
+                        </div>
+                        <div>
+                            <label class="admin-label" for="admin-motm-desc-en">Opis EN</label>
+                            <textarea id="admin-motm-desc-en" class="admin-field min-h-[90px] resize-y" placeholder="Automatycznie tłumaczony opis angielski"></textarea>
+                            <button type="button" onclick="translateMotmDescription()" class="mt-2 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded-xl px-4 py-2 text-[9px] font-black uppercase tracking-widest">Przetłumacz na angielski</button>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-4">
@@ -15840,6 +15926,11 @@
 
                 </div>
             </div>
+
+            <button id="notification-trigger" type="button" class="notification-trigger" onclick="openNotificationCenter()" aria-label="Powiadomienia">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
+                <span id="notification-badge" class="notification-badge">0</span>
+            </button>
 
             <div id="auth-section" class="opacity-0 pointer-events-none"></div>
 
@@ -15970,10 +16061,10 @@
                         <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-2" data-i18n="Język">Język</p>
                         <div class="grid grid-cols-2 gap-2">
                             <button id="lang-pl-btn" onclick="setLanguage('pl')" class="rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest">
-                                Polski
+                                Polski 🇵🇱
                             </button>
                             <button id="lang-en-btn" onclick="setLanguage('en')" class="rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest">
-                                English
+                                English 🇺🇸
                             </button>
                         </div>
                     </div>
@@ -16011,17 +16102,58 @@
         </aside>
     </div>
 
-    <div id="follow-list-modal" class="modal-overlay" onclick="if(event.target === this) closeFollowListModal()">
-        <div class="w-full max-w-2xl max-h-[88dvh] overflow-hidden rounded-[30px] border border-zinc-800 bg-zinc-950 shadow-2xl">
-            <div class="flex items-center justify-between gap-4 p-5 sm:p-7 border-b border-zinc-800">
+    <div id="notification-center-modal" class="modal-overlay" onclick="if(event.target === this) closeNotificationCenter()">
+        <div class="notification-center">
+            <div class="notification-head">
                 <div>
-                    <p class="text-[9px] font-black uppercase tracking-[.3em] text-green-500">RATIVIO</p>
+                    <p class="text-[9px] font-black uppercase tracking-[.3em] text-green-500 mb-2">RATIVIO / ACTIVITY</p>
+                    <h2 class="text-3xl sm:text-4xl font-black italic uppercase tracking-tighter">Powiadomienia</h2>
+                </div>
+                <button type="button" onclick="closeNotificationCenter()" class="app-menu-close">Zamknij</button>
+            </div>
+            <div id="notification-content" class="notification-content"><div class="rativio-search-loading">ŁADOWANIE...</div></div>
+        </div>
+    </div>
+
+    <div id="follow-list-modal" class="modal-overlay" onclick="if(event.target === this) closeFollowListModal()">
+        <div class="follow-list-shell">
+            <div class="follow-list-head">
+                <div>
+                    <p class="text-[9px] font-black uppercase tracking-[.3em] text-green-500 mb-2">RATIVIO / COMMUNITY</p>
                     <h2 id="follow-list-title" class="text-3xl sm:text-4xl font-black italic uppercase tracking-tighter">Followers</h2>
                 </div>
                 <button type="button" onclick="closeFollowListModal()" class="app-menu-close">Zamknij</button>
             </div>
-            <div id="follow-list-content" class="max-h-[70dvh] overflow-y-auto p-4 sm:p-6">
-                <div class="rativio-search-loading">ŁADOWANIE...</div>
+            <div class="follow-list-stats">
+                <div class="follow-list-stat"><strong id="follow-modal-count">0</strong><span>Profile</span></div>
+                <div class="follow-list-stat"><strong id="follow-modal-visible">0</strong><span>Widoczne</span></div>
+            </div>
+            <input id="follow-list-search" class="follow-list-search" type="search" placeholder="Szukaj profilu..." autocomplete="off">
+            <div id="follow-list-content" class="follow-list-content"><div class="rativio-search-loading">ŁADOWANIE...</div></div>
+        </div>
+    </div>
+
+    <div id="list-settings-modal" class="modal-overlay" onclick="if(event.target === this) closeListSettings()">
+        <div class="list-settings-modal-box">
+            <div class="flex items-center justify-between gap-4 mb-5">
+                <div><p class="text-[9px] font-black uppercase tracking-[.3em] text-green-500 mb-2">RATIVIO / LIST</p><h3 class="text-2xl font-black italic uppercase tracking-tighter">Ustawienia listy</h3></div>
+                <button type="button" onclick="closeListSettings()" class="app-menu-close">Zamknij</button>
+            </div>
+            <label class="text-[9px] font-black uppercase tracking-widest text-zinc-500 block mb-2">Nazwa listy</label>
+            <input id="list-settings-name" class="list-settings-field" maxlength="60" autocomplete="off">
+            <p id="list-settings-msg" class="text-[10px] font-bold text-zinc-500 mt-2 min-h-[16px]"></p>
+
+            <div class="mt-6">
+                <div class="flex items-center justify-between gap-3 mb-3">
+                    <label class="text-[9px] font-black uppercase tracking-widest text-zinc-500">Kolejność filmów</label>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-zinc-600">↑ ↓ zmień miejsce</span>
+                </div>
+                <div id="list-settings-order" class="list-settings-order"></div>
+            </div>
+
+            <div class="list-settings-actions">
+                <button type="button" onclick="deleteListFromSettings()" class="border border-red-900/40 bg-red-500/10 text-red-400">Usuń listę</button>
+                <button type="button" onclick="saveListSettings()" class="bg-green-600 text-black">Zapisz</button>
             </div>
         </div>
     </div>
@@ -16063,10 +16195,12 @@
 
                 <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
 
-                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 select-none" id="motm-poster-wrap">
+                    <div class="w-48 h-72 md:w-64 md:h-96 shrink-0 relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-zinc-800 select-none motm-desktop-poster" id="motm-poster-wrap">
                         <img id="motm-poster" src="./static/mutiny.jpg" alt="Mutiny" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.classList.add('poster-missing')">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
                     </div>
+
+                    <div id="motm-mobile-trailer" class="motm-mobile-trailer shrink-0" aria-label="Trailer filmu"><button id="motm-trailer-play" class="motm-trailer-play" type="button" aria-label="Odtwórz trailer"></button></div>
 
                     <div class="flex-grow text-center lg:text-left">
                         <h4 class="text-xs font-black tracking-widest text-blue-400 uppercase italic mb-2"> NAJBARDZIEJ WYCZEKIWANY FILM MIESIĄCA</h4>
@@ -18173,6 +18307,7 @@
         }
 
         async function saveUserLists(newLists) {
+            validateUniqueListNames(newLists);
             window.movieHubData.userLists = newLists;
 
             await window.saveMovieHubData?.();
@@ -18277,8 +18412,6 @@
             if (!m) return '';
 
             const canReorder = listIndex >= 0 && movieIndex >= 0;
-            const upDisabled = movieIndex <= 0;
-            const downDisabled = movieIndex >= total - 1;
             const numberBadge = canReorder
                 ? `<div class="list-order-badge">${movieIndex + 1}</div>`
                 : '';
@@ -18300,14 +18433,6 @@
                             </p>
                         </div>
                     </button>
-
-                    ${canReorder ? `
-                        <div class="list-order-controls" onclick="event.stopPropagation()">
-                            <button type="button" onclick="moveListMovie(${listIndex}, ${movieIndex}, -1)" ${upDisabled ? 'disabled' : ''} aria-label="Przenieś film wyżej">↑</button>
-                            <span>${movieIndex + 1}</span>
-                            <button type="button" onclick="moveListMovie(${listIndex}, ${movieIndex}, 1)" ${downDisabled ? 'disabled' : ''} aria-label="Przenieś film niżej">↓</button>
-                        </div>
-                    ` : ''}
 
                     ${onRemove ? `
                         <button type="button" onclick="event.stopPropagation(); ${onRemove}" class="list-remove-x" title="Usuń z listy">✕</button>
@@ -18584,7 +18709,9 @@
                     <div class="rt-grid">
             `;
 
-            html += history.map((entry, index) => {
+            const visibleHistory = history.slice(0, 8);
+            const extraHistory = history.slice(8);
+            html += visibleHistory.map((entry, index) => {
                 const matchedMovie = movies.find(m =>
                     (entry.id && m.id === entry.id) ||
                     (entry.title && m.title.toUpperCase() === String(entry.title).toUpperCase())
@@ -18629,6 +18756,18 @@
 
             html += `
                     </div>
+                    ${extraHistory.length ? `<div id="extra-ratings" class="rt-grid hidden mt-4">${extraHistory.map((entry, extraIndex) => {
+                        const index = extraIndex + 8;
+                        const extraHidden = extraIndex >= 8 ? ' hidden' : '';
+                        const matchedMovie = movies.find(m => (entry.id && m.id === entry.id) || (entry.title && m.title.toUpperCase() === String(entry.title).toUpperCase()));
+                        const poster = entry.img && entry.img !== 'DIAMOND' ? entry.img : matchedMovie?.img;
+                        const title = entry.title || matchedMovie?.title || 'Nieznany film';
+                        const date = entry.date || 'Brak daty';
+                        const cleanRating = String(entry.rating || '-').replace('/10', '');
+                        const canOpen = matchedMovie ? `onclick="openModalById('${matchedMovie.id}')"` : '';
+                        const posterHTML = poster ? `<img src="${poster}" alt="${title}">` : `<div class="w-full h-full flex items-center justify-center bg-zinc-950 text-cyan-400 font-black text-xl">${cleanRating}</div>`;
+                        return `<article class="rt-card rating-extra-item${extraHidden}"><button ${canOpen} class="rt-poster">${posterHTML}</button><div class="rt-body"><h3 class="rt-title">${title}</h3>${buildStarRow(entry.rating)}<p class="rt-date">${window.translateSavedDate ? window.translateSavedDate(date) : date}</p><div class="rt-actions">${userReviews[entry.id] ? `<button type="button" class="rt-btn" onclick="openMovieReview('${entry.id}')">Recenzja</button>` : ''}${matchedMovie ? `<button type="button" class="rt-btn" onclick="openModalById('${matchedMovie.id}')">Opis</button>` : ''}<button type="button" class="rt-btn-del" onclick="deleteRatingHistoryItem(${index})" title="Usuń ocenę">🗑</button></div></div></article>`;
+                    }).join('')}</div><button type="button" class="rating-more-btn" onclick="toggleRatingExpansion(this)"><span class="rating-more-plus">+</span><span>Pokaż kolejne ${Math.min(8, extraHistory.length)} ocen</span></button>` : ''}
                 </section>
             `;
 
@@ -18636,6 +18775,24 @@
             window.applyLanguage?.();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        function toggleRatingExpansion(btn) {
+            const extra = document.getElementById('extra-ratings');
+            if (!extra) return;
+            const items = Array.from(extra.querySelectorAll('.rating-extra-item'));
+            const current = Number(extra.dataset.visibleCount || 8);
+            if (current >= items.length) {
+                items.forEach((item, i) => item.classList.toggle('hidden', i >= 8));
+                extra.dataset.visibleCount = '8';
+                btn.querySelector('span:last-child').textContent = `Pokaż kolejne ${Math.min(8, items.length - 8)} ocen`;
+                return;
+            }
+            const next = Math.min(items.length, current + 8);
+            items.forEach((item, i) => item.classList.toggle('hidden', i >= next));
+            extra.dataset.visibleCount = String(next);
+            btn.querySelector('span:last-child').textContent = next >= items.length ? 'Pokaż mniej' : `Pokaż kolejne ${Math.min(8, items.length - next)} ocen`;
+        }
+        window.toggleRatingExpansion = toggleRatingExpansion;
 
         async function deleteRatingHistoryItem(index) {
             const data = window.movieHubData || {};
@@ -19738,17 +19895,112 @@
             }
         }
 
+        function normalizeListName(name) { return String(name || '').trim().replace(/\s+/g, ' '); }
+        function listNameKey(name) { return normalizeListName(name).toLocaleLowerCase('pl-PL'); }
+        function isListNameTaken(name, exceptIndex = -1) {
+            const key = listNameKey(name);
+            return loadUserLists().some((list, i) => i !== exceptIndex && listNameKey(list?.name) === key);
+        }
+        function validateUniqueListNames(lists) {
+            const seen = new Set();
+            for (const list of lists) {
+                const name = normalizeListName(list?.name);
+                if (!name) throw new Error('Nazwa listy nie może być pusta.');
+                const key = listNameKey(name);
+                if (seen.has(key)) throw new Error('Nazwy list muszą być unikalne.');
+                seen.add(key);
+            }
+        }
         function createNewList() {
-            const name = prompt("Podaj nazwę listy:");
+            const name = normalizeListName(prompt("Podaj nazwę listy:"));
             if (!name) return;
-
+            if (isListNameTaken(name)) { alert('Taka nazwa listy już istnieje. Nazwy list muszą być unikalne.'); return; }
             const lists = loadUserLists();
             lists.push({ name, movies: [] });
+            saveUserLists(lists).then(() => { refreshUserScopedData(); renderCustomLists(); }).catch(e => alert(e.message || 'Nie udało się zapisać listy.'));
+        }
 
-            saveUserLists(lists);
+        let activeListSettingsIndex = -1;
+        function renderListSettingsOrder() {
+            const box = document.getElementById('list-settings-order');
+            if (!box || activeListSettingsIndex < 0) return;
+            const list = loadUserLists()[activeListSettingsIndex];
+            if (!list) { box.innerHTML = ''; return; }
+            const ids = Array.isArray(list.movies) ? list.movies : [];
+            if (!ids.length) { box.innerHTML = '<div class="py-8 text-center text-[10px] font-black uppercase tracking-widest text-zinc-600">Ta lista jest pusta</div>'; return; }
+            box.innerHTML = ids.map((id, index) => {
+                const m = movies.find(x => x?.id === id || x?.M_ID === id);
+                const title = m?.title || 'Nieznany film';
+                const img = m?.img || '';
+                return `<div class="list-settings-order-row">
+                    <span class="list-settings-order-num">${index + 1}</span>
+                    <img class="list-settings-order-poster" src="${escapeAttrGlobalSearch(img)}" alt="" onerror="this.style.opacity='.25'">
+                    <span class="list-settings-order-title">${escapeHtmlGlobalSearch(title)}</span>
+                    <div class="list-settings-order-buttons">
+                        <button type="button" onclick="moveListMovieFromSettings(${index},-1)" ${index===0?'disabled':''} aria-label="Przenieś wyżej">↑</button>
+                        <button type="button" onclick="moveListMovieFromSettings(${index},1)" ${index===ids.length-1?'disabled':''} aria-label="Przenieś niżej">↓</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        async function moveListMovieFromSettings(movieIndex, direction) {
+            if (activeListSettingsIndex < 0) return;
+            const lists = loadUserLists();
+            const list = lists[activeListSettingsIndex];
+            if (!list || !Array.isArray(list.movies)) return;
+            const target = movieIndex + direction;
+            if (target < 0 || target >= list.movies.length) return;
+            [list.movies[movieIndex], list.movies[target]] = [list.movies[target], list.movies[movieIndex]];
+            try {
+                validateUniqueListNames(lists);
+                await saveUserLists(lists);
+                refreshUserScopedData();
+                renderListSettingsOrder();
+                renderCustomLists();
+            } catch (e) { alert(e.message || 'Nie udało się zmienić kolejności.'); }
+        }
+        window.moveListMovieFromSettings = moveListMovieFromSettings;
+
+        function openListSettings(index) {
+            const list = loadUserLists()[index];
+            if (!list) return;
+            activeListSettingsIndex = index;
+            const input = document.getElementById('list-settings-name');
+            const msg = document.getElementById('list-settings-msg');
+            if (input) input.value = normalizeListName(list.name);
+            if (msg) msg.textContent = '';
+            toggleModal('list-settings-modal', true);
+            renderListSettingsOrder();
+            setTimeout(() => input?.focus(), 40);
+        }
+        function closeListSettings() { activeListSettingsIndex = -1; toggleModal('list-settings-modal', false); }
+        async function saveListSettings() {
+            if (activeListSettingsIndex < 0) return;
+            const name = normalizeListName(document.getElementById('list-settings-name')?.value);
+            const msg = document.getElementById('list-settings-msg');
+            if (!name) { if(msg) msg.textContent='Nazwa nie może być pusta.'; return; }
+            if (isListNameTaken(name, activeListSettingsIndex)) { if(msg) msg.textContent='Ta nazwa jest już zajęta.'; return; }
+            const lists = loadUserLists();
+            lists[activeListSettingsIndex].name = name;
+            try {
+                validateUniqueListNames(lists);
+                await saveUserLists(lists);
+                closeListSettings();
+                refreshUserScopedData();
+                renderCustomLists();
+            } catch (e) { if(msg) msg.textContent=e.message || 'Nie udało się zapisać.'; }
+        }
+        async function deleteListFromSettings() {
+            if (activeListSettingsIndex < 0) return;
+            if (!confirm('Usunąć tę listę? Filmów nie usuwamy z katalogu.')) return;
+            const lists = loadUserLists();
+            lists.splice(activeListSettingsIndex, 1);
+            await saveUserLists(lists);
+            closeListSettings();
             refreshUserScopedData();
             renderCustomLists();
         }
+        window.openListSettings=openListSettings; window.closeListSettings=closeListSettings; window.saveListSettings=saveListSettings; window.deleteListFromSettings=deleteListFromSettings;
 
         function addToList(movieId, idx) {
             if (idx === "") return;
@@ -19897,7 +20149,7 @@
                 return `<div class="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-center"><p class="text-zinc-600 font-black uppercase italic tracking-widest text-xs">Pusto</p></div>`;
             }
 
-            const limit = 8; // <- było 5
+            const limit = 10;
             const visibleIds = ids.slice(0, limit);
             const extraIds = ids.slice(limit);
 
@@ -19906,10 +20158,10 @@
                 `</div>`;
 
             if (extraIds.length) {
-                html += `<div class="list-movie-grid hidden" id="extra-${uniqueId}">` +
-                    extraIds.map((id, idx) => renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, limit + idx, ids.length)).join('') +
+                html += `<div class="list-movie-grid" id="extra-${uniqueId}" data-visible-count="0">` +
+                    extraIds.map((id, idx) => `<div class="list-extra-item ${idx >= limit ? 'hidden' : ''}">${renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, limit + idx, ids.length)}</div>`).join('') +
                 `</div>`;
-                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}">Pokaż więcej (+${extraIds.length})</button>`;
+                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}" data-step="10">Pokaż kolejne +${Math.min(10, extraIds.length)}</button>`;
             }
 
             return html;
@@ -19918,27 +20170,21 @@
         function toggleListExpand(uniqueId, btn) {
             const extra = document.getElementById(`extra-${uniqueId}`);
             if (!extra) return;
-
-            const isHidden = extra.classList.contains('hidden');
-            extra.classList.toggle('hidden');
-            btn.textContent = isHidden ? 'Pokaż mniej' : `Pokaż więcej (+${btn.dataset.count})`;
+            const items = Array.from(extra.querySelectorAll('.list-extra-item'));
+            const current = Number(extra.dataset.visibleCount || 0);
+            if (current >= items.length) {
+                items.forEach(item => item.classList.toggle('hidden', true));
+                extra.dataset.visibleCount = '0';
+                btn.textContent = `Pokaż kolejne +${Math.min(10, items.length)}`;
+                return;
+            }
+            const next = Math.min(items.length, current + 10);
+            items.forEach((item, index) => item.classList.toggle('hidden', index >= next));
+            extra.dataset.visibleCount = String(next);
+            btn.textContent = next >= items.length ? 'Pokaż mniej' : `Pokaż kolejne +${Math.min(10, items.length - next)}`;
         }
 
         window.toggleListExpand = toggleListExpand;
-
-        async function moveListMovie(listIndex, movieIndex, direction) {
-            const lists = loadUserLists();
-            const list = lists[listIndex];
-            if (!list || !Array.isArray(list.movies)) return;
-
-            const target = movieIndex + direction;
-            if (target < 0 || target >= list.movies.length) return;
-
-            [list.movies[movieIndex], list.movies[target]] = [list.movies[target], list.movies[movieIndex]];
-            await saveUserLists(lists);
-            refreshUserScopedData();
-            renderCustomLists();
-        }
 
         async function removeMovieFromList(listIndex, movieId) {
             const lists = loadUserLists();
@@ -19950,7 +20196,6 @@
             renderCustomLists();
         }
 
-        window.moveListMovie = moveListMovie;
         window.removeMovieFromList = removeMovieFromList;
 
         function renderCustomLists() {
@@ -19991,21 +20236,17 @@
                             <p class="text-[9px] font-black text-zinc-500 uppercase tracking-[0.35em] mb-2">Lista prywatna</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${window.displayListName ? window.displayListName(list.name) : list.name}</h3>
                         </div>
-                        <button onclick="openAddToListPicker('custom', ${i})" class="list-add-btn" title="Dodaj film do listy">+</button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="openAddToListPicker('custom', ${i})" class="list-add-btn" title="Dodaj film do listy">+</button>
+                            <button onclick="openListSettings(${i})" class="list-settings-btn" title="Ustawienia listy" aria-label="Ustawienia listy">⚙</button>
+                        </div>
                     </div>
 
                     ${buildExpandableListGrid(list.movies, `custom-${i}`, (id) => `removeMovieFromList(${i}, '${id}')`, i)}
                     
 
                     <div class="list-section-foot">
-                        <div class="list-foot-actions">
-                            <button onclick="const n=prompt('Nowa nazwa:'); if(n){userLists[${i}].name=n;saveUserLists(userLists);renderCustomLists();}" class="px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition">
-                                Nazwa
-                            </button>
-                            <button onclick="if(confirm('Usuń listę?')){userLists.splice(${i},1);saveUserLists(userLists);renderCustomLists();}" class="px-4 py-3 rounded-2xl bg-red-950/20 border border-red-900/40 text-red-500 text-[10px] font-black uppercase tracking-widest transition">
-                                Usuń
-                            </button>
-                        </div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-600">${list.movies.length} filmów</span>
                     </div>
                 </section>
             `).join('');
@@ -21626,8 +21867,11 @@
             return {
                 id: String(item.id || ''),
                 tag: String(item.tag || 'News'),
+                tagEn: String(item.tagEn || ''),
                 title: String(item.title || ''),
+                titleEn: String(item.titleEn || ''),
                 excerpt: String(item.excerpt || ''),
+                excerptEn: String(item.excerptEn || ''),
                 date: String(item.date || ''),
                 imgDesktop: String(item.imgDesktop || ''),
                 imgMobile: String(item.imgMobile || ''),
@@ -21747,6 +21991,83 @@
         }
         window.loadMonthlyPremiereIntoSite = loadMonthlyPremiereIntoSite;
 
+        function youtubeVideoId(url){
+            const value=String(url||'').trim(); if(!value)return '';
+            let id='';
+            try{ const u=new URL(value); if(u.hostname.includes('youtu.be')) id=u.pathname.slice(1); else if(u.searchParams.get('v')) id=u.searchParams.get('v'); else if(u.pathname.includes('/embed/')) id=u.pathname.split('/embed/')[1]; }catch(e){ return ''; }
+            return id.split(/[?&]/)[0];
+        }
+        function youtubeEmbedUrl(url, autoplay=false){
+            const id=youtubeVideoId(url);
+            return id ? `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0&modestbranding=1&controls=0&disablekb=1&playsinline=1&enablejsapi=1${autoplay?'&autoplay=1':''}` : '';
+        }
+        let motmTrailerPlayer = null;
+        let motmTrailerVideoId = '';
+        function resetMotmTrailer() {
+            const box=document.getElementById('motm-mobile-trailer');
+            const play=document.getElementById('motm-trailer-play');
+            const frame=document.getElementById('motm-trailer-frame');
+            if(frame){ frame.style.display='none'; frame.src=''; }
+            if(play) play.classList.remove('is-hidden');
+            motmTrailerPlayer=null;
+        }
+        function renderMotmTrailerPlayer(movie){
+            const box=document.getElementById('motm-mobile-trailer'); if(!box)return;
+            const id=youtubeVideoId(movie?.trailer);
+            motmTrailerVideoId=id || '';
+            box.dataset.videoId=motmTrailerVideoId;
+            box.style.backgroundImage=id ? `url(https://img.youtube.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg)` : '';
+            const old=box.querySelector('iframe'); if(old)old.remove();
+            let play=document.getElementById('motm-trailer-play');
+            if(!play){ play=document.createElement('button'); play.id='motm-trailer-play'; play.className='motm-trailer-play'; play.type='button'; box.appendChild(play); }
+            play.classList.remove('is-hidden');
+            play.onclick=()=>startMotmTrailer();
+            if(!id){ play.classList.add('is-hidden'); return; }
+            if(motmTrailerPlayer?.destroy){ try{motmTrailerPlayer.destroy();}catch{} }
+            motmTrailerPlayer=null;
+        }
+        function startMotmTrailer(){
+            const box=document.getElementById('motm-mobile-trailer'); const play=document.getElementById('motm-trailer-play'); if(!box)return;
+            const id=box.dataset.videoId; if(!id)return;
+            if(play)play.classList.add('is-hidden');
+            let frame=document.getElementById('motm-trailer-frame');
+            if(!frame){
+                frame=document.createElement('div');
+                frame.id='motm-trailer-frame';
+                frame.style.position='absolute'; frame.style.inset='0'; frame.style.display='block';
+                box.insertBefore(frame, play || null);
+            }
+            frame.style.display='block';
+            if(window.YT && YT.Player){
+                try{ if(motmTrailerPlayer?.destroy) motmTrailerPlayer.destroy(); }catch{}
+                motmTrailerPlayer=new YT.Player('motm-trailer-frame',{
+                    videoId:id,
+                    playerVars:{autoplay:1,controls:0,rel:0,modestbranding:1,playsinline:1,disablekb:1,iv_load_policy:3},
+                    events:{
+                        onReady:e=>e.target.playVideo(),
+                        onStateChange:e=>{ if(e.data===YT.PlayerState.ENDED) resetMotmTrailer(); }
+                    }
+                });
+            } else {
+                // API ładuje się chwilę po stronie — spróbuj ponownie.
+                setTimeout(startMotmTrailer,350);
+            }
+        }
+        window.startMotmTrailer=startMotmTrailer;
+        async function translateMotmDescription(){
+            const pl=document.getElementById('admin-motm-desc'); const en=document.getElementById('admin-motm-desc-en'); if(!pl||!en)return;
+            if(!pl.value.trim()){alert('Najpierw wpisz opis PL.');return;}
+            try{ en.value=await translateTextToEnglish(pl.value); }catch(e){ alert('Nie udało się przetłumaczyć.'); }
+        }
+        window.youtubeEmbedUrl=youtubeEmbedUrl; window.translateMotmDescription=translateMotmDescription;
+        async function translateAdminNewsFields(){
+            const title=document.getElementById('admin-news-title'), tag=document.getElementById('admin-news-tag'), excerpt=document.getElementById('admin-news-excerpt');
+            const titleEn=document.getElementById('admin-news-title-en'), tagEn=document.getElementById('admin-news-tag-en'), excerptEn=document.getElementById('admin-news-excerpt-en'), msg=document.getElementById('admin-news-translate-msg');
+            if(!title||!excerpt)return;
+            try{ if(msg)msg.textContent='Tłumaczę...'; const [a,b,c]=await Promise.all([translateTextToEnglish(title.value),translateTextToEnglish(tag?.value||''),translateTextToEnglish(excerpt.value)]); titleEn.value=a||''; tagEn.value=b||''; excerptEn.value=c||''; if(msg)msg.textContent='Gotowe.'; }catch(e){if(msg)msg.textContent='Nie udało się przetłumaczyć automatycznie.';}
+        }
+        window.translateAdminNewsFields=translateAdminNewsFields;
+
         function renderMonthlyPremiere() {
             const movie = currentMotm?.movieId ? movies.find(m => m.id === currentMotm.movieId) : null;
             const hypeBtn = document.getElementById('mutiny-hype-btn');
@@ -21755,6 +22076,8 @@
                 // nic nie zapisane w adminie — zostaje domyślny Mutiny wpisany w HTML
                 if (hypeBtn) hypeBtn.dataset.movieId = 'mutiny';
                 initMotmHype('mutiny');
+                const defaultMovie = movies.find(m => m.id === 'mutiny');
+                renderMotmTrailerPlayer(defaultMovie);
                 // Bez daty z konfiguracji nie uruchamiamy timera na losowym terminie.
                 return;
             }
@@ -21767,7 +22090,9 @@
 
             if (posterEl) { posterEl.src = movie.img; posterEl.alt = movie.title; }
             if (titleEl) titleEl.textContent = movie.title;
-            if (descEl) descEl.textContent = currentMotm.descOverride || movie.desc;
+            const motmDesc = window.getLang?.() === 'en' ? (currentMotm.descOverrideEn || movie.descEn || currentMotm.descOverride || movie.desc) : (currentMotm.descOverride || movie.desc);
+            if (descEl) descEl.textContent = motmDesc;
+            renderMotmTrailerPlayer(movie);
             if (dateEl) dateEl.textContent = currentMotm.dateLabel || movie.date;
 
             if (posterWrap) {
@@ -22329,44 +22654,87 @@
             }
         }
 
-        async function openFollowListModal(type) {
-            const modal = document.getElementById('follow-list-modal');
-            const content = document.getElementById('follow-list-content');
-            const title = document.getElementById('follow-list-title');
-            if (!modal || !content) return;
-            const label = type === 'followers' ? 'Followers' : 'Following';
-            if (title) title.textContent = label;
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            content.innerHTML = `<div class="rativio-search-loading">ŁADOWANIE ${label.toUpperCase()}...</div>`;
-            try {
-                const users = await getFollowUsers(type);
-                if (!users.length) {
-                    content.innerHTML = `<div class="p-10 text-center text-zinc-600 font-black uppercase tracking-widest text-xs">Brak użytkowników</div>`;
-                    return;
-                }
-                content.innerHTML = users.map(user => {
-                    const nick = escapeHtmlGlobalSearch(user.nick || 'Użytkownik');
-                    const avatar = user.avatarUrl
-                        ? `<img src="${escapeAttrGlobalSearch(user.avatarUrl)}" class="w-12 h-12 rounded-full object-cover border border-zinc-800" alt="">`
-                        : `<div class="w-12 h-12 rounded-full bg-green-600 text-black flex items-center justify-center font-black uppercase">${escapeHtmlGlobalSearch((user.nick || 'U').charAt(0))}</div>`;
-                    return `<button type="button" onclick="closeFollowListModal(); openPublicProfile('${escapeAttrGlobalSearch(user.uid)}')" class="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-zinc-900 transition text-left">${avatar}<span class="min-w-0"><strong class="block text-white font-black uppercase truncate">${nick}</strong><small class="text-zinc-600 uppercase tracking-widest">View profile</small></span></button>`;
-                }).join('');
-            } catch (error) {
-                console.error('Błąd listy obserwowania:', error);
-                content.innerHTML = `<div class="p-10 text-center text-red-400 font-black uppercase tracking-widest text-xs">Nie udało się załadować listy</div>`;
+        let notificationItems = [];
+        const NOTIFICATION_READ_KEY = 'rativio_notification_read_v2';
+        function getNotificationReadIds() {
+            try { return JSON.parse(localStorage.getItem(NOTIFICATION_READ_KEY) || '[]'); } catch { return []; }
+        }
+        function setNotificationReadIds(ids) { localStorage.setItem(NOTIFICATION_READ_KEY, JSON.stringify(ids.slice(-300))); }
+        function notificationTimeLabel(ms) {
+            if (!ms) return '';
+            try { return new Date(ms).toLocaleString(window.getLang?.() === 'en' ? 'en-GB' : 'pl-PL'); } catch { return ''; }
+        }
+        async function buildNotificationItems() {
+            const items = [];
+            const useEn = window.getLang?.() === 'en';
+
+            // RATIVIO: każdy aktualny news pojawia się jako komunikat systemowy.
+            getWeeklyNews().slice(0, 10).forEach(news => {
+                const title = useEn ? (news.titleEn || news.title) : news.title;
+                const body = useEn ? (news.excerptEn || news.excerpt) : news.excerpt;
+                items.push({ id:`news:${news.id}`, type:'rativio', icon:'R', title, body, meta:`RATIVIO · ${news.date || ''}`, timestamp:Number(news.updatedAtMs || 0), movieId:null });
+            });
+
+            if (currentFirebaseUser) {
+                try {
+                    const followingSnap = await getDocs(collection(db, 'users', currentFirebaseUser.uid, 'following'));
+                    const followingUids = followingSnap.docs.map(d => d.id).filter(Boolean);
+                    const ratingGroups = await Promise.all(followingUids.slice(0, 50).map(async uid => {
+                        try {
+                            const [profileSnap, moviesSnap] = await Promise.all([
+                                getDoc(doc(db,'publicProfiles',uid)),
+                                getDoc(doc(db,'publicProfiles',uid,'publicData','movies'))
+                            ]);
+                            const profile = profileSnap.exists() ? profileSnap.data() : {};
+                            const ratings = moviesSnap.exists() && Array.isArray(moviesSnap.data()?.ratingHistory) ? moviesSnap.data().ratingHistory : [];
+                            return ratings.filter(r => r?.id && r?.rating !== undefined).slice().sort((a,b)=>Number(b.timestamp||0)-Number(a.timestamp||0)).slice(0,5).map(r => ({
+                                id:`rating:${uid}:${r.id}:${r.timestamp || r.date || r.rating}`, type:'rating', icon:'★', title: `${profile.nick || 'Użytkownik'} ${useEn ? 'rated a movie' : 'ocenił film'}`, movieId:r.id, body:`${movies.find(m=>m.id===r.id)?.title || 'Film'} · ${r.rating}/10`, meta:`${profile.nick || 'Użytkownik'} · ${notificationTimeLabel(Number(r.timestamp||0))}`, timestamp:Number(r.timestamp||0)
+                            }));
+                        } catch { return []; }
+                    }));
+                    ratingGroups.flat().forEach(x => items.push(x));
+                } catch (e) { console.warn('Nie udało się zbudować powiadomień obserwowanych:', e); }
             }
-        }
 
-        function closeFollowListModal() {
-            const modal = document.getElementById('follow-list-modal');
-            if (modal) modal.style.display = 'none';
-            document.body.style.overflow = '';
+            return items.filter(x => x.timestamp || x.type === 'rativio').sort((a,b)=>(b.timestamp||0)-(a.timestamp||0)).slice(0,50);
         }
-
-        window.refreshFollowCounts = refreshFollowCounts;
-        window.openFollowListModal = openFollowListModal;
-        window.closeFollowListModal = closeFollowListModal;
+        async function openNotificationCenter() {
+            if (!currentFirebaseUser) { toggleModal('login-modal', true); return; }
+            const modal=document.getElementById('notification-center-modal');
+            if (!modal) return;
+            modal.style.display='flex'; document.body.style.overflow='hidden';
+            await renderNotificationCenter();
+        }
+        function closeNotificationCenter() { const modal=document.getElementById('notification-center-modal'); if(modal)modal.style.display='none'; document.body.style.overflow=''; }
+        async function renderNotificationCenter() {
+            const box=document.getElementById('notification-content'); if(!box)return;
+            box.innerHTML='<div class="rativio-search-loading">ŁADOWANIE...</div>';
+            notificationItems=await buildNotificationItems();
+            const readIds=new Set(getNotificationReadIds());
+            if(!notificationItems.length){ box.innerHTML='<div class="text-zinc-600 font-black uppercase text-xs text-center py-16">Brak nowych aktywności</div>'; updateNotificationBadge(0); return; }
+            box.innerHTML=notificationItems.map(n=>`<article class="notification-item ${readIds.has(n.id)?'':'notification-unread'}" onclick="openNotificationItem('${escapeAttrGlobalSearch(n.id)}')">
+                <div class="notification-icon">${escapeHtmlGlobalSearch(n.icon || '•')}</div>
+                <div class="min-w-0"><div class="notification-item-title">${escapeHtmlGlobalSearch(n.title)}</div><div class="notification-item-meta">${escapeHtmlGlobalSearch(n.meta || '')}</div><div class="notification-item-body">${escapeHtmlGlobalSearch(n.body || '')}</div></div>
+                ${n.movieId ? '<button type="button" class="follow-user-open" onclick="event.stopPropagation()">Sprawdź</button>' : ''}
+            </article>`).join('');
+            updateNotificationBadge(notificationItems.filter(n=>!readIds.has(n.id)).length);
+        }
+        function openNotificationItem(id) {
+            const item=notificationItems.find(x=>x.id===id); if(!item)return;
+            const ids=getNotificationReadIds(); if(!ids.includes(id))ids.push(id); setNotificationReadIds(ids);
+            updateNotificationBadge(notificationItems.filter(n=>!ids.includes(n.id)).length);
+            if(item.movieId){ closeNotificationCenter(); openModalById(item.movieId); }
+            else renderNotificationCenter();
+        }
+        function updateNotificationBadge(count) {
+            const badge=document.getElementById('notification-badge'); if(!badge)return;
+            badge.textContent=count>99?'99+':String(count); badge.style.display=count?'flex':'none';
+        }
+        async function refreshNotificationBadge() {
+            if(!currentFirebaseUser){ updateNotificationBadge(0); return; }
+            try { const items=await buildNotificationItems(); const read=new Set(getNotificationReadIds()); updateNotificationBadge(items.filter(x=>!read.has(x.id)).length); } catch {}
+        }
+        window.openNotificationCenter=openNotificationCenter; window.closeNotificationCenter=closeNotificationCenter; window.renderNotificationCenter=renderNotificationCenter; window.openNotificationItem=openNotificationItem; window.refreshNotificationBadge=refreshNotificationBadge;
 
         window.switchAuthTab = function(mode) {
             clearAuthError();
@@ -23044,6 +23412,7 @@
             }
 
                 
+            refreshNotificationBadge();
         };
 
         window.toggleProfileMenu = function(event) {
@@ -24020,11 +24389,11 @@
 
 
         const DEFAULT_WEEKLY_NEWS = [
-            { id: 'default-1', tag: 'Box Office', title: 'Mutiny podbija kina przed premierą', excerpt: 'Wczesne pokazy przedpremierowe Mutiny zbierają entuzjastyczne recenzje - widzowie chwalą tempo akcji i charyzmę obsady.', imgDesktop: './static/mutiny.jpg', imgMobile: '', date: '11.08.2026' },
-            { id: 'default-2', tag: 'Zapowiedzi', title: 'Nowy zwiastun Dune: Messiah trafia do sieci', excerpt: 'Denis Villeneuve zamyka trylogię Diuny - najnowszy materiał zapowiada mroczniejszy i bardziej polityczny rozdział sagi.', imgDesktop: './static/diuna3.jpg', imgMobile: '', date: '10.08.2026' },
-            { id: 'default-3', tag: 'Plotki', title: 'Avengers: Doomsday - kto naprawdę gra Dooma?', excerpt: 'Fani analizują każdy kadr najnowszego teasera w poszukiwaniu wskazówek co do tożsamości głównego złoczyńcy MCU.', imgDesktop: './static/doomsday.jpg', imgMobile: '', date: '09.08.2026' },
-            { id: 'default-4', tag: 'Kasa', title: 'Weapons zaskakuje wynikami w box office', excerpt: 'Niskobudżetowy horror bije rekordy popularności, wyprzedzając dużo droższe produkcje w pierwszym weekendzie.', imgDesktop: './static/weapons.jpg', imgMobile: '', date: '08.08.2026' },
-            { id: 'default-5', tag: 'Wywiad', title: 'Twórcy Project Hail Mary o wyzwaniach adaptacji', excerpt: 'Ekipa filmu zdradza kulisy przenoszenia bestsellerowej powieści sci-fi na duży ekran.', imgDesktop: './static/hailmarry.jpg', imgMobile: '', date: '07.08.2026' }
+            { id: 'default-1', tag: 'Box Office', tagEn: 'Box Office', title: 'Mutiny podbija kina przed premierą', titleEn: 'Mutiny is taking over cinemas ahead of release', excerpt: 'Wczesne pokazy przedpremierowe Mutiny zbierają entuzjastyczne recenzje - widzowie chwalą tempo akcji i charyzmę obsady.', excerptEn: 'Early previews of Mutiny are earning enthusiastic reviews, with viewers praising the action pace and the cast’s charisma.', imgDesktop: './static/mutiny.jpg', imgMobile: '', date: '11.08.2026' },
+            { id: 'default-2', tag: 'Zapowiedzi', tagEn: 'Previews', title: 'Nowy zwiastun Dune: Messiah trafia do sieci', titleEn: 'New Dune: Messiah trailer lands online', excerpt: 'Denis Villeneuve zamyka trylogię Diuny - najnowszy materiał zapowiada mroczniejszy i bardziej polityczny rozdział sagi.', excerptEn: 'Denis Villeneuve closes the Dune trilogy as the latest footage teases a darker and more political chapter of the saga.', imgDesktop: './static/diuna3.jpg', imgMobile: '', date: '10.08.2026' },
+            { id: 'default-3', tag: 'Plotki', tagEn: 'Rumours', title: 'Avengers: Doomsday - kto naprawdę gra Dooma?', titleEn: 'Avengers: Doomsday — who is really playing Doom?', excerpt: 'Fani analizują każdy kadr najnowszego teasera w poszukiwaniu wskazówek co do tożsamości głównego złoczyńcy MCU.', excerptEn: 'Fans are analysing every frame of the latest teaser for clues about the identity of the MCU’s main villain.', imgDesktop: './static/doomsday.jpg', imgMobile: '', date: '09.08.2026' },
+            { id: 'default-4', tag: 'Kasa', tagEn: 'Box Office', title: 'Weapons zaskakuje wynikami w box office', titleEn: 'Weapons surprises at the box office', excerpt: 'Niskobudżetowy horror bije rekordy popularności, wyprzedzając dużo droższe produkcje w pierwszym weekendzie.', excerptEn: 'The low-budget horror is breaking popularity records, outperforming much more expensive productions during its opening weekend.', imgDesktop: './static/weapons.jpg', imgMobile: '', date: '08.08.2026' },
+            { id: 'default-5', tag: 'Wywiad', tagEn: 'Interview', title: 'Twórcy Project Hail Mary o wyzwaniach adaptacji', titleEn: 'Project Hail Mary creators on the challenges of adaptation', excerpt: 'Ekipa filmu zdradza kulisy przenoszenia bestsellerowej powieści sci-fi na duży ekran.', excerptEn: 'The film’s team reveals how they brought the bestselling sci-fi novel to the big screen.', imgDesktop: './static/hailmarry.jpg', imgMobile: '', date: '07.08.2026' }
         ];
 
         const WEEKLY_NEWS_KEY = 'movieHubWeeklyNews';
@@ -24202,6 +24571,9 @@
             document.getElementById('admin-news-preview-mobile').src = 'https://via.placeholder.com/400x225?text=Mobile';
             const btn = document.getElementById('admin-news-submit-btn');
             if (btn) btn.textContent = 'Dodaj news';
+            document.getElementById('admin-news-tag-en').value = '';
+            document.getElementById('admin-news-title-en').value = '';
+            document.getElementById('admin-news-excerpt-en').value = '';
             const desktopFile = document.getElementById('admin-news-img-desktop-file');
             const mobileFile = document.getElementById('admin-news-img-mobile-file');
 
@@ -24216,6 +24588,12 @@
             const tag = safeAdminText(document.getElementById('admin-news-tag')?.value);
             const title = safeAdminText(document.getElementById('admin-news-title')?.value);
             const excerpt = safeAdminText(document.getElementById('admin-news-excerpt')?.value);
+            let titleEn = safeAdminText(document.getElementById('admin-news-title-en')?.value);
+            let tagEn = safeAdminText(document.getElementById('admin-news-tag-en')?.value);
+            let excerptEn = safeAdminText(document.getElementById('admin-news-excerpt-en')?.value);
+            if (!titleEn && title) { try { titleEn = await translateTextToEnglish(title); } catch(e){} }
+            if (!tagEn && tag) { try { tagEn = await translateTextToEnglish(tag); } catch(e){} }
+            if (!excerptEn && excerpt) { try { excerptEn = await translateTextToEnglish(excerpt); } catch(e){} }
             const date = safeAdminText(document.getElementById('admin-news-date')?.value) || new Date().toLocaleDateString('pl-PL');
             const existingNewsItem = getWeeklyNews().find(n => n.id === editingNewsId);
 
@@ -24242,7 +24620,7 @@
             const existingItem = existingItems.find(n => n.id === editingNewsId);
             const order = existingItem ? existingItem.order : existingItems.length;
 
-            const item = { id: editingNewsId || makeNewsId(), tag: tag || 'News', title, excerpt, date, imgDesktop, imgMobile, order, updatedAtMs: Date.now() };
+            const item = { id: editingNewsId || makeNewsId(), tag: tag || 'News', tagEn, title, titleEn, excerpt, excerptEn, date, imgDesktop, imgMobile, order, updatedAtMs: Date.now() };
 
             const items = existingItems.filter(n => n.id !== item.id);
             items.push(item);
@@ -24267,8 +24645,11 @@
 
             editingNewsId = item.id;
             document.getElementById('admin-news-tag').value = item.tag || '';
+            document.getElementById('admin-news-tag-en').value = item.tagEn || '';
             document.getElementById('admin-news-title').value = item.title || '';
+            document.getElementById('admin-news-title-en').value = item.titleEn || '';
             document.getElementById('admin-news-excerpt').value = item.excerpt || '';
+            document.getElementById('admin-news-excerpt-en').value = item.excerptEn || '';
             document.getElementById('admin-news-date').value = item.date || '';
             document.getElementById('admin-news-img-desktop').value = item.imgDesktop || '';
             document.getElementById('admin-news-img-mobile').value = item.imgMobile || '';
@@ -24377,18 +24758,22 @@
 
             const items = getWeeklyNews();
             const useMobile = isMobileNewsView();
+            const useEn = window.getLang?.() === 'en';
 
             track.innerHTML = items.map(item => {
                 const img = (useMobile && item.imgMobile) ? item.imgMobile : item.imgDesktop;
+                const newsTag = useEn ? (item.tagEn || item.tag) : item.tag;
+                const newsTitle = useEn ? (item.titleEn || item.title) : item.title;
+                const newsExcerpt = useEn ? (item.excerptEn || item.excerpt) : item.excerpt;
                 return `
                     <article class="weekly-news-slide">
                         <div class="weekly-news-img-wrap">
-                            <img src="${img}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/600x800?text=Movie+Hub+News'">
+                            <img src="${img}" alt="${newsTitle}" onerror="this.src='https://via.placeholder.com/600x800?text=Movie+Hub+News'">
                         </div>
                         <div class="weekly-news-body">
-                            <span class="weekly-news-tag">${item.tag}</span>
-                            <h3 class="weekly-news-title">${item.title}</h3>
-                            <p class="weekly-news-excerpt">${item.excerpt}</p>
+                            <span class="weekly-news-tag">${newsTag}</span>
+                            <h3 class="weekly-news-title">${newsTitle}</h3>
+                            <p class="weekly-news-excerpt">${newsExcerpt}</p>
                             <span class="weekly-news-date">${item.date}</span>
                             <div class="news-reaction-row" data-news-id="${item.id}">
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','fire')"><span class="news-reaction-emoji">🔥</span><span class="news-reaction-count" data-key="fire">–</span></button>
@@ -24678,6 +25063,7 @@
 
             if (currentMotm && currentMotm.movieId === movie.id) {
                 document.getElementById('admin-motm-desc').value = currentMotm.descOverride || '';
+                document.getElementById('admin-motm-desc-en').value = currentMotm.descOverrideEn || '';
                 document.getElementById('admin-motm-date-label').value = currentMotm.dateLabel || '';
                 document.getElementById('admin-motm-countdown').value = currentMotm.countdownISO ? currentMotm.countdownISO.slice(0, 16) : '';
             }
@@ -24694,11 +25080,15 @@
             }
 
             const descOverride = safeAdminText(document.getElementById('admin-motm-desc')?.value);
+            let descOverrideEn = safeAdminText(document.getElementById('admin-motm-desc-en')?.value);
             const dateLabel = safeAdminText(document.getElementById('admin-motm-date-label')?.value);
             const countdownRaw = document.getElementById('admin-motm-countdown')?.value;
             const countdownISO = countdownRaw ? new Date(countdownRaw).toISOString() : '';
+            if (!descOverrideEn && descOverride) {
+                try { descOverrideEn = await translateTextToEnglish(descOverride); } catch(e) { console.warn('MOTM EN translation failed', e); }
+            }
 
-            const payload = { movieId, descOverride, dateLabel, countdownISO };
+            const payload = { movieId, descOverride, descOverrideEn, dateLabel, countdownISO };
 
             if (typeof window.saveCloudMonthlyPremiere === 'function') {
                 try {
@@ -25236,7 +25626,6 @@
                                     class="public-profile-follow"
                                     data-uid="${escapeAttrGlobalSearch(uid)}"
                                     onclick="followUser('${escapeAttrGlobalSearch(uid)}')"
-                                    onclick="followUser('${escapeAttrGlobalSearch(uid)}')"
                                 >
                                     + Obserwuj
                                 </button>
@@ -25317,7 +25706,7 @@
                             Number(b.timestamp || 0) -
                             Number(a.timestamp || 0)
                     )
-                    .slice(0, 12);
+                    ;
 
                 if (countBox) {
                     countBox.textContent = String(ratingHistory.length);
@@ -25331,9 +25720,11 @@
                             </div>
                         `;
                     } else {
+                        const publicVisibleRatings = recentRatings.slice(0, 10);
+                        const publicExtraRatings = recentRatings.slice(10);
                         ratingsBox.innerHTML = `
                             <div class="public-profile-movies">
-                                ${recentRatings.map(entry => {
+                                ${publicVisibleRatings.map(entry => {
                                     const movie = movies.find(
                                         m => m.id === entry.id
                                     );
@@ -25407,7 +25798,23 @@
                                         </button>
                                     `;
                                 }).join("")}
+                                ${publicExtraRatings.map((entry, extraIndex) => {
+                                    const movie = movies.find(m => m.id === entry.id);
+                                    if (!movie) return "";
+                                    const score = Number(entry.rating);
+                                    const safeScore = Number.isFinite(score) ? (Number.isInteger(score) ? String(score) : score.toFixed(1)) : "-";
+                                    const scoreClass = Number.isFinite(score) ? (score >= 8 ? "score-high" : score >= 6 ? "score-mid" : score >= 4 ? "score-low" : "score-bad") : "";
+                                    const dateLabel = entry.date || (entry.timestamp ? new Date(Number(entry.timestamp)).toLocaleDateString("pl-PL") : "");
+                                    return `<div class="public-profile-extra-rating hidden" data-public-rating-index="${extraIndex}">
+                                        <button type="button" class="public-profile-movie" onclick="closePublicProfile();openModalById('${escapeAttrGlobalSearch(movie.id)}')">
+                                            <div class="public-profile-movie-poster"><img src="${escapeAttrGlobalSearch(movie.img)}" alt="${escapeAttrGlobalSearch(movie.title)}" onerror="this.style.display='none'"><span class="public-profile-movie-score ${scoreClass}">★ ${escapeHtmlGlobalSearch(safeScore)}/10</span></div>
+                                            <div class="public-profile-movie-title">${escapeHtmlGlobalSearch(movie.title)}</div>
+                                            <div class="public-profile-movie-date">${escapeHtmlGlobalSearch(dateLabel)}</div>
+                                        </button>
+                                    </div>`;
+                                }).join("")}
                             </div>
+                            ${publicExtraRatings.length ? `<button type="button" class="rating-more-btn" onclick="togglePublicProfileRatings(this)"><span class="rating-more-plus">+</span><span>Pokaż kolejne +${Math.min(10, publicExtraRatings.length)}</span></button>` : ""}
                         `;
                     }
                 }
@@ -25566,7 +25973,7 @@
                                     validMovies.length
                                         ? `
                                             <div class="public-profile-list-grid">
-                                                ${validMovies.map(movie => `
+                                                ${validMovies.slice(0,10).map(movie => `
                                                     <button
                                                         type="button"
                                                         class="public-profile-list-movie"
@@ -25588,7 +25995,15 @@
                                                         </span>
                                                     </button>
                                                 `).join("")}
+                                                ${validMovies.slice(10).map((movie, extraIndex) => `
+                                                    <div class="public-profile-extra-list-movie hidden" data-public-list-extra-index="${extraIndex}">
+                                                        <button type="button" class="public-profile-list-movie" onclick="closePublicProfile();openModalById('${escapeAttrGlobalSearch(movie.id)}')">
+                                                            <img src="${escapeAttrGlobalSearch(movie.img)}" alt="${escapeAttrGlobalSearch(movie.title)}" onerror="this.style.display='none'"><span>${escapeHtmlGlobalSearch(movie.title)}</span>
+                                                        </button>
+                                                    </div>
+                                                `).join("")}
                                             </div>
+                                            ${validMovies.length > 10 ? `<button type="button" class="rating-more-btn" onclick="togglePublicProfileList(this)"><span class="rating-more-plus">+</span><span>Pokaż kolejne +${Math.min(10, validMovies.length - 10)}</span></button>` : ""}
                                         `
                                         : `
                                             <div class="public-profile-empty">
@@ -25624,6 +26039,39 @@
                 }
             }
         }
+
+        function togglePublicProfileRatings(btn) {
+            const items = Array.from(document.querySelectorAll('.public-profile-extra-rating'));
+            const visible = Number(btn.dataset.visibleCount || 0);
+            if (visible >= items.length) {
+                items.forEach(item => item.classList.add('hidden'));
+                btn.dataset.visibleCount = '0';
+                btn.querySelector('span:last-child').textContent = `Pokaż kolejne +${Math.min(10, items.length)}`;
+                return;
+            }
+            const next = Math.min(items.length, visible + 10);
+            items.forEach((item, i) => item.classList.toggle('hidden', i >= next));
+            btn.dataset.visibleCount = String(next);
+            btn.querySelector('span:last-child').textContent = next >= items.length ? 'Pokaż mniej' : `Pokaż kolejne +${Math.min(10, items.length-next)}`;
+        }
+        function togglePublicProfileList(btn) {
+            const list = btn.closest('.public-profile-list');
+            if (!list) return;
+            const items = Array.from(list.querySelectorAll('.public-profile-extra-list-movie'));
+            const visible = Number(btn.dataset.visibleCount || 0);
+            if (visible >= items.length) {
+                items.forEach(item => item.classList.add('hidden'));
+                btn.dataset.visibleCount = '0';
+                btn.querySelector('span:last-child').textContent = `Pokaż kolejne +${Math.min(10, items.length)}`;
+                return;
+            }
+            const next = Math.min(items.length, visible + 10);
+            items.forEach((item, i) => item.classList.toggle('hidden', i >= next));
+            btn.dataset.visibleCount = String(next);
+            btn.querySelector('span:last-child').textContent = next >= items.length ? 'Pokaż mniej' : `Pokaż kolejne +${Math.min(10, items.length-next)}`;
+        }
+        window.togglePublicProfileRatings = togglePublicProfileRatings;
+        window.togglePublicProfileList = togglePublicProfileList;
 
         async function syncPublicMovieData() {
             if (!currentFirebaseUser) return;
