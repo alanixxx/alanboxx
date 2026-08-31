@@ -1034,10 +1034,23 @@
         .inbox-message-body { color:#a1a1aa; font-size:12px; line-height:1.55; margin-top:8px; }
         .list-settings-btn { flex-shrink:0; width:42px; height:42px; border-radius:50%; border:1px solid #3f3f46; background:#111113; color:#a1a1aa; display:flex; align-items:center; justify-content:center; font-size:17px; transition:.2s ease; }
         .list-settings-btn:hover { color:#fff; border-color:#22c55e; background:rgba(34,197,94,.08); transform:rotate(30deg); }
-        .list-settings-modal-box { width:min(460px,100%); background:#09090b; border:1px solid #27272a; border-radius:26px; padding:22px; box-shadow:0 30px 90px rgba(0,0,0,.7); }
+        #list-settings-modal { padding:0 !important; align-items:stretch !important; justify-content:stretch !important; }
+        #list-settings-modal .list-settings-modal-box {
+            width:100%;
+            max-width:none;
+            height:100dvh;
+            max-height:none;
+            border:0;
+            border-radius:0;
+            box-shadow:none;
+            padding:clamp(18px,4vw,48px);
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+        }
         .list-settings-field { width:100%; height:48px; border:1px solid #27272a; border-radius:14px; background:#111113; color:#fff; padding:0 14px; outline:none; }
         .list-settings-field:focus { border-color:#22c55e; }
-        .list-settings-order { max-height:360px; overflow-y:auto; border-top:1px solid #27272a; }
+        .list-settings-order { flex:1; min-height:0; max-height:none; overflow-y:auto; border-top:1px solid #27272a; }
         .list-settings-order-row { display:grid; grid-template-columns:30px 42px minmax(0,1fr) auto; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(39,39,42,.75); }
         .list-settings-order-num { color:#22c55e; font:900 10px/1 'IBM Plex Mono',monospace; text-align:center; }
         .list-settings-order-poster { width:42px; height:60px; border-radius:9px; object-fit:cover; background:#18181b; }
@@ -18308,7 +18321,15 @@
 
         async function saveUserLists(newLists) {
             validateUniqueListNames(newLists);
-            window.movieHubData.userLists = newLists;
+
+            const normalizedLists = newLists.map(list => ({
+                ...list,
+                movies: Array.isArray(list?.movies)
+                    ? list.movies.map(normalizeListMovieId).filter(Boolean)
+                    : []
+            }));
+
+            window.movieHubData.userLists = normalizedLists;
 
             await window.saveMovieHubData?.();
 
@@ -18327,7 +18348,7 @@
                             "lists"
                         ),
                         {
-                            userLists: newLists.map(list => ({
+                            userLists: normalizedLists.map(list => ({
                                 name: String(list?.name || "Lista"),
                                 movies: Array.isArray(list?.movies)
                                     ? list.movies
@@ -19921,17 +19942,45 @@
         }
 
         let activeListSettingsIndex = -1;
+        function normalizeListMovieId(value) {
+            if (typeof value === 'string') return value;
+            if (!value || typeof value !== 'object') return '';
+            return String(
+                value.id ??
+                value.movieId ??
+                value.M_ID ??
+                value.mId ??
+                ''
+            );
+        }
+
         function renderListSettingsOrder() {
             const box = document.getElementById('list-settings-order');
             if (!box || activeListSettingsIndex < 0) return;
+
             const list = loadUserLists()[activeListSettingsIndex];
-            if (!list) { box.innerHTML = ''; return; }
-            const ids = Array.isArray(list.movies) ? list.movies : [];
-            if (!ids.length) { box.innerHTML = '<div class="py-8 text-center text-[10px] font-black uppercase tracking-widest text-zinc-600">Ta lista jest pusta</div>'; return; }
+            if (!list) {
+                box.innerHTML = '';
+                return;
+            }
+
+            const ids = Array.isArray(list.movies)
+                ? list.movies.map(normalizeListMovieId).filter(Boolean)
+                : [];
+
+            if (!ids.length) {
+                box.innerHTML = '<div class="py-8 text-center text-[10px] font-black uppercase tracking-widest text-zinc-600">Ta lista jest pusta</div>';
+                return;
+            }
+
             box.innerHTML = ids.map((id, index) => {
-                const m = movies.find(x => x?.id === id || x?.M_ID === id);
+                const m = movies.find(x =>
+                    String(x?.id ?? '') === id ||
+                    String(x?.M_ID ?? '') === id
+                );
                 const title = m?.title || 'Nieznany film';
                 const img = m?.img || '';
+
                 return `<div class="list-settings-order-row">
                     <span class="list-settings-order-num">${index + 1}</span>
                     <img class="list-settings-order-poster" src="${escapeAttrGlobalSearch(img)}" alt="" onerror="this.style.opacity='.25'">
@@ -19943,11 +19992,15 @@
                 </div>`;
             }).join('');
         }
+
         async function moveListMovieFromSettings(movieIndex, direction) {
             if (activeListSettingsIndex < 0) return;
             const lists = loadUserLists();
             const list = lists[activeListSettingsIndex];
             if (!list || !Array.isArray(list.movies)) return;
+
+            list.movies = list.movies.map(normalizeListMovieId).filter(Boolean);
+
             const target = movieIndex + direction;
             if (target < 0 || target >= list.movies.length) return;
             [list.movies[movieIndex], list.movies[target]] = [list.movies[target], list.movies[movieIndex]];
@@ -20149,7 +20202,7 @@
                 return `<div class="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-center"><p class="text-zinc-600 font-black uppercase italic tracking-widest text-xs">Pusto</p></div>`;
             }
 
-            const limit = 10;
+            const limit = 8;
             const visibleIds = ids.slice(0, limit);
             const extraIds = ids.slice(limit);
 
@@ -20159,9 +20212,9 @@
 
             if (extraIds.length) {
                 html += `<div class="list-movie-grid" id="extra-${uniqueId}" data-visible-count="0">` +
-                    extraIds.map((id, idx) => `<div class="list-extra-item ${idx >= limit ? 'hidden' : ''}">${renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, limit + idx, ids.length)}</div>`).join('') +
-                `</div>`;
-                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}" data-step="10">Pokaż kolejne +${Math.min(10, extraIds.length)}</button>`;
+                    extraIds.map((id, idx) => `<div class="list-extra-item hidden">${renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, limit + idx, ids.length)}</div>`).join('') +
+                    `</div>`;
+                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}" data-step="8">Pokaż kolejne +${Math.min(8, extraIds.length)}</button>`;
             }
 
             return html;
@@ -20172,16 +20225,20 @@
             if (!extra) return;
             const items = Array.from(extra.querySelectorAll('.list-extra-item'));
             const current = Number(extra.dataset.visibleCount || 0);
+
             if (current >= items.length) {
-                items.forEach(item => item.classList.toggle('hidden', true));
+                items.forEach(item => item.classList.add('hidden'));
                 extra.dataset.visibleCount = '0';
-                btn.textContent = `Pokaż kolejne +${Math.min(10, items.length)}`;
+                btn.textContent = `Pokaż kolejne +${Math.min(8, items.length)}`;
                 return;
             }
-            const next = Math.min(items.length, current + 10);
+
+            const next = Math.min(items.length, current + 8);
             items.forEach((item, index) => item.classList.toggle('hidden', index >= next));
             extra.dataset.visibleCount = String(next);
-            btn.textContent = next >= items.length ? 'Pokaż mniej' : `Pokaż kolejne +${Math.min(10, items.length - next)}`;
+            btn.textContent = next >= items.length
+                ? 'Pokaż mniej'
+                : `Pokaż kolejne +${Math.min(8, items.length - next)}`;
         }
 
         window.toggleListExpand = toggleListExpand;
@@ -22634,23 +22691,147 @@
             return profiles;
         }
 
+        let activeFollowListType = 'followers';
+        let activeFollowListUsers = [];
+
+        async function openFollowListModal(type = 'followers') {
+            if (!currentFirebaseUser) {
+                showGuestGate("listy obserwujących");
+                return;
+            }
+
+            activeFollowListType = type === 'following' ? 'following' : 'followers';
+
+            const modal = document.getElementById('follow-list-modal');
+            const title = document.getElementById('follow-list-title');
+            const search = document.getElementById('follow-list-search');
+            const content = document.getElementById('follow-list-content');
+
+            if (!modal || !title || !content) return;
+
+            title.textContent = activeFollowListType === 'following' ? 'Following' : 'Followers';
+            if (search) search.value = '';
+            content.innerHTML = '<div class="rativio-search-loading">ŁADOWANIE...</div>';
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            try {
+                activeFollowListUsers = await getFollowUsers(activeFollowListType);
+                renderFollowListUsers('');
+            } catch (error) {
+                console.error('Nie udało się załadować listy follow:', error);
+                content.innerHTML = '<div class="text-center py-16 text-red-400 font-black uppercase text-xs">Nie udało się załadować listy.</div>';
+            }
+        }
+
+        function renderFollowListUsers(filter = '') {
+            const content = document.getElementById('follow-list-content');
+            const count = document.getElementById('follow-modal-count');
+            const visible = document.getElementById('follow-modal-visible');
+            if (!content) return;
+
+            const q = String(filter || '').trim().toLowerCase();
+            const users = activeFollowListUsers.filter(user =>
+                !q || String(user?.nick || 'Użytkownik').toLowerCase().includes(q)
+            );
+
+            if (count) count.textContent = String(activeFollowListUsers.length);
+            if (visible) visible.textContent = String(users.length);
+
+            if (!users.length) {
+                content.innerHTML = `<div class="text-center py-16 text-zinc-600 font-black uppercase text-xs">${q ? 'Brak wyników.' : 'Brak profili.'}</div>`;
+                return;
+            }
+
+            content.innerHTML = users.map(user => {
+                const nick = user?.nick || 'Użytkownik';
+                const avatar = user?.avatarUrl || '';
+                return `
+                    <div class="follow-user-row">
+                        ${avatar
+                            ? `<img class="follow-user-avatar" src="${escapeAttrGlobalSearch(avatar)}" alt="" onerror="this.style.display='none'">`
+                            : `<div class="follow-user-avatar flex items-center justify-center text-white font-black">${escapeHtmlGlobalSearch(nick.charAt(0).toUpperCase())}</div>`
+                        }
+                        <div class="min-w-0">
+                            <div class="follow-user-name">${escapeHtmlGlobalSearch(nick)}</div>
+                            <div class="follow-user-meta">RATIVIO / ${activeFollowListType === 'following' ? 'FOLLOWING' : 'FOLLOWER'}</div>
+                        </div>
+                        <button type="button" class="follow-user-open" onclick="openFollowListUser('${escapeAttrGlobalSearch(user.uid)}')">Otwórz profil</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openFollowListUser(uid) {
+            closeFollowListModal();
+            window.openPublicProfile?.(uid);
+        }
+
+        function closeFollowListModal() {
+            const modal = document.getElementById('follow-list-modal');
+            if (modal) modal.style.display = 'none';
+            document.body.style.overflow = '';
+            activeFollowListUsers = [];
+        }
+
+        window.openFollowListModal = openFollowListModal;
+        window.closeFollowListModal = closeFollowListModal;
+        window.renderFollowListUsers = renderFollowListUsers;
+        window.openFollowListUser = openFollowListUser;
+
+        document.getElementById('follow-list-search')?.addEventListener('input', event => {
+            renderFollowListUsers(event.target.value);
+        });
+
+        async function persistMyFollowCounts(followersCount, followingCount) {
+            if (!currentFirebaseUser) return;
+            try {
+                await setDoc(
+                    doc(db, 'users', currentFirebaseUser.uid),
+                    {
+                        followersCount: Number(followersCount) || 0,
+                        followingCount: Number(followingCount) || 0,
+                        followCountsUpdatedAt: serverTimestamp()
+                    },
+                    { merge: true }
+                );
+            } catch (error) {
+                console.warn('Nie udało się zapisać cache liczników follow:', error);
+            }
+        }
+
         async function refreshFollowCounts() {
             const followersEl = document.getElementById('app-menu-followers-count');
             const followingEl = document.getElementById('app-menu-following-count');
+
             if (!currentFirebaseUser) {
                 if (followersEl) followersEl.textContent = '0';
                 if (followingEl) followingEl.textContent = '0';
                 return;
             }
+
             try {
                 const [followersSnap, followingSnap] = await Promise.all([
                     getDocs(collection(db, 'users', currentFirebaseUser.uid, 'followers')),
                     getDocs(collection(db, 'users', currentFirebaseUser.uid, 'following'))
                 ]);
-                if (followersEl) followersEl.textContent = String(followersSnap.size);
-                if (followingEl) followingEl.textContent = String(followingSnap.size);
+
+                const followersCount = followersSnap.size;
+                const followingCount = followingSnap.size;
+
+                if (followersEl) followersEl.textContent = String(followersCount);
+                if (followingEl) followingEl.textContent = String(followingCount);
+
+                await persistMyFollowCounts(followersCount, followingCount);
             } catch (error) {
                 console.warn('Nie udało się pobrać liczby obserwujących:', error);
+                try {
+                    const profileSnap = await getDoc(doc(db, 'users', currentFirebaseUser.uid));
+                    const profile = profileSnap.exists() ? profileSnap.data() : {};
+                    if (followersEl) followersEl.textContent = String(Number(profile.followersCount) || 0);
+                    if (followingEl) followingEl.textContent = String(Number(profile.followingCount) || 0);
+                } catch {}
             }
         }
 
@@ -25654,6 +25835,7 @@
                 `;
 
                 await loadPublicProfileData(uid);
+                if (currentFirebaseUser?.uid !== uid) await updateFollowButton(uid);
             } catch (error) {
                 console.error('Błąd profilu publicznego:', error);
                 container.innerHTML = `
