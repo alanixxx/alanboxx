@@ -15355,6 +15355,626 @@
             #movie-modal .movie-platform { color: #d4d4d8; background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
         }
 
+
+        /* =========================================================
+        RATIVIO LOGIN SCREEN — FULLSCREEN BLACK/WHITE
+        ========================================================= */
+
+        #login-modal.login-screen {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 999999 !important;
+            display: none;
+            align-items: stretch !important;
+            justify-content: stretch !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: #000 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        #login-modal.login-screen[style*="display: flex"] {
+            display: flex !important;
+        }
+
+        .login-screen-shell {
+            position: relative;
+            width: 100%;
+            min-height: 100dvh;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(255,255,255,.05), transparent 28%),
+                radial-gradient(circle at 85% 20%, rgba(255,255,255,.035), transparent 30%),
+                linear-gradient(135deg, #000 0%, #050505 45%, #0a0a0a 100%);
+            color: white;
+        }
+
+        .login-screen-close {
+            position: fixed;
+            top: 20px;
+            right: 22px;
+            z-index: 20;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 50%;
+            background: rgba(255,255,255,.04);
+            color: rgba(255,255,255,.7);
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .login-screen-close:hover {
+            background: #fff;
+            color: #000;
+            transform: rotate(90deg);
+        }
+
+        .login-screen-error {
+            position: fixed;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            width: min(720px, calc(100vw - 32px));
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 16px;
+            background: rgba(255,255,255,.06);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-screen-grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            min-height: 100dvh;
+        }
+
+        .login-screen-brand {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(36px, 6vw, 80px);
+            border-right: 1px solid rgba(255,255,255,.08);
+        }
+
+        .login-screen-brand-inner {
+            width: min(540px, 100%);
+        }
+
+        .login-screen-kicker {
+            color: rgba(255,255,255,.45);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .38em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .login-screen-heading {
+            margin: 0;
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(72px, 12vw, 160px);
+            line-height: .84;
+            letter-spacing: .04em;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 35px rgba(255,255,255,.08);
+        }
+
+        .login-screen-line {
+            width: min(300px, 70%);
+            height: 2px;
+            border-radius: 999px;
+            margin: 22px 0 26px;
+            background: linear-gradient(90deg, #fff, rgba(255,255,255,.12));
+        }
+
+        .login-screen-description {
+            max-width: 500px;
+            color: #a1a1aa;
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .login-screen-points {
+            display: grid;
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .login-screen-point {
+            display: grid;
+            grid-template-columns: 46px 1fr;
+            gap: 14px;
+            align-items: center;
+            padding: 16px 18px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .login-screen-point span {
+            color: #fff;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+        }
+
+        .login-screen-point p {
+            margin: 0;
+            color: #d4d4d8;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            line-height: 1.35;
+        }
+
+        .login-screen-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(30px, 5vw, 70px);
+        }
+
+        .login-screen-panel-inner {
+            width: min(470px, 100%);
+        }
+
+        .login-screen-top {
+            margin-bottom: 28px;
+        }
+
+        .login-screen-mini {
+            margin: 0 0 10px;
+            color: rgba(255,255,255,.4);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+        }
+
+        .login-screen-title {
+            margin: 0;
+            color: #fff;
+            font-size: clamp(34px, 5vw, 54px);
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: .95;
+            letter-spacing: -.04em;
+        }
+
+        .login-screen-subtitle {
+            margin: 14px 0 0;
+            color: #71717a;
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .login-screen-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 6px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 18px;
+            background: rgba(255,255,255,.025);
+            margin-bottom: 18px;
+        }
+
+        .login-screen-tab {
+            height: 48px;
+            border: 0;
+            border-radius: 14px;
+            background: transparent;
+            color: #71717a;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .login-screen-tab.active {
+            background: #fff;
+            color: #000;
+        }
+
+        .login-screen-google {
+            width: 100%;
+            height: 54px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 18px;
+            background: #fff;
+            color: #000;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: .2s ease;
+            margin-bottom: 18px;
+        }
+
+        .login-screen-google:hover {
+            background: #d4d4d8;
+        }
+
+        .login-screen-google span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .login-screen-divider {
+            position: relative;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .login-screen-divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255,255,255,.08);
+        }
+
+        .login-screen-divider span {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            padding: 0 12px;
+            background: #050505;
+            color: #52525b;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .login-screen-form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .login-screen-register-step {
+            display: grid;
+            gap: 14px;
+        }
+
+        .login-screen-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #71717a;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+        }
+
+        .login-screen-field input {
+            width: 100%;
+            height: 56px;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 18px;
+            background: rgba(255,255,255,.03);
+            color: #fff;
+            padding: 0 18px;
+            outline: none;
+            font-size: 15px;
+            font-weight: 700;
+            transition: .2s ease;
+        }
+
+        .login-screen-field input:focus {
+            border-color: rgba(255,255,255,.35);
+            background: rgba(255,255,255,.045);
+            box-shadow: 0 0 0 3px rgba(255,255,255,.04);
+        }
+
+        .login-screen-field input::placeholder {
+            color: #52525b;
+        }
+
+        .login-screen-password-wrap {
+            position: relative;
+        }
+
+        .login-screen-password-wrap input {
+            padding-right: 86px;
+        }
+
+        .login-screen-password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: #a1a1aa;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            cursor: pointer;
+        }
+
+        .login-screen-password-toggle:hover {
+            color: #fff;
+        }
+
+        .login-screen-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .login-screen-check {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #a1a1aa;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .login-screen-check input {
+            width: 16px;
+            height: 16px;
+            accent-color: white;
+            cursor: pointer;
+        }
+
+        .login-screen-check-box {
+            align-items: flex-start;
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 16px;
+            background: rgba(255,255,255,.02);
+        }
+
+        .login-screen-check-box span {
+            line-height: 1.5;
+        }
+
+        .login-screen-link {
+            border: 0;
+            background: transparent;
+            color: #a1a1aa;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            cursor: pointer;
+        }
+
+        .login-screen-link:hover {
+            color: #fff;
+        }
+
+        .login-screen-submit {
+            width: 100%;
+            min-height: 56px;
+            border: 1px solid #fff;
+            border-radius: 18px;
+            background: #fff;
+            color: #000;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .login-screen-submit:hover {
+            background: #d4d4d8;
+            border-color: #d4d4d8;
+        }
+
+        .login-screen-secondary-btn {
+            width: 100%;
+            min-height: 52px;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 18px;
+            background: transparent;
+            color: #a1a1aa;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .login-screen-secondary-btn:hover {
+            border-color: rgba(255,255,255,.25);
+            color: #fff;
+        }
+
+        .login-screen-reset-box {
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 18px;
+            background: rgba(255,255,255,.03);
+        }
+
+        .login-screen-reset-box p {
+            margin: 0 0 8px;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .login-screen-reset-box span {
+            color: #71717a;
+            font-size: 13px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .login-screen-success {
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 16px;
+            background: rgba(255,255,255,.04);
+            color: #e4e4e7;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .login-screen-status {
+            min-height: 14px;
+            margin-top: 8px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .login-screen-code-info {
+            color: #a1a1aa;
+            font-size: 13px;
+            line-height: 1.6;
+            font-weight: 700;
+        }
+
+        .login-screen-code-info span {
+            color: #fff;
+            font-weight: 900;
+        }
+
+        .login-screen-code-input {
+            text-align: center;
+            letter-spacing: .38em !important;
+            font-size: 18px !important;
+            font-weight: 900 !important;
+        }
+
+        @media (max-width: 980px) {
+            .login-screen-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-screen-brand {
+                min-height: auto;
+                border-right: 0;
+                border-bottom: 1px solid rgba(255,255,255,.08);
+                padding: 34px 22px 28px;
+            }
+
+            .login-screen-heading {
+                font-size: clamp(56px, 14vw, 100px);
+            }
+
+            .login-screen-panel {
+                padding: 28px 20px 34px;
+            }
+
+            .login-screen-panel-inner {
+                width: 100%;
+                max-width: 560px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .login-screen-close {
+                top: 12px;
+                right: 12px;
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+
+            .login-screen-error {
+                top: 12px;
+                width: calc(100vw - 24px);
+                font-size: 11px;
+            }
+
+            .login-screen-brand {
+                padding: 72px 18px 24px;
+            }
+
+            .login-screen-description {
+                font-size: 14px;
+            }
+
+            .login-screen-point {
+                grid-template-columns: 38px 1fr;
+                padding: 14px;
+                border-radius: 16px;
+            }
+
+            .login-screen-point p {
+                font-size: 11px;
+            }
+
+            .login-screen-panel {
+                padding: 22px 16px 32px;
+            }
+
+            .login-screen-title {
+                font-size: 34px;
+            }
+
+            .login-screen-subtitle {
+                font-size: 13px;
+            }
+
+            .login-screen-field input,
+            .login-screen-submit,
+            .login-screen-google,
+            .login-screen-secondary-btn {
+                min-height: 52px;
+                height: 52px;
+                border-radius: 16px;
+            }
+
+            .login-screen-check-box {
+                padding: 13px 14px;
+            }
+        }
+
+        #login-modal.login-screen {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+
     </style>
 </head>
 <body class="selection:bg-green-600">
@@ -16813,129 +17433,292 @@
 
     </div>
 
-    <div id="login-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
-        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-md max-h-[92vh] overflow-y-auto rounded-[32px] p-6 md:p-8 relative shadow-2xl shadow-black/80">
-            <button type="button" onclick="toggleModal('login-modal', false)" aria-label="Zamknij" class="absolute top-5 right-5 text-zinc-500 hover:text-white transition">✕</button>
+    <div id="login-modal" class="login-screen" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+        <div class="login-screen-shell">
 
-            <div id="auth-error" role="alert" aria-live="polite" class="hidden mb-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-bold px-4 py-3"></div>
-
-            <div class="mb-7 pr-8">
-                <p class="rativio-eyebrow text-[10px] font-bold uppercase mb-2">RATIVIO ACCOUNT</p>
-                <div class="rativio-accent-line mb-4"></div>
-                <h2 id="login-modal-title" class="text-3xl font-black italic uppercase tracking-tighter text-white">
-                    Wejdź do <span class="text-white">RATIVIO</span>
-                </h2>
-                <p id="login-modal-subtitle" class="text-zinc-500 text-sm mt-2 font-medium">Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.</p>
-            </div>
-
-            <div id="auth-tabs" class="grid grid-cols-2 gap-2 bg-zinc-900/70 border border-zinc-800 rounded-2xl p-1 mb-5">
-                <button type="button" id="login-tab" onclick="switchAuthTab('login')" class="auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Logowanie</button>
-                <button type="button" id="register-tab" onclick="switchAuthTab('register')" class="auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest">Rejestracja</button>
-            </div>
-
-            <button type="button" id="google-login-button" onclick="loginWithGoogle()" class="w-full mb-5 bg-white hover:bg-zinc-200 text-black rounded-2xl py-3.5 font-black uppercase text-xs tracking-wider transition flex items-center justify-center gap-3">
-                <span class="text-lg">G</span>
-                Kontynuuj z Google
+            <button
+                type="button"
+                onclick="toggleModal('login-modal', false)"
+                aria-label="Zamknij"
+                class="login-screen-close"
+            >
+                ×
             </button>
 
-            <div id="auth-divider" class="flex items-center gap-3 mb-5">
-                <div class="h-px flex-1 bg-zinc-800"></div>
-                <span class="text-[9px] font-black uppercase text-zinc-600 tracking-widest">albo</span>
-                <div class="h-px flex-1 bg-zinc-800"></div>
+            <div id="auth-error" role="alert" aria-live="polite" class="login-screen-error hidden"></div>
+
+            <div class="login-screen-grid">
+
+                
+
+                <!-- PRAWA STRONA -->
+                <section class="login-screen-panel">
+                    <div class="login-screen-panel-inner">
+                        <div class="login-screen-top">
+                            <p class="login-screen-mini">WELCOME BACK</p>
+                            <h2 id="login-modal-title" class="login-screen-title">
+                                Zaloguj się
+                            </h2>
+                            <p id="login-modal-subtitle" class="login-screen-subtitle">
+                                Wejdź do swojego konta albo utwórz nowe konto.
+                            </p>
+                        </div>
+
+                        <div id="auth-tabs" class="login-screen-tabs">
+                            <button
+                                type="button"
+                                id="login-tab"
+                                onclick="switchAuthTab('login')"
+                                class="login-screen-tab active"
+                            >
+                                Logowanie
+                            </button>
+
+                            <button
+                                type="button"
+                                id="register-tab"
+                                onclick="switchAuthTab('register')"
+                                class="login-screen-tab"
+                            >
+                                Rejestracja
+                            </button>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="google-login-button"
+                            onclick="loginWithGoogle()"
+                            class="login-screen-google"
+                        >
+                            <span>G</span>
+                            Kontynuuj z Google
+                        </button>
+
+                        <div id="auth-divider" class="login-screen-divider">
+                            <span>albo</span>
+                        </div>
+
+                        <!-- LOGIN -->
+                        <form id="login-form" onsubmit="loginWithEmail(event)" class="login-screen-form">
+                            <div class="login-screen-field">
+                                <label for="login-email">E-mail</label>
+                                <input
+                                    id="login-email"
+                                    type="email"
+                                    placeholder="twoj@email.com"
+                                    required
+                                    autocomplete="username"
+                                    autocapitalize="none"
+                                    spellcheck="false"
+                                >
+                            </div>
+
+                            <div class="login-screen-field">
+                                <label for="login-password">Hasło</label>
+                                <div class="login-screen-password-wrap">
+                                    <input
+                                        id="login-password"
+                                        type="password"
+                                        placeholder="Wpisz hasło"
+                                        required
+                                        autocomplete="current-password"
+                                    >
+                                    <button
+                                        type="button"
+                                        onclick="togglePasswordVisibility('login-password', this)"
+                                        class="login-screen-password-toggle"
+                                    >
+                                        Pokaż
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="login-screen-row">
+                                <label class="login-screen-check">
+                                    <input type="checkbox" id="login-remember-me">
+                                    <span>Zapamiętaj mnie</span>
+                                </label>
+
+                                <button
+                                    type="button"
+                                    onclick="showResetPassword()"
+                                    class="login-screen-link"
+                                >
+                                    Nie pamiętasz hasła?
+                                </button>
+                            </div>
+
+                            <button type="submit" class="login-screen-submit">
+                                Zaloguj
+                            </button>
+                        </form>
+
+                        <!-- REGISTER -->
+                        <form id="register-form" onsubmit="registerWithEmail(event)" class="login-screen-form hidden">
+                            <div id="register-step-1" class="login-screen-register-step">
+
+                                <div class="login-screen-field">
+                                    <label for="register-nick">Nick</label>
+                                    <input
+                                        id="register-nick"
+                                        type="text"
+                                        placeholder="Twój nick"
+                                        required
+                                        oninput="clearNickStatus()"
+                                        onblur="checkNickAvailability()"
+                                    >
+                                    <p id="register-nick-status" class="login-screen-status"></p>
+                                </div>
+
+                                <div class="login-screen-field">
+                                    <label for="register-email">E-mail</label>
+                                    <input
+                                        id="register-email"
+                                        type="email"
+                                        placeholder="twoj@email.com"
+                                        required
+                                        autocomplete="email"
+                                        autocapitalize="none"
+                                        spellcheck="false"
+                                    >
+                                </div>
+
+                                <div class="login-screen-field">
+                                    <label for="register-password">Hasło</label>
+                                    <div class="login-screen-password-wrap">
+                                        <input
+                                            id="register-password"
+                                            type="password"
+                                            placeholder="Minimum 6 znaków"
+                                            required
+                                            minlength="6"
+                                            autocomplete="new-password"
+                                        >
+                                        <button
+                                            type="button"
+                                            onclick="togglePasswordVisibility('register-password', this)"
+                                            class="login-screen-password-toggle"
+                                        >
+                                            Pokaż
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="login-screen-field">
+                                    <label for="register-password-confirm">Powtórz hasło</label>
+                                    <div class="login-screen-password-wrap">
+                                        <input
+                                            id="register-password-confirm"
+                                            type="password"
+                                            placeholder="Powtórz hasło"
+                                            required
+                                            minlength="6"
+                                            autocomplete="new-password"
+                                        >
+                                        <button
+                                            type="button"
+                                            onclick="togglePasswordVisibility('register-password-confirm', this)"
+                                            class="login-screen-password-toggle"
+                                        >
+                                            Pokaż
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <label class="login-screen-check login-screen-check-box">
+                                    <input type="checkbox" id="register-accept-rules" required>
+                                    <span>
+                                        Akceptuję regulamin i politykę prywatności
+                                    </span>
+                                </label>
+
+                                <label class="login-screen-check login-screen-check-box">
+                                    <input type="checkbox" id="register-accept-age" required>
+                                    <span>
+                                        Potwierdzam, że podane dane są poprawne
+                                    </span>
+                                </label>
+
+                                <button type="submit" class="login-screen-submit">
+                                    Wyślij kod na maila
+                                </button>
+                            </div>
+
+                            <div id="register-step-2" class="hidden login-screen-register-step">
+                                <p class="login-screen-code-info">
+                                    Wysłaliśmy kod na adres
+                                    <span id="register-email-preview"></span>
+                                </p>
+
+                                <div class="login-screen-field">
+                                    <label for="register-email-code">Kod weryfikacyjny</label>
+                                    <input
+                                        id="register-email-code"
+                                        type="text"
+                                        inputmode="numeric"
+                                        placeholder="123456"
+                                        maxlength="6"
+                                        class="login-screen-code-input"
+                                    >
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onclick="confirmEmailCodeAndRegister()"
+                                    class="login-screen-submit"
+                                >
+                                    Zweryfikuj kod i utwórz konto
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onclick="resendRegisterEmailCode()"
+                                    class="login-screen-secondary-btn"
+                                >
+                                    Wyślij kod ponownie
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- RESET -->
+                        <form id="reset-password-form" onsubmit="resetPasswordByEmail(event)" class="hidden login-screen-form">
+                            <div class="login-screen-reset-box">
+                                <p>RESET HASŁA</p>
+                                <span>
+                                    Wpisz adres e-mail użyty przy rejestracji. Wyślemy link do ustawienia nowego hasła.
+                                </span>
+                            </div>
+
+                            <div class="login-screen-field">
+                                <label for="reset-email">E-mail</label>
+                                <input
+                                    id="reset-email"
+                                    type="email"
+                                    placeholder="twoj@email.com"
+                                    required
+                                    autocomplete="email"
+                                    autocapitalize="none"
+                                    spellcheck="false"
+                                >
+                            </div>
+
+                            <div id="reset-password-success" class="login-screen-success hidden"></div>
+
+                            <button type="submit" class="login-screen-submit">
+                                Wyślij link resetujący
+                            </button>
+
+                            <button
+                                type="button"
+                                onclick="backToLoginFromReset()"
+                                class="login-screen-secondary-btn"
+                            >
+                                ← Wróć do logowania
+                            </button>
+                        </form>
+                    </div>
+                </section>
             </div>
-
-            <form id="login-form" onsubmit="loginWithEmail(event)" class="space-y-3">
-                <input id="login-email" type="email" placeholder="E-mail" required autocomplete="username" autocapitalize="none" spellcheck="false"
-                    class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-
-                <div class="relative">
-                    <input id="login-password" type="password" placeholder="Hasło" required autocomplete="current-password"
-                        class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 pr-16 text-white outline-none focus:border-green-500 transition">
-                    <button type="button" onclick="togglePasswordVisibility('login-password', this)"
-                        class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-[10px] font-black uppercase">Pokaż</button>
-                </div>
-
-                <button type="button" onclick="showResetPassword()" class="w-full text-right text-zinc-500 hover:text-green-400 text-[10px] font-black uppercase tracking-widest pt-1 transition">
-                    Nie pamiętasz hasła? Zresetuj hasło
-                </button>
-
-                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">Zaloguj</button>
-            </form>
-
-            <form id="register-form" onsubmit="registerWithEmail(event)" class="space-y-3 hidden">
-
-                <div id="register-step-1" class="space-y-3">
-                    <div>
-                        <input id="register-nick" type="text" placeholder="Nick" required
-                            oninput="clearNickStatus()"
-                            onblur="checkNickAvailability()"
-                            class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-                        <p id="register-nick-status" class="mt-2 text-[10px] font-black uppercase tracking-widest"></p>
-                    </div>
-
-                    <input id="register-email" type="email" placeholder="E-mail" required autocomplete="email" autocapitalize="none" spellcheck="false"
-                        class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-
-                    <div class="relative">
-                        <input id="register-password" type="password" placeholder="Hasło min. 6 znaków" required minlength="6" autocomplete="new-password"
-                            class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 pr-16 text-white outline-none focus:border-green-500 transition">
-                        <button type="button" onclick="togglePasswordVisibility('register-password', this)"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-[10px] font-black uppercase">Pokaż</button>
-                    </div>
-
-                    <div class="relative">
-                        <input id="register-password-confirm" type="password" placeholder="Powtórz hasło" required minlength="6" autocomplete="new-password"
-                            class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 pr-16 text-white outline-none focus:border-green-500 transition">
-                        <button type="button" onclick="togglePasswordVisibility('register-password-confirm', this)"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-[10px] font-black uppercase">Pokaż</button>
-                    </div>
-
-                    <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">
-                        Wyślij kod na maila
-                    </button>
-                </div>
-
-                <div id="register-step-2" class="hidden space-y-3">
-                    <p class="text-zinc-400 text-xs font-bold text-center">
-                        Wysłaliśmy kod na adres <span id="register-email-preview" class="text-white"></span>.
-                    </p>
-
-                    <input id="register-email-code" type="text" inputmode="numeric" placeholder="Kod z maila" maxlength="6"
-                        class="w-full text-center tracking-[0.4em] bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-
-                    <button type="button" onclick="confirmEmailCodeAndRegister()"
-                        class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">
-                        Zweryfikuj kod i utwórz konto
-                    </button>
-
-                    <button type="button" onclick="resendRegisterEmailCode()"
-                        class="w-full text-zinc-500 hover:text-white text-[10px] font-black uppercase tracking-widest py-2">
-                        Wyślij kod ponownie
-                    </button>
-                </div>
-
-            </form>
-
-            <form id="reset-password-form" onsubmit="resetPasswordByEmail(event)" class="hidden space-y-3">
-                <div class="rounded-2xl border border-green-500/20 bg-green-500/5 px-4 py-4">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-green-400 mb-1">RESET HASŁA</p>
-                    <p class="text-xs text-zinc-400 leading-relaxed">Wpisz e-mail użyty przy rejestracji. Firebase wyśle bezpieczny link do ustawienia nowego hasła. Ten mechanizm nie korzysta z EmailJS.</p>
-                </div>
-
-                <input id="reset-email" type="email" placeholder="E-mail" required autocomplete="email" autocapitalize="none" spellcheck="false"
-                    class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-4 text-white outline-none focus:border-green-500 transition">
-
-                <div id="reset-password-success" class="hidden rounded-2xl border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-bold px-4 py-3 leading-relaxed"></div>
-
-                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition">
-                    Wyślij link resetujący
-                </button>
-
-                <button type="button" onclick="backToLoginFromReset()" class="w-full text-zinc-500 hover:text-white text-[10px] font-black uppercase tracking-widest py-2 transition">
-                    ← Wróć do logowania
-                </button>
-            </form>
-
         </div>
     </div>
     <footer class="py-12 text-center text-zinc-600 text-[10px] font-bold uppercase tracking-widest italic border-t border-zinc-900 mt-10">
@@ -20346,6 +21129,7 @@
                 }
             }
 
+
             if (id === 'movie-modal' && !show) {
                 const anySectionVisible = document.querySelector(
                     'main:not(.hidden-section), ' +
@@ -22935,29 +23719,36 @@
             authTabs?.classList.remove("hidden");
             googleButton?.classList.remove("hidden");
             authDivider?.classList.remove("hidden");
-            loginForm?.classList.remove("hidden");
-            title && (title.innerHTML = 'Wejdź do <span class="text-white">RATIVIO</span>');
-            subtitle && (subtitle.textContent = 'Zaloguj się albo stwórz konto, żeby zapisywać oceny, listy i profil.');
 
             if (mode === "login") {
-                loginForm.classList.remove("hidden");
-                registerForm.classList.add("hidden");
-                loginTab.className = "auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
-                registerTab.className = "auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+                loginForm?.classList.remove("hidden");
+                registerForm?.classList.add("hidden");
+
+                loginTab?.classList.add("active");
+                registerTab?.classList.remove("active");
+
+                if (title) title.textContent = "Zaloguj się";
+                if (subtitle) subtitle.textContent = "Wejdź do swojego konta albo utwórz nowe konto.";
             } else {
-                loginForm.classList.add("hidden");
-                registerForm.classList.remove("hidden");
-                registerTab.className = "auth-tab bg-green-600 text-black rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
-                loginTab.className = "auth-tab text-zinc-400 rounded-xl py-3 text-[10px] font-black uppercase tracking-widest";
+                loginForm?.classList.add("hidden");
+                registerForm?.classList.remove("hidden");
+
+                registerTab?.classList.add("active");
+                loginTab?.classList.remove("active");
+
+                if (title) title.textContent = "Utwórz konto";
+                if (subtitle) subtitle.textContent = "Załóż konto, potwierdź e-mail i zacznij budować własne kino.";
 
                 const step1 = document.getElementById("register-step-1");
                 const step2 = document.getElementById("register-step-2");
+
                 if (step1 && step2 && !pendingRegistration) {
                     step1.classList.remove("hidden");
                     step2.classList.add("hidden");
                 }
             }
         };
+
 
         let pendingRegistration = null;
 
@@ -23033,11 +23824,15 @@
             const email = document.getElementById('register-email').value.trim().toLowerCase();
             const password = document.getElementById('register-password').value;
             const passwordConfirm = document.getElementById('register-password-confirm').value;
+            const acceptRules = document.getElementById('register-accept-rules')?.checked;
+            const acceptAge = document.getElementById('register-accept-age')?.checked;
 
             if (!nick || nick.length < 3) { showAuthError('Podaj nick (min. 3 znaki).'); return; }
             if (!email) { showAuthError('Podaj adres e-mail.'); return; }
             if (password.length < 6) { showAuthError('Hasło musi mieć minimum 6 znaków.'); return; }
             if (password !== passwordConfirm) { showAuthError('Hasła nie są identyczne.'); return; }
+            if (!acceptRules) { showAuthError('Musisz zaakceptować regulamin i politykę prywatności.'); return; }
+            if (!acceptAge) { showAuthError('Musisz potwierdzić poprawność danych.'); return; }
 
             const nickAvailable = await checkNickAvailability();
             if (!nickAvailable) { showAuthError('Wybierz inny nick.'); return; }
@@ -23231,14 +24026,16 @@
             authDivider?.classList.add("hidden");
             resetForm?.classList.remove("hidden");
 
-            if (title) title.innerHTML = 'RESET <span class="text-green-500">HASŁA</span>';
-            if (subtitle) subtitle.textContent = 'Podaj adres e-mail przypisany do konta. Wyślemy Ci wiadomość z instrukcją ustawienia nowego hasła.';
+            if (title) title.textContent = "Reset hasła";
+            if (subtitle) subtitle.textContent = "Wyślemy Ci link do ustawienia nowego hasła.";
 
             if (resetEmail && !resetEmail.value) {
                 resetEmail.value = document.getElementById("login-email")?.value?.trim() || "";
             }
+
             setTimeout(() => resetEmail?.focus(), 40);
         };
+
 
         window.resetPasswordByEmail = async function(event) {
             event.preventDefault();
@@ -23295,17 +24092,21 @@
             const resetSubmit = document.querySelector('#reset-password-form button[type="submit"]');
 
             resetForm?.reset();
+
             if (resetEmail) resetEmail.disabled = false;
             if (resetSuccess) resetSuccess.classList.add("hidden");
+
             if (resetSubmit) {
                 resetSubmit.classList.remove("hidden");
                 resetSubmit.disabled = false;
                 resetSubmit.textContent = "Wyślij link resetujący";
                 resetSubmit.classList.remove("opacity-60", "cursor-not-allowed");
             }
+
             switchAuthTab("login");
             setTimeout(() => document.getElementById("login-email")?.focus(), 40);
         };
+
 
         window.loginWithGoogle = async function() {
             clearAuthError();
@@ -23533,7 +24334,7 @@
                             <p class="text-zinc-500 text-xs mt-2">Zaloguj się, żeby zapisywać oceny, listy i recenzje.</p>
                         </div>
                     `;
-                    updateAuthUI()
+                    
                 }
 
                 return;
