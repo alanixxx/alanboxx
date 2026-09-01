@@ -15974,6 +15974,56 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        /* =========================================================
+        FIX LOGIN / REGISTER MOBILE
+        ========================================================= */
+
+        /* Stary #login-modal > div ustawia max-height: 94dvh
+        i ucina długi formularz rejestracji. Nadpisujemy go. */
+        #login-modal.login-screen > .login-screen-shell {
+            width: 100%;
+            min-height: 100dvh;
+            height: auto;
+            max-height: none !important;
+            padding: 0 !important;
+            margin: 0;
+            border-radius: 0 !important;
+            overflow: visible;
+        }
+
+        /* Sam modal ma przewijać cały długi ekran */
+        #login-modal.login-screen {
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Grid może być wyższy niż ekran na telefonie */
+        #login-modal.login-screen .login-screen-grid {
+            min-height: 100dvh;
+        }
+
+        /* Na telefonie panel nie może być ściskany do wysokości ekranu */
+        @media (max-width: 640px) {
+            #login-modal.login-screen > .login-screen-shell {
+                min-height: max-content;
+            }
+
+            #login-modal.login-screen .login-screen-grid {
+                min-height: max-content;
+            }
+
+            #login-modal.login-screen .login-screen-panel {
+                align-items: flex-start;
+                padding: 72px 16px 32px;
+            }
+
+            #login-modal.login-screen .login-screen-panel-inner {
+                width: 100%;
+                max-width: 560px;
+            }
+        }
+
 
     </style>
 </head>
@@ -23213,19 +23263,34 @@
         };
 
 
+        let authErrorTimer = null;
+
         function showAuthError(message) {
             const box = document.getElementById("auth-error");
             if (!box) return;
+
+            clearTimeout(authErrorTimer);
+
             box.textContent = message;
             box.classList.remove("hidden");
+
+            authErrorTimer = setTimeout(() => {
+                box.classList.add("hidden");
+                box.textContent = "";
+            }, 3500);
         }
 
         function clearAuthError() {
             const box = document.getElementById("auth-error");
             if (!box) return;
+
+            clearTimeout(authErrorTimer);
+
             box.textContent = "";
             box.classList.add("hidden");
         }
+
+        
 
         function getAuthErrorMessage(error, action = "login") {
             const code = error?.code || "";
