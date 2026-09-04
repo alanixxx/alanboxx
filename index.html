@@ -1035,7 +1035,8 @@
         .inbox-message-body { color:#a1a1aa; font-size:12px; line-height:1.55; margin-top:8px; }
         .list-settings-btn { flex-shrink:0; width:42px; height:42px; border-radius:50%; border:1px solid #3f3f46; background:#111113; color:#a1a1aa; display:flex; align-items:center; justify-content:center; font-size:17px; transition:.2s ease; }
         .list-settings-btn:hover { color:#fff; border-color:#22c55e; background:rgba(34,197,94,.08); transform:rotate(30deg); }
-        #list-settings-modal { padding:0 !important; align-items:stretch !important; justify-content:stretch !important; }
+        #list-settings-modal { padding:0 !important; align-items:stretch !important; justify-content:stretch !important; background:#000 !important; }
+        #list-settings-modal::before { content:''; position:absolute; inset:0; background:#000; z-index:0; pointer-events:none; }
         #list-settings-modal .list-settings-modal-box {
             width:100%;
             max-width:none;
@@ -1048,21 +1049,40 @@
             overflow:hidden;
             display:flex;
             flex-direction:column;
+            position:relative;
+            z-index:1;
         }
         .list-settings-field { width:100%; height:48px; border:1px solid #27272a; border-radius:14px; background:#111113; color:#fff; padding:0 14px; outline:none; }
         .list-settings-field:focus { border-color:#22c55e; }
-        .list-settings-order { flex:1; min-height:0; max-height:none; overflow-y:auto; border-top:1px solid #27272a; }
+        .list-settings-order { flex:1; min-height:0; max-height:none; overflow-y:auto; overflow-x:hidden; border-top:1px solid #27272a; padding:0 2px 18px 0; scrollbar-width:thin; scrollbar-color:#3f3f46 #050505; }
+        .list-settings-order::-webkit-scrollbar { width:7px; }
+        .list-settings-order::-webkit-scrollbar-track { background:#050505; }
+        .list-settings-order::-webkit-scrollbar-thumb { background:#3f3f46; border-radius:99px; }
         .list-settings-order-row { display:grid; grid-template-columns:30px 42px minmax(0,1fr) auto; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(39,39,42,.75); }
         .list-settings-order-num { color:#22c55e; font:900 10px/1 'IBM Plex Mono',monospace; text-align:center; }
         .list-settings-order-poster { width:42px; height:60px; border-radius:9px; object-fit:cover; background:#18181b; }
         .list-settings-order-title { color:#fff; font-size:11px; font-weight:900; line-height:1.2; }
-        .list-settings-order-buttons { display:flex; gap:5px; }
+        .list-settings-order-buttons { display:flex; gap:5px; align-items:center; }
         .list-settings-order-buttons button { width:32px; height:32px; border-radius:10px; border:1px solid #27272a; background:#111113; color:#a1a1aa; font-weight:900; }
         .list-settings-order-buttons button:hover:not(:disabled) { color:#fff; border-color:#22c55e; background:rgba(34,197,94,.08); }
         .list-settings-order-buttons button:disabled { opacity:.25; cursor:not-allowed; }
+        .list-settings-remove-btn { width:32px; height:32px; border-radius:10px; border:1px solid rgba(127,29,29,.55); background:rgba(127,29,29,.14); color:#f87171; font-weight:900; flex:0 0 auto; }
+        .list-settings-remove-btn:hover { background:rgba(220,38,38,.22); color:#fff; border-color:#ef4444; }
+        .list-settings-save-btn { min-width:110px; }
+        .list-settings-cancel-btn { background:#111113 !important; color:#fff !important; border:1px solid #27272a !important; }
 
-        .list-settings-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:18px; }
+        .list-settings-actions { flex:0 0 auto; display:flex; gap:8px; justify-content:flex-end; position:sticky; bottom:0; z-index:5; padding:14px 0 2px; margin-top:0; background:linear-gradient(to top,#000 72%,rgba(0,0,0,0)); }
         .list-settings-actions button { border-radius:13px; padding:11px 14px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+        .list-settings-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
+        .list-settings-toggle { display:flex; align-items:center; gap:10px; padding:12px; border:1px solid #27272a; border-radius:14px; background:#0d0d0f; cursor:pointer; }
+        .list-settings-toggle input { position:absolute; opacity:0; pointer-events:none; }
+        .list-settings-toggle-ui { flex:0 0 auto; width:18px; height:18px; border:1px solid #52525b; border-radius:6px; background:#111113; position:relative; }
+        .list-settings-toggle input:checked + .list-settings-toggle-ui { background:#22c55e; border-color:#22c55e; }
+        .list-settings-toggle input:checked + .list-settings-toggle-ui::after { content:'✓'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#050505; font-size:12px; font-weight:900; }
+        .list-settings-toggle span:last-child { display:flex; flex-direction:column; gap:3px; min-width:0; }
+        .list-settings-toggle strong { color:#fff; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.05em; }
+        .list-settings-toggle small { color:#71717a; font-size:9px; line-height:1.3; }
+        @media(max-width:640px){ .list-settings-options { grid-template-columns:1fr; } }
         .rating-more-btn { display:flex; align-items:center; justify-content:center; gap:9px; margin:18px auto 0; border:1px solid #27272a; background:#111113; color:#a1a1aa; border-radius:999px; padding:11px 17px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; }
         .rating-more-btn:hover { color:#fff; border-color:#22d3ee; background:rgba(34,211,238,.08); }
         .rating-more-plus { width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:#22d3ee; color:#050505; font-size:16px; font-weight:900; }
@@ -1073,28 +1093,19 @@
         .motm-trailer-play::after { content:''; margin-left:4px; width:0; height:0; border-top:9px solid transparent; border-bottom:9px solid transparent; border-left:13px solid currentColor; }
         .motm-trailer-play.is-hidden { display:none; }
         @media(max-width:640px){ .motm-mobile-trailer{display:block}.motm-desktop-poster{display:none!important} }
-
         .list-movie-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
+            display:grid;
+            grid-template-columns:repeat(5,minmax(0,1fr));
+            gap:8px;
         }
-
-        @media (min-width: 480px) {
-            .list-movie-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-        }
-
-        @media (min-width: 640px) {
-            .list-movie-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-        }
-
-        @media (min-width: 900px) {
-            .list-movie-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
-        }
-
-        @media (min-width: 1280px) {
-            .list-movie-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 22px; }
-        }
+        .list-movie-item { min-width:0; aspect-ratio:2/3; position:relative; overflow:hidden; border-radius:9px; background:#09090b; }
+        .list-movie-item .poster-img-wrap { width:100%; height:100%; }
+        .list-movie-item .poster-img-wrap img { display:block; width:100%; height:100%; object-fit:cover; }
+        .list-movie-item > button.block { display:block; width:100%; height:100%; }
+        .list-movie-item .poster-overlay { display:none !important; }
+        .list-movie-item .list-remove-x { display:none !important; }
+        .list-order-badge { position:absolute; top:5px; left:5px; z-index:3; min-width:20px; height:20px; padding:0 5px; display:flex; align-items:center; justify-content:center; border-radius:999px; background:rgba(0,0,0,.82); color:#22c55e; border:1px solid rgba(34,197,94,.55); font:900 9px/1 'IBM Plex Mono',monospace; }
+        @media(max-width:420px){ .list-movie-grid { gap:6px; } .list-order-badge { top:3px; left:3px; min-width:18px; height:18px; font-size:8px; } }
 
         /* odstęp między pierwszym rzędem a "resztą" po kliknięciu "Pokaż więcej" */
         .list-movie-grid + .list-movie-grid {
@@ -16262,11 +16273,8 @@
         display:flex;
         flex-direction:column;
         gap:8px;
-        max-height:260px;
-        overflow-y:auto;
-        overflow-x:hidden;
-        overscroll-behavior:contain;
-        -webkit-overflow-scrolling:touch;
+        max-height:300px;
+        overflow:auto;
         padding-right:4px;
     }
     .weekly-news-inline-comments-list::-webkit-scrollbar { width:4px; }
@@ -16443,20 +16451,6 @@
     }
     .weekly-news-inline-close:hover { color:#fff !important; background:rgba(255,255,255,.09) !important; }
     @media (max-width:767px) {
-        .weekly-news-inline-comments,
-        .weekly-news-inline-comments-head,
-        .weekly-news-inline-comments-list,
-        .weekly-news-inline-comment,
-        .weekly-news-inline-comment-user,
-        .weekly-news-inline-comment-text,
-        .weekly-news-inline-comments-current {
-            text-align:left;
-        }
-
-        .weekly-news-inline-comment-user {
-            justify-content:flex-start;
-        }
-
         .weekly-news-inline-comments.open {
             display:block !important;
             width:100%;
@@ -16529,8 +16523,8 @@
     }
 
     /* =========================================================
-   MOBILE — KOMENTARZE WYRÓWNANE DO LEWEJ
-   ========================================================= */
+    MOBILE — KOMENTARZE WYRÓWNANE DO LEWEJ
+    ========================================================= */
 
     @media (max-width: 600px) {
 
@@ -16593,7 +16587,58 @@
     .weekly-news-comment small {
         text-align: left !important;
     }
+
+    /* === FIX: PRZEWIJANIE USTAWIEŃ LISTY === */
+
+    #list-settings-modal {
+        overflow: hidden !important;
     }
+
+    #list-settings-modal .list-settings-modal-box {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    #list-settings-modal .list-settings-modal-box > .mt-6 {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    #list-settings-modal #list-settings-order {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: 0 !important;
+        max-height: none !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: #22c55e #050505 !important;
+    }
+
+    #list-settings-modal #list-settings-order::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    #list-settings-modal #list-settings-order::-webkit-scrollbar-track {
+        background: #050505;
+    }
+
+    #list-settings-modal #list-settings-order::-webkit-scrollbar-thumb {
+        background: #22c55e;
+        border-radius: 999px;
+    }
+
+    #list-settings-modal #list-settings-order::-webkit-scrollbar-thumb:hover {
+        background: #4ade80;
+    }
+
+
 
 </style>
 </head>
@@ -17314,10 +17359,10 @@
                         <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-2" data-i18n="Język">Język</p>
                         <div class="grid grid-cols-2 gap-2">
                             <button id="lang-pl-btn" onclick="setLanguage('pl')" class="rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest">
-                                Polski
+                                Polski 🇵🇱
                             </button>
                             <button id="lang-en-btn" onclick="setLanguage('en')" class="rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest">
-                                English
+                                English 🇺🇸
                             </button>
                         </div>
                     </div>
@@ -17386,7 +17431,7 @@
         </div>
     </div>
 
-    <div id="list-settings-modal" class="modal-overlay" onclick="if(event.target === this) closeListSettings()">
+    <div id="list-settings-modal" class="modal-overlay">
         <div class="list-settings-modal-box">
             <div class="flex items-center justify-between gap-4 mb-5">
                 <div><p class="text-[9px] font-black uppercase tracking-[.3em] text-green-500 mb-2">RATIVIO / LIST</p><h3 class="text-2xl font-black italic uppercase tracking-tighter">Ustawienia listy</h3></div>
@@ -17395,6 +17440,19 @@
             <label class="text-[9px] font-black uppercase tracking-widest text-zinc-500 block mb-2">Nazwa listy</label>
             <input id="list-settings-name" class="list-settings-field" maxlength="60" autocomplete="off">
             <p id="list-settings-msg" class="text-[10px] font-bold text-zinc-500 mt-2 min-h-[16px]"></p>
+
+            <div class="list-settings-options">
+                <label class="list-settings-toggle">
+                    <input id="list-settings-show-numbers" type="checkbox" checked>
+                    <span class="list-settings-toggle-ui"></span>
+                    <span><strong>Numerowanie filmów</strong><small>Pokazuj numery 1, 2, 3… na plakatach.</small></span>
+                </label>
+                <label class="list-settings-toggle">
+                    <input id="list-settings-public" type="checkbox">
+                    <span class="list-settings-toggle-ui"></span>
+                    <span><strong>Lista publiczna</strong><small>Publiczna lista może być widoczna na Twoim profilu.</small></span>
+                </label>
+            </div>
 
             <div class="mt-6">
                 <div class="flex items-center justify-between gap-3 mb-3">
@@ -17406,7 +17464,10 @@
 
             <div class="list-settings-actions">
                 <button type="button" onclick="deleteListFromSettings()" class="border border-red-900/40 bg-red-500/10 text-red-400">Usuń listę</button>
-                <button type="button" onclick="saveListSettings()" class="bg-green-600 text-black">Zapisz</button>
+                <div class="flex items-center gap-2 ml-auto">
+                    <button type="button" onclick="closeListSettings()" class="list-settings-cancel-btn">Anuluj</button>
+                    <button type="button" onclick="saveListSettings()" class="bg-green-600 text-black list-settings-save-btn">Zapisz</button>
+                </div>
             </div>
         </div>
     </div>
@@ -19740,6 +19801,8 @@
 
             const normalizedLists = newLists.map(list => ({
                 ...list,
+                showNumbers: list?.showNumbers !== false,
+                isPublic: list?.isPublic !== false,
                 movies: Array.isArray(list?.movies)
                     ? list.movies.map(normalizeListMovieId).filter(Boolean)
                     : []
@@ -19764,8 +19827,12 @@
                             "lists"
                         ),
                         {
-                            userLists: normalizedLists.map(list => ({
+                            userLists: normalizedLists
+                                .filter(list => list?.isPublic !== false)
+                                .map(list => ({
                                 name: String(list?.name || "Lista"),
+                                showNumbers: list?.showNumbers !== false,
+                                isPublic: true,
                                 movies: Array.isArray(list?.movies)
                                     ? list.movies
                                         .map(movie => {
@@ -19811,12 +19878,16 @@
                 ? window.movieHubData.userLists
                 : [];
 
-            const cleanLists = lists.map(list => ({
-                name: String(list?.name || "Lista"),
-                movies: Array.isArray(list?.movies)
-                    ? list.movies.filter(Boolean)
-                    : []
-            }));
+            const cleanLists = lists
+                .filter(list => list?.isPublic !== false)
+                .map(list => ({
+                    name: String(list?.name || "Lista"),
+                    showNumbers: list?.showNumbers !== false,
+                    isPublic: true,
+                    movies: Array.isArray(list?.movies)
+                        ? list.movies.filter(Boolean)
+                        : []
+                }));
 
             await firebaseSetDoc(
                 firebaseDoc(
@@ -19856,7 +19927,9 @@
             if (!m) return '';
 
             const canReorder = listIndex >= 0 && movieIndex >= 0;
-            const numberBadge = canReorder
+            const activeList = canReorder ? loadUserLists()[listIndex] : null;
+            const showNumbers = canReorder ? activeList?.showNumbers !== false : false;
+            const numberBadge = canReorder && showNumbers
                 ? `<div class="list-order-badge">${movieIndex + 1}</div>`
                 : '';
 
@@ -21366,7 +21439,7 @@
             if (!name) return;
             if (isListNameTaken(name)) { alert('Taka nazwa listy już istnieje. Nazwy list muszą być unikalne.'); return; }
             const lists = loadUserLists();
-            lists.push({ name, movies: [] });
+            lists.push({ name, movies: [], showNumbers: true, isPublic: true });
             saveUserLists(lists).then(() => { refreshUserScopedData(); renderCustomLists(); }).catch(e => alert(e.message || 'Nie udało się zapisać listy.'));
         }
 
@@ -21381,6 +21454,19 @@
                 value.mId ??
                 ''
             );
+        }
+
+        function escapeListSettingsHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function escapeListSettingsAttr(value) {
+            return escapeListSettingsHtml(value);
         }
 
         function renderListSettingsOrder() {
@@ -21412,15 +21498,36 @@
 
                 return `<div class="list-settings-order-row">
                     <span class="list-settings-order-num">${index + 1}</span>
-                    <img class="list-settings-order-poster" src="${escapeAttrGlobalSearch(img)}" alt="" onerror="this.style.opacity='.25'">
-                    <span class="list-settings-order-title">${escapeHtmlGlobalSearch(title)}</span>
+                    <img class="list-settings-order-poster" src="${escapeListSettingsAttr(img)}" alt="" onerror="this.style.opacity='.25'">
+                    <span class="list-settings-order-title">${escapeListSettingsHtml(title)}</span>
                     <div class="list-settings-order-buttons">
                         <button type="button" onclick="moveListMovieFromSettings(${index},-1)" ${index===0?'disabled':''} aria-label="Przenieś wyżej">↑</button>
                         <button type="button" onclick="moveListMovieFromSettings(${index},1)" ${index===ids.length-1?'disabled':''} aria-label="Przenieś niżej">↓</button>
+                        <button type="button" class="list-settings-remove-btn" onclick="removeMovieFromSettings(${index})" aria-label="Usuń film z listy" title="Usuń z listy">×</button>
                     </div>
                 </div>`;
             }).join('');
         }
+
+        async function removeMovieFromSettings(movieIndex) {
+            if (activeListSettingsIndex < 0) return;
+            const lists = loadUserLists();
+            const list = lists[activeListSettingsIndex];
+            if (!list || !Array.isArray(list.movies)) return;
+            const ids = list.movies.map(normalizeListMovieId).filter(Boolean);
+            if (movieIndex < 0 || movieIndex >= ids.length) return;
+            ids.splice(movieIndex, 1);
+            list.movies = ids;
+            try {
+                await saveUserLists(lists);
+                refreshUserScopedData();
+                renderListSettingsOrder();
+                renderCustomLists();
+            } catch (e) {
+                alert(e.message || 'Nie udało się usunąć filmu z listy.');
+            }
+        }
+        window.removeMovieFromSettings = removeMovieFromSettings;
 
         async function moveListMovieFromSettings(movieIndex, direction) {
             if (activeListSettingsIndex < 0) return;
@@ -21450,12 +21557,17 @@
             const input = document.getElementById('list-settings-name');
             const msg = document.getElementById('list-settings-msg');
             if (input) input.value = normalizeListName(list.name);
+            const showNumbers = document.getElementById('list-settings-show-numbers');
+            const isPublic = document.getElementById('list-settings-public');
+            if (showNumbers) showNumbers.checked = list?.showNumbers !== false;
+            if (isPublic) isPublic.checked = list?.isPublic !== false;
             if (msg) msg.textContent = '';
             toggleModal('list-settings-modal', true);
+            document.body.style.overflow = 'hidden';
             renderListSettingsOrder();
             setTimeout(() => input?.focus(), 40);
         }
-        function closeListSettings() { activeListSettingsIndex = -1; toggleModal('list-settings-modal', false); }
+        function closeListSettings() { activeListSettingsIndex = -1; toggleModal('list-settings-modal', false); document.body.style.overflow = ''; }
         async function saveListSettings() {
             if (activeListSettingsIndex < 0) return;
             const name = normalizeListName(document.getElementById('list-settings-name')?.value);
@@ -21464,6 +21576,8 @@
             if (isListNameTaken(name, activeListSettingsIndex)) { if(msg) msg.textContent='Ta nazwa jest już zajęta.'; return; }
             const lists = loadUserLists();
             lists[activeListSettingsIndex].name = name;
+            lists[activeListSettingsIndex].showNumbers = document.getElementById('list-settings-show-numbers')?.checked !== false;
+            lists[activeListSettingsIndex].isPublic = document.getElementById('list-settings-public')?.checked === true;
             try {
                 validateUniqueListNames(lists);
                 await saveUserLists(lists);
@@ -21636,7 +21750,7 @@
                 return `<div class="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-center"><p class="text-zinc-600 font-black uppercase italic tracking-widest text-xs">Pusto</p></div>`;
             }
 
-            const limit = 8;
+            const limit = 5;
             const visibleIds = ids.slice(0, limit);
             const extraIds = ids.slice(limit);
 
@@ -21648,7 +21762,7 @@
                 html += `<div class="list-movie-grid" id="extra-${uniqueId}" data-visible-count="0">` +
                     extraIds.map((id, idx) => `<div class="list-extra-item hidden">${renderListMovieTile(id, onRemoveFn ? onRemoveFn(id) : '', listIndex, limit + idx, ids.length)}</div>`).join('') +
                     `</div>`;
-                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}" data-step="8">Pokaż kolejne +${Math.min(8, extraIds.length)}</button>`;
+                html += `<button type="button" onclick="toggleListExpand('${uniqueId}', this)" class="list-show-more-btn" data-count="${extraIds.length}" data-step="5">Pokaż kolejne +${Math.min(5, extraIds.length)}</button>`;
             }
 
             return html;
@@ -21663,16 +21777,16 @@
             if (current >= items.length) {
                 items.forEach(item => item.classList.add('hidden'));
                 extra.dataset.visibleCount = '0';
-                btn.textContent = `Pokaż kolejne +${Math.min(8, items.length)}`;
+                btn.textContent = `Pokaż kolejne +${Math.min(5, items.length)}`;
                 return;
             }
 
-            const next = Math.min(items.length, current + 8);
+            const next = Math.min(items.length, current + 5);
             items.forEach((item, index) => item.classList.toggle('hidden', index >= next));
             extra.dataset.visibleCount = String(next);
             btn.textContent = next >= items.length
                 ? 'Pokaż mniej'
-                : `Pokaż kolejne +${Math.min(8, items.length - next)}`;
+                : `Pokaż kolejne +${Math.min(5, items.length - next)}`;
         }
 
         window.toggleListExpand = toggleListExpand;
@@ -21724,7 +21838,7 @@
                 <section class="rounded-[32px] border border-zinc-800 bg-zinc-950/70 p-5 sm:p-8 mb-10">
                     <div class="list-section-head">
                         <div class="min-w-0">
-                            <p class="text-[9px] font-black text-zinc-500 uppercase tracking-[0.35em] mb-2">Lista prywatna</p>
+                            <p class="text-[9px] font-black ${list?.isPublic !== false ? 'text-green-500' : 'text-zinc-500'} uppercase tracking-[0.35em] mb-2">${list?.isPublic !== false ? 'Lista publiczna' : 'Lista prywatna'}</p>
                             <h3 class="text-2xl sm:text-4xl font-black italic uppercase text-white tracking-tighter truncate">${window.displayListName ? window.displayListName(list.name) : list.name}</h3>
                         </div>
                         <div class="flex items-center gap-2">
@@ -22997,6 +23111,12 @@
 
 
         let currentNewsCommentsId = null;
+        const NEWS_COMMENTS_PER_PAGE = 2;
+        const newsCommentsPages = Object.create(null);
+
+        function setNewsCommentsPage(newsId, page) {
+            newsCommentsPages[String(newsId)] = Math.max(0, Number(page) || 0);
+        }
 
         window.openNewsCommentsModal = async function(newsId, title) {
             currentNewsCommentsId = newsId || null;
@@ -23029,6 +23149,7 @@
                 allInlines.map(inline => {
                     const id = inline.dataset.newsId;
                     if (!id) return Promise.resolve();
+                    setNewsCommentsPage(id, 0);
                     return loadNewsComments(id);
                 })
             );
@@ -23184,9 +23305,16 @@
                     .replace(/"/g,'&quot;')
                     .replace(/'/g,'&#039;');
 
-                // Pokazujemy wszystkie komentarze w jednym przewijanym kontenerze.
-                // Bez stron, numerów stron i przycisków ‹ ›.
-                listBox.innerHTML = comments.map(comment => {
+                const totalPages = Math.max(1, Math.ceil(comments.length / NEWS_COMMENTS_PER_PAGE));
+                let page = Number(newsCommentsPages[String(newsId)] || 0);
+                if (page >= totalPages) page = totalPages - 1;
+                if (page < 0) page = 0;
+                newsCommentsPages[String(newsId)] = page;
+
+                const startIndex = page * NEWS_COMMENTS_PER_PAGE;
+                const pageComments = comments.slice(startIndex, startIndex + NEWS_COMMENTS_PER_PAGE);
+
+                listBox.innerHTML = pageComments.map(comment => {
                     const nick = safe(comment.nick || 'Użytkownik');
                     const avatar = safe(comment.avatarUrl || '');
                     const uid = safe(comment.uid || '');
@@ -23229,6 +23357,22 @@
                     `;
                 }).join('');
 
+                if (totalPages > 1) {
+                    const pagination = document.createElement('div');
+                    pagination.className = 'weekly-news-comments-pagination';
+                    pagination.innerHTML = `
+                        <button type="button" class="weekly-news-comments-page-btn" ${page === 0 ? 'disabled' : ''}
+                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page - 1})">‹</button>
+                        ${Array.from({length: totalPages}, (_, i) => `
+                            <button type="button" class="weekly-news-comments-page-btn ${i === page ? 'active' : ''}"
+                                onclick="changeNewsCommentsPage('${safe(newsId)}', ${i})">${i + 1}</button>
+                        `).join('')}
+                        <button type="button" class="weekly-news-comments-page-btn" ${page === totalPages - 1 ? 'disabled' : ''}
+                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page + 1})">›</button>
+                        <span class="weekly-news-comments-page-info">${page + 1} / ${totalPages}</span>
+                    `;
+                    listBox.appendChild(pagination);
+                }
             } catch (error) {
                 console.error('Błąd ładowania komentarzy:', error);
                 listBox.innerHTML = `
@@ -23238,6 +23382,11 @@
                 `;
             }
         }
+
+        window.changeNewsCommentsPage = async function(newsId, page) {
+            setNewsCommentsPage(newsId, page);
+            await loadNewsComments(newsId);
+        };
 
         window.toggleNewsCommentVote = async function(event, newsId, commentId, voteType) {
             event?.preventDefault();
@@ -23348,6 +23497,7 @@
 
                 if (textBox) textBox.value = '';
                 if (statusBox) statusBox.textContent = 'Komentarz dodany.';
+                setNewsCommentsPage(newsId, 0);
                 await loadNewsComments(newsId);
 
                 if (typeof window.loadNewsCommentsCount === 'function') {
@@ -27781,7 +27931,7 @@
                         : [];
 
                     if (ownLists.length) {
-                        publicLists = ownLists;
+                        publicLists = ownLists.filter(list => list?.isPublic !== false);
 
                         /*
                          * Nie używamy tutaj currentUserProfile ani syncPublicLists(),
@@ -27798,8 +27948,12 @@
                                     "lists"
                                 ),
                                 {
-                                    userLists: ownLists.map(list => ({
+                                    userLists: ownLists
+                                        .filter(list => list?.isPublic !== false)
+                                        .map(list => ({
                                         name: String(list?.name || "Lista"),
+                                        showNumbers: list?.showNumbers !== false,
+                                        isPublic: true,
                                         movies: Array.isArray(list?.movies)
                                             ? list.movies
                                                 .map(movieId =>
@@ -27896,7 +28050,7 @@
                                     validMovies.length
                                         ? `
                                             <div class="public-profile-list-grid">
-                                                ${validMovies.slice(0,10).map(movie => `
+                                                ${validMovies.slice(0,10).map((movie, movieIndex) => `
                                                     <button
                                                         type="button"
                                                         class="public-profile-list-movie"
@@ -27914,14 +28068,14 @@
                                                         >
 
                                                         <span>
-                                                            ${escapeHtmlGlobalSearch(movie.title)}
+                                                            ${list?.showNumbers !== false ? `${movieIndex + 1}. ` : ''}${escapeHtmlGlobalSearch(movie.title)}
                                                         </span>
                                                     </button>
                                                 `).join("")}
                                                 ${validMovies.slice(10).map((movie, extraIndex) => `
                                                     <div class="public-profile-extra-list-movie hidden" data-public-list-extra-index="${extraIndex}">
                                                         <button type="button" class="public-profile-list-movie" onclick="closePublicProfile();openModalById('${escapeAttrGlobalSearch(movie.id)}')">
-                                                            <img src="${escapeAttrGlobalSearch(movie.img)}" alt="${escapeAttrGlobalSearch(movie.title)}" onerror="this.style.display='none'"><span>${escapeHtmlGlobalSearch(movie.title)}</span>
+                                                            <img src="${escapeAttrGlobalSearch(movie.img)}" alt="${escapeAttrGlobalSearch(movie.title)}" onerror="this.style.display='none'"><span>${list?.showNumbers !== false ? `${extraIndex + 11}. ` : ''}${escapeHtmlGlobalSearch(movie.title)}</span>
                                                         </button>
                                                     </div>
                                                 `).join("")}
