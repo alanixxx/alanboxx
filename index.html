@@ -16640,6 +16640,229 @@
 
 
 
+
+        /* =========================================================
+           FIX 04.09 — DODAWANIE FILMÓW DO LISTY + NUMERACJA TOP 2026
+           ========================================================= */
+
+        /* --- DODAJ FILM DO LISTY: kompaktowy modal zamiast rozciągniętego fullscreen --- */
+        #add-to-list-modal {
+            padding: 12px !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        #add-to-list-modal > div {
+            width: min(760px, calc(100vw - 24px)) !important;
+            max-width: 760px !important;
+            height: auto !important;
+            max-height: 88dvh !important;
+            padding: 18px !important;
+            border-radius: 24px !important;
+            overflow: hidden !important;
+            display: flex !important;
+            flex-direction: column !important;
+            box-sizing: border-box !important;
+        }
+
+        #add-to-list-modal > div > button {
+            top: 16px !important;
+            right: 16px !important;
+            width: 34px !important;
+            height: 34px !important;
+            z-index: 10 !important;
+        }
+
+        #add-to-list-title {
+            margin: 0 48px 14px 0 !important;
+            padding-right: 4px !important;
+            font-size: clamp(24px, 5vw, 38px) !important;
+            line-height: .95 !important;
+        }
+
+        #add-to-list-search {
+            flex-shrink: 0 !important;
+            height: 50px !important;
+            margin-bottom: 14px !important;
+            padding: 0 16px !important;
+            border-radius: 16px !important;
+            font-size: 14px !important;
+        }
+
+        #add-to-list-grid {
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+            overflow-y: auto !important;
+            overscroll-behavior: contain;
+            padding: 2px 3px 4px 0 !important;
+            scrollbar-width: thin;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 10px !important;
+        }
+
+        #add-to-list-grid .add-to-list-card {
+            min-width: 0 !important;
+            border-radius: 12px !important;
+        }
+
+        #add-to-list-grid .add-to-list-card img {
+            width: 100% !important;
+            aspect-ratio: 2 / 3 !important;
+            height: auto !important;
+            object-fit: cover !important;
+        }
+
+        #add-to-list-grid .add-to-list-card .p-2 {
+            min-height: 38px !important;
+            padding: 7px 8px 8px !important;
+        }
+
+        #add-to-list-grid .add-to-list-card .p-2 h4 {
+            font-size: 10px !important;
+            line-height: 1.15 !important;
+        }
+
+        #add-to-list-grid .add-to-list-added-badge {
+            top: 6px !important;
+            right: 6px !important;
+            width: 24px !important;
+            height: 24px !important;
+        }
+
+        @media (min-width: 640px) {
+            #add-to-list-modal > div {
+                width: min(760px, calc(100vw - 32px)) !important;
+                padding: 22px !important;
+            }
+
+            #add-to-list-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                gap: 12px !important;
+            }
+
+            #add-to-list-grid .add-to-list-card .p-2 {
+                min-height: 42px !important;
+            }
+
+            #add-to-list-grid .add-to-list-card .p-2 h4 {
+                font-size: 11px !important;
+            }
+        }
+
+        @media (min-width: 900px) {
+            #add-to-list-grid {
+                grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+                gap: 13px !important;
+            }
+        }
+
+        @media (max-width: 420px) {
+            #add-to-list-modal {
+                padding: 8px !important;
+            }
+
+            #add-to-list-modal > div {
+                width: calc(100vw - 16px) !important;
+                max-height: 90dvh !important;
+                padding: 15px !important;
+                border-radius: 20px !important;
+            }
+
+            #add-to-list-modal > div > button {
+                top: 13px !important;
+                right: 13px !important;
+            }
+
+            #add-to-list-title {
+                font-size: 25px !important;
+                margin-right: 42px !important;
+                margin-bottom: 12px !important;
+            }
+
+            #add-to-list-search {
+                height: 48px !important;
+                margin-bottom: 12px !important;
+            }
+
+            #add-to-list-grid {
+                gap: 8px !important;
+            }
+
+            #add-to-list-grid .add-to-list-card {
+                border-radius: 10px !important;
+            }
+
+            #add-to-list-grid .add-to-list-card .p-2 {
+                min-height: 34px !important;
+                padding: 6px 6px 7px !important;
+            }
+
+            #add-to-list-grid .add-to-list-card .p-2 h4 {
+                font-size: 9px !important;
+            }
+        }
+
+        /* --- TOP PREMIERY 2026: numer jest kółkiem na karcie --- */
+        #top-2026-container > div {
+            position: relative !important;
+            min-width: 0 !important;
+        }
+
+        #top-2026-container .top-ranking-number {
+            position: absolute !important;
+            top: 10px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 42px !important;
+            height: 42px !important;
+            min-width: 42px !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 40 !important;
+            border-radius: 999px !important;
+            box-sizing: border-box !important;
+            background: rgba(0,0,0,.86) !important;
+            border: 2px solid rgba(34,197,94,.9) !important;
+            color: #22c55e !important;
+            font-family: 'IBM Plex Mono', monospace !important;
+            font-size: 16px !important;
+            font-weight: 900 !important;
+            line-height: 1 !important;
+            font-style: normal !important;
+            text-align: center !important;
+            box-shadow: 0 4px 18px rgba(0,0,0,.45), 0 0 14px rgba(34,197,94,.18) !important;
+            pointer-events: none !important;
+        }
+
+        #top-2026-container > div > .relative.z-20 {
+            position: relative !important;
+            z-index: 20 !important;
+        }
+
+        @media (max-width: 768px) {
+            #top-2026-container .top-ranking-number {
+                top: 7px !important;
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                border-width: 1.5px !important;
+                font-size: 13px !important;
+            }
+        }
+
+        @media (max-width: 380px) {
+            #top-2026-container .top-ranking-number {
+                top: 6px !important;
+                width: 29px !important;
+                height: 29px !important;
+                min-width: 29px !important;
+                font-size: 12px !important;
+            }
+        }
+
 </style>
 </head>
 <body class="selection:bg-green-600">
@@ -21983,8 +22206,8 @@
 
                         container.innerHTML = topMovies.map((m, index) => `
                         <div class="relative group cursor-pointer" onclick="openModalById('${m.id}')">
-                            <!-- Wielki numer rankingu - przesunięty bardziej do przodu i jaśniejszy -->
-                            <div class="absolute -top-10 -left-5 z-30 text-7xl md:text-8xl font-black italic text-green-500 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)] group-hover:scale-110 transition-transform pointer-events-none">
+                            <!-- Numer rankingu — stabilny badge, również na małych ekranach -->
+                            <div class="top-ranking-number pointer-events-none">
                                 ${index + 1}
                             </div>
         
@@ -23111,13 +23334,7 @@
 
 
         let currentNewsCommentsId = null;
-        const NEWS_COMMENTS_PER_PAGE = 2;
-        const newsCommentsPages = Object.create(null);
-
-        function setNewsCommentsPage(newsId, page) {
-            newsCommentsPages[String(newsId)] = Math.max(0, Number(page) || 0);
-        }
-
+        // Komentarze newsów są ładowane w całości — bez paginacji.
         window.openNewsCommentsModal = async function(newsId, title) {
             currentNewsCommentsId = newsId || null;
 
@@ -23149,7 +23366,6 @@
                 allInlines.map(inline => {
                     const id = inline.dataset.newsId;
                     if (!id) return Promise.resolve();
-                    setNewsCommentsPage(id, 0);
                     return loadNewsComments(id);
                 })
             );
@@ -23305,16 +23521,7 @@
                     .replace(/"/g,'&quot;')
                     .replace(/'/g,'&#039;');
 
-                const totalPages = Math.max(1, Math.ceil(comments.length / NEWS_COMMENTS_PER_PAGE));
-                let page = Number(newsCommentsPages[String(newsId)] || 0);
-                if (page >= totalPages) page = totalPages - 1;
-                if (page < 0) page = 0;
-                newsCommentsPages[String(newsId)] = page;
-
-                const startIndex = page * NEWS_COMMENTS_PER_PAGE;
-                const pageComments = comments.slice(startIndex, startIndex + NEWS_COMMENTS_PER_PAGE);
-
-                listBox.innerHTML = pageComments.map(comment => {
+                listBox.innerHTML = comments.map(comment => {
                     const nick = safe(comment.nick || 'Użytkownik');
                     const avatar = safe(comment.avatarUrl || '');
                     const uid = safe(comment.uid || '');
@@ -23357,22 +23564,6 @@
                     `;
                 }).join('');
 
-                if (totalPages > 1) {
-                    const pagination = document.createElement('div');
-                    pagination.className = 'weekly-news-comments-pagination';
-                    pagination.innerHTML = `
-                        <button type="button" class="weekly-news-comments-page-btn" ${page === 0 ? 'disabled' : ''}
-                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page - 1})">‹</button>
-                        ${Array.from({length: totalPages}, (_, i) => `
-                            <button type="button" class="weekly-news-comments-page-btn ${i === page ? 'active' : ''}"
-                                onclick="changeNewsCommentsPage('${safe(newsId)}', ${i})">${i + 1}</button>
-                        `).join('')}
-                        <button type="button" class="weekly-news-comments-page-btn" ${page === totalPages - 1 ? 'disabled' : ''}
-                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page + 1})">›</button>
-                        <span class="weekly-news-comments-page-info">${page + 1} / ${totalPages}</span>
-                    `;
-                    listBox.appendChild(pagination);
-                }
             } catch (error) {
                 console.error('Błąd ładowania komentarzy:', error);
                 listBox.innerHTML = `
@@ -23382,11 +23573,6 @@
                 `;
             }
         }
-
-        window.changeNewsCommentsPage = async function(newsId, page) {
-            setNewsCommentsPage(newsId, page);
-            await loadNewsComments(newsId);
-        };
 
         window.toggleNewsCommentVote = async function(event, newsId, commentId, voteType) {
             event?.preventDefault();
@@ -23497,7 +23683,6 @@
 
                 if (textBox) textBox.value = '';
                 if (statusBox) statusBox.textContent = 'Komentarz dodany.';
-                setNewsCommentsPage(newsId, 0);
                 await loadNewsComments(newsId);
 
                 if (typeof window.loadNewsCommentsCount === 'function') {
