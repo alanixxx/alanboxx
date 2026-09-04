@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RATIVIO | Pro Authority</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='LOGO.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -4697,6 +4698,66 @@
         }
         .admin-toast.error .toast-icon { background: #ef4444; color: white; }
 
+        /* === GUEST MODE / LOGIN REQUIRED TOAST === */
+        .auth-required-toast {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translate(-50%, -140%);
+            z-index: 100001;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: min(92vw, 560px);
+            padding: 14px 18px;
+            border: 1px solid rgba(34, 197, 94, .45);
+            border-radius: 18px;
+            background: rgba(9, 9, 11, .96);
+            color: #fff;
+            box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 0 30px rgba(34,197,94,.10);
+            backdrop-filter: blur(16px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform .28s ease, opacity .28s ease;
+        }
+        .auth-required-toast.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+        .auth-required-toast .auth-required-icon {
+            width: 30px;
+            height: 30px;
+            flex: 0 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: #22c55e;
+            color: #000;
+            font-weight: 900;
+            font-size: 14px;
+        }
+        .auth-required-toast strong {
+            display: block;
+            font-size: 11px;
+            line-height: 1.25;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+        .auth-required-toast span {
+            display: block;
+            margin-top: 3px;
+            color: #a1a1aa;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        @media (max-width: 640px) {
+            .auth-required-toast {
+                top: 12px;
+                width: calc(100vw - 24px);
+            }
+        }
+
         @media (max-width: 640px) {
             .admin-toast-container { top: 12px; right: 12px; left: 12px; }
             .admin-toast { max-width: none; }
@@ -6322,7 +6383,7 @@
 
             gap: 12px;
 
-            margin-top: 30px;
+            margin-top: 18px;
 
             flex-wrap: wrap;
         }
@@ -7088,7 +7149,7 @@
 
             gap: 12px;
 
-            margin-top: 30px;
+            margin-top: 18px;
         }
 
 
@@ -7158,7 +7219,7 @@
             display: flex;
             flex-direction: column;
 
-            margin-top: 30px;
+            margin-top: 18px;
         }
 
 
@@ -10322,7 +10383,7 @@
             justify-content: center;
             align-items: center;
             gap: 14px;
-            margin-top: 30px;
+            margin-top: 18px;
         }
 
         .rativio-social-icon {
@@ -15057,8 +15118,8 @@
 
         @media (max-width: 768px) {
             .public-profile-lists-section {
-                margin-top: 30px;
-                padding-top: 26px;
+                margin-top: 18px;
+                padding-top: 16px;
             }
 
             .public-profile-list {
@@ -16025,7 +16086,499 @@
         }
 
 
-    </style>
+    
+        /* === RATIVIO LOGIN — DESKTOP CENTER FIX === */
+        @media (min-width: 981px) {
+            #login-modal.login-screen .login-screen-grid {
+                grid-template-columns: 1fr !important;
+                min-height: 100dvh;
+                align-items: center;
+                justify-items: center;
+            }
+
+            #login-modal.login-screen .login-screen-panel {
+                width: 100%;
+                min-height: 100dvh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 48px 24px;
+            }
+
+            #login-modal.login-screen .login-screen-panel-inner {
+                width: min(470px, calc(100vw - 48px));
+                margin: 0 auto;
+            }
+
+            /* Na desktopie nie rezerwujemy pustej kolumny na niewykorzystywany branding. */
+            #login-modal.login-screen .login-screen-brand {
+                display: none !important;
+            }
+        }
+
+        /* === RATIVIO IMAGE ERROR FIX === */
+        img[data-rativio-fallback] {
+            background: #111113;
+        }
+
+    
+        /* === AUTH REQUIRED — PREMIUM TOP NOTIFICATION === */
+        .auth-required-toast {
+            top: 18px !important;
+            width: min(620px, calc(100vw - 28px)) !important;
+            padding: 13px 14px 13px 16px !important;
+            border: 1px solid rgba(34,197,94,.42) !important;
+            border-radius: 20px !important;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(34,197,94,.12), transparent 38%),
+                rgba(9,9,11,.94) !important;
+            box-shadow:
+                0 22px 70px rgba(0,0,0,.58),
+                0 0 34px rgba(34,197,94,.10) !important;
+            backdrop-filter: blur(20px) saturate(130%);
+            pointer-events: auto !important;
+        }
+        .auth-required-toast.show {
+            transform: translate(-50%, 0) !important;
+            opacity: 1 !important;
+        }
+        .auth-required-toast .auth-required-icon {
+            width: 38px !important;
+            height: 38px !important;
+            flex: 0 0 38px !important;
+            background: linear-gradient(135deg,#22c55e,#16a34a) !important;
+            box-shadow: 0 0 20px rgba(34,197,94,.22);
+        }
+        .auth-required-toast .auth-required-copy {
+            min-width: 0;
+            flex: 1;
+        }
+        .auth-required-toast strong {
+            font-size: 11px !important;
+            letter-spacing: .08em !important;
+        }
+        .auth-required-toast span {
+            font-size: 10px !important;
+            line-height: 1.45 !important;
+        }
+        .auth-required-toast .auth-required-actions {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+        .auth-required-toast button {
+            height: 34px;
+            border: 0;
+            border-radius: 11px;
+            padding: 0 12px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: .18s ease;
+        }
+        .auth-required-toast .auth-login-btn {
+            background: #fff;
+            color: #000;
+        }
+        .auth-required-toast .auth-login-btn:hover {
+            background: #22c55e;
+        }
+        .auth-required-toast .auth-guest-btn {
+            background: rgba(255,255,255,.06);
+            color: #a1a1aa;
+            border: 1px solid rgba(255,255,255,.09);
+        }
+        .auth-required-toast .auth-guest-btn:hover {
+            color: #fff;
+            background: rgba(255,255,255,.10);
+        }
+        @media (max-width: 640px) {
+            .auth-required-toast {
+                top: 10px !important;
+                width: calc(100vw - 20px) !important;
+            }
+            .auth-required-toast .auth-required-actions {
+                display: none;
+            }
+        }
+
+    
+    /* =========================================================
+    WEEKLY NEWS — DESKTOP POLISH
+    ========================================================= */
+    @media (min-width: 768px) {
+        .weekly-news-slide .news-reaction-row {
+            justify-content: flex-start !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100%;
+            align-self: flex-start;
+        }
+    }
+
+    .weekly-news-inline-comments {
+        display: none;
+        width: 100%;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        animation: newsCommentsReveal .28s ease both;
+    }
+    .weekly-news-inline-comments.open { display: block; }
+    @keyframes newsCommentsReveal {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .weekly-news-inline-comments-head {
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap:18px;
+        margin-bottom:10px;
+    }
+    .weekly-news-inline-comments-title {
+        margin:0;
+        color:#fff;
+        font-size:18px;
+        line-height:.95;
+        font-weight:900;
+        font-style:italic;
+        text-transform:uppercase;
+        letter-spacing:-.04em;
+    }
+    .weekly-news-inline-comments-title span { color:#e879f9; }
+    .weekly-news-inline-comments-current {
+        color:#71717a;
+        font-size:9px;
+        font-weight:900;
+        text-transform:uppercase;
+        letter-spacing:.12em;
+        text-align:right;
+    }
+    .weekly-news-inline-comments-list {
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+        max-height:300px;
+        overflow:auto;
+        padding-right:4px;
+    }
+    .weekly-news-inline-comments-list::-webkit-scrollbar { width:4px; }
+    .weekly-news-inline-comments-list::-webkit-scrollbar-thumb { background:#e879f9; border-radius:99px; }
+
+    .weekly-news-inline-comment {
+        border:1px solid rgba(255,255,255,.08);
+        background:linear-gradient(180deg,rgba(24,24,27,.82),rgba(8,8,10,.92));
+        border-radius:18px;
+        padding:11px;
+    }
+    .weekly-news-inline-comment-user {
+        display:flex;
+        align-items:center;
+        gap:9px;
+        min-width:0;
+    }
+    .weekly-news-inline-comment-avatar,
+    .weekly-news-inline-comment-avatar-fallback {
+        width:32px;
+        height:32px;
+        flex:0 0 32px;
+        border-radius:50%;
+        object-fit:cover;
+        border:1px solid rgba(232,121,249,.28);
+        background:#18181b;
+    }
+    .weekly-news-inline-comment-avatar-fallback {
+        display:grid;
+        place-items:center;
+        color:#fff;
+        font-weight:900;
+        font-size:13px;
+    }
+    .weekly-news-comment-profile {
+        display:inline-flex;
+        align-items:center;
+        color:#e879f9;
+        font-size:10px;
+        font-weight:900;
+        text-transform:uppercase;
+        letter-spacing:.07em;
+        cursor:pointer;
+        border:0;
+        background:none;
+        padding:0;
+    }
+    .weekly-news-comment-profile:hover { color:#fff; text-decoration:underline; }
+    .weekly-news-inline-comment-date {
+        margin-top:3px;
+        color:#52525b;
+        font-size:8px;
+        font-weight:900;
+        text-transform:uppercase;
+        letter-spacing:.09em;
+    }
+    .weekly-news-inline-comment-text {
+        margin:8px 0 0;
+        color:#d4d4d8;
+        font-size:12px;
+        line-height:1.55;
+        white-space:pre-wrap;
+        overflow-wrap:anywhere;
+    }
+    .weekly-news-inline-composer {
+        display:grid;
+        grid-template-columns:1fr auto;
+        gap:10px;
+        margin-top:10px;
+    }
+    .weekly-news-inline-composer textarea {
+        width:100%;
+        min-height:48px;
+        resize:vertical;
+        border:1px solid rgba(255,255,255,.09);
+        background:#08080a;
+        color:#fff;
+        border-radius:15px;
+        padding:11px;
+        outline:none;
+        font-size:12px;
+    }
+    .weekly-news-inline-composer textarea:focus {
+        border-color:#e879f9;
+        box-shadow:0 0 0 3px rgba(217,70,239,.08);
+    }
+    .weekly-news-inline-composer button {
+        align-self:stretch;
+        border:0;
+        border-radius:15px;
+        padding:0 18px;
+        background:#22c55e;
+        color:#050505;
+        font-size:9px;
+        font-weight:900;
+        letter-spacing:.1em;
+        text-transform:uppercase;
+        cursor:pointer;
+    }
+    .weekly-news-inline-composer button:hover { background:#4ade80; }
+
+    /* === COMMENT CTA — desktop readability === */
+    @media (min-width: 768px) {
+        .weekly-news-slide .news-reaction-row {
+            justify-content: flex-start !important;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .weekly-news-slide .news-reaction-row .news-reaction-btn[data-comment-button="true"] {
+            min-width: 118px;
+            min-height: 42px;
+            padding: 10px 17px;
+            font-size: 11px;
+            border-color: rgba(232,121,249,.38);
+            background: rgba(232,121,249,.07);
+        }
+
+        .weekly-news-slide .news-reaction-row .news-reaction-btn[data-comment-button="true"] .news-reaction-emoji {
+            font-size: 17px;
+        }
+
+        .weekly-news-slide .news-reaction-row .news-reaction-btn[data-comment-button="true"] .news-reaction-count {
+            font-size: 11px;
+            color: #e4e4e7;
+        }
+    }
+
+    /* === COMMENT LIKE / DISLIKE === */
+    .weekly-news-inline-comment-footer {
+        display:flex;
+        align-items:center;
+        gap:8px;
+        margin-top:8px;
+        padding-top:7px;
+        border-top:1px solid rgba(255,255,255,.06);
+    }
+    .news-comment-vote {
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        border:1px solid rgba(255,255,255,.09);
+        background:rgba(255,255,255,.035);
+        color:#a1a1aa;
+        border-radius:999px;
+        padding:6px 9px;
+        font-size:10px;
+        font-weight:900;
+        cursor:pointer;
+        transition:.16s ease;
+    }
+    .news-comment-vote:hover { color:#fff; border-color:rgba(232,121,249,.5); background:rgba(232,121,249,.08); }
+    .news-comment-vote.active-like { color:#86efac; border-color:rgba(34,197,94,.5); background:rgba(34,197,94,.08); }
+    .news-comment-vote.active-dislike { color:#fda4af; border-color:rgba(244,63,94,.5); background:rgba(244,63,94,.08); }
+    .news-comment-vote-count { min-width:10px; text-align:center; }
+    .news-comment-profile-wrap { cursor:pointer; }
+    .weekly-news-inline-comment-avatar[onclick],
+    .weekly-news-inline-comment-avatar-fallback[onclick] { cursor:pointer; }
+
+    .weekly-news-inline-status {
+        grid-column:1/-1;
+        min-height:12px;
+        color:#71717a;
+        font-size:9px;
+        font-weight:900;
+        text-transform:uppercase;
+        letter-spacing:.08em;
+    }
+    .weekly-news-inline-close {
+        border:1px solid rgba(255,255,255,.09) !important;
+        background:rgba(255,255,255,.04) !important;
+        color:#a1a1aa !important;
+        margin-right:6px;
+    }
+    .weekly-news-inline-close:hover { color:#fff !important; background:rgba(255,255,255,.09) !important; }
+    @media (max-width:767px) {
+        .weekly-news-inline-comments.open {
+            display:block !important;
+            width:100%;
+            visibility:visible;
+            opacity:1;
+        }
+
+        .weekly-news-inline-comments { margin-top:22px; }
+        .weekly-news-inline-comments-head { align-items:flex-start; flex-direction:column; }
+        .weekly-news-inline-comments-current { text-align:left; }
+        .weekly-news-inline-composer { grid-template-columns:1fr; }
+        .weekly-news-inline-composer button { min-height:48px; }
+    }
+
+
+    /* === FINAL NEWS COMMENTS / MOBILE SWIPE === */
+    @media (min-width: 768px) {
+        .weekly-news-inline-comments {
+            display: none !important;
+        }
+
+        .weekly-news-inline-comments.open {
+            display: block !important;
+        }
+
+        .weekly-news-inline-composer {
+            grid-template-columns: minmax(0, 1fr) 132px 210px !important;
+            align-items: stretch;
+        }
+
+        .weekly-news-inline-composer button {
+            min-height: 62px !important;
+            font-size: 11px !important;
+            letter-spacing: .11em !important;
+        }
+
+        .weekly-news-inline-composer .weekly-news-inline-close {
+            min-height: 62px !important;
+        }
+
+        .weekly-news-slide .news-reaction-row .news-reaction-btn[data-comment-button="true"] {
+            min-width: 150px !important;
+            min-height: 48px !important;
+            padding: 12px 20px !important;
+            font-size: 12px !important;
+        }
+    }
+
+    /* Na telefonie żadnych strzałek — tylko gest palcem. */
+    @media (max-width: 767px) {
+        .weekly-news-edge-btn,
+        #weekly-news-prev-mobile,
+        #weekly-news-next-mobile {
+            display: none !important;
+        }
+
+        .weekly-news-viewport {
+            touch-action: pan-y !important;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .weekly-news-track {
+            will-change: transform;
+        }
+
+        .weekly-news-inline-composer {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* =========================================================
+   MOBILE — KOMENTARZE WYRÓWNANE DO LEWEJ
+   ========================================================= */
+
+    @media (max-width: 600px) {
+
+    .weekly-news-inline-comments,
+    .weekly-news-inline-comments * {
+        text-align: left !important;
+    }
+
+    .weekly-news-inline-comments {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* nagłówek sekcji */
+    .weekly-news-comments-head {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .weekly-news-comments-head h3 {
+        text-align: left !important;
+        margin-left: 0 !important;
+    }
+
+    /* mały napis "KOMENTARZE DO..." */
+    .weekly-news-comments-label {
+        text-align: left !important;
+        margin-left: 0 !important;
+    }
+
+    /* pojedynczy komentarz */
+    .weekly-news-comment {
+        text-align: left !important;
+        align-items: flex-start !important;
+    }
+
+    /* nick */
+    .weekly-news-comment .comment-author,
+    .weekly-news-comment .comment-username,
+    .weekly-news-comment .username,
+    .weekly-news-comment .nick {
+        text-align: left !important;
+        justify-content: flex-start !important;
+        margin-left: 0 !important;
+    }
+
+    /* treść komentarza */
+    .weekly-news-comment .comment-text,
+    .weekly-news-comment .text,
+    .weekly-news-comment p {
+        text-align: left !important;
+        margin-left: 0 !important;
+    }
+
+    /* data */
+    .weekly-news-comment .comment-date,
+    .weekly-news-comment .date,
+    .weekly-news-comment small {
+        text-align: left !important;
+    }
+    }
+
+</style>
 </head>
 <body class="selection:bg-green-600">
 
@@ -16280,7 +16833,7 @@
                     <div>
                         <label class="admin-label">Podgląd plakatu</label>
                         <div class="aspect-[2/3] rounded-[24px] border border-zinc-800 bg-black overflow-hidden">
-                            <img id="admin-img-preview" src="https://via.placeholder.com/300x450?text=Plakat" class="w-full h-full object-cover" alt="Podgląd plakatu">
+                            <img id="admin-img-preview" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E" class="w-full h-full object-cover" alt="Podgląd plakatu">
                         </div>
                     </div>
                 </form>
@@ -16405,7 +16958,7 @@
                                 <div class="aspect-[3/4] mt-2 rounded-2xl border border-zinc-800 bg-black overflow-hidden max-w-[220px]">
                                     <img
                                         id="admin-news-preview-desktop"
-                                        src="https://via.placeholder.com/300x400?text=Desktop"
+                                        src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E"
                                         class="w-full h-full object-cover"
                                     >
                                 </div>
@@ -16437,7 +16990,7 @@
                                 <div class="aspect-[16/9] mt-2 rounded-2xl border border-zinc-800 bg-black overflow-hidden max-w-[220px]">
                                     <img
                                         id="admin-news-preview-mobile"
-                                        src="https://via.placeholder.com/400x225?text=Mobile"
+                                        src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E"
                                         class="w-full h-full object-cover"
                                     >
                                 </div>
@@ -16512,13 +17065,13 @@
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-3">
-                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'https://via.placeholder.com/300x300?text=Aktor'">
+                            <input id="admin-actor-photo" class="admin-field" placeholder="Zdjęcie (URL, opcjonalnie)" oninput="document.getElementById('admin-actor-photo-preview').src = this.value || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                             <input id="admin-actor-photo-file" class="admin-field file:mr-3 file:rounded-xl file:border-0 file:bg-green-600 file:px-3 file:py-2 file:text-black file:font-black" type="file" accept="image/*" onchange="previewAdminActorPhoto()">
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 bg-zinc-950/60 border border-zinc-800 rounded-2xl p-4">
                             <div class="w-44 h-44 rounded-full border-2 border-green-500/50 bg-black overflow-hidden shrink-0 shadow-[0_0_25px_rgba(34,197,94,.15)]">
-                                <img id="admin-actor-photo-preview" src="https://via.placeholder.com/300x300?text=Aktor" class="w-full h-full object-cover" style="object-position:50% 50%;" alt="Podgląd avatara">
+                                <img id="admin-actor-photo-preview" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E" class="w-full h-full object-cover" style="object-position:50% 50%;" alt="Podgląd avatara">
                             </div>
 
                             <div class="flex-1 w-full grid gap-4">
@@ -17544,6 +18097,14 @@
                             Kontynuuj z Google
                         </button>
 
+                        <button
+                            type="button"
+                            onclick="continueAsGuest()"
+                            class="w-full mt-3 rounded-2xl border border-zinc-800 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 hover:text-white py-3.5 text-[10px] font-black uppercase tracking-widest transition"
+                        >
+                            Kontynuuj jako gość
+                        </button>
+
                         <div id="auth-divider" class="login-screen-divider">
                             <span>albo</span>
                         </div>
@@ -18508,7 +19069,7 @@
             const file = fileInput?.files?.[0];
 
             if (!file) {
-                return safeAdminText(urlInput?.value) || editingAdminImageSource || 'https://via.placeholder.com/300x450?text=Movie';
+                return safeAdminText(urlInput?.value) || editingAdminImageSource || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
             }
 
             return resizeAdminImageToBase64(file);
@@ -18531,7 +19092,7 @@
             if (document.getElementById('admin-platform-custom')) document.getElementById('admin-platform-custom').value = '';
             setAdminTranslateMessage('');
             const preview = document.getElementById('admin-img-preview');
-            if (preview) preview.src = 'https://via.placeholder.com/300x450?text=Plakat';
+            if (preview) preview.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
             const submitBtn = document.getElementById('admin-submit-btn');
             if (submitBtn) submitBtn.textContent = 'Dodaj film';
         }
@@ -18736,7 +19297,7 @@
                 : [];
             renderSelectedCast();
             document.getElementById('admin-img-url').value = movie.img?.startsWith('data:') ? '' : movie.img || '';
-            document.getElementById('admin-img-preview').src = movie.img || 'https://via.placeholder.com/300x450?text=Plakat';
+            document.getElementById('admin-img-preview').src = movie.img || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
 
             const submitBtn = document.getElementById('admin-submit-btn');
             if (submitBtn) submitBtn.textContent = 'Zapisz zmiany';
@@ -18811,7 +19372,7 @@
 
                 return `
                 <div class="admin-movie-row">
-                    <img src="${escapeAdminHtml(movie.img)}" alt="${escapeAdminHtml(movie.title)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${escapeAdminHtml(movie.img)}" alt="${escapeAdminHtml(movie.title)}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(movie.title)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(movie.category)} / ${escapeAdminHtml(movie.date)}</p>
@@ -18901,7 +19462,7 @@
             editingActorId = null;
             editingActorPhotoSource = '';
             document.getElementById('admin-actor-form')?.reset();
-            document.getElementById('admin-actor-photo-preview').src = 'https://via.placeholder.com/300x300?text=Aktor';
+            document.getElementById('admin-actor-photo-preview').src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
             document.getElementById('admin-actor-pos-x').value = 50;
             document.getElementById('admin-actor-pos-y').value = 50;
             updateAdminActorPhotoPosition();
@@ -18920,7 +19481,7 @@
             document.getElementById('admin-actor-name').value = actor.name || '';
             document.getElementById('admin-actor-birthdate').value = actor.birthDate || '';
             document.getElementById('admin-actor-photo').value = actor.photo?.startsWith('data:') ? '' : (actor.photo || '');
-            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'https://via.placeholder.com/300x300?text=Aktor';
+            document.getElementById('admin-actor-photo-preview').src = actor.photo || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
             document.getElementById('admin-actor-pos-x').value = actor.photoPosX ?? 50;
             document.getElementById('admin-actor-pos-y').value = actor.photoPosY ?? 50;
             updateAdminActorPhotoPosition();
@@ -19043,7 +19604,7 @@
 
             list.innerHTML = actors.map(a => `
                 <div class="admin-movie-row" style="grid-template-columns: 54px 1fr auto;">
-                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/108x156?text=Aktor')}" alt="${escapeAdminHtml(a.name)}" style="object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${escapeAdminHtml(a.photo || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E')}" alt="${escapeAdminHtml(a.name)}" style="object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(a.name)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">
@@ -19153,6 +19714,11 @@
         }
 
         async function saveUserLists(newLists) {
+            const user = window.currentFirebaseUser || null;
+            const profile = window.currentUserProfile || null;
+            const firebaseSetDoc = window.firebaseSetDoc;
+            const firebaseDoc = window.firebaseDoc;
+            const firebaseServerTimestamp = window.firebaseServerTimestamp;
             validateUniqueListNames(newLists);
 
             const normalizedLists = newLists.map(list => ({
@@ -19168,15 +19734,15 @@
 
             // Publiczna kopia list dla profilu
             if (
-                currentFirebaseUser &&
-                currentUserProfile?.private !== true
+                user &&
+                profile?.private !== true
             ) {
                 try {
-                    await setDoc(
-                        doc(
+                    await firebaseSetDoc(
+                        firebaseDoc(
                             db,
                             "publicProfiles",
-                            currentFirebaseUser.uid,
+                            user.uid,
                             "publicData",
                             "lists"
                         ),
@@ -19198,7 +19764,7 @@
                                         .filter(Boolean)
                                     : []
                             })),
-                            updatedAt: serverTimestamp()
+                            updatedAt: firebaseServerTimestamp()
                         },
                         { merge: true }
                     );
@@ -19214,8 +19780,15 @@
 
 
         async function syncPublicLists() {
-            if (!currentFirebaseUser) return;
-            if (currentUserProfile?.private === true) return;
+            const user = window.currentFirebaseUser || null;
+            const profile = window.currentUserProfile || null;
+            const firestoreDb = window.db || null;
+            const firebaseSetDoc = window.firebaseSetDoc;
+            const firebaseDoc = window.firebaseDoc;
+            const firebaseServerTimestamp = window.firebaseServerTimestamp;
+
+            if (!user || !firestoreDb || !firebaseSetDoc || !firebaseDoc) return;
+            if (profile?.private === true) return;
 
             const lists = Array.isArray(window.movieHubData?.userLists)
                 ? window.movieHubData.userLists
@@ -19228,17 +19801,17 @@
                     : []
             }));
 
-            await setDoc(
-                doc(
-                    db,
+            await firebaseSetDoc(
+                firebaseDoc(
+                    firestoreDb,
                     "publicProfiles",
-                    currentFirebaseUser.uid,
+                    user.uid,
                     "publicData",
                     "lists"
                 ),
                 {
                     userLists: cleanLists,
-                    updatedAt: serverTimestamp()
+                    updatedAt: firebaseServerTimestamp()
                 },
                 { merge: true }
             );
@@ -19314,7 +19887,7 @@
 
             box.innerHTML = matches.map(a => `
                 <button type="button" onclick="addActorToCast('${a.id}')" class="admin-movie-row text-left" style="grid-template-columns: 40px 1fr auto;">
-                    <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/60x60?text=A')}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
+                    <img src="${escapeAdminHtml(a.photo || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E')}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <p class="text-white font-bold text-xs truncate">${escapeAdminHtml(a.name)}</p>
                     <span class="text-green-500 text-[10px] font-black uppercase">+ Dodaj</span>
                 </button>
@@ -19359,7 +19932,7 @@
                 if (!a) return '';
                 return `
                     <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-2xl pl-1 pr-2 py-1.5">
-                        <img src="${escapeAdminHtml(a.photo || 'https://via.placeholder.com/40x40?text=A')}" style="width:32px;height:32px;border-radius:999px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.src='https://via.placeholder.com/40x40?text=A'">
+                        <img src="${escapeAdminHtml(a.photo || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E')}" style="width:32px;height:32px;border-radius:999px;object-fit:cover;object-position:${a.photoPosX ?? 50}% ${a.photoPosY ?? 50}%" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                         <span class="text-white text-[10px] font-black uppercase whitespace-nowrap">${escapeAdminHtml(a.name)}</span>
                         <input
                             type="text"
@@ -19800,7 +20373,7 @@
             grid.innerHTML = pageData.map(movie => `
                 <button onclick="selectStudioMovie('${movie.id}')" class="rating-pick-card ${selectedStudioMovieId === movie.id ? 'selected' : ''} text-left">
                     <div class="rating-pick-poster">
-                        <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                        <img src="${movie.img}" alt="${movie.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     </div>
                     <div class="p-3">
                         <h3 class="text-white font-black italic uppercase text-sm leading-tight line-clamp-2">${movie.title}</h3>
@@ -20000,6 +20573,8 @@
         async function saveStudioRating() {
             await waitForAuthReady();
 
+            if (!window.requireAuthenticated("zapisywania ocen i recenzji")) return;
+
             if (!selectedStudioMovieId) {
                 alert('Najpierw wybierz film.');
                 return;
@@ -20048,7 +20623,7 @@
 
             data.ratings[movie.id] = String(selectedStudioRating);
             window.movieHubData = data;
-            localStorage.setItem(`rating-${movie.id}`, String(selectedStudioRating));
+            // Ocena zapisuje się wyłącznie przez saveMovieHubData(), i tylko dla zalogowanego.
 
             // Zapisujemy ocenę OD RAZU, niezależnie od tego czy recenzja się uda
             await window.saveMovieHubData?.();
@@ -20066,7 +20641,7 @@
             if (reviewText) {
                 // Sprawdzamy sesję bezpośrednio z SDK Firebase, nie tylko przez flagę pomocniczą —
                 // to jest bardziej niezawodne na telefonach, gdzie auth potrafi wczytywać się wolniej
-                const liveUser = window.currentFirebaseUser || auth?.currentUser;
+                const liveUser = window.currentFirebaseUser || null;
 
                 if (!liveUser) {
                     showListToast?.('Zaloguj się, żeby zapisać recenzję — ocena już zapisana.') 
@@ -20726,6 +21301,8 @@
         }
 
         function toggleWatchlist(id) {
+            if (!window.requireAuthenticated("zapisywania filmów")) return;
+
             let wl = loadWatchlist();
             const isAdding = !wl.includes(id);
             wl = isAdding ? [...wl, id] : wl.filter(x => x !== id);
@@ -20766,6 +21343,8 @@
             }
         }
         function createNewList() {
+            if (!window.requireAuthenticated("tworzenia list")) return;
+
             const name = normalizeListName(prompt("Podaj nazwę listy:"));
             if (!name) return;
             if (isListNameTaken(name)) { alert('Taka nazwa listy już istnieje. Nazwy list muszą być unikalne.'); return; }
@@ -20889,6 +21468,7 @@
         window.openListSettings=openListSettings; window.closeListSettings=closeListSettings; window.saveListSettings=saveListSettings; window.deleteListFromSettings=deleteListFromSettings;
 
         function addToList(movieId, idx) {
+            if (!window.requireAuthenticated("dodawania filmów do list")) return;
             if (idx === "") return;
 
             const lists = loadUserLists();
@@ -20904,6 +21484,8 @@
         let addToListTarget = null;
 
         function openAddToListPicker(type, index) {
+            if (!window.requireAuthenticated("dodawania filmów do list")) return;
+
             addToListTarget = type === 'custom' ? { type, index } : { type: 'watchlist' };
 
             const title = document.getElementById('add-to-list-title');
@@ -20951,7 +21533,7 @@
                     <div class="add-to-list-card ${inList ? 'in-list' : ''}"
                         onclick="${inList ? `showListToast('${escapeAdminHtml(m.title)} jest już na liście')` : `addMovieToTargetList('${m.id}')`}">
                         ${inList ? `<span class="add-to-list-added-badge" title="Już na liście">✓</span>` : ''}
-                        <img src="${m.img}" alt="${m.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                        <img src="${m.img}" alt="${m.title}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                         <div class="p-2">
                             <h4 class="text-white font-black italic uppercase text-[11px] leading-tight">${m.title}</h4>
                         </div>
@@ -20985,6 +21567,7 @@
         window.showListToast = showListToast;
 
         async function addMovieToTargetList(movieId) {
+            if (!window.requireAuthenticated("dodawania filmów do list")) return;
             if (!addToListTarget) return;
 
             if (addToListTarget.type === 'watchlist') {
@@ -21005,6 +21588,7 @@
         }
 
         async function removeMovieFromTargetList(movieId) {
+            if (!window.requireAuthenticated("zmiany list")) return;
             if (!addToListTarget) return;
 
             if (addToListTarget.type === 'watchlist') {
@@ -21167,7 +21751,7 @@
 
             if (id === 'login-modal') {
                 if (show) {
-                    clearAuthError();
+                    window.clearAuthError();
                     switchAuthTab('login');
                     document.body.style.overflow = 'hidden';
                     setTimeout(() => document.getElementById('login-email')?.focus(), 40);
@@ -21199,8 +21783,10 @@
         const starGroup = document.getElementById('star-group');
         if (starGroup) {
             starGroup.addEventListener('change', (e) => {
-                if (currentMovieId) {
-                    localStorage.setItem(`rating-${currentMovieId}`, e.target.value);
+                // Nie zapisujemy ocen z panelu gwiazdek lokalnie.
+                // Dla zalogowanego zapis obsługuje saveStudioRating() -> Firestore.
+                if (currentMovieId && window.currentFirebaseUser) {
+                    // celowo brak localStorage — zapis użytkownika idzie do Firestore
                 }
             });
         }
@@ -21210,7 +21796,7 @@
             if (!menu) return;
 
             menu.classList.add('open');
-            refreshFollowCounts();
+            if (typeof refreshFollowCounts === 'function') window.refreshFollowCounts();
             document.body.style.overflow = 'hidden';
         }
 
@@ -21223,19 +21809,12 @@
         }
 
         function menuRequireLogin(featureName, callback) {
-            if (typeof window.isLoggedIn === 'function' && !window.isLoggedIn()) {
-                closeAppMenu();
+            closeAppMenu();
 
-                if (typeof showGuestGate === 'function') {
-                    showGuestGate(featureName);
-                } else {
-                    toggleModal('login-modal', true);
-                }
-
+            if (!window.requireAuthenticated(featureName)) {
                 return;
             }
 
-            closeAppMenu();
             callback();
         }
 
@@ -21280,7 +21859,7 @@
         
                             <!-- Karta filmu -->
                             <div class="relative z-20 rounded-[30px] overflow-hidden border border-zinc-800 group-hover:border-green-500 transition-all duration-500 shadow-2xl bg-zinc-900">
-                                <img src="${m.img}" class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=2026'">
+                                <img src="${m.img}" class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
             
                                 <!-- Ciemny gradient na dole dla czytelności napisów -->
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
@@ -21821,6 +22400,8 @@
         }
 
         function renderCalendar() {
+            if (!window.requireAuthenticated("kalendarza premier")) return;
+
             window.activeView = 'calendar';
             hideAll();
 
@@ -22054,7 +22635,7 @@
                 card.setAttribute('onclick', `openModalById('${movie.id}')`);
 
                 card.innerHTML = `
-                    <img src="${movie.img}" alt="${movie.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=Brak'">
+                    <img src="${movie.img}" alt="${movie.title}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <span class="banger-pill ${isComing ? 'is-coming' : ''}">
                         ${isComing ? '<i class="banger-dot"></i>COMING SOON' : `★ ${movie.rating}`}
                     </span>
@@ -22169,6 +22750,8 @@
         }
 
         function saveNewRating() {
+            if (!window.requireAuthenticated("zapisywania ocen w historii")) return;
+
             const titleInput = document.getElementById('modal-movie-title');
             const ratingInput = document.getElementById('modal-movie-rating');
 
@@ -22209,7 +22792,7 @@
 
             let history = JSON.parse(localStorage.getItem('ratingHistory')) || [];
             history.unshift(newEntry);
-            localStorage.setItem('ratingHistory', JSON.stringify(history));
+            // Historia jest zapisywana wyłącznie dla zalogowanego użytkownika.
 
             closeAddRatingModal();
 
@@ -22283,9 +22866,9 @@
                     Zaloguj / Załóż konto
                 </button>
 
-                <button onclick="closeGuestGate()"
+                <button onclick="continueAsGuest()"
                     class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-2xl py-4 font-black uppercase text-[10px] tracking-widest transition">
-                    Zostań w trybie gościa
+                    Kontynuuj jako gość
                 </button>
             </div>
         </div>
@@ -22391,44 +22974,61 @@
         const db = getFirestore(app);
         window.firebaseSetDoc = setDoc;
         window.firebaseDoc = doc;
-        window.db = db; // <-- DODAJ TĘ LINIĘ
+        window.firebaseServerTimestamp = serverTimestamp;
+        window.db = db;
         const googleProvider = new GoogleAuthProvider();
 
 
         let currentNewsCommentsId = null;
+        const NEWS_COMMENTS_PER_PAGE = 2;
+        const newsCommentsPages = Object.create(null);
+
+        function setNewsCommentsPage(newsId, page) {
+            newsCommentsPages[String(newsId)] = Math.max(0, Number(page) || 0);
+        }
 
         window.openNewsCommentsModal = async function(newsId, title) {
-            currentNewsCommentsId = newsId;
+            currentNewsCommentsId = newsId || null;
 
-            const section = document.getElementById('news-comments-section');
-            const currentBox = document.getElementById('news-comments-current');
-            const listBox = document.getElementById('news-comments-list');
-            const statusBox = document.getElementById('news-comment-status');
-            const textBox = document.getElementById('news-comment-text');
+            // ZAWSZE otwieramy komentarze pod wszystkimi newsami jednocześnie.
+            // Dotyczy to telefonu i komputera — UI pozostaje spójne.
+            const allInlines = Array.from(
+                document.querySelectorAll('.weekly-news-inline-comments[data-news-id]')
+            );
+            if (!allInlines.length) return;
 
-            if (currentBox) {
-                currentBox.textContent = `Komentujesz news: ${title}`;
-            }
+            allInlines.forEach(inline => {
+                inline.classList.add('open');
+                inline.setAttribute('aria-hidden', 'false');
 
-            if (listBox) {
-                listBox.innerHTML = '<div class="news-comments-empty">Ładowanie komentarzy...</div>';
-            }
+                const currentBox = inline.querySelector('.weekly-news-inline-comments-current');
+                const listBox = inline.querySelector('.weekly-news-inline-comments-list');
+                const statusBox = inline.querySelector('.weekly-news-inline-status');
+                const textBox = inline.querySelector('.weekly-news-inline-composer textarea');
+                const itemTitle = inline.closest('.weekly-news-slide')
+                    ?.querySelector('.weekly-news-title')?.textContent?.trim();
 
-            if (statusBox) statusBox.textContent = '';
-            if (textBox) textBox.value = '';
+                if (currentBox) currentBox.textContent = `Komentarze do: ${itemTitle || title || ''}`;
+                if (listBox) listBox.innerHTML = '<div class="news-comments-empty">Ładowanie komentarzy...</div>';
+                if (statusBox) statusBox.textContent = '';
+                if (textBox) textBox.value = '';
+            });
 
-            if (section) {
-                section.classList.remove('news-comments-hidden');
+            await Promise.all(
+                allInlines.map(inline => {
+                    const id = inline.dataset.newsId;
+                    if (!id) return Promise.resolve();
+                    setNewsCommentsPage(id, 0);
+                    return loadNewsComments(id);
+                })
+            );
 
-                requestAnimationFrame(() => {
-                    section.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                });
-            }
-
-            await loadNewsComments(newsId);
+            const clicked = document.querySelector(
+                `.weekly-news-inline-comments[data-news-id="${CSS.escape(String(newsId || ''))}"]`
+            );
+            requestAnimationFrame(() => {
+                clicked?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
         };
 
         let adminActiveCommentsNewsId = null;
@@ -22515,63 +23115,133 @@
             }
         };
 
-        window.closeNewsCommentsModal = function() {
+        window.closeNewsCommentsModal = function(newsId, event) {
+            event?.preventDefault();
+            event?.stopPropagation();
+
+            // MOBILE: zamknięcie jednego panelu zamyka komentarze pod WSZYSTKIMI newsami.
+            // DESKTOP: również zamykamy wszystkie, żeby stan UI zawsze był spójny.
+            document.querySelectorAll('.weekly-news-inline-comments[data-news-id]').forEach(el => {
+                el.classList.remove('open');
+                el.setAttribute('aria-hidden', 'true');
+                el.style.removeProperty('display');
+            });
+
             currentNewsCommentsId = null;
-            document.getElementById('news-comments-section')?.classList.add('news-comments-hidden');
+            return false;
         };
 
         async function loadNewsComments(newsId) {
-            const listBox = document.getElementById('news-comments-list');
+            const inline = document.querySelector(
+                `.weekly-news-inline-comments[data-news-id="${CSS.escape(String(newsId))}"]`
+            );
+            const listBox = inline?.querySelector('.weekly-news-inline-comments-list');
             if (!listBox) return;
 
             try {
                 const snap = await getDocs(collection(db, 'weeklyNews', newsId, 'comments'));
                 const comments = [];
 
-                snap.forEach(docSnap => {
-                    comments.push({
-                        id: docSnap.id,
-                        ...docSnap.data()
-                    });
-                });
+                snap.forEach(docSnap => comments.push({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                }));
 
                 comments.sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
 
+                if (currentFirebaseUser && comments.length) {
+                    await Promise.all(comments.map(async comment => {
+                        try {
+                            const voteSnap = await getDoc(
+                                doc(db, 'weeklyNews', newsId, 'comments', comment.id, 'votes', currentFirebaseUser.uid)
+                            );
+                            comment.myVote = voteSnap.exists() ? voteSnap.data()?.type : null;
+                        } catch (e) {
+                            comment.myVote = null;
+                        }
+                    }));
+                }
+
                 if (!comments.length) {
-                    listBox.innerHTML = `
-                        <div class="news-comments-empty">
-                            Brak komentarzy. Napisz pierwszy.
-                        </div>
-                    `;
+                    listBox.innerHTML = '<div class="news-comments-empty">Brak komentarzy. Napisz pierwszy.</div>';
                     return;
                 }
 
-                listBox.innerHTML = comments.map(comment => {
-                    const nick = comment.nick || 'Użytkownik';
-                    const avatar = comment.avatarUrl || '';
-                    const text = comment.text || '';
+                const safe = value => String(value ?? '')
+                    .replace(/&/g,'&amp;')
+                    .replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;')
+                    .replace(/"/g,'&quot;')
+                    .replace(/'/g,'&#039;');
+
+                const totalPages = Math.max(1, Math.ceil(comments.length / NEWS_COMMENTS_PER_PAGE));
+                let page = Number(newsCommentsPages[String(newsId)] || 0);
+                if (page >= totalPages) page = totalPages - 1;
+                if (page < 0) page = 0;
+                newsCommentsPages[String(newsId)] = page;
+
+                const startIndex = page * NEWS_COMMENTS_PER_PAGE;
+                const pageComments = comments.slice(startIndex, startIndex + NEWS_COMMENTS_PER_PAGE);
+
+                listBox.innerHTML = pageComments.map(comment => {
+                    const nick = safe(comment.nick || 'Użytkownik');
+                    const avatar = safe(comment.avatarUrl || '');
+                    const uid = safe(comment.uid || '');
+                    const rawText = safe(comment.text || '');
                     const date = comment.createdAtMs
                         ? new Date(comment.createdAtMs).toLocaleString('pl-PL')
                         : 'teraz';
 
+                    const profileAction = comment.uid
+                        ? `onclick="window.openPublicProfile('${uid}')"`
+                        : '';
+
                     return `
-                        <article class="news-comment-card">
-                            <div class="flex items-center gap-3 mb-4">
+                        <article class="weekly-news-inline-comment">
+                            <div class="weekly-news-inline-comment-user">
                                 ${
                                     avatar
-                                        ? `<img src="${avatar}" class="news-comment-avatar" alt="${nick}">`
-                                        : `<div class="news-comment-avatar news-comment-avatar-fallback">${nick.charAt(0)}</div>`
+                                        ? `<img src="${avatar}" class="weekly-news-inline-comment-avatar" alt="${nick}" ${profileAction}>`
+                                        : `<button type="button" class="weekly-news-inline-comment-avatar weekly-news-inline-comment-avatar-fallback" ${profileAction}>${nick.charAt(0)}</button>`
                                 }
                                 <div class="min-w-0">
-                                    <p class="text-white font-black uppercase text-xs truncate">${nick}</p>
-                                    <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${date}</p>
+                                    <button type="button" class="weekly-news-comment-profile" ${profileAction}>
+                                        ${nick}
+                                    </button>
+                                    <div class="weekly-news-inline-comment-date">${date}</div>
                                 </div>
                             </div>
-
-                            <p class="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap break-words">${text}</p>
+                            <p class="weekly-news-inline-comment-text">${rawText}</p>
+                            <div class="weekly-news-inline-comment-footer">
+                                <button type="button" class="news-comment-vote ${comment.myVote === 'like' ? 'active-like' : ''}"
+                                    onclick="toggleNewsCommentVote(event,'${safe(newsId)}','${safe(comment.id)}','like')">
+                                    👍 <span class="news-comment-vote-count">${Number(comment.likeCount || 0)}</span>
+                                </button>
+                                <button type="button" class="news-comment-vote ${comment.myVote === 'dislike' ? 'active-dislike' : ''}"
+                                    onclick="toggleNewsCommentVote(event,'${safe(newsId)}','${safe(comment.id)}','dislike')">
+                                    👎 <span class="news-comment-vote-count">${Number(comment.dislikeCount || 0)}</span>
+                                </button>
+                            </div>
                         </article>
                     `;
                 }).join('');
+
+                if (totalPages > 1) {
+                    const pagination = document.createElement('div');
+                    pagination.className = 'weekly-news-comments-pagination';
+                    pagination.innerHTML = `
+                        <button type="button" class="weekly-news-comments-page-btn" ${page === 0 ? 'disabled' : ''}
+                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page - 1})">‹</button>
+                        ${Array.from({length: totalPages}, (_, i) => `
+                            <button type="button" class="weekly-news-comments-page-btn ${i === page ? 'active' : ''}"
+                                onclick="changeNewsCommentsPage('${safe(newsId)}', ${i})">${i + 1}</button>
+                        `).join('')}
+                        <button type="button" class="weekly-news-comments-page-btn" ${page === totalPages - 1 ? 'disabled' : ''}
+                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page + 1})">›</button>
+                        <span class="weekly-news-comments-page-info">${page + 1} / ${totalPages}</span>
+                    `;
+                    listBox.appendChild(pagination);
+                }
             } catch (error) {
                 console.error('Błąd ładowania komentarzy:', error);
                 listBox.innerHTML = `
@@ -22582,7 +23252,74 @@
             }
         }
 
-        window.submitNewsComment = async function() {
+        window.changeNewsCommentsPage = async function(newsId, page) {
+            setNewsCommentsPage(newsId, page);
+            await loadNewsComments(newsId);
+        };
+
+        window.toggleNewsCommentVote = async function(event, newsId, commentId, voteType) {
+            event?.preventDefault();
+            event?.stopPropagation();
+
+            await waitForAuthReady();
+
+            if (!currentFirebaseUser) {
+                showGuestGate('reakcji na komentarze');
+                return;
+            }
+
+            if (!newsId || !commentId || !['like','dislike'].includes(voteType)) return;
+            const uid = currentFirebaseUser.uid;
+            const commentRef = doc(db, 'weeklyNews', newsId, 'comments', commentId);
+            const voteRef = doc(db, 'weeklyNews', newsId, 'comments', commentId, 'votes', uid);
+
+            try {
+                const [commentSnap, voteSnap] = await Promise.all([
+                    getDoc(commentRef),
+                    getDoc(voteRef)
+                ]);
+
+                if (!commentSnap.exists()) return;
+
+                const data = commentSnap.data() || {};
+                const oldVote = voteSnap.exists() ? voteSnap.data()?.type : null;
+
+                // Ponowne kliknięcie tej samej reakcji = wycofanie głosu.
+                if (oldVote === voteType) {
+                    await Promise.all([
+                        deleteDoc(voteRef),
+                        updateDoc(commentRef, {
+                            [`${voteType}Count`]: increment(-1)
+                        })
+                    ]);
+                } else if (oldVote === 'like' || oldVote === 'dislike') {
+                    // Zmiana 👍 <-> 👎.
+                    await Promise.all([
+                        setDoc(voteRef, { type: voteType, uid, updatedAtMs: Date.now() }),
+                        updateDoc(commentRef, {
+                            [`${oldVote}Count`]: increment(-1),
+                            [`${voteType}Count`]: increment(1)
+                        })
+                    ]);
+                } else {
+                    await Promise.all([
+                        setDoc(voteRef, { type: voteType, uid, createdAtMs: Date.now() }),
+                        updateDoc(commentRef, {
+                            [`${voteType}Count`]: increment(1)
+                        })
+                    ]);
+                }
+
+                await loadNewsComments(newsId);
+            } catch (error) {
+                console.error('Błąd reakcji na komentarz:', error);
+                const inline = document.querySelector(`.weekly-news-inline-comments[data-news-id="${CSS.escape(String(newsId))}"]`);
+                const statusBox = inline?.querySelector('.weekly-news-inline-status');
+                if (statusBox) statusBox.textContent = 'Nie udało się zapisać reakcji.';
+            }
+        };
+
+        window.submitNewsComment = async function(newsId) {
             await waitForAuthReady();
 
             if (!currentFirebaseUser) {
@@ -22590,10 +23327,12 @@
                 return;
             }
 
-            if (!currentNewsCommentsId) return;
+            newsId = newsId || newsId;
+            if (!newsId) return;
 
-            const textBox = document.getElementById('news-comment-text');
-            const statusBox = document.getElementById('news-comment-status');
+            const inline = document.querySelector(`.weekly-news-inline-comments[data-news-id="${CSS.escape(String(newsId))}"]`);
+            const textBox = inline?.querySelector('.weekly-news-inline-composer textarea');
+            const statusBox = inline?.querySelector('.weekly-news-inline-status');
             const text = textBox?.value.trim() || '';
 
             if (!text) {
@@ -22612,24 +23351,28 @@
                 avatarUrl: currentUserProfile?.avatarUrl || currentFirebaseUser.photoURL || '',
                 text,
                 createdAt: serverTimestamp(),
-                createdAtMs: Date.now()
+                createdAtMs: Date.now(),
+                likeCount: 0,
+                dislikeCount: 0
             };
 
             try {
                 const commentId = `comment-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
                 await setDoc(
-                    doc(db, 'weeklyNews', currentNewsCommentsId, 'comments', commentId),
+                    doc(db, 'weeklyNews', newsId, 'comments', commentId),
                     payload
                 );
 
                 if (textBox) textBox.value = '';
                 if (statusBox) statusBox.textContent = 'Komentarz dodany.';
-                await loadNewsComments(currentNewsCommentsId);
+                setNewsCommentsPage(newsId, 0);
+                await loadNewsComments(newsId);
+
                 if (typeof window.loadNewsCommentsCount === 'function') {
-                    const commentCount = await window.loadNewsCommentsCount(currentNewsCommentsId);
+                    const commentCount = await window.loadNewsCommentsCount(newsId);
                     document
-                        .querySelectorAll(`.news-reaction-row[data-news-id="${currentNewsCommentsId}"] .news-reaction-count[data-key="comments"]`)
+                        .querySelectorAll(`.news-reaction-row[data-news-id="${CSS.escape(String(newsId))}"] .news-reaction-count[data-key="comments"]`)
                         .forEach(el => { el.textContent = formatReactionCount(commentCount); });
                 }
             } catch (error) {
@@ -22639,7 +23382,6 @@
         };
 
 
-        
 
         function formatHypeCount(n) {
             const num = Number(n) || 0;
@@ -22713,7 +23455,7 @@
 
                 img: String(
                     movie.img ||
-                    'https://via.placeholder.com/300x450?text=Movie'
+                    'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'
                 ),
 
                 rating: String(movie.rating || 'COMING'),
@@ -23055,7 +23797,7 @@
 
             box.innerHTML = matches.map(m => `
                 <button type="button" onclick="addBangerMovie('${m.id}')" class="admin-movie-row text-left">
-                    <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${m.img}" alt="${m.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${m.title}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${m.category} / ${m.date}</p>
@@ -23118,7 +23860,7 @@
 
                 return `
                     <div class="admin-movie-row">
-                        <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                        <img src="${movie.img}" alt="${movie.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                         <div class="min-w-0">
                             <p class="text-white font-black uppercase italic leading-tight truncate">${movie.title}</p>
                             <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date} / ${movie.rating}</p>
@@ -23141,6 +23883,7 @@
 
         let currentFirebaseUser = null;
         let currentUserProfile = null;
+        window.currentUserProfile = null;
 
         function generateAccountNumber() {
             const randomPart = Array.from(crypto.getRandomValues(new Uint8Array(6)))
@@ -23171,27 +23914,14 @@
         }
         window.waitForAuthReady = waitForAuthReady;
 
-        function getGuestId() {
-            let guestId = localStorage.getItem("movieHubGuestId");
-
-            if (!guestId) {
-                guestId = crypto.randomUUID();
-                localStorage.setItem("movieHubGuestId", guestId);
-            }
-
-            return guestId;
-        }
-
-        function getGuestStorageKey() {
-            return `movieHubData_guest_${getGuestId()}`;
-        }
-
-        function saveGuestData() {
-            localStorage.setItem(getGuestStorageKey(), JSON.stringify(movieHubData));
-        }
-
+        // === GUEST = ZERO PERSISTENCE ===
+        // Gość nie dostaje własnego ID ani magazynu localStorage.
+        // Wszystkie dane użytkownika istnieją wyłącznie w RAM do czasu odświeżenia.
+        function getGuestId() { return null; }
+        function getGuestStorageKey() { return null; }
+        function saveGuestData() { return false; }
         function loadGuestData() {
-            movieHubData = JSON.parse(localStorage.getItem(getGuestStorageKey())) || emptyMovieHubData();
+            movieHubData = emptyMovieHubData();
             window.movieHubData = movieHubData;
         }
 
@@ -23213,29 +23943,120 @@
         }
 
         async function saveMovieHubData() {
-            if (currentFirebaseUser) {
-                await setDoc(doc(db, "users", currentFirebaseUser.uid, "app", "movieHub"), movieHubData, { merge: true });
-            } else {
-                saveGuestData();
-            }
+            // NIGDY nie zapisujemy danych użytkownika dla gościa / niezalogowanego.
+            if (!currentFirebaseUser) return false;
+            await setDoc(doc(db, "users", currentFirebaseUser.uid, "app", "movieHub"), movieHubData, { merge: true });
+            return true;
         }
 
         window.saveMovieHubData = saveMovieHubData;
         let editingReviewMovieId = null;
         window.userReviews = userReviews;
 
+        // True only after the user explicitly chooses "Kontynuuj jako gość".
+        // This lets the site stay freely browsable while protected actions show a small top notification.
+        let guestMode = false;
+        let authRequiredToastTimer = null;
+
         window.isLoggedIn = function() {
             return !!currentFirebaseUser;
         };
 
-        window.showGuestGate = function(featureName = "tej funkcji") {
-            const text = document.getElementById("guest-gate-text");
+        function showAuthRequiredToast(featureName = "tej funkcji") {
+            let toast = document.getElementById("auth-required-toast");
 
-            if (text) {
-                text.textContent = `Zaloguj się, żeby korzystać z ${featureName} i mieć zapisane dane na każdym urządzeniu.`;
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "auth-required-toast";
+                toast.className = "auth-required-toast";
+                toast.innerHTML = `
+                    <div class="auth-required-icon">!</div>
+                    <div class="auth-required-copy">
+                        <strong>Zaloguj się, aby użyć tej funkcji</strong>
+                        <span></span>
+                    </div>
+                    <div class="auth-required-actions">
+                        <button type="button" class="auth-login-btn"
+                            onclick="event.stopPropagation(); toggleModal('login-modal', true);">
+                            Zaloguj
+                        </button>
+                        <button type="button" class="auth-guest-btn"
+                            onclick="event.stopPropagation(); window.continueAsGuest?.();">
+                            Gość
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(toast);
             }
 
-            toggleModal("guest-gate-modal", true);
+            const detail = toast.querySelector("span");
+            if (detail) {
+                detail.textContent = `Tryb gościa: ${featureName} nie zostanie zapisane. Zaloguj się, aby zachować swoje dane.`;
+            }
+
+            clearTimeout(authRequiredToastTimer);
+            requestAnimationFrame(() => toast.classList.add("show"));
+
+            authRequiredToastTimer = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 4200);
+        }
+
+        window.continueAsGuest = function() {
+            guestMode = true;
+            // Stare wersje aplikacji zapisywały dane gościa — czyścimy je przy wejściu w tryb gościa.
+            try {
+                Object.keys(localStorage).forEach(key => {
+                    if (key === 'movieHubGuestId' || key.startsWith('movieHubData_guest_') ||
+                        key === 'ratingHistory' || key.startsWith('rating-')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+            } catch {}
+            movieHubData = emptyMovieHubData();
+            window.movieHubData = movieHubData;
+            closeGuestGate?.();
+            toggleModal("login-modal", false);
+        };
+
+        function requireAuthenticated(featureName = "tej funkcji") {
+            if (currentFirebaseUser) {
+                return true;
+            }
+
+            // Zawsze pokaż krótkie powiadomienie na górze.
+            // W trybie gościa nie otwieramy modala automatycznie.
+            showAuthRequiredToast(featureName);
+
+            if (guestMode) {
+                return false;
+            }
+
+            // Dla zwykłego niezalogowanego użytkownika pokazujemy login po
+            // chwili, dzięki czemu komunikat jest widoczny zamiast znikać pod modalem.
+            closeGuestGate?.();
+            setTimeout(() => {
+                if (!currentFirebaseUser) toggleModal("login-modal", true);
+            }, 180);
+            return false;
+        }
+
+        window.showGuestGate = function(featureName = "tej funkcji") {
+            if (currentFirebaseUser) return true;
+
+            // Powiadomienie jest widoczne również wtedy, gdy użytkownik
+            // jeszcze nie wszedł w tryb gościa.
+            showAuthRequiredToast(featureName);
+
+            if (guestMode) {
+                return false;
+            }
+
+            closeGuestGate?.();
+            setTimeout(() => {
+                if (!currentFirebaseUser) toggleModal("login-modal", true);
+            }, 180);
+            return false;
         };
 
         window.closeGuestGate = function() {
@@ -23684,6 +24505,17 @@
             }
         }
 
+        // === RATIVIO GLOBAL HANDLERS ===
+        // Ten plik używa onclick="..." w HTML, dlatego funkcje z modułu
+        // muszą być wystawione do window — dopiero PO ich deklaracji.
+        window.showAuthRequiredToast = showAuthRequiredToast;
+        window.requireAuthenticated = requireAuthenticated;
+        window.refreshFollowCounts = refreshFollowCounts;
+        window.openAppMenu = openAppMenu;
+        window.closeAppMenu = closeAppMenu;
+        window.menuRequireLogin = menuRequireLogin;
+        window.menuLogout = menuLogout;
+
         let notificationItems = [];
         const NOTIFICATION_READ_KEY = 'rativio_notification_read_v2';
         function getNotificationReadIds() {
@@ -23765,6 +24597,8 @@
             try { const items=await buildNotificationItems(); const read=new Set(getNotificationReadIds()); updateNotificationBadge(items.filter(x=>!read.has(x.id)).length); } catch {}
         }
         window.openNotificationCenter=openNotificationCenter; window.closeNotificationCenter=closeNotificationCenter; window.renderNotificationCenter=renderNotificationCenter; window.openNotificationItem=openNotificationItem; window.refreshNotificationBadge=refreshNotificationBadge;
+
+        if (typeof clearAuthError === 'function') window.clearAuthError = clearAuthError;
 
         window.switchAuthTab = function(mode) {
             clearAuthError();
@@ -24004,6 +24838,7 @@
                     avatarUrl: "",
                     provider: "email"
                 };
+                window.currentUserProfile = currentUserProfile;
 
                 pendingRegistration = null;
 
@@ -24201,6 +25036,7 @@
         };
 
         window.logout = async function() {
+            guestMode = false;
             await signOut(auth);
         };
 
@@ -24858,7 +25694,7 @@
                         ${reviews.map(r => `
                             <article class="rvw-card">
                                 <button type="button" class="rvw-poster" onclick="openMovieReview('${r.movieId}')" title="Otwórz recenzję">
-                                    <img src="${r.img}" alt="${r.title}" onerror="this.src='https://via.placeholder.com/200x300?text=Brak'">
+                                    <img src="${r.img}" alt="${r.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                                     <span class="rvw-poster-badge">★ ${r.userRating || '—'}</span>
                                 </button>
 
@@ -24903,9 +25739,14 @@
             currentFirebaseUser = user;
             window.currentFirebaseUser = user;
 
+            if (user) {
+                guestMode = false;
+            }
+
             try {
                 if (user) {
                     currentUserProfile = await createProfileIfMissing(user);
+                    window.currentUserProfile = currentUserProfile;
 
                     if (!currentUserProfile) {
                         currentUserProfile = {
@@ -24937,6 +25778,7 @@
                     }
                 } else {
                     currentUserProfile = null;
+                    window.currentUserProfile = null;
                     userReviews = {};
                     window.userReviews = userReviews;
                     loadGuestData();
@@ -25614,8 +26456,8 @@
         function resetAdminNewsForm() {
             editingNewsId = null;
             document.getElementById('admin-news-form')?.reset();
-            document.getElementById('admin-news-preview-desktop').src = 'https://via.placeholder.com/300x400?text=Desktop';
-            document.getElementById('admin-news-preview-mobile').src = 'https://via.placeholder.com/400x225?text=Mobile';
+            document.getElementById('admin-news-preview-desktop').src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
+            document.getElementById('admin-news-preview-mobile').src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
             const btn = document.getElementById('admin-news-submit-btn');
             if (btn) btn.textContent = 'Dodaj news';
             document.getElementById('admin-news-tag-en').value = '';
@@ -25700,8 +26542,8 @@
             document.getElementById('admin-news-date').value = item.date || '';
             document.getElementById('admin-news-img-desktop').value = item.imgDesktop || '';
             document.getElementById('admin-news-img-mobile').value = item.imgMobile || '';
-            document.getElementById('admin-news-preview-desktop').src = item.imgDesktop || 'https://via.placeholder.com/300x400?text=Desktop';
-            document.getElementById('admin-news-preview-mobile').src = item.imgMobile || item.imgDesktop || 'https://via.placeholder.com/400x225?text=Mobile';
+            document.getElementById('admin-news-preview-desktop').src = item.imgDesktop || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
+            document.getElementById('admin-news-preview-mobile').src = item.imgMobile || item.imgDesktop || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
 
             const btn = document.getElementById('admin-news-submit-btn');
             if (btn) btn.textContent = 'Zapisz zmiany';
@@ -25767,7 +26609,7 @@
 
             list.innerHTML = items.map(item => `
                 <div class="admin-movie-row">
-                    <img src="${escapeAdminHtml(item.imgDesktop)}" alt="${escapeAdminHtml(item.title)}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${escapeAdminHtml(item.imgDesktop)}" alt="${escapeAdminHtml(item.title)}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${escapeAdminHtml(item.title)}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${escapeAdminHtml(item.tag)} / ${escapeAdminHtml(item.date)}${item.imgMobile ? ' / ma osobną grafikę mobile' : ''}</p>
@@ -25785,10 +26627,10 @@
         window.renderAdminNewsList = renderAdminNewsList;
 
         document.getElementById('admin-news-img-desktop')?.addEventListener('input', function() {
-            document.getElementById('admin-news-preview-desktop').src = this.value || 'https://via.placeholder.com/300x400?text=Desktop';
+            document.getElementById('admin-news-preview-desktop').src = this.value || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
         });
         document.getElementById('admin-news-img-mobile')?.addEventListener('input', function() {
-            document.getElementById('admin-news-preview-mobile').src = this.value || document.getElementById('admin-news-img-desktop')?.value || 'https://via.placeholder.com/400x225?text=Mobile';
+            document.getElementById('admin-news-preview-mobile').src = this.value || document.getElementById('admin-news-img-desktop')?.value || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E';
         });
 
         let weeklyNewsIndex = 0;
@@ -25815,7 +26657,7 @@
                 return `
                     <article class="weekly-news-slide">
                         <div class="weekly-news-img-wrap">
-                            <img src="${img}" alt="${newsTitle}" onerror="this.src='https://via.placeholder.com/600x800?text=Movie+Hub+News'">
+                            <img src="${img}" alt="${newsTitle}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                         </div>
                         <div class="weekly-news-body">
                             <span class="weekly-news-tag">${newsTag}</span>
@@ -25827,11 +26669,29 @@
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','heart')"><span class="news-reaction-emoji">❤️</span><span class="news-reaction-count" data-key="heart">–</span></button>
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','shock')"><span class="news-reaction-emoji">😱</span><span class="news-reaction-count" data-key="shock">–</span></button>
                                 <button type="button" class="news-reaction-btn" onclick="reactToNews(event,'${item.id}','skull')"><span class="news-reaction-emoji">💀</span><span class="news-reaction-count" data-key="skull">–</span></button>
-                                <button type="button" class="news-reaction-btn" onclick="openNewsCommentsModal('${item.id}', '${String(item.title).replace(/'/g, "\\'")}')">
+                                <button type="button" class="news-reaction-btn" data-comment-button="true" onclick="openNewsCommentsModal('${item.id}', '${String(item.title).replace(/'/g, "\\'")}')">
                                     <span class="news-reaction-emoji">💬</span>
                                     <span class="news-reaction-count" data-key="comments">-</span>
                                 </button>
                             </div>
+
+                            <section class="weekly-news-inline-comments ${useMobile ? "open" : ""}" data-news-id="${item.id}" aria-hidden="${useMobile ? 'false' : 'true'}" aria-label="Komentarze do newsa">
+                                <div class="weekly-news-inline-comments-head">
+                                    <h4 class="weekly-news-inline-comments-title">Komentarze <span>społeczności</span></h4>
+                                    <p class="weekly-news-inline-comments-current">Komentarze do tego newsa</p>
+                                </div>
+
+                                <div class="weekly-news-inline-comments-list">
+                                    <div class="news-comments-empty">Kliknij 💬, aby otworzyć komentarze.</div>
+                                </div>
+
+                                <div class="weekly-news-inline-composer">
+                                    <textarea maxlength="1000" placeholder="Napisz komentarz do tego newsa..."></textarea>
+                                    <button type="button" class="weekly-news-inline-close" onclick="closeNewsCommentsModal('${item.id}', event)">ZAMKNIJ</button>
+                                    <button type="button" onclick="submitNewsComment('${item.id}')">DODAJ KOMENTARZ</button>
+                                    <div class="weekly-news-inline-status"></div>
+                                </div>
+                            </section>
 
                         </div>
                     </article>
@@ -25839,6 +26699,12 @@
             }).join('');
 
             loadAllNewsReactionCounts(items);
+
+            // Po renderze przygotowujemy komentarze wszystkich newsów.
+            // Same panele pozostają zamknięte, dopóki użytkownik nie kliknie 💬.
+            items.forEach(item => {
+                loadNewsComments(item.id).catch(err => console.warn('Nie udało się wczytać komentarzy:', err));
+            });
 
             if (weeklyNewsIndex >= items.length) weeklyNewsIndex = 0;
             dots.innerHTML = items.map((_, i) => `<span class="weekly-news-dot ${i === weeklyNewsIndex ? 'active' : ''}"></span>`).join('');
@@ -25917,7 +26783,10 @@
                     const countEl = btn.querySelector(`.news-reaction-count[data-key="${key}"]`);
                     if (countEl) countEl.textContent = formatReactionCount(counts?.[key] || 0);
                 } catch (err) {
-                    console.warn('Nie udało się zapisać reakcji:', err);
+                    console.error('Nie udało się zapisać reakcji:', err);
+                    if (typeof showGuestGate === 'function' && !window.currentFirebaseUser) {
+                        showGuestGate('reakcji do newsów');
+                    }
                 }
             }
         }
@@ -25966,6 +26835,42 @@
             document.getElementById('weekly-news-next-mobile')?.addEventListener('click', () => goToWeeklyNews(1));
         });
 
+        // === MOBILE NEWS SWIPE ===
+        (function initWeeklyNewsSwipe() {
+            const viewport = document.querySelector('.weekly-news-viewport');
+            if (!viewport) return;
+
+            let startX = 0;
+            let startY = 0;
+            let tracking = false;
+
+            viewport.addEventListener('touchstart', (event) => {
+                if (!event.touches || event.touches.length !== 1) return;
+                const t = event.touches[0];
+                startX = t.clientX;
+                startY = t.clientY;
+                tracking = true;
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', (event) => {
+                if (!tracking || !event.changedTouches?.length) return;
+                tracking = false;
+
+                const t = event.changedTouches[0];
+                const dx = t.clientX - startX;
+                const dy = t.clientY - startY;
+
+                // Ignorujemy zwykłe przewijanie pionowe.
+                if (Math.abs(dx) < 55 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
+
+                if (dx < 0) {
+                    goToWeeklyNews(1);
+                } else {
+                    goToWeeklyNews(-1);
+                }
+            }, { passive: true });
+        })();
+
         window.addEventListener('DOMContentLoaded', () => {
             loadMonthlyPremiereIntoSite();
         });
@@ -26004,20 +26909,9 @@
 
             setProgress(8, 'Ładowanie interfejsu...');
 
-            // Postęp bazuje na rzeczywistych obrazach obecnych w DOM.
-            const images = Array.from(document.images);
-            const total = Math.max(images.length, 1);
-            let loaded = images.filter(img => img.complete).length;
-            const updateImageProgress = () => {
-                setProgress(8 + (loaded / total) * 72, `Ładowanie materiałów ${loaded}/${total}`);
-            };
-            images.forEach(img => {
-                if (img.complete) return;
-                const done = () => { loaded++; updateImageProgress(); };
-                img.addEventListener('load', done, { once: true });
-                img.addEventListener('error', done, { once: true });
-            });
-            updateImageProgress();
+            // Nie blokujemy startu strony na obrazach zewnętrznych.
+            // Obrazy ładują się w tle, a błędne adresy dostają lokalny fallback.
+            setProgress(72, 'Przygotowanie kina...');
 
             // Końcowe 20% przypada na gotowy DOM i dane zainicjalizowane przez skrypty.
             const finishIntro = () => {
@@ -26066,7 +26960,7 @@
 
             box.innerHTML = matches.map(m => `
                 <button type="button" onclick="selectAdminMotmMovie('${m.id}')" class="admin-movie-row text-left">
-                    <img src="${m.img}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${m.img}" alt="${m.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">${m.title}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${m.category} / ${m.date}</p>
@@ -26099,7 +26993,7 @@
 
             box.innerHTML = `
                 <div class="admin-movie-row">
-                    <img src="${movie.img}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/108x156?text=Brak'">
+                    <img src="${movie.img}" alt="${movie.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'">
                     <div class="min-w-0">
                         <p class="text-white font-black uppercase italic leading-tight truncate">Wybrany: ${movie.title}</p>
                         <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-1">${movie.category} / ${movie.date}</p>
@@ -26418,7 +27312,7 @@
                                         class="rativio-search-poster"
                                         src="${escapeAttrGlobalSearch(movie.img)}"
                                         alt=""
-                                        onerror="this.src='https://via.placeholder.com/100x150?text=Film'"
+                                        onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22450%22%20viewBox%3D%220%200%20300%20450%22%3E%0A%3Crect%20width%3D%22300%22%20height%3D%22450%22%20fill%3D%22%23111113%22%2F%3E%0A%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%22264%22%20height%3D%22414%22%20rx%3D%2220%22%20fill%3D%22%2318181b%22%20stroke%3D%22%2327272a%22%2F%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20fill%3D%22%2371717a%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ERATIVIO%3C%2Ftext%3E%0A%3Ctext%20x%3D%22150%22%20y%3D%22250%22%20text-anchor%3D%22middle%22%20fill%3D%22%2352525b%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2211%22%3EBRAK%20OBRAZU%3C%2Ftext%3E%0A%3C%2Fsvg%3E'"
                                     >
 
                                     <div class="rativio-search-result-main">
@@ -27214,7 +28108,7 @@
     <!-- =========================================================
          FULL-WIDTH NEWS COMMENTS
          ========================================================= -->
-    <section id="news-comments-section" class="news-comments-hidden" aria-label="Komentarze do newsów">
+    <section id="news-comments-section" class="news-comments-hidden" aria-hidden="true" style="display:none!important" aria-label="Komentarze do newsów">
         <div class="news-comments-inner">
             <div class="news-comments-head">
                 <div>
