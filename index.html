@@ -16262,8 +16262,11 @@
         display:flex;
         flex-direction:column;
         gap:8px;
-        max-height:300px;
-        overflow:auto;
+        max-height:260px;
+        overflow-y:auto;
+        overflow-x:hidden;
+        overscroll-behavior:contain;
+        -webkit-overflow-scrolling:touch;
         padding-right:4px;
     }
     .weekly-news-inline-comments-list::-webkit-scrollbar { width:4px; }
@@ -16440,6 +16443,20 @@
     }
     .weekly-news-inline-close:hover { color:#fff !important; background:rgba(255,255,255,.09) !important; }
     @media (max-width:767px) {
+        .weekly-news-inline-comments,
+        .weekly-news-inline-comments-head,
+        .weekly-news-inline-comments-list,
+        .weekly-news-inline-comment,
+        .weekly-news-inline-comment-user,
+        .weekly-news-inline-comment-text,
+        .weekly-news-inline-comments-current {
+            text-align:left;
+        }
+
+        .weekly-news-inline-comment-user {
+            justify-content:flex-start;
+        }
+
         .weekly-news-inline-comments.open {
             display:block !important;
             width:100%;
@@ -17297,10 +17314,10 @@
                         <p class="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-2" data-i18n="Język">Język</p>
                         <div class="grid grid-cols-2 gap-2">
                             <button id="lang-pl-btn" onclick="setLanguage('pl')" class="rounded-xl bg-green-600 text-black py-3 text-[10px] font-black uppercase tracking-widest">
-                                Polski 🇵🇱
+                                Polski
                             </button>
                             <button id="lang-en-btn" onclick="setLanguage('en')" class="rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 py-3 text-[10px] font-black uppercase tracking-widest">
-                                English 🇺🇸
+                                English
                             </button>
                         </div>
                     </div>
@@ -22980,12 +22997,6 @@
 
 
         let currentNewsCommentsId = null;
-        const NEWS_COMMENTS_PER_PAGE = 2;
-        const newsCommentsPages = Object.create(null);
-
-        function setNewsCommentsPage(newsId, page) {
-            newsCommentsPages[String(newsId)] = Math.max(0, Number(page) || 0);
-        }
 
         window.openNewsCommentsModal = async function(newsId, title) {
             currentNewsCommentsId = newsId || null;
@@ -23018,7 +23029,6 @@
                 allInlines.map(inline => {
                     const id = inline.dataset.newsId;
                     if (!id) return Promise.resolve();
-                    setNewsCommentsPage(id, 0);
                     return loadNewsComments(id);
                 })
             );
@@ -23174,16 +23184,9 @@
                     .replace(/"/g,'&quot;')
                     .replace(/'/g,'&#039;');
 
-                const totalPages = Math.max(1, Math.ceil(comments.length / NEWS_COMMENTS_PER_PAGE));
-                let page = Number(newsCommentsPages[String(newsId)] || 0);
-                if (page >= totalPages) page = totalPages - 1;
-                if (page < 0) page = 0;
-                newsCommentsPages[String(newsId)] = page;
-
-                const startIndex = page * NEWS_COMMENTS_PER_PAGE;
-                const pageComments = comments.slice(startIndex, startIndex + NEWS_COMMENTS_PER_PAGE);
-
-                listBox.innerHTML = pageComments.map(comment => {
+                // Pokazujemy wszystkie komentarze w jednym przewijanym kontenerze.
+                // Bez stron, numerów stron i przycisków ‹ ›.
+                listBox.innerHTML = comments.map(comment => {
                     const nick = safe(comment.nick || 'Użytkownik');
                     const avatar = safe(comment.avatarUrl || '');
                     const uid = safe(comment.uid || '');
@@ -23226,22 +23229,6 @@
                     `;
                 }).join('');
 
-                if (totalPages > 1) {
-                    const pagination = document.createElement('div');
-                    pagination.className = 'weekly-news-comments-pagination';
-                    pagination.innerHTML = `
-                        <button type="button" class="weekly-news-comments-page-btn" ${page === 0 ? 'disabled' : ''}
-                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page - 1})">‹</button>
-                        ${Array.from({length: totalPages}, (_, i) => `
-                            <button type="button" class="weekly-news-comments-page-btn ${i === page ? 'active' : ''}"
-                                onclick="changeNewsCommentsPage('${safe(newsId)}', ${i})">${i + 1}</button>
-                        `).join('')}
-                        <button type="button" class="weekly-news-comments-page-btn" ${page === totalPages - 1 ? 'disabled' : ''}
-                            onclick="changeNewsCommentsPage('${safe(newsId)}', ${page + 1})">›</button>
-                        <span class="weekly-news-comments-page-info">${page + 1} / ${totalPages}</span>
-                    `;
-                    listBox.appendChild(pagination);
-                }
             } catch (error) {
                 console.error('Błąd ładowania komentarzy:', error);
                 listBox.innerHTML = `
@@ -23251,11 +23238,6 @@
                 `;
             }
         }
-
-        window.changeNewsCommentsPage = async function(newsId, page) {
-            setNewsCommentsPage(newsId, page);
-            await loadNewsComments(newsId);
-        };
 
         window.toggleNewsCommentVote = async function(event, newsId, commentId, voteType) {
             event?.preventDefault();
@@ -23366,7 +23348,6 @@
 
                 if (textBox) textBox.value = '';
                 if (statusBox) statusBox.textContent = 'Komentarz dodany.';
-                setNewsCommentsPage(newsId, 0);
                 await loadNewsComments(newsId);
 
                 if (typeof window.loadNewsCommentsCount === 'function') {
